@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
-import { LockKeyhole, Sparkles, X } from 'lucide-react'
+import { LockKeyhole, Sparkles, X, Eye } from 'lucide-react'
 import { useApp } from '../context/AppContext'
 import BackButton from '../components/BackButton'
+import SwipeBack from '../components/SwipeBack'
+import SpecialPrediction from '../components/SpecialPrediction'
 import { getItem, removeItem, setItem, todayKey } from '../lib/storage'
 import { getPredictionForWorker } from '../lib/workers'
 import { api } from '../lib/api'
@@ -44,6 +46,7 @@ export default function PredictionsTab({ onBack }: { onBack: () => void }) {
   const [adminError, setAdminError] = useState('')
   const [counts, setCounts] = useState<PredictionCount[]>([])
   const [countsError, setCountsError] = useState(false)
+  const [showSpecial, setShowSpecial] = useState(false)
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -98,35 +101,60 @@ export default function PredictionsTab({ onBack }: { onBack: () => void }) {
   const today = new Date().toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })
   const locked = Boolean(prediction)
 
+  if (showSpecial) {
+    return (
+      <SwipeBack onBack={() => setShowSpecial(false)} innerClassName="mx-auto max-w-md px-4 pb-10 pt-10">
+        <SpecialPrediction onBack={() => setShowSpecial(false)} />
+      </SwipeBack>
+    )
+  }
+
   return (
     <div className="mx-auto max-w-md px-6 pb-10 pt-10">
       <BackButton onBack={onBack} />
-      <div className="mb-8">
+      <div className="mb-6">
         <p className="text-[10px] font-bold tracking-widest text-accent">АМАЛЬГАМА / 02</p>
         <h1 className="mt-1 text-3xl font-extrabold text-ink">Предсказания</h1>
-        <p className="mt-2 text-sm text-ink-muted">Выбери себя и узнай, что приготовила судьба.</p>
       </div>
 
-      <div className="flex justify-center">
-        <div
-          className="flex h-36 w-36 items-center justify-center rounded-full border border-accent/25 bg-accent/5"
-          style={{ boxShadow: '0 0 30px rgba(255,43,214,0.22)' }}
-        >
-          <div className="flex h-28 w-28 items-center justify-center rounded-full bg-accent/10">
-            <Sparkles size={46} color="#ff2bd6" strokeWidth={1.4} className="animate-pulseGlow" />
+      {/* Two magical modes side by side */}
+      <div className="mb-6 grid grid-cols-2 gap-3">
+        {/* Normal prediction */}
+        <div className="flex flex-col items-center">
+          <div
+            className="flex h-24 w-24 items-center justify-center rounded-full border border-accent/25 bg-accent/5"
+            style={{ boxShadow: '0 0 20px rgba(255,43,214,0.18)' }}
+          >
+            <div className="flex h-18 w-18 items-center justify-center rounded-full bg-accent/10" style={{ width: 72, height: 72 }}>
+              <Sparkles size={34} color="#ff2bd6" strokeWidth={1.4} className="animate-pulseGlow" />
+            </div>
           </div>
+          <p className="mt-2 text-[11px] font-extrabold tracking-wide text-accent/80">ПРЕДСКАЗАНИЕ</p>
         </div>
+
+        {/* Special prediction */}
+        <button
+          onClick={() => setShowSpecial(true)}
+          className="flex flex-col items-center transition-transform active:scale-95"
+        >
+          <div
+            className="flex h-24 w-24 items-center justify-center rounded-full border border-purple-400/30 bg-purple-500/5"
+            style={{ boxShadow: '0 0 20px rgba(168,85,247,0.2)' }}
+          >
+            <div className="flex items-center justify-center rounded-full bg-purple-500/10" style={{ width: 72, height: 72 }}>
+              <Eye size={34} color="#a855f7" strokeWidth={1.4} className="animate-pulseGlow" />
+            </div>
+          </div>
+          <p className="mt-2 text-[11px] font-extrabold tracking-wide text-purple-300/80">ОСОБОЕ ПРЕДСКАЗАНИЕ</p>
+        </button>
       </div>
 
-      <div className="mt-10">
-        <div className="mb-3 rounded-xl border border-accent/30 bg-accent/5 px-4 py-3">
-          <p className="text-[10px] font-bold tracking-widest text-ink-muted">ТЫ ВОШЁЛ КАК</p>
-          <p className="mt-0.5 truncate text-sm font-extrabold text-accent" style={{ textShadow: '0 0 8px rgba(255,43,214,0.55)' }}>{name}</p>
-        </div>
+      {/* Normal prediction button */}
+      <div>
         <button
           onClick={reveal}
           disabled={locked || !name}
-          className={`mt-1 flex h-14 w-full items-center justify-center gap-2.5 rounded-xl text-sm font-extrabold transition-transform active:scale-95 ${locked || !name ? 'border border-line bg-card/70 backdrop-blur-md text-ink-faint' : 'bg-accent text-white'}`}
+          className={`flex h-14 w-full items-center justify-center gap-2.5 rounded-xl text-sm font-extrabold transition-transform active:scale-95 ${locked || !name ? 'border border-line bg-card/70 backdrop-blur-md text-ink-faint' : 'bg-accent text-white'}`}
           style={!locked && name ? { boxShadow: '0 4px 16px rgba(255,43,214,0.35)' } : undefined}
         >
           <Sparkles size={18} color={locked || !name ? '#5a6172' : '#ffffff'} />
