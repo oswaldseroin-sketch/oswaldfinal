@@ -235,6 +235,12 @@ input, textarea, button {
 }
 .animate-ritualFlash { animation: ritualFlash 1s ease-out forwards; }
 
+@keyframes artifactPulse {
+  0%, 100% { opacity: 0.85; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
+.animate-artifactPulse { animation: artifactPulse 3.5s ease-in-out infinite; }
+
 .neon-term {
   color: #00e5ff;
   font-weight: 700;

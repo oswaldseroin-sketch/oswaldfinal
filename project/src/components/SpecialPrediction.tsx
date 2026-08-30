@@ -9,24 +9,43 @@ const SPECIAL_PREDICTION_TEXT = `Послание Всевидящего Фра�
 
 type SymbolId = 'eye' | 'rune' | 'moon' | 'skull' | 'key' | 'crystal' | 'flame' | 'star' | 'scroll' | 'snowflake'
 
+type ArtifactColor = {
+  glow: string
+  glowStrong: string
+  icon: string
+  spark: string
+  burnFlash: string
+}
+
 type MagicalSymbol = {
   id: SymbolId
   label: string
   icon: typeof Eye
   pos: { x: number; y: number }
+  color: ArtifactColor
 }
 
 const SYMBOLS: MagicalSymbol[] = [
-  { id: 'eye', label: 'Всевидящий глаз', icon: Eye, pos: { x: 18, y: 14 } },
-  { id: 'rune', label: 'Древняя руна', icon: Sparkles, pos: { x: 50, y: 14 } },
-  { id: 'moon', label: 'Луна', icon: Moon, pos: { x: 82, y: 14 } },
-  { id: 'skull', label: 'Череп', icon: Skull, pos: { x: 18, y: 38 } },
-  { id: 'key', label: 'Ключ', icon: KeyRound, pos: { x: 50, y: 38 } },
-  { id: 'crystal', label: 'Кристалл', icon: Gem, pos: { x: 82, y: 38 } },
-  { id: 'flame', label: 'Пламя', icon: Flame, pos: { x: 18, y: 62 } },
-  { id: 'star', label: 'Звезда', icon: Star, pos: { x: 50, y: 62 } },
-  { id: 'scroll', label: 'Свиток', icon: Scroll, pos: { x: 82, y: 62 } },
-  { id: 'snowflake', label: 'Печать', icon: Snowflake, pos: { x: 50, y: 86 } },
+  { id: 'eye', label: 'Всевидящий глаз', icon: Eye, pos: { x: 18, y: 14 },
+    color: { glow: 'rgba(255,43,214,0.35)', glowStrong: 'rgba(255,43,214,0.15)', icon: '#ff2bd6', spark: '#ff2bd6', burnFlash: 'rgba(255,43,214,0.9)' } },
+  { id: 'rune', label: 'Древняя руна', icon: Sparkles, pos: { x: 50, y: 14 },
+    color: { glow: 'rgba(168,85,247,0.35)', glowStrong: 'rgba(168,85,247,0.15)', icon: '#a855f7', spark: '#a855f7', burnFlash: 'rgba(168,85,247,0.9)' } },
+  { id: 'moon', label: 'Луна', icon: Moon, pos: { x: 82, y: 14 },
+    color: { glow: 'rgba(80,150,255,0.35)', glowStrong: 'rgba(80,150,255,0.15)', icon: '#5096ff', spark: '#5096ff', burnFlash: 'rgba(80,150,255,0.9)' } },
+  { id: 'skull', label: 'Череп', icon: Skull, pos: { x: 18, y: 38 },
+    color: { glow: 'rgba(220,50,50,0.35)', glowStrong: 'rgba(220,50,50,0.15)', icon: '#dc3232', spark: '#dc3232', burnFlash: 'rgba(220,50,50,0.9)' } },
+  { id: 'key', label: 'Ключ', icon: KeyRound, pos: { x: 50, y: 38 },
+    color: { glow: 'rgba(255,170,50,0.35)', glowStrong: 'rgba(255,170,50,0.15)', icon: '#ffaa32', spark: '#ffaa32', burnFlash: 'rgba(255,170,50,0.9)' } },
+  { id: 'crystal', label: 'Кристалл', icon: Gem, pos: { x: 82, y: 38 },
+    color: { glow: 'rgba(40,200,120,0.35)', glowStrong: 'rgba(40,200,120,0.15)', icon: '#28c878', spark: '#28c878', burnFlash: 'rgba(40,200,120,0.9)' } },
+  { id: 'flame', label: 'Пламя', icon: Flame, pos: { x: 18, y: 62 },
+    color: { glow: 'rgba(0,229,255,0.35)', glowStrong: 'rgba(0,229,255,0.15)', icon: '#00e5ff', spark: '#00e5ff', burnFlash: 'rgba(0,229,255,0.9)' } },
+  { id: 'star', label: 'Звезда', icon: Star, pos: { x: 50, y: 62 },
+    color: { glow: 'rgba(255,100,180,0.35)', glowStrong: 'rgba(255,100,180,0.15)', icon: '#ff64b4', spark: '#ff64b4', burnFlash: 'rgba(255,100,180,0.9)' } },
+  { id: 'scroll', label: 'Свиток', icon: Scroll, pos: { x: 82, y: 62 },
+    color: { glow: 'rgba(130,200,255,0.35)', glowStrong: 'rgba(130,200,255,0.15)', icon: '#82c8ff', spark: '#82c8ff', burnFlash: 'rgba(130,200,255,0.9)' } },
+  { id: 'snowflake', label: 'Печать', icon: Snowflake, pos: { x: 50, y: 86 },
+    color: { glow: 'rgba(255,215,80,0.35)', glowStrong: 'rgba(255,215,80,0.15)', icon: '#ffd750', spark: '#ffd750', burnFlash: 'rgba(255,215,80,0.9)' } },
 ]
 
 const COOLDOWN_MS = 24 * 60 * 60 * 1000
@@ -245,6 +264,7 @@ export default function SpecialPrediction({ onBack }: { onBack: () => void }) {
               const isDisabled = !canDestroy || isDestroyed || burningId !== null
               const Icon = symbol.icon
               const isLast = state.destroyed.length === SYMBOLS.length - 1 && !isDestroyed
+              const c = symbol.color
 
               if (isDestroyed) {
                 return <div key={symbol.id} />
@@ -259,7 +279,7 @@ export default function SpecialPrediction({ onBack }: { onBack: () => void }) {
                     isBurning
                       ? 'animate-symbolBurn'
                       : isDisabled
-                        ? 'opacity-50'
+                        ? 'opacity-40'
                         : isLast
                           ? 'animate-pulseGlow'
                           : 'hover:scale-110 active:scale-90'
@@ -274,53 +294,55 @@ export default function SpecialPrediction({ onBack }: { onBack: () => void }) {
                   }}
                   aria-label={symbol.label}
                 >
-                  {/* Glow ring */}
+                  {/* Glow ring — per-artifact color */}
                   <div
-                    className="absolute inset-0 rounded-full transition-all duration-200"
+                    className={`absolute inset-0 rounded-full transition-all duration-200 ${!isBurning && !isDisabled ? 'animate-artifactPulse' : ''}`}
                     style={{
                       background: isBurning
-                        ? 'radial-gradient(circle, rgba(255,60,100,0.5) 0%, rgba(168,30,247,0.3) 60%, transparent 100%)'
+                        ? `radial-gradient(circle, ${c.burnFlash} 0%, ${c.glow} 60%, transparent 100%)`
                         : isDisabled
-                          ? 'radial-gradient(circle, rgba(40,20,60,0.3) 0%, transparent 70%)'
-                          : 'radial-gradient(circle, rgba(168,85,247,0.35) 0%, rgba(255,43,214,0.15) 60%, transparent 100%)',
+                          ? `radial-gradient(circle, ${c.glow.replace('0.35', '0.12')} 0%, transparent 70%)`
+                          : `radial-gradient(circle, ${c.glow} 0%, ${c.glowStrong} 60%, transparent 100%)`,
                       boxShadow: isBurning
-                        ? '0 0 24px rgba(255,60,100,0.8), 0 0 48px rgba(168,30,247,0.5)'
+                        ? `0 0 24px ${c.burnFlash}, 0 0 48px ${c.glow}`
                         : !isDisabled
-                          ? '0 0 12px rgba(168,85,247,0.4), inset 0 0 6px rgba(168,85,247,0.2)'
+                          ? `0 0 14px ${c.glow}, inset 0 0 8px ${c.glowStrong}`
                           : 'none',
                     }}
                   />
-                  {/* Symbol icon */}
+                  {/* Symbol icon — per-artifact color */}
                   <Icon
                     size={26}
                     className={`relative z-10 transition-all duration-200 ${
                       isBurning
-                        ? 'text-red-300'
+                        ? ''
                         : isDisabled
-                          ? 'text-white/40'
-                          : 'text-purple-200 group-hover:text-white group-active:scale-75'
+                          ? ''
+                          : 'group-hover:text-white group-active:scale-75'
                     }`}
-                    style={
-                      isBurning
-                        ? { filter: 'drop-shadow(0 0 8px rgba(255,60,100,0.9))' }
+                    style={{
+                      color: isBurning ? '#ffffff' : isDisabled ? 'rgba(255,255,255,0.35)' : c.icon,
+                      filter: isBurning
+                        ? `drop-shadow(0 0 10px ${c.burnFlash})`
                         : !isDisabled
-                          ? { filter: 'drop-shadow(0 0 5px rgba(168,85,247,0.7))' }
-                          : undefined
-                    }
+                          ? `drop-shadow(0 0 6px ${c.glow})`
+                          : 'none',
+                    }}
                     strokeWidth={1.6}
                   />
 
-                  {/* Sparks during burn */}
+                  {/* Sparks during burn — per-artifact color */}
                   {isBurning && sparks.map((spark, i) => (
                     <span
                       key={i}
-                      className="pointer-events-none absolute left-1/2 top-1/2 z-30 h-1.5 w-1.5 rounded-full bg-orange-400"
+                      className="pointer-events-none absolute left-1/2 top-1/2 z-30 h-1.5 w-1.5 rounded-full"
                       style={{
                         animation: `sparkFly 0.6s ease-out ${spark.delay}s forwards`,
                         ['--dx' as string]: `${spark.dx}px`,
                         ['--dy' as string]: `${spark.dy}px`,
                         ['--rot' as string]: `${spark.r}deg`,
-                        boxShadow: '0 0 6px rgba(255,140,0,0.8)',
+                        background: c.spark,
+                        boxShadow: `0 0 6px ${c.burnFlash}`,
                       }}
                     />
                   ))}

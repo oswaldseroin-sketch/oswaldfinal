@@ -120,7 +120,20 @@ export default function PredictionsTab({ onBack }: { onBack: () => void }) {
   }
 
   return (
-    <div className="mx-auto max-w-md px-6 pb-10 pt-10">
+    <div
+      className="relative mx-auto min-h-screen max-w-md px-6 pb-10 pt-10"
+      style={{
+        backgroundImage: 'url(/predictions-bg.webp)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center top',
+        backgroundAttachment: 'fixed',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
+      {/* Light dark overlay for readability — keeps mystical details visible */}
+      <div className="pointer-events-none fixed inset-0 bg-black/35" />
+
+      <div className="relative z-10">
       <BackButton onBack={onBack} />
       <div className="mb-6">
         <p className="text-[10px] font-bold tracking-widest text-accent">АМАЛЬГАМА / 02</p>
@@ -132,10 +145,10 @@ export default function PredictionsTab({ onBack }: { onBack: () => void }) {
         {/* Normal prediction */}
         <div className="flex flex-col items-center">
           <div
-            className="flex h-24 w-24 items-center justify-center rounded-full border border-accent/25 bg-accent/5"
-            style={{ boxShadow: '0 0 20px rgba(255,43,214,0.18)' }}
+            className="flex h-24 w-24 items-center justify-center rounded-full border border-accent/30 bg-black/40 backdrop-blur-sm"
+            style={{ boxShadow: '0 0 28px rgba(255,43,214,0.35), inset 0 0 12px rgba(255,43,214,0.15)' }}
           >
-            <div className="flex h-18 w-18 items-center justify-center rounded-full bg-accent/10" style={{ width: 72, height: 72 }}>
+            <div className="flex items-center justify-center rounded-full bg-accent/10" style={{ width: 72, height: 72 }}>
               <Sparkles size={34} color="#ff2bd6" strokeWidth={1.4} className="animate-pulseGlow" />
             </div>
           </div>
@@ -148,8 +161,8 @@ export default function PredictionsTab({ onBack }: { onBack: () => void }) {
           className="flex flex-col items-center transition-transform active:scale-95"
         >
           <div
-            className="flex h-24 w-24 items-center justify-center rounded-full border border-purple-400/30 bg-purple-500/5"
-            style={{ boxShadow: '0 0 20px rgba(168,85,247,0.2)' }}
+            className="flex h-24 w-24 items-center justify-center rounded-full border border-purple-400/40 bg-black/40 backdrop-blur-sm"
+            style={{ boxShadow: '0 0 28px rgba(168,85,247,0.35), inset 0 0 12px rgba(168,85,247,0.15)' }}
           >
             <div className="flex items-center justify-center rounded-full bg-purple-500/10" style={{ width: 72, height: 72 }}>
               <Eye size={34} color="#a855f7" strokeWidth={1.4} className="animate-pulseGlow" />
@@ -243,6 +256,7 @@ export default function PredictionsTab({ onBack }: { onBack: () => void }) {
           </div>
         </div>
       )}
+    </div>
     </div>
   )
 }
