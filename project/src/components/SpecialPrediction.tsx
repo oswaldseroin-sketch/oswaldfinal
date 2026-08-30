@@ -196,6 +196,29 @@ export default function SpecialPrediction({ onBack }: { onBack: () => void }) {
           className="relative overflow-hidden rounded-2xl border-2 border-purple-500/40"
           style={{ boxShadow: '0 0 24px rgba(168,85,247,0.25)' }}
         >
+          {/* Progress bar — above the image, never overlaps artifacts */}
+          <div className="flex items-center justify-between gap-2 border-b border-purple-500/20 bg-black/60 px-3 py-1.5 backdrop-blur-sm">
+            <div className="flex items-center gap-2">
+              <p className="text-[8px] font-bold uppercase tracking-widest text-purple-300/80">Ритуал пробуждения</p>
+              <span className="text-sm font-black text-white">
+                <span className="text-purple-300">{remainingCount}</span>
+                <span className="text-white/40">/{SYMBOLS.length}</span>
+              </span>
+            </div>
+            <div className="flex gap-0.5">
+              {SYMBOLS.map((_, i) => (
+                <div
+                  key={i}
+                  className="h-1.5 w-1.5 rounded-full transition-all duration-300"
+                  style={{
+                    background: i < remainingCount ? 'rgba(168,85,247,0.8)' : 'rgba(60,30,80,0.4)',
+                    boxShadow: i < remainingCount ? '0 0 3px rgba(168,85,247,0.6)' : 'none',
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+
           {/* Ritual image as the scene base */}
           <div className="relative w-full" style={{ aspectRatio: '1 / 1' }}>
             <img
@@ -213,39 +236,6 @@ export default function SpecialPrediction({ onBack }: { onBack: () => void }) {
             {/* Awakening flash */}
             {awakening && (
               <div className="pointer-events-none absolute inset-0 z-40 animate-ritualFlash bg-purple-400/40" />
-            )}
-
-            {/* Progress indicator — top left */}
-            <div className="absolute left-2 top-2 z-30 rounded-lg border border-purple-400/30 bg-black/60 px-2.5 py-1 backdrop-blur-sm">
-              <p className="text-[8px] font-bold uppercase tracking-widest text-purple-300/80">Ритуал пробуждения</p>
-              <div className="mt-1 flex items-center gap-1.5">
-                <span className="text-sm font-black text-white">
-                  <span className="text-purple-300">{remainingCount}</span>
-                  <span className="text-white/40">/{SYMBOLS.length}</span>
-                </span>
-                <div className="flex gap-0.5">
-                  {SYMBOLS.map((s) => (
-                    <div
-                      key={s.id}
-                      className="h-1.5 w-1.5 rounded-full transition-all duration-300"
-                      style={{
-                        background: state.destroyed.includes(s.id) ? 'rgba(60,30,80,0.4)' : 'rgba(168,85,247,0.8)',
-                        boxShadow: state.destroyed.includes(s.id) ? 'none' : '0 0 3px rgba(168,85,247,0.6)',
-                      }}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Timer — top right */}
-            {cooldownRemaining > 0 && !burningId && (
-              <div className="absolute right-2 top-2 z-30 rounded-lg border border-purple-400/30 bg-black/60 px-2.5 py-1 text-right backdrop-blur-sm">
-                <p className="text-[8px] font-bold uppercase tracking-wide text-purple-300/60">Следующий через</p>
-                <p className="text-sm font-black tabular-nums text-purple-200" style={{ textShadow: '0 0 6px rgba(168,85,247,0.5)' }}>
-                  {formatDuration(cooldownRemaining)}
-                </p>
-              </div>
             )}
 
             {/* Magical symbols overlaid on the image */}
