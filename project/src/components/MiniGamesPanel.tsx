@@ -27,16 +27,16 @@ function getCompletedKey(playerId: string): string {
   return `gameroom-completed-${playerId}`
 }
 
-type CompletedToday = Record<number, string>
+type CompletedToday = Record<string, string>
 
 function getCompletedToday(playerId: string): CompletedToday {
   const key = getCompletedKey(playerId)
-  const data = getItem<Record<string, number>>(key, {})
+  const data = getItem<Record<string, string>>(key, {})
   const today = todayKey()
   const result: CompletedToday = {}
   for (const [gameNum, date] of Object.entries(data)) {
     if (date === today) {
-      result[Number(gameNum)] = date
+      result[gameNum] = date
     }
   }
   return result
@@ -44,7 +44,7 @@ function getCompletedToday(playerId: string): CompletedToday {
 
 function markCompleted(playerId: string, gameNumber: number): void {
   const key = getCompletedKey(playerId)
-  const data = getItem<Record<string, number>>(key, {})
+  const data = getItem<Record<string, string>>(key, {})
   data[String(gameNumber)] = todayKey()
   setItem(key, data)
 }
@@ -55,7 +55,6 @@ export default function MiniGamesPanel({ onBack }: Props) {
   const [profile, setProfile] = useState<MiniGameProfile | null>(null)
   const [progress, setProgress] = useState<MiniGameProgress[]>([])
   const [loading, setLoading] = useState(true)
-  const [error, setError] = useState('')
   const [selectedGame, setSelectedGame] = useState<number | null>(null)
   const [titlePopup, setTitlePopup] = useState<string | null>(null)
   const [completedToday, setCompletedToday] = useState<CompletedToday>(() => getCompletedToday(playerId))
@@ -75,8 +74,8 @@ export default function MiniGamesPanel({ onBack }: Props) {
         return data.profile
       })
       setProgress(data.progress)
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Ошибка загрузки')
+    } catch {
+      // Profile unavailable — games still work without it
     } finally {
       setLoading(false)
     }
@@ -185,11 +184,7 @@ export default function MiniGamesPanel({ onBack }: Props) {
 
         {/* Profile card */}
         {loading ? (
-          <div className="py-12 text-center text-sm text-ink-muted">Загрузка профиля...</div>
-        ) : error ? (
-          <div className="rounded-xl border border-error/30 bg-error/10 p-4 text-center backdrop-blur-md">
-            <p className="text-sm font-bold text-error">{error}</p>
-          </div>
+          <div className="py-6 text-center text-sm text-ink-muted">Загрузка профиля...</div>
         ) : profile && levelInfo && titleInfo ? (
           <div
             className="mb-5 rounded-2xl border border-neon/30 bg-card/60 p-4 backdrop-blur-md"
@@ -256,7 +251,7 @@ export default function MiniGamesPanel({ onBack }: Props) {
         {/* 10 mini-game cards */}
         <div className="grid grid-cols-2 gap-2.5">
           {MINI_GAMES.map((game) => {
-            const isDone = Boolean(completedToday[game.number])
+            const isDone = Boolean(completedToday[String(game.number)])
             return (
               <button
                 key={game.number}

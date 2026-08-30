@@ -162,6 +162,8 @@ export type GameVoteResult = {
   profile?: MiniGameProfile
   isCorrect?: boolean
   correctIndex?: number
+  isMafia?: boolean
+  attemptNumber?: number
   goldReward?: { titleXp: number; coins: number } | null
   silverReward?: { titleXp: number; coins: number } | null
 }
@@ -375,9 +377,12 @@ export const api = {
     const res = await fetch(url, {
       headers: { Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}` },
     })
-    const body = await res.json().catch(() => ({}))
-    if (!res.ok) throw new Error(body.error || `API ${res.status}`)
-    return body as DailyPollState
+    const contentType = res.headers.get('content-type') || ''
+    if (!res.ok || !contentType.includes('application/json')) {
+      const body = await res.json().catch(() => ({}))
+      throw new Error(body.error || 'Сервер недоступен')
+    }
+    return res.json()
   },
   voteDailyPoll: async (userId: string, selectedCandidates: string[]): Promise<{ success: boolean; message: string }> => {
     const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/daily-poll`
@@ -414,9 +419,12 @@ export const api = {
     const res = await fetch(url, {
       headers: { Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}` },
     })
-    const body = await res.json().catch(() => ({}))
-    if (!res.ok) throw new Error(body.error || `API ${res.status}`)
-    return body as GameState
+    const contentType = res.headers.get('content-type') || ''
+    if (!res.ok || !contentType.includes('application/json')) {
+      const body = await res.json().catch(() => ({}))
+      throw new Error(body.error || 'Сервер недоступен')
+    }
+    return res.json()
   },
   submitGameVote: async (gameKey: string, userId: string, voteData: Record<string, unknown>): Promise<GameVoteResult> => {
     const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/mini-games-2-6`

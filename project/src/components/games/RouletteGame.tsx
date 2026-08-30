@@ -90,8 +90,8 @@ export default function RouletteGame({ onBack, onProfileUpdate }: Props) {
     )
   }
 
-  const today = state?.today as TodayState
-  const yesterday = state?.yesterday as YesterdayState | null
+  const today = (state?.today ?? null) as TodayState | null
+  const yesterday = (state?.yesterday ?? null) as YesterdayState | null
   const hasPlayed = !!today?.result
 
   return (

@@ -50,7 +50,7 @@ export default function MafiaGame({ onBack, onProfileUpdate }: Props) {
 
   const handleGuess = async (index: number) => {
     if (!currentUser) return
-    const today = state?.today as TodayState
+    const today = (state?.today ?? null) as TodayState | null
     if (today?.gameEnded || today?.eliminated.includes(index)) return
     setGuessing(true)
     setError('')
@@ -84,8 +84,8 @@ export default function MafiaGame({ onBack, onProfileUpdate }: Props) {
     )
   }
 
-  const today = state?.today as TodayState
-  const yesterday = state?.yesterday as YesterdayState | null
+  const today = (state?.today ?? null) as TodayState | null
+  const yesterday = (state?.yesterday ?? null) as YesterdayState | null
 
   return (
     <div className="mx-auto max-w-md px-4 pb-10 pt-6">

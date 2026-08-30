@@ -40,9 +40,9 @@ export default function WouldHeDoItGame({ onBack, onProfileUpdate }: Props) {
     try {
       const data = await api.getGameState('would_he_do_it', currentUser.id)
       setState(data)
-      const today = data.today as TodayState
-      if (today.userVote) setSelected(today.userVote)
-      const yesterday = data.yesterday as YesterdayState | null
+      const today = (data?.today ?? null) as TodayState | null
+      if (today?.userVote) setSelected(today.userVote)
+      const yesterday = (data?.yesterday ?? null) as YesterdayState | null
       if (yesterday?.reward?.result_rewarded) setResultsClaimed(true)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Ошибка загрузки')
@@ -103,8 +103,8 @@ export default function WouldHeDoItGame({ onBack, onProfileUpdate }: Props) {
     )
   }
 
-  const today = state?.today as TodayState
-  const yesterday = state?.yesterday as YesterdayState | null
+  const today = (state?.today ?? null) as TodayState | null
+  const yesterday = (state?.yesterday ?? null) as YesterdayState | null
   const hasVoted = !!today?.userVote
 
   return (
