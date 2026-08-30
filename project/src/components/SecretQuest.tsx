@@ -6,7 +6,7 @@ import { api } from '../lib/api'
 import { useApp } from '../context/AppContext'
 import NameDropdown from './NameDropdown'
 
-const QUEST_KEY = 'secret-quest-passed'
+const QUEST_PREFIX = 'secret-quest-passed'
 const FLY_MS = 700
 type Phase = 'idle' | 'flying' | 'success' | 'breaking'
 type Shard = { x: number; y: number; dx: number; dy: number; r: number }
@@ -26,11 +26,11 @@ const neonColors: NeonColor[] = [
   { border: 'rgba(0,229,255,0.7)', glow: 'rgba(0,229,255,0.45)', text: '#00e5ff' },
 ]
 
-// ─── Hints storage keys ───
-const HINT_NORMAL_KEY = 'secret-hint-normal-ts'
-const HINT_BIG_KEY = 'secret-hint-big-ts'
-const HINT_MEGA_KEY = 'secret-hint-mega-ts'
-const HINT_MEGA_CHARGE_KEY = 'secret-hint-mega-charge'
+// ─── Hints storage key prefixes (suffixed with userId at runtime) ───
+const HINT_NORMAL_PREFIX = 'secret-hint-normal-ts'
+const HINT_BIG_PREFIX = 'secret-hint-big-ts'
+const HINT_MEGA_PREFIX = 'secret-hint-mega-ts'
+const HINT_MEGA_CHARGE_PREFIX = 'secret-hint-mega-charge'
 
 const NORMAL_COOLDOWN = 3 * 60 * 60 * 1000
 const BIG_COOLDOWN = 24 * 60 * 60 * 1000
@@ -53,7 +53,13 @@ function pickRandom<T>(arr: T[]): T {
 }
 
 export default function SecretQuest({ onUnlocked }: { onUnlocked: () => void }) {
-  const { workers } = useApp()
+  const { workers, currentUser } = useApp()
+  const playerId = currentUser?.name ?? 'unknown'
+
+  const hintNormalKey = `${HINT_NORMAL_PREFIX}-${playerId}`
+  const hintBigKey = `${HINT_BIG_PREFIX}-${playerId}`
+  const hintMegaKey = `${HINT_MEGA_PREFIX}-${playerId}`
+  const hintMegaChargeKey = `${HINT_MEGA_CHARGE_PREFIX}-${playerId}`
   const [answers, setAnswers] = useState<Record<string, string>>({})
   const [phase, setPhase] = useState<Phase>('idle')
   const [shards, setShards] = useState<Shard[]>([])
@@ -64,7 +70,8 @@ export default function SecretQuest({ onUnlocked }: { onUnlocked: () => void }) 
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
   const keyRef = useRef<HTMLDivElement>(null)
   const lockRef = useRef<HTMLDivElement>(null)
-  const alreadyPassed = getItem<boolean>(QUEST_KEY, false)
+  const questKey = `${QUEST_PREFIX}-${playerId}`
+  const alreadyPassed = getItem<boolean>(questKey, false)
 
   const allFilled = nominations.every((nomination) => Boolean(answers[nomination.id]))
   const filledCount = Object.keys(answers).length
@@ -134,7 +141,7 @@ export default function SecretQuest({ onUnlocked }: { onUnlocked: () => void }) 
     window.setTimeout(() => {
       if (isCorrect()) {
         setPhase('success')
-        setItem(QUEST_KEY, true)
+        setItem(questKey, true)
         window.setTimeout(onUnlocked, 1500)
       } else {
         breakKey()
@@ -160,7 +167,7 @@ export default function SecretQuest({ onUnlocked }: { onUnlocked: () => void }) 
   }, [])
 
   // Normal hint
-  const [normalTs, setNormalTs] = useState<number>(() => getItem<number>(HINT_NORMAL_KEY, 0))
+  const [normalTs, setNormalTs] = useState<number>(() => getItem<number>(hintNormalKey, 0))
   const [normalResult, setNormalResult] = useState<HintResult | null>(null)
   const normalReady = now - normalTs >= NORMAL_COOLDOWN
   const normalRemaining = NORMAL_COOLDOWN - (now - normalTs)
@@ -172,11 +179,11 @@ export default function SecretQuest({ onUnlocked }: { onUnlocked: () => void }) 
     setNormalResult(result)
     const ts = Date.now()
     setNormalTs(ts)
-    setItem(HINT_NORMAL_KEY, ts)
+    setItem(hintNormalKey, ts)
   }
 
   // Big hint
-  const [bigTs, setBigTs] = useState<number>(() => getItem<number>(HINT_BIG_KEY, 0))
+  const [bigTs, setBigTs] = useState<number>(() => getItem<number>(hintBigKey, 0))
   const [bigResult, setBigResult] = useState<HintResult | null>(null)
   const [bigSelecting, setBigSelecting] = useState(false)
   const bigReady = now - bigTs >= BIG_COOLDOWN
@@ -189,12 +196,12 @@ export default function SecretQuest({ onUnlocked }: { onUnlocked: () => void }) 
     setBigSelecting(false)
     const ts = Date.now()
     setBigTs(ts)
-    setItem(HINT_BIG_KEY, ts)
+    setItem(hintBigKey, ts)
   }
 
   // Mega hint
-  const [megaTs, setMegaTs] = useState<number>(() => getItem<number>(HINT_MEGA_KEY, 0))
-  const [megaCharge, setMegaCharge] = useState<number>(() => getItem<number>(HINT_MEGA_CHARGE_KEY, 0))
+  const [megaTs, setMegaTs] = useState<number>(() => getItem<number>(hintMegaKey, 0))
+  const [megaCharge, setMegaCharge] = useState<number>(() => getItem<number>(hintMegaChargeKey, 0))
   const [megaResult, setMegaResult] = useState<MegaResult | null>(null)
   const [chargePulse, setChargePulse] = useState(false)
   const megaReady = now - megaTs >= MEGA_COOLDOWN
@@ -205,7 +212,7 @@ export default function SecretQuest({ onUnlocked }: { onUnlocked: () => void }) 
     if (megaCharged || !megaReady) return
     const next = Math.min(megaCharge + 1, 10)
     setMegaCharge(next)
-    setItem(HINT_MEGA_CHARGE_KEY, next)
+    setItem(hintMegaChargeKey, next)
     setChargePulse(true)
     window.setTimeout(() => setChargePulse(false), 250)
   }
@@ -216,10 +223,22 @@ export default function SecretQuest({ onUnlocked }: { onUnlocked: () => void }) 
     setMegaResult(results)
     const ts = Date.now()
     setMegaTs(ts)
-    setItem(HINT_MEGA_KEY, ts)
+    setItem(hintMegaKey, ts)
     setMegaCharge(0)
-    setItem(HINT_MEGA_CHARGE_KEY, 0)
+    setItem(hintMegaChargeKey, 0)
   }
+
+  // Reload hint state when user switches profile
+  useEffect(() => {
+    setNormalTs(getItem<number>(hintNormalKey, 0))
+    setNormalResult(null)
+    setBigTs(getItem<number>(hintBigKey, 0))
+    setBigResult(null)
+    setBigSelecting(false)
+    setMegaTs(getItem<number>(hintMegaKey, 0))
+    setMegaCharge(getItem<number>(hintMegaChargeKey, 0))
+    setMegaResult(null)
+  }, [hintNormalKey, hintBigKey, hintMegaKey, hintMegaChargeKey])
 
   return (
     <div className="secret-quest relative min-h-screen overflow-y-auto pb-20">

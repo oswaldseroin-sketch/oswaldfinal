@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Eye, Moon, Skull, KeyRound, Gem, Flame, Star, Scroll, Sparkles, Snowflake, ChevronLeft } from 'lucide-react'
 import { getItem, setItem } from '../lib/storage'
 import { useApp } from '../context/AppContext'
@@ -83,7 +83,13 @@ export default function SpecialPrediction({ onBack }: { onBack: () => void }) {
   const [burningId, setBurningId] = useState<SymbolId | null>(null)
   const [sparks, setSparks] = useState<Spark[]>([])
   const [awakening, setAwakening] = useState(false)
-  const sparksRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    setState(getRitualState(userId))
+    setBurningId(null)
+    setSparks([])
+    setAwakening(false)
+  }, [userId])
 
   useEffect(() => {
     const t = window.setInterval(() => setNow(Date.now()), 1000)
