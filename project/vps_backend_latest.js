@@ -2198,10 +2198,7 @@ function setupGameRoutes(app, pool) {
   }
 
   async function handleMafiaVote(pool, res, userId, todayStr, params) {
-    const { selectedIndex } = params
-    if (typeof selectedIndex !== 'number' || selectedIndex < 0 || selectedIndex > 4) {
-      return res.status(400).json({ error: 'selectedIndex must be 0-4' })
-    }
+    const { selectedPlayerId, selectedIndex } = params
 
     // Get daily entry
     const { rows: dailyRows } = await pool.query(
@@ -2210,6 +2207,20 @@ function setupGameRoutes(app, pool) {
     )
     if (dailyRows.length === 0) return res.status(400).json({ error: 'Игра не найдена' })
     const daily = dailyRows[0]
+    const dailyPlayers = [daily.player_1, daily.player_2, daily.player_3, daily.player_4, daily.player_5]
+
+    let selectedIndex
+    if (typeof selectedPlayerId === 'number') {
+      const { rows: playerRows } = await pool.query('SELECT full_name FROM players WHERE id = $1', [selectedPlayerId])
+      if (playerRows.length === 0) return res.status(400).json({ error: 'Игрок не найден' })
+      selectedIndex = dailyPlayers.indexOf(playerRows[0].full_name)
+      // -1 means the player is not among today's 5 candidates — always a wrong guess
+    } else {
+      selectedIndex = selectedIndex
+    }
+    if (typeof selectedIndex !== 'number' || selectedIndex < -1 || selectedIndex > 4) {
+      return res.status(400).json({ error: 'selectedIndex must be 0-4' })
+    }
 
     // Get or create user state
     let { rows: userStateRows } = await pool.query(
@@ -2244,7 +2255,7 @@ function setupGameRoutes(app, pool) {
     const eliminated = []
     if (userState.eliminated_1 !== null && userState.eliminated_1 !== undefined) eliminated.push(userState.eliminated_1)
     if (userState.eliminated_2 !== null && userState.eliminated_2 !== undefined) eliminated.push(userState.eliminated_2)
-    if (eliminated.includes(selectedIndex)) {
+    if (selectedIndex !== -1 && eliminated.includes(selectedIndex)) {
       return res.status(400).json({ error: 'Этот игрок уже выбран' })
     }
 

@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { X, Loader as Loader2 } from 'lucide-react'
-import { api, type GameState } from '../../lib/api'
+import { api, type GameState, type PlayerRow } from '../../lib/api'
 import { useApp } from '../../context/AppContext'
-import { getItem, setItem } from '../../lib/storage'
 
 type Props = {
   onBack: () => void
@@ -28,51 +27,25 @@ type YesterdayState = {
 }
 
 const MAX_ATTEMPTS = 2
-const PLAYERS_KEY = 'mafia-players'
-
-function todayKey(): string {
-  return new Date().toISOString().slice(0, 10)
-}
-
-function getSavedPlayers(userId: string): string[] {
-  const data = getItem<Record<string, { players: string[]; date: string }>>(PLAYERS_KEY, {})
-  const entry = data[userId]
-  if (entry && entry.date === todayKey()) return entry.players
-  return []
-}
-
-function savePlayers(userId: string, players: string[]): void {
-  const data = getItem<Record<string, { players: string[]; date: string }>>(PLAYERS_KEY, {})
-  data[userId] = { players, date: todayKey() }
-  setItem(PLAYERS_KEY, data)
-}
 
 export default function MafiaGame({ onBack, onProfileUpdate }: Props) {
   const { currentUser } = useApp()
   const [state, setState] = useState<GameState | null>(null)
+  const [allPlayers, setAllPlayers] = useState<PlayerRow[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
   const [guessing, setGuessing] = useState(false)
   const [lastResult, setLastResult] = useState<{ isMafia: boolean; attemptNumber: number } | null>(null)
-  const [persistedPlayers, setPersistedPlayers] = useState<string[]>([])
 
   const loadState = useCallback(async () => {
     if (!currentUser) return
     try {
-      const data = await api.getGameState('mafia', currentUser.id)
-      const today = (data?.today ?? null) as TodayState | null
-
-      if (today?.players && Array.isArray(today.players) && today.players.length > 0) {
-        savePlayers(currentUser.id, today.players)
-        setPersistedPlayers(today.players)
-      } else {
-        const saved = getSavedPlayers(currentUser.id)
-        if (saved.length > 0) setPersistedPlayers(saved)
-        if (today && !today.players) {
-          today.players = saved
-        }
-      }
-      setState(data)
+      const [playersData, gameData] = await Promise.all([
+        api.getPlayers(),
+        api.getGameState('mafia', currentUser.id),
+      ])
+      setAllPlayers(playersData)
+      setState(gameData)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Ошибка загрузки')
     } finally {
@@ -82,14 +55,14 @@ export default function MafiaGame({ onBack, onProfileUpdate }: Props) {
 
   useEffect(() => { void loadState() }, [loadState])
 
-  const handleGuess = async (index: number) => {
+  const handleGuess = async (playerId: number) => {
     if (!currentUser) return
     const today = (state?.today ?? null) as TodayState | null
-    if (today?.gameEnded || today?.eliminated.includes(index)) return
+    if (today?.gameEnded) return
     setGuessing(true)
     setError('')
     try {
-      const result = await api.submitGameVote('mafia', currentUser.id, { selectedIndex: index })
+      const result = await api.submitGameVote('mafia', currentUser.id, { selectedPlayerId: playerId })
       setLastResult({ isMafia: result.isMafia ?? false, attemptNumber: result.attemptNumber ?? 0 })
       await loadState()
       onProfileUpdate()
@@ -120,12 +93,14 @@ export default function MafiaGame({ onBack, onProfileUpdate }: Props) {
 
   const today = (state?.today ?? null) as TodayState | null
   const yesterday = (state?.yesterday ?? null) as YesterdayState | null
-  const players = (today?.players && Array.isArray(today.players) && today.players.length > 0)
-    ? today.players
-    : persistedPlayers
+  const dailyPlayers: string[] = (today?.players && Array.isArray(today.players)) ? today.players : []
   const attemptsUsed = today?.attemptCount ?? 0
-  const isCompleted = today?.gameEnded || attemptsUsed >= MAX_ATTEMPTS
-  const hasPlayers = Array.isArray(players) && players.length > 0
+  const isCompleted = (today?.gameEnded ?? false) || attemptsUsed >= MAX_ATTEMPTS
+
+  const eliminatedNames = new Set<string>(
+    (today?.eliminated ?? []).map((idx) => dailyPlayers[idx]).filter(Boolean)
+  )
+  const mafiaName = (today?.gameEnded && today?.mafiaIndex !== null && dailyPlayers[today.mafiaIndex]) || null
 
   return (
     <div className="mx-auto max-w-md px-4 pb-10 pt-6">
@@ -193,29 +168,28 @@ export default function MafiaGame({ onBack, onProfileUpdate }: Props) {
               <p className="mt-1 text-[11px] text-ink-muted">Базовая награда: +2 XP +1🪙</p>
               <p className="mt-3 text-[11px] text-ink-muted">Попытки закончились. Результат будет завтра в 08:00.</p>
 
-              {today.mafiaIndex !== null && hasPlayers && players[today.mafiaIndex] && (
+              {mafiaName && (
                 <div className="mt-3 rounded-lg border border-amber-400/30 bg-amber-400/10 px-3 py-2 text-center">
                   <p className="text-xs text-ink-muted">Мафия была:</p>
-                  <p className="text-sm font-extrabold text-amber-200">{players[today.mafiaIndex]}</p>
+                  <p className="text-sm font-extrabold text-amber-200">{mafiaName}</p>
                 </div>
               )}
             </div>
-          ) : hasPlayers ? (
+          ) : allPlayers.length > 0 ? (
             <>
               <div className="space-y-2">
-                {players.map((player, i) => {
-                  const isEliminated = today.eliminated.includes(i)
-                  const isMafiaRevealed = today.gameEnded && i === today.mafiaIndex
-                  const isGuessedWrong = isEliminated && !isMafiaRevealed
+                {allPlayers.map((player) => {
+                  const isEliminated = eliminatedNames.has(player.full_name)
+                  const isMafiaRevealed = today.gameEnded && player.full_name === mafiaName
                   return (
                     <button
-                      key={i}
-                      onClick={() => handleGuess(i)}
+                      key={player.id}
+                      onClick={() => handleGuess(player.id)}
                       disabled={today.gameEnded || isEliminated || guessing}
                       className={`flex w-full items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all ${
                         isMafiaRevealed
                           ? 'border-amber-400/60 bg-amber-400/15'
-                          : isGuessedWrong
+                          : isEliminated
                             ? 'border-error/30 bg-error/10 opacity-50'
                             : today.gameEnded
                               ? 'border-line/20 bg-black/20 opacity-40'
@@ -224,15 +198,15 @@ export default function MafiaGame({ onBack, onProfileUpdate }: Props) {
                     >
                       <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-xs font-bold ${
                         isMafiaRevealed ? 'border-amber-400 bg-amber-400/20 text-amber-300' :
-                        isGuessedWrong ? 'border-error/40 text-error' : 'border-line/50 text-ink-muted'
+                        isEliminated ? 'border-error/40 text-error' : 'border-line/50 text-ink-muted'
                       }`}>
-                        {isMafiaRevealed ? '🕵️' : isGuessedWrong ? <X size={14} /> : i + 1}
+                        {isMafiaRevealed ? '🕵️' : isEliminated ? <X size={14} /> : player.id}
                       </div>
-                      <span className={`flex-1 text-sm font-bold ${isMafiaRevealed ? 'text-amber-200' : isGuessedWrong ? 'text-error' : 'text-ink'}`}>
-                        {player}
+                      <span className={`flex-1 text-sm font-bold ${isMafiaRevealed ? 'text-amber-200' : isEliminated ? 'text-error' : 'text-ink'}`}>
+                        {player.full_name}
                       </span>
                       {isMafiaRevealed && <span className="text-xs font-bold text-amber-300">МАФИЯ</span>}
-                      {isGuessedWrong && <span className="text-xs text-error">Не мафия</span>}
+                      {isEliminated && <span className="text-xs text-error">Не мафия</span>}
                     </button>
                   )
                 })}
@@ -251,7 +225,7 @@ export default function MafiaGame({ onBack, onProfileUpdate }: Props) {
             </>
           ) : (
             <div className="rounded-xl border border-error/30 bg-error/10 p-4 text-center">
-              <p className="text-sm font-bold text-error">Не удалось загрузить список игроков</p>
+              <p className="text-sm font-bold text-error">Список игроков недоступен</p>
               <p className="mt-1 text-[11px] text-ink-muted">Попробуй перезайти в игру</p>
             </div>
           )}
