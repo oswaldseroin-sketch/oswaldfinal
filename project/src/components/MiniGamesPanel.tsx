@@ -68,19 +68,19 @@ export default function MiniGamesPanel({ onBack }: Props) {
     if (!currentUser) return
     try {
       const data = await api.getMiniGameData(currentUser.id)
-      const prevProfile = profile
-      setProfile(data.profile)
+      setProfile((prev) => {
+        if (prev && data.profile.titleLevel > prev.titleLevel) {
+          setTitlePopup(data.profile.title)
+        }
+        return data.profile
+      })
       setProgress(data.progress)
-
-      if (prevProfile && data.profile.titleLevel > prevProfile.titleLevel) {
-        setTitlePopup(data.profile.title)
-      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Ошибка загрузки')
     } finally {
       setLoading(false)
     }
-  }, [currentUser, profile])
+  }, [currentUser])
 
   useEffect(() => { void loadData() }, [loadData])
 
@@ -88,16 +88,17 @@ export default function MiniGamesPanel({ onBack }: Props) {
     if (!currentUser) return
     try {
       const data = await api.getMiniGameData(currentUser.id)
-      const prevProfile = profile
-      setProfile(data.profile)
+      setProfile((prev) => {
+        if (prev && data.profile.titleLevel > prev.titleLevel) {
+          setTitlePopup(data.profile.title)
+        }
+        return data.profile
+      })
       setProgress(data.progress)
-      if (prevProfile && data.profile.titleLevel > prevProfile.titleLevel) {
-        setTitlePopup(data.profile.title)
-      }
     } catch {
       // silent
     }
-  }, [currentUser, profile])
+  }, [currentUser])
 
   const handleGameComplete = useCallback(async (gameNumber: number) => {
     markCompleted(playerId, gameNumber)

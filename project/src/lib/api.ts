@@ -333,7 +333,8 @@ export const api = {
     const res = await fetch(url, {
       headers: { Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}` },
     })
-    if (!res.ok) {
+    const contentType = res.headers.get('content-type') || ''
+    if (!res.ok || !contentType.includes('application/json')) {
       const body = await res.json().catch(() => ({}))
       throw new Error(body.error || `API ${res.status}`)
     }
