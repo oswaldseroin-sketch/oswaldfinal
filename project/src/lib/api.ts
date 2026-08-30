@@ -318,36 +318,15 @@ export const api = {
       body: JSON.stringify({ question_id: questionId, block_number: blockNumber, password }),
     }),
 
-  // Knowledge numbers (served by Supabase Edge Function)
-  getKnowledgeNumbers: async (): Promise<KnowledgeNumber[]> => {
-    const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/knowledge-numbers`
-    const res = await fetch(url, {
-      headers: { Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}` },
-    })
-    const contentType = res.headers.get('content-type') || ''
-    if (!res.ok || !contentType.includes('application/json')) {
-      const body = await res.json().catch(() => ({}))
-      throw new Error(body.error || 'Сервер недоступен')
-    }
-    return res.json()
-  },
-  updateKnowledgeNumber: async (number: number, content: string, password: string): Promise<KnowledgeNumber> => {
-    const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/knowledge-numbers`
-    const res = await fetch(url, {
+   // Knowledge numbers (served by VPS API)
+  getKnowledgeNumbers: () =>
+    apiFetch<KnowledgeNumber[]>('/api/knowledge-numbers'),
+
+  updateKnowledgeNumber: (number: number, content: string, password: string) =>
+    apiFetch<KnowledgeNumber>('/api/knowledge-numbers', {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-      },
       body: JSON.stringify({ number, content, password }),
-    })
-    const contentType = res.headers.get('content-type') || ''
-    const body = await res.json().catch(() => ({}))
-    if (!res.ok || !contentType.includes('application/json')) {
-      throw new Error(body.error || 'Сервер недоступен')
-    }
-    return body as KnowledgeNumber
-  },
+    }),
 
   // Mini-games profile (served by VPS API)
   getMiniGameData: async (userId: string): Promise<MiniGameData> => {
