@@ -1,0 +1,221 @@
+import { useCallback, useEffect, useState } from 'react'
+import { Check, Trophy, Gift, Loader as Loader2 } from 'lucide-react'
+import { api, type GameState, type GameClaimResult } from '../../lib/api'
+import { useApp } from '../../context/AppContext'
+
+type Props = {
+  onBack: () => void
+  onProfileUpdate: () => void
+}
+
+type TodayState = {
+  question: string
+  team1: string[]
+  team2: string[]
+  userVote: number | null
+}
+
+type YesterdayState = {
+  question: string
+  team1: string[]
+  team2: string[]
+  team1Votes: number
+  team2Votes: number
+  winner: number | null
+  userVote: number | null
+  reward: { participation_rewarded: boolean; result_rewarded: boolean; xp_awarded: number; title_xp_awarded: number; coins_awarded: number } | null
+}
+
+export default function BestDuoGame({ onBack, onProfileUpdate }: Props) {
+  const { currentUser } = useApp()
+  const [state, setState] = useState<GameState | null>(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState('')
+  const [selected, setSelected] = useState<number | null>(null)
+  const [voting, setVoting] = useState(false)
+  const [claiming, setClaiming] = useState(false)
+  const [claimResult, setClaimResult] = useState<GameClaimResult | null>(null)
+  const [resultsClaimed, setResultsClaimed] = useState(false)
+
+  const loadState = useCallback(async () => {
+    if (!currentUser) return
+    try {
+      const data = await api.getGameState('best_duo', currentUser.id)
+      setState(data)
+      const today = data.today as TodayState
+      if (today.userVote) setSelected(today.userVote)
+      const yesterday = data.yesterday as YesterdayState | null
+      if (yesterday?.reward?.result_rewarded) setResultsClaimed(true)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Ошибка загрузки')
+    } finally {
+      setLoading(false)
+    }
+  }, [currentUser])
+
+  useEffect(() => { void loadState() }, [loadState])
+
+  const handleVote = async () => {
+    if (!currentUser || selected === null) return
+    setVoting(true)
+    setError('')
+    try {
+      await api.submitGameVote('best_duo', currentUser.id, { selectedTeam: selected })
+      await loadState()
+      onProfileUpdate()
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Ошибка голосования')
+    } finally {
+      setVoting(false)
+    }
+  }
+
+  const handleClaim = async () => {
+    if (!currentUser || resultsClaimed) return
+    setClaiming(true)
+    setError('')
+    try {
+      const result = await api.claimGameResults('best_duo', currentUser.id)
+      setClaimResult(result)
+      setResultsClaimed(true)
+      await loadState()
+      onProfileUpdate()
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Ошибка получения награды')
+    } finally {
+      setClaiming(false)
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="mx-auto max-w-md px-5 pb-10 pt-6">
+        <button onClick={onBack} className="mb-6 flex items-center gap-2 text-sm font-bold text-neon hover:text-white transition-colors">← Назад</button>
+        <div className="flex justify-center py-20"><Loader2 size={28} className="animate-spin text-neon" /></div>
+      </div>
+    )
+  }
+
+  if (error && !state) {
+    return (
+      <div className="mx-auto max-w-md px-5 pb-10 pt-6">
+        <button onClick={onBack} className="mb-6 flex items-center gap-2 text-sm font-bold text-neon hover:text-white transition-colors">← Назад</button>
+        <div className="rounded-xl border border-error/30 bg-error/10 p-6 text-center"><p className="text-sm font-bold text-error">{error}</p></div>
+      </div>
+    )
+  }
+
+  const today = state?.today as TodayState
+  const yesterday = state?.yesterday as YesterdayState | null
+  const hasVoted = !!today?.userVote
+
+  const TeamCard = ({ team, teamNum, players, votes, isWinner, isSelected, isChosen, onClick }: {
+    team: string; teamNum: number; players: string[]; votes?: number; isWinner?: boolean;
+    isSelected: boolean; isChosen: boolean; onClick: () => void
+  }) => (
+    <button
+      onClick={onClick}
+      disabled={hasVoted}
+      className={`w-full rounded-xl border p-3 text-left transition-all ${
+        hasVoted
+          ? isChosen ? 'border-neon/50 bg-neon/15' : 'border-line/20 bg-black/20 opacity-40'
+          : isSelected ? 'border-neon/60 bg-neon/15 active:scale-95' : 'border-line/40 bg-black/20 hover:border-neon/30 active:scale-95'
+      } ${isWinner ? 'ring-2 ring-amber-400/40' : ''}`}
+    >
+      <div className="mb-1.5 flex items-center justify-between">
+        <span className="text-[10px] font-bold tracking-widest text-neon">{team}</span>
+        <div className={`flex h-5 w-5 items-center justify-center rounded-full border ${isSelected || isChosen ? 'border-neon bg-neon text-black' : 'border-line/50'}`}>
+          {(isSelected || isChosen) && <Check size={12} />}
+        </div>
+      </div>
+      <p className="text-sm font-bold text-ink">{players[0]}</p>
+      <p className="text-sm font-bold text-ink">{players[1]}</p>
+      {votes !== undefined && <p className="mt-1.5 text-lg font-extrabold text-amber-200">{votes}</p>}
+      {isWinner && <span className="mt-1 inline-block text-xs">🏆</span>}
+    </button>
+  )
+
+  return (
+    <div className="mx-auto max-w-md px-4 pb-10 pt-6">
+      <button onClick={onBack} className="mb-4 flex items-center gap-2 text-sm font-bold text-neon hover:text-white transition-colors">← Назад</button>
+
+      <div className="mb-4 flex items-center gap-2">
+        <span className="text-2xl">⭐</span>
+        <div>
+          <p className="text-[10px] font-bold tracking-widest text-neon">МИНИ-ИГРА 5</p>
+          <h1 className="text-xl font-extrabold text-ink">Лучший дуэт</h1>
+        </div>
+      </div>
+
+      {error && (
+        <div className="mb-4 rounded-xl border border-error/30 bg-error/10 p-3 text-center"><p className="text-xs font-bold text-error">{error}</p></div>
+      )}
+
+      {yesterday && (
+        <div className="mb-5 rounded-2xl border border-amber-400/25 bg-card/50 p-4 backdrop-blur-md" style={{ boxShadow: '0 0 16px rgba(255,191,0,0.1)' }}>
+          <div className="mb-3 flex items-center gap-2">
+            <Trophy size={16} className="text-amber-300" />
+            <p className="text-[10px] font-bold tracking-widest text-amber-300">ВЧЕРАШНИЙ РЕЗУЛЬТАТ</p>
+          </div>
+          <p className="mb-3 text-sm font-bold text-ink/90">{yesterday.question}</p>
+          <div className="grid grid-cols-2 gap-2.5">
+            <TeamCard team="КОМАНДА 1" teamNum={1} players={yesterday.team1} votes={yesterday.team1Votes} isWinner={yesterday.winner === 1} isSelected={false} isChosen={yesterday.userVote === 1} onClick={() => {}} />
+            <TeamCard team="КОМАНДА 2" teamNum={2} players={yesterday.team2} votes={yesterday.team2Votes} isWinner={yesterday.winner === 2} isSelected={false} isChosen={yesterday.userVote === 2} onClick={() => {}} />
+          </div>
+          {!yesterday.winner && <p className="mt-2 text-center text-xs text-ink-muted">Ничья — награда не выдаётся</p>}
+          {yesterday.winner && (
+            <p className="mt-2 text-center text-xs font-bold text-amber-300">
+              🏆 Победили: {(yesterday.winner === 1 ? yesterday.team1 : yesterday.team2).join(' + ')}
+            </p>
+          )}
+
+          {yesterday.userVote && !resultsClaimed && yesterday.winner && (
+            <button onClick={handleClaim} disabled={claiming} className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-amber-400/40 bg-amber-400/15 py-2.5 text-sm font-extrabold text-amber-200 transition hover:bg-amber-400/25 active:scale-95 disabled:opacity-50">
+              {claiming ? <Loader2 size={16} className="animate-spin" /> : <Gift size={16} />}
+              Получить награду
+            </button>
+          )}
+
+          {claimResult && claimResult.totalTitleXp! > 0 && (
+            <div className="mt-3 rounded-lg border border-neon/30 bg-neon/10 p-3 text-center">
+              <p className="text-xs font-bold text-neon">Награда получена!</p>
+              <p className="mt-1 text-sm font-extrabold text-neon" style={{ textShadow: '0 0 10px rgba(0,229,255,0.4)' }}>🥈 +{claimResult.totalTitleXp} XP звания +{claimResult.totalCoins}🪙</p>
+            </div>
+          )}
+          {resultsClaimed && yesterday.reward && (
+            <div className="mt-3 rounded-lg border border-neon/20 bg-neon/5 p-2.5 text-center"><p className="text-[11px] font-bold text-neon/70">Награда получена</p></div>
+          )}
+        </div>
+      )}
+
+      {today && (
+        <div className="rounded-2xl border border-neon/30 bg-card/60 p-4 backdrop-blur-md" style={{ boxShadow: '0 0 18px rgba(0,229,255,0.1)' }}>
+          <p className="text-[10px] font-bold tracking-widest text-neon">ВОПРОС ДНЯ</p>
+          <h2 className="mt-1.5 mb-3 text-base font-extrabold leading-snug text-ink">{today.question}</h2>
+
+          <div className="grid grid-cols-2 gap-2.5">
+            <TeamCard team="КОМАНДА 1" teamNum={1} players={today.team1} isSelected={selected === 1} isChosen={today.userVote === 1} onClick={() => setSelected(1)} />
+            <TeamCard team="КОМАНДА 2" teamNum={2} players={today.team2} isSelected={selected === 2} isChosen={today.userVote === 2} onClick={() => setSelected(2)} />
+          </div>
+
+          {hasVoted ? (
+            <div className="mt-4 rounded-xl border border-success/30 bg-success/10 p-3 text-center">
+              <div className="flex items-center justify-center gap-2"><Check size={16} className="text-success" /><p className="text-sm font-extrabold text-success">Голос учтён!</p></div>
+              {today.userVote && (
+                <p className="mt-2 text-xs text-ink-muted">
+                  Твой выбор: <span className="font-bold text-ink">{(today.userVote === 1 ? today.team1 : today.team2).join(' + ')}</span>
+                </p>
+              )}
+              <p className="mt-1 text-[11px] text-ink-muted">Результаты будут доступны завтра в 08:00</p>
+            </div>
+          ) : (
+            <button onClick={handleVote} disabled={selected === null || voting} className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-neon py-3 text-sm font-extrabold text-black transition active:scale-95 disabled:opacity-40" style={{ boxShadow: '0 0 16px rgba(0,229,255,0.3)' }}>
+              {voting ? <Loader2 size={16} className="animate-spin" /> : <Check size={16} />}
+              Проголосовать
+            </button>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}

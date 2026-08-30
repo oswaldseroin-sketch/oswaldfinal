@@ -1,0 +1,14 @@
+[functions.knowledge-numbers]
+verify_jwt = false
+
+[functions.mini-games]
+verify_jwt = false
+
+[functions.daily-poll]
+verify_jwt = false
+
+[functions.mini-games-2-6]
+verify_jwt = false
+
+[functions.test-blocks]
+verify_jwt = false
