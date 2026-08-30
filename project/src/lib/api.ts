@@ -1,13 +1,14 @@
-const API_BASE = 'https://api.serointeam.ru'
+const API_BASE = import.meta.env.VITE_API_URL
 
 async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE}${path}`, {
     headers: { 'Content-Type': 'application/json' },
     ...options,
   })
-  if (!res.ok) {
+  const contentType = res.headers.get('content-type') || ''
+  if (!res.ok || !contentType.includes('application/json')) {
     const body = await res.json().catch(() => ({}))
-    throw new Error(body.error || `API ${res.status}`)
+    throw new Error(body.error || 'Сервер недоступен')
   }
   if (res.status === 204) return undefined as T
   return res.json() as Promise<T>
@@ -287,7 +288,11 @@ export const api = {
     const res = await fetch(url, {
       headers: { Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}` },
     })
-    if (!res.ok) throw new Error(`API ${res.status}`)
+    const contentType = res.headers.get('content-type') || ''
+    if (!res.ok || !contentType.includes('application/json')) {
+      const body = await res.json().catch(() => ({}))
+      throw new Error(body.error || 'Сервер недоступен')
+    }
     return res.json()
   },
   setTestBlockAssignment: async (questionId: string, blockNumber: number | null, password: string): Promise<{ question_id: string; block_number: number | null }> => {
@@ -300,8 +305,11 @@ export const api = {
       },
       body: JSON.stringify({ question_id: questionId, block_number: blockNumber, password }),
     })
+    const contentType = res.headers.get('content-type') || ''
     const body = await res.json().catch(() => ({}))
-    if (!res.ok) throw new Error(body.error || `API ${res.status}`)
+    if (!res.ok || !contentType.includes('application/json')) {
+      throw new Error(body.error || 'Сервер недоступен')
+    }
     return body as { question_id: string; block_number: number | null }
   },
 
@@ -311,7 +319,11 @@ export const api = {
     const res = await fetch(url, {
       headers: { Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}` },
     })
-    if (!res.ok) throw new Error(`API ${res.status}`)
+    const contentType = res.headers.get('content-type') || ''
+    if (!res.ok || !contentType.includes('application/json')) {
+      const body = await res.json().catch(() => ({}))
+      throw new Error(body.error || 'Сервер недоступен')
+    }
     return res.json()
   },
   updateKnowledgeNumber: async (number: number, content: string, password: string): Promise<KnowledgeNumber> => {
@@ -324,8 +336,11 @@ export const api = {
       },
       body: JSON.stringify({ number, content, password }),
     })
+    const contentType = res.headers.get('content-type') || ''
     const body = await res.json().catch(() => ({}))
-    if (!res.ok) throw new Error(body.error || `API ${res.status}`)
+    if (!res.ok || !contentType.includes('application/json')) {
+      throw new Error(body.error || 'Сервер недоступен')
+    }
     return body as KnowledgeNumber
   },
 
@@ -352,8 +367,11 @@ export const api = {
       },
       body: JSON.stringify({ userId, addXp, addCoins }),
     })
+    const contentType = res.headers.get('content-type') || ''
     const body = await res.json().catch(() => ({}))
-    if (!res.ok) throw new Error(body.error || `API ${res.status}`)
+    if (!res.ok || !contentType.includes('application/json')) {
+      throw new Error(body.error || 'Сервер недоступен')
+    }
     return body.profile as MiniGameProfile
   },
   upsertMiniGameProgress: async (userId: string, gameNumber: number, completed: boolean, bestScore: number): Promise<MiniGameProgress> => {
@@ -366,8 +384,11 @@ export const api = {
       },
       body: JSON.stringify({ userId, gameNumber, completed, bestScore }),
     })
+    const contentType = res.headers.get('content-type') || ''
     const body = await res.json().catch(() => ({}))
-    if (!res.ok) throw new Error(body.error || `API ${res.status}`)
+    if (!res.ok || !contentType.includes('application/json')) {
+      throw new Error(body.error || 'Сервер недоступен')
+    }
     return body as MiniGameProgress
   },
 
@@ -394,8 +415,11 @@ export const api = {
       },
       body: JSON.stringify({ userId, action: 'vote', selectedCandidates }),
     })
+    const contentType = res.headers.get('content-type') || ''
     const body = await res.json().catch(() => ({}))
-    if (!res.ok) throw new Error(body.error || `API ${res.status}`)
+    if (!res.ok || !contentType.includes('application/json')) {
+      throw new Error(body.error || 'Сервер недоступен')
+    }
     return body as { success: boolean; message: string }
   },
   claimDailyPollResults: async (userId: string): Promise<DailyPollClaimResult> => {
@@ -408,8 +432,11 @@ export const api = {
       },
       body: JSON.stringify({ userId, action: 'claimResults' }),
     })
+    const contentType = res.headers.get('content-type') || ''
     const body = await res.json().catch(() => ({}))
-    if (!res.ok) throw new Error(body.error || `API ${res.status}`)
+    if (!res.ok || !contentType.includes('application/json')) {
+      throw new Error(body.error || 'Сервер недоступен')
+    }
     return body as DailyPollClaimResult
   },
 
@@ -436,8 +463,11 @@ export const api = {
       },
       body: JSON.stringify({ gameKey, userId, action: 'vote', ...voteData }),
     })
+    const contentType = res.headers.get('content-type') || ''
     const body = await res.json().catch(() => ({}))
-    if (!res.ok) throw new Error(body.error || `API ${res.status}`)
+    if (!res.ok || !contentType.includes('application/json')) {
+      throw new Error(body.error || 'Сервер недоступен')
+    }
     return body as GameVoteResult
   },
   claimGameResults: async (gameKey: string, userId: string): Promise<GameClaimResult> => {
@@ -450,8 +480,11 @@ export const api = {
       },
       body: JSON.stringify({ gameKey, userId, action: 'claimResults' }),
     })
+    const contentType = res.headers.get('content-type') || ''
     const body = await res.json().catch(() => ({}))
-    if (!res.ok) throw new Error(body.error || `API ${res.status}`)
+    if (!res.ok || !contentType.includes('application/json')) {
+      throw new Error(body.error || 'Сервер недоступен')
+    }
     return body as GameClaimResult
   },
 }
