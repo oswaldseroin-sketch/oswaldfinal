@@ -441,7 +441,11 @@ export default function SecretQuest({ onUnlocked }: { onUnlocked: () => void }) 
                   }}
                 />
               ))}
-            </div>
+                        </div>
+
+            <p className="mt-1 text-center text-[10px] font-medium text-purple-300/60">
+              Полный заряд активирует Мега-подсказку
+            </p>
 
             {megaCharged && megaReady ? (
               <button
