@@ -650,5 +650,17 @@ CREATE INDEX IF NOT EXISTS idx_daily_poll_rewards_user ON daily_poll_rewards (us
 CREATE INDEX IF NOT EXISTS idx_mini_game_progress_user ON mini_game_progress (user_id);
 
 -- ============================================================================
+-- SECRET ROOM QUESTIONS — admin-editable nominations
+-- ============================================================================
+
+CREATE TABLE IF NOT EXISTS secret_room_questions (
+  id                serial      PRIMARY KEY,
+  slot_number        int         NOT NULL UNIQUE CHECK (slot_number >= 1 AND slot_number <= 10),
+  title              text        NOT NULL,
+  correct_player_id  int,
+  updated_at         timestamptz NOT NULL DEFAULT now()
+);
+
+-- ============================================================================
 -- END OF SCHEMA
 -- ============================================================================

@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
-import { DoorOpen, KeyRound, Lock, Sparkles, Zap, Crown } from 'lucide-react'
-import { nominations } from '../lib/nominations'
+import { DoorOpen, KeyRound, Lock, Sparkles, Zap, Crown, Settings } from 'lucide-react'
+import { nominations as fallbackNominations, type Nomination } from '../lib/nominations'
 import { getItem, setItem } from '../lib/storage'
-import { api } from '../lib/api'
+import { api, type SecretRoomQuestion } from '../lib/api'
 import { useApp } from '../context/AppContext'
 import NameDropdown from './NameDropdown'
+import SecretAdminPanel from './SecretAdminPanel'
 
 const QUEST_PREFIX = 'secret-quest-passed'
 const FLY_MS = 700
@@ -68,6 +69,8 @@ export default function SecretQuest({ onUnlocked }: { onUnlocked: () => void }) 
   const [keyTransition, setKeyTransition] = useState(false)
   const [attempts, setAttempts] = useState<number | null>(null)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
+  const [nominations, setNominations] = useState<Nomination[]>(fallbackNominations)
+  const [showAdmin, setShowAdmin] = useState(false)
   const keyRef = useRef<HTMLDivElement>(null)
   const lockRef = useRef<HTMLDivElement>(null)
   const questKey = `${QUEST_PREFIX}-${playerId}`
@@ -75,6 +78,27 @@ export default function SecretQuest({ onUnlocked }: { onUnlocked: () => void }) 
 
   const allFilled = nominations.every((nomination) => Boolean(answers[nomination.id]))
   const filledCount = Object.keys(answers).length
+
+  const loadNominations = async () => {
+    try {
+      const qs = await api.getSecretRoomQuestions()
+      if (qs.length > 0) {
+        setNominations(
+          qs.map((q: SecretRoomQuestion, i: number) => ({
+            id: `n${q.slot_number}`,
+            label: q.title,
+            correct: q.correct_player_name ?? fallbackNominations[i]?.correct ?? '',
+          }))
+        )
+      }
+    } catch {
+      // keep fallback
+    }
+  }
+
+  useEffect(() => {
+    void loadNominations()
+  }, [])
 
   useEffect(() => {
     if (alreadyPassed) onUnlocked()
@@ -248,7 +272,16 @@ export default function SecretQuest({ onUnlocked }: { onUnlocked: () => void }) 
         <p className="text-[13px] font-bold leading-tight tracking-wide text-white/80" style={{ textShadow: '0 0 10px rgba(255,43,214,0.6)' }}>
           Выбери правильные варианты и войди в дверь
         </p>
-        <p className="shrink-0 text-base font-extrabold text-accent" style={{ textShadow: '0 0 10px rgba(255,43,214,0.7)' }}>{filledCount}/10</p>
+        <div className="flex items-center gap-2">
+          <p className="shrink-0 text-base font-extrabold text-accent" style={{ textShadow: '0 0 10px rgba(255,43,214,0.7)' }}>{filledCount}/10</p>
+          <button
+            onClick={() => setShowAdmin(true)}
+            className="flex h-6 w-6 items-center justify-center rounded-md text-white/20 transition-all hover:text-white/50 active:scale-90"
+            title="Админ"
+          >
+            <Settings size={14} />
+          </button>
+        </div>
       </div>
 
       {/* Compact category cards */}
@@ -536,6 +569,13 @@ export default function SecretQuest({ onUnlocked }: { onUnlocked: () => void }) 
       <p className="mt-2 text-center text-[13px] font-bold text-ink-muted" style={{ textShadow: '0 0 6px rgba(0,0,0,0.6)' }}>
         {!allFilled ? 'Заполни все номинации, чтобы получить ключ' : phase === 'breaking' ? 'Ключ сломался. Выбери заново' : phase === 'flying' ? 'Ключ летит к замку...' : 'Нажми на ключ, чтобы открыть дверь'}
       </p>
+
+      {showAdmin && (
+        <SecretAdminPanel
+          onClose={() => setShowAdmin(false)}
+          onSaved={() => void loadNominations()}
+        />
+      )}
     </div>
   )
 }

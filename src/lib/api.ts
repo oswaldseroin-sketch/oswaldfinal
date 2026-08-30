@@ -105,6 +105,13 @@ export type PlayerRow = {
   title_xp: number
 }
 
+export type SecretRoomQuestion = {
+  slot_number: number
+  title: string
+  correct_player_id: number | null
+  correct_player_name: string | null
+}
+
 export type MiniGameProfile = {
   user_id: string
   level: number
@@ -376,6 +383,14 @@ export const api = {
 
   // Players (served by VPS API) — used to resolve worker name to numeric player ID
   getPlayers: () => apiFetch<PlayerRow[]>('/api/players'),
+
+  // Secret room questions (served by VPS API)
+  getSecretRoomQuestions: () => apiFetch<SecretRoomQuestion[]>('/api/secret-room/questions'),
+  updateSecretRoomQuestion: (slotNumber: number, title: string, correctPlayerId: number) =>
+    apiFetch<{ ok: boolean }>(`/api/secret-room/questions/${slotNumber}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ title, correctPlayerId }),
+    }),
 
   // Mini-games profile (served by VPS API)
   getMiniGameData: async (userId: string): Promise<MiniGameData> => {

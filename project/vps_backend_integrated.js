@@ -383,6 +383,99 @@ app.patch('/api/test-questions/:questionId/correct', asyncHandler(async (req, re
 }))
 
 // ============================================================================
+// SECRET ROOM QUESTIONS — /api/secret-room/questions
+// ============================================================================
+
+const SECRET_ROOM_DEFAULTS = [
+  { title: 'Излучающий светлую энергию', correct_player_name: 'Пономарева Е.Е.' },
+  { title: 'Мастер сарказма', correct_player_name: 'Бенвовская Ю.С.' },
+  { title: 'Самый тихоня', correct_player_name: 'Гутче А.И.' },
+  { title: 'Самый голодный', correct_player_name: 'Карпюк О.В.' },
+  { title: 'Самый пошлый', correct_player_name: 'Шомесова Е.П.' },
+  { title: 'Топ манипулятор', correct_player_name: 'Заколодяжная И.В.' },
+  { title: 'Ищет настоящего себя', correct_player_name: 'Пруткевич Е.Р.' },
+  { title: 'Человек с избыточным потенциалом', correct_player_name: 'Батманов И.А.' },
+  { title: '3000 слов в минуту', correct_player_name: 'Красоцкая А.Н.' },
+  { title: 'Человек, которого не понимают', correct_player_name: 'Шигапова З.М.' },
+]
+
+app.get('/api/secret-room/questions', asyncHandler(async (req, res) => {
+  let { rows } = await pool.query(
+    'SELECT slot_number, title, correct_player_id, updated_at FROM secret_room_questions ORDER BY slot_number'
+  )
+  if (rows.length === 0) {
+    // Seed defaults on first run
+    const { rows: playerRows } = await pool.query('SELECT id, full_name FROM players')
+    const nameToId = {}
+    for (const p of playerRows) nameToId[p.full_name] = p.id
+    for (let i = 0; i < SECRET_ROOM_DEFAULTS.length; i++) {
+      const d = SECRET_ROOM_DEFAULTS[i]
+      const slot = i + 1
+      const pid = nameToId[d.correct_player_name] ?? null
+      await pool.query(
+        `INSERT INTO secret_room_questions (slot_number, title, correct_player_id)
+         VALUES ($1, $2, $3)
+         ON CONFLICT (slot_number) DO NOTHING`,
+        [slot, d.title, pid]
+      )
+    }
+    const { rows: seeded } = await pool.query(
+      'SELECT slot_number, title, correct_player_id, updated_at FROM secret_room_questions ORDER BY slot_number'
+    )
+    rows = seeded
+  }
+  // Join with players to get correct_player_name
+  const { rows: playerRows } = await pool.query('SELECT id, full_name FROM players')
+  const idToName = {}
+  for (const p of playerRows) idToName[p.id] = p.full_name
+  const result = rows.map((r) => ({
+    slot_number: r.slot_number,
+    title: r.title,
+    correct_player_id: r.correct_player_id,
+    correct_player_name: r.correct_player_id ? (idToName[r.correct_player_id] ?? null) : null,
+    updated_at: r.updated_at,
+  }))
+  res.json(result)
+}))
+
+app.patch('/api/secret-room/questions/:slotNumber', asyncHandler(async (req, res) => {
+  const slotNumber = parseInt(req.params.slotNumber, 10)
+  if (isNaN(slotNumber) || slotNumber < 1 || slotNumber > 10) {
+    return res.status(400).json({ error: 'slotNumber must be 1-10' })
+  }
+  const { title, correctPlayerId } = req.body
+  if (typeof title !== 'string' || title.trim().length === 0) {
+    return res.status(400).json({ error: 'title is required' })
+  }
+  if (typeof correctPlayerId !== 'number' || correctPlayerId < 1) {
+    return res.status(400).json({ error: 'correctPlayerId must be a positive number' })
+  }
+  // Verify player exists
+  const { rows: playerRows } = await pool.query('SELECT id FROM players WHERE id = $1', [correctPlayerId])
+  if (playerRows.length === 0) {
+    return res.status(400).json({ error: 'player not found' })
+  }
+  const { rows } = await pool.query(
+    `UPDATE secret_room_questions
+     SET title = $2, correct_player_id = $3, updated_at = now()
+     WHERE slot_number = $1
+     RETURNING slot_number, title, correct_player_id, updated_at`,
+    [slotNumber, title.trim(), correctPlayerId]
+  )
+  if (rows.length === 0) {
+    // Slot doesn't exist yet — insert it
+    await pool.query(
+      `INSERT INTO secret_room_questions (slot_number, title, correct_player_id)
+       VALUES ($1, $2, $3)
+       ON CONFLICT (slot_number) DO UPDATE SET
+         title = EXCLUDED.title, correct_player_id = EXCLUDED.correct_player_id, updated_at = now()`,
+      [slotNumber, title.trim(), correctPlayerId]
+    )
+  }
+  res.json({ ok: true })
+}))
+
+// ============================================================================
 // ERROR HANDLER — catch-all for unhandled errors
 // ============================================================================
 
