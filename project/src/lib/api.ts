@@ -1,14 +1,31 @@
 const API_BASE = import.meta.env.VITE_API_URL
 
 async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
-  const res = await fetch(`${API_BASE}${path}`, {
-    headers: { 'Content-Type': 'application/json' },
-    ...options,
-  })
+  const url = `${API_BASE}${path}`
+  let res: Response
+  try {
+    res = await fetch(url, {
+      headers: { 'Content-Type': 'application/json' },
+      ...options,
+    })
+  } catch (networkErr) {
+    console.error('[API] Network error:', { url, error: networkErr })
+    throw new Error('Сервер недоступен (нет соединения)')
+  }
+
   const contentType = res.headers.get('content-type') || ''
   if (!res.ok || !contentType.includes('application/json')) {
-    const body = await res.json().catch(() => ({}))
-    throw new Error(body.error || 'Сервер недоступен')
+    let body: Record<string, unknown> = {}
+    try {
+      body = await res.json()
+    } catch {
+      const text = await res.text().catch(() => '')
+      console.error('[API] Non-JSON response:', { url, status: res.status, body: text.slice(0, 500) })
+      throw new Error(`Сервер вернул не JSON (HTTP ${res.status})`)
+    }
+    const errMsg = (body.error as string) || `Ошибка сервера (HTTP ${res.status})`
+    console.error('[API] Error response:', { url, status: res.status, body })
+    throw new Error(errMsg)
   }
   if (res.status === 204) return undefined as T
   return res.json() as Promise<T>
@@ -127,13 +144,6 @@ export type DailyPollState = {
   yesterday: DailyPollYesterday | null
 }
 
-export type DailyPollResultBreakdown = {
-  candidate: string
-  placement: number
-  xp: number
-  titleXp: number
-}
-
 export type DailyPollClaimResult = {
   success: boolean
   message?: string
@@ -144,7 +154,12 @@ export type DailyPollClaimResult = {
   alreadyClaimed?: boolean
 }
 
-// ─── Mini-games #2-6 shared types ───
+export type DailyPollResultBreakdown = {
+  candidate: string
+  placement: number
+  xp: number
+  titleXp: number
+}
 
 export type GameState = {
   today: {
@@ -177,6 +192,19 @@ export type GameClaimResult = {
   winner?: string | number | null
   alreadyClaimed?: boolean
   profile?: MiniGameProfile
+}
+
+// ─── Game key to URL path mapping ───
+const GAME_PATHS: Record<string, string> = {
+  who_of_them: 'who-of-them',
+  would_he_do_it: 'would-he-do-it',
+  past_life: 'past-life',
+  best_duo: 'best-duo',
+  rate_player: 'rate-player',
+  mafia: 'mafia',
+  yes_no: 'yes-no',
+  secret_love: 'secret-love',
+  roulette: 'roulette',
 }
 
 export const api = {
@@ -344,147 +372,91 @@ export const api = {
     return body as KnowledgeNumber
   },
 
-  // Mini-games (served by Supabase Edge Function)
+  // Mini-games profile (served by VPS API)
   getMiniGameData: async (userId: string): Promise<MiniGameData> => {
-    const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/mini-games?userId=${encodeURIComponent(userId)}`
-    const res = await fetch(url, {
-      headers: { Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}` },
-    })
-    const contentType = res.headers.get('content-type') || ''
-    if (!res.ok || !contentType.includes('application/json')) {
-      const body = await res.json().catch(() => ({}))
-      throw new Error(body.error || `API ${res.status}`)
-    }
-    return res.json()
+    const result = await apiFetch<{ ok: boolean; profile: MiniGameProfile; progress: MiniGameProgress[] }>(
+      `/api/mini-games/profile/${encodeURIComponent(userId)}`
+    )
+    return { profile: result.profile, progress: result.progress }
   },
   addMiniGameRewards: async (userId: string, addXp: number, addCoins: number): Promise<MiniGameProfile> => {
-    const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/mini-games`
-    const res = await fetch(url, {
+    const result = await apiFetch<{ ok: boolean; player: MiniGameProfile }>(`/api/players/${encodeURIComponent(userId)}/reward`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-      },
-      body: JSON.stringify({ userId, addXp, addCoins }),
+      body: JSON.stringify({ addXp, addCoins }),
     })
-    const contentType = res.headers.get('content-type') || ''
-    const body = await res.json().catch(() => ({}))
-    if (!res.ok || !contentType.includes('application/json')) {
-      throw new Error(body.error || 'Сервер недоступен')
-    }
-    return body.profile as MiniGameProfile
+    return result.player
   },
-  upsertMiniGameProgress: async (userId: string, gameNumber: number, completed: boolean, bestScore: number): Promise<MiniGameProgress> => {
-    const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/mini-games`
-    const res = await fetch(url, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-      },
-      body: JSON.stringify({ userId, gameNumber, completed, bestScore }),
-    })
-    const contentType = res.headers.get('content-type') || ''
-    const body = await res.json().catch(() => ({}))
-    if (!res.ok || !contentType.includes('application/json')) {
-      throw new Error(body.error || 'Сервер недоступен')
-    }
-    return body as MiniGameProgress
+  upsertMiniGameProgress: async (_userId: string, _gameNumber: number, _completed: boolean, _bestScore: number): Promise<MiniGameProgress> => {
+    // Progress is tracked server-side via daily_game_completions
+    return { game_number: _gameNumber, completed: _completed, best_score: _bestScore, played_at: new Date().toISOString() }
   },
 
-  // Daily poll (mini-game #1)
+  // Daily poll (mini-game #1) — served by VPS API
   getDailyPollState: async (userId: string): Promise<DailyPollState> => {
-    const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/daily-poll?userId=${encodeURIComponent(userId)}`
-    const res = await fetch(url, {
-      headers: { Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}` },
-    })
-    const contentType = res.headers.get('content-type') || ''
-    if (!res.ok || !contentType.includes('application/json')) {
-      const body = await res.json().catch(() => ({}))
-      throw new Error(body.error || 'Сервер недоступен')
-    }
-    return res.json()
+    const result = await apiFetch<{ ok: boolean; today: DailyPollToday; yesterday: DailyPollYesterday | null }>(
+      `/api/games/daily-poll/today?playerId=${encodeURIComponent(userId)}`
+    )
+    return { today: result.today, yesterday: result.yesterday }
   },
   voteDailyPoll: async (userId: string, selectedCandidates: string[]): Promise<{ success: boolean; message: string }> => {
-    const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/daily-poll`
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-      },
-      body: JSON.stringify({ userId, action: 'vote', selectedCandidates }),
-    })
-    const contentType = res.headers.get('content-type') || ''
-    const body = await res.json().catch(() => ({}))
-    if (!res.ok || !contentType.includes('application/json')) {
-      throw new Error(body.error || 'Сервер недоступен')
-    }
-    return body as { success: boolean; message: string }
+    const result = await apiFetch<{ ok: boolean; success: boolean; message: string }>(
+      '/api/games/daily-poll/vote',
+      { method: 'POST', body: JSON.stringify({ voterId: userId, selectedCandidates }) }
+    )
+    return { success: result.success, message: result.message }
   },
   claimDailyPollResults: async (userId: string): Promise<DailyPollClaimResult> => {
-    const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/daily-poll`
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-      },
-      body: JSON.stringify({ userId, action: 'claimResults' }),
-    })
-    const contentType = res.headers.get('content-type') || ''
-    const body = await res.json().catch(() => ({}))
-    if (!res.ok || !contentType.includes('application/json')) {
-      throw new Error(body.error || 'Сервер недоступен')
+    const result = await apiFetch<{ ok: boolean; success: boolean; totalXp: number; totalTitleXp: number; breakdown?: DailyPollResultBreakdown[]; alreadyClaimed?: boolean; message?: string }>(
+      '/api/games/daily-poll/claim-results',
+      { method: 'POST', body: JSON.stringify({ voterId: userId }) }
+    )
+    return {
+      success: result.success,
+      message: result.message,
+      totalXp: result.totalXp,
+      totalTitleXp: result.totalTitleXp,
+      breakdown: result.breakdown,
+      alreadyClaimed: result.alreadyClaimed,
     }
-    return body as DailyPollClaimResult
   },
 
-  // Mini-games #2-6 (served by mini-games-2-6 edge function)
+  // Mini-games #2-10 (served by VPS API)
   getGameState: async (gameKey: string, userId: string): Promise<GameState> => {
-    const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/mini-games-2-6?gameKey=${encodeURIComponent(gameKey)}&userId=${encodeURIComponent(userId)}`
-    const res = await fetch(url, {
-      headers: { Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}` },
-    })
-    const contentType = res.headers.get('content-type') || ''
-    if (!res.ok || !contentType.includes('application/json')) {
-      const body = await res.json().catch(() => ({}))
-      throw new Error(body.error || 'Сервер недоступен')
-    }
-    return res.json()
+    const urlPath = GAME_PATHS[gameKey] || gameKey
+    const result = await apiFetch<{ ok: boolean; today: Record<string, unknown>; yesterday: Record<string, unknown> | null }>(
+      `/api/games/${urlPath}/today?playerId=${encodeURIComponent(userId)}`
+    )
+    return { today: result.today as GameState['today'], yesterday: result.yesterday as GameState['yesterday'] }
   },
   submitGameVote: async (gameKey: string, userId: string, voteData: Record<string, unknown>): Promise<GameVoteResult> => {
-    const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/mini-games-2-6`
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-      },
-      body: JSON.stringify({ gameKey, userId, action: 'vote', ...voteData }),
-    })
-    const contentType = res.headers.get('content-type') || ''
-    const body = await res.json().catch(() => ({}))
-    if (!res.ok || !contentType.includes('application/json')) {
-      throw new Error(body.error || 'Сервер недоступен')
+    const urlPath = GAME_PATHS[gameKey] || gameKey
+    const result = await apiFetch<{ ok: boolean; success: boolean; message: string; isCorrect?: boolean; correctIndex?: number; isMafia?: boolean; attemptNumber?: number; profile?: MiniGameProfile }>(
+      `/api/games/${urlPath}/vote`,
+      { method: 'POST', body: JSON.stringify({ voterId: userId, ...voteData }) }
+    )
+    return {
+      success: result.success,
+      message: result.message,
+      profile: result.profile,
+      isCorrect: result.isCorrect,
+      correctIndex: result.correctIndex,
+      isMafia: result.isMafia,
+      attemptNumber: result.attemptNumber,
     }
-    return body as GameVoteResult
   },
   claimGameResults: async (gameKey: string, userId: string): Promise<GameClaimResult> => {
-    const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/mini-games-2-6`
-    const res = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-      },
-      body: JSON.stringify({ gameKey, userId, action: 'claimResults' }),
-    })
-    const contentType = res.headers.get('content-type') || ''
-    const body = await res.json().catch(() => ({}))
-    if (!res.ok || !contentType.includes('application/json')) {
-      throw new Error(body.error || 'Сервер недоступен')
+    const urlPath = GAME_PATHS[gameKey] || gameKey
+    const result = await apiFetch<{ ok: boolean; success: boolean; totalTitleXp?: number; totalCoins?: number; winner?: string | number | null; alreadyClaimed?: boolean; message?: string }>(
+      `/api/games/${urlPath}/claim-results`,
+      { method: 'POST', body: JSON.stringify({ voterId: userId }) }
+    )
+    return {
+      success: result.success,
+      message: result.message,
+      totalTitleXp: result.totalTitleXp,
+      totalCoins: result.totalCoins,
+      winner: result.winner,
+      alreadyClaimed: result.alreadyClaimed,
     }
-    return body as GameClaimResult
   },
 }
