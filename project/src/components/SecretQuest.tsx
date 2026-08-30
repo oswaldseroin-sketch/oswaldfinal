@@ -209,13 +209,24 @@ export default function SecretQuest({ onUnlocked }: { onUnlocked: () => void }) 
   const megaCharged = megaCharge >= 10
 
   const chargeMega = (): void => {
-    if (megaCharged || !megaReady) return
-    const next = Math.min(megaCharge + 1, 10)
-    setMegaCharge(next)
-    setItem(hintMegaChargeKey, next)
-    setChargePulse(true)
-    window.setTimeout(() => setChargePulse(false), 250)
+  if (megaCharged || !megaReady) return
+
+  const next = Math.min(megaCharge + 1, 10)
+  const ts = Date.now()
+
+  setMegaCharge(next)
+  setItem(hintMegaChargeKey, next)
+
+  // После КАЖДОГО заряда запускаем таймер на 24 часа.
+  // После 10-го заряда Mega сразу становится готовой к использованию.
+  if (next < 10) {
+    setMegaTs(ts)
+    setItem(hintMegaKey, ts)
   }
+
+  setChargePulse(true)
+  window.setTimeout(() => setChargePulse(false), 250)
+}
 
   const useMegaHint = (): void => {
     if (!megaCharged || !megaReady || allNames.length < 2) return
