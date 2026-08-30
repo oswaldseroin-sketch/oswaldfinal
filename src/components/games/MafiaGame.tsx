@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Check, X, Loader as Loader2 } from 'lucide-react'
+import { X, Loader as Loader2 } from 'lucide-react'
 import { api, type GameState } from '../../lib/api'
 import { useApp } from '../../context/AppContext'
 import { getItem, setItem } from '../../lib/storage'
@@ -10,7 +10,7 @@ type Props = {
 }
 
 type TodayState = {
-  players: string[]
+  players?: string[]
   attemptCount: number
   eliminated: number[]
   foundMafia: boolean
@@ -34,16 +34,16 @@ function todayKey(): string {
   return new Date().toISOString().slice(0, 10)
 }
 
-function getSavedPlayers(numericId: string): string[] {
+function getSavedPlayers(userId: string): string[] {
   const data = getItem<Record<string, { players: string[]; date: string }>>(PLAYERS_KEY, {})
-  const entry = data[numericId]
+  const entry = data[userId]
   if (entry && entry.date === todayKey()) return entry.players
   return []
 }
 
-function savePlayers(numericId: string, players: string[]): void {
+function savePlayers(userId: string, players: string[]): void {
   const data = getItem<Record<string, { players: string[]; date: string }>>(PLAYERS_KEY, {})
-  data[numericId] = { players, date: todayKey() }
+  data[userId] = { players, date: todayKey() }
   setItem(PLAYERS_KEY, data)
 }
 
@@ -61,7 +61,8 @@ export default function MafiaGame({ onBack, onProfileUpdate }: Props) {
     try {
       const data = await api.getGameState('mafia', currentUser.id)
       const today = (data?.today ?? null) as TodayState | null
-      if (today?.players && today.players.length > 0) {
+
+      if (today?.players && Array.isArray(today.players) && today.players.length > 0) {
         savePlayers(currentUser.id, today.players)
         setPersistedPlayers(today.players)
       } else {
@@ -119,10 +120,12 @@ export default function MafiaGame({ onBack, onProfileUpdate }: Props) {
 
   const today = (state?.today ?? null) as TodayState | null
   const yesterday = (state?.yesterday ?? null) as YesterdayState | null
-  const players = today?.players?.length ? today.players : persistedPlayers
+  const players = (today?.players && Array.isArray(today.players) && today.players.length > 0)
+    ? today.players
+    : persistedPlayers
   const attemptsUsed = today?.attemptCount ?? 0
-  const attemptsLeft = MAX_ATTEMPTS - attemptsUsed
   const isCompleted = today?.gameEnded || attemptsUsed >= MAX_ATTEMPTS
+  const hasPlayers = Array.isArray(players) && players.length > 0
 
   return (
     <div className="mx-auto max-w-md px-4 pb-10 pt-6">
@@ -190,14 +193,14 @@ export default function MafiaGame({ onBack, onProfileUpdate }: Props) {
               <p className="mt-1 text-[11px] text-ink-muted">Базовая награда: +2 XP +1🪙</p>
               <p className="mt-3 text-[11px] text-ink-muted">Попытки закончились. Результат будет завтра в 08:00.</p>
 
-              {today.mafiaIndex !== null && players[today.mafiaIndex] && (
+              {today.mafiaIndex !== null && hasPlayers && players[today.mafiaIndex] && (
                 <div className="mt-3 rounded-lg border border-amber-400/30 bg-amber-400/10 px-3 py-2 text-center">
                   <p className="text-xs text-ink-muted">Мафия была:</p>
                   <p className="text-sm font-extrabold text-amber-200">{players[today.mafiaIndex]}</p>
                 </div>
               )}
             </div>
-          ) : players.length > 0 ? (
+          ) : hasPlayers ? (
             <>
               <div className="space-y-2">
                 {players.map((player, i) => {
@@ -247,8 +250,9 @@ export default function MafiaGame({ onBack, onProfileUpdate }: Props) {
               )}
             </>
           ) : (
-            <div className="rounded-xl border border-neon/20 bg-neon/5 p-4 text-center">
-              <p className="text-sm font-bold text-ink-muted">Загрузка игроков...</p>
+            <div className="rounded-xl border border-error/30 bg-error/10 p-4 text-center">
+              <p className="text-sm font-bold text-error">Не удалось загрузить список игроков</p>
+              <p className="mt-1 text-[11px] text-ink-muted">Попробуй перезайти в игру</p>
             </div>
           )}
         </div>
