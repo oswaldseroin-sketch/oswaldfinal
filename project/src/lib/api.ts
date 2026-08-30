@@ -310,36 +310,13 @@ export const api = {
       body: JSON.stringify({ correct_answer }),
     }),
 
-  // Test question block assignments (served by Supabase Edge Function)
-  getTestBlockAssignments: async (): Promise<TestBlockAssignment[]> => {
-    const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/test-blocks`
-    const res = await fetch(url, {
-      headers: { Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}` },
-    })
-    const contentType = res.headers.get('content-type') || ''
-    if (!res.ok || !contentType.includes('application/json')) {
-      const body = await res.json().catch(() => ({}))
-      throw new Error(body.error || 'Сервер недоступен')
-    }
-    return res.json()
-  },
-  setTestBlockAssignment: async (questionId: string, blockNumber: number | null, password: string): Promise<{ question_id: string; block_number: number | null }> => {
-    const url = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/test-blocks`
-    const res = await fetch(url, {
+  // Test question block assignments (served by VPS API)
+  getTestBlockAssignments: () => apiFetch<TestBlockAssignment[]>('/api/test-blocks'),
+  setTestBlockAssignment: (questionId: string, blockNumber: number | null, password: string) =>
+    apiFetch<{ question_id: string; block_number: number | null }>('/api/test-blocks', {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-      },
       body: JSON.stringify({ question_id: questionId, block_number: blockNumber, password }),
-    })
-    const contentType = res.headers.get('content-type') || ''
-    const body = await res.json().catch(() => ({}))
-    if (!res.ok || !contentType.includes('application/json')) {
-      throw new Error(body.error || 'Сервер недоступен')
-    }
-    return body as { question_id: string; block_number: number | null }
-  },
+    }),
 
   // Knowledge numbers (served by Supabase Edge Function)
   getKnowledgeNumbers: async (): Promise<KnowledgeNumber[]> => {
