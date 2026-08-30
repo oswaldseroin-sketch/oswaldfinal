@@ -1,9 +1,9 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Eye, Moon, Skull, KeyRound, Gem, Flame, Star, Scroll, Sparkles, Snowflake, ChevronLeft } from 'lucide-react'
 import { getItem, setItem } from '../lib/storage'
 import { useApp } from '../context/AppContext'
 
-const SPECIAL_PREDICTION_IMAGE = 'https://drive.google.com/uc?id=PLACEHOLDER_REPLACE_LATER'
+const RITUAL_IMAGE = '/frasimah-ritual.webp'
 
 const SPECIAL_PREDICTION_TEXT = `Послание Всевидящего Фрасимаха открывается лишь тому, кто прошёл все десять врат. Ты сжёг каждый символ, и туман рассеялся. Теперь ты видишь то, что скрыто от остальных. Запомни эти слова, [Имя] — они написаны именно для тебя.`
 
@@ -13,19 +13,20 @@ type MagicalSymbol = {
   id: SymbolId
   label: string
   icon: typeof Eye
+  pos: { x: number; y: number }
 }
 
 const SYMBOLS: MagicalSymbol[] = [
-  { id: 'eye', label: 'Всевидящий глаз', icon: Eye },
-  { id: 'rune', label: 'Древняя руна', icon: Sparkles },
-  { id: 'moon', label: 'Луна', icon: Moon },
-  { id: 'skull', label: 'Череп', icon: Skull },
-  { id: 'key', label: 'Ключ', icon: KeyRound },
-  { id: 'crystal', label: 'Кристалл', icon: Gem },
-  { id: 'flame', label: 'Пламя', icon: Flame },
-  { id: 'star', label: 'Звезда', icon: Star },
-  { id: 'scroll', label: 'Свиток', icon: Scroll },
-  { id: 'snowflake', label: 'Печать', icon: Snowflake },
+  { id: 'eye', label: 'Всевидящий глаз', icon: Eye, pos: { x: 18, y: 14 } },
+  { id: 'rune', label: 'Древняя руна', icon: Sparkles, pos: { x: 50, y: 14 } },
+  { id: 'moon', label: 'Луна', icon: Moon, pos: { x: 82, y: 14 } },
+  { id: 'skull', label: 'Череп', icon: Skull, pos: { x: 18, y: 38 } },
+  { id: 'key', label: 'Ключ', icon: KeyRound, pos: { x: 50, y: 38 } },
+  { id: 'crystal', label: 'Кристалл', icon: Gem, pos: { x: 82, y: 38 } },
+  { id: 'flame', label: 'Пламя', icon: Flame, pos: { x: 18, y: 62 } },
+  { id: 'star', label: 'Звезда', icon: Star, pos: { x: 50, y: 62 } },
+  { id: 'scroll', label: 'Свиток', icon: Scroll, pos: { x: 82, y: 62 } },
+  { id: 'snowflake', label: 'Печать', icon: Snowflake, pos: { x: 50, y: 86 } },
 ]
 
 const COOLDOWN_MS = 24 * 60 * 60 * 1000
@@ -35,6 +36,8 @@ type RitualState = {
   nextAvailableAt: number
   completed: boolean
 }
+
+type Spark = { dx: number; dy: number; r: number; delay: number }
 
 function getStorageKey(userId: string): string {
   return `special-prediction-${userId}`
@@ -57,6 +60,19 @@ function formatDuration(ms: number): string {
   return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`
 }
 
+function generateSparks(): Spark[] {
+  return Array.from({ length: 8 }, (_, i) => {
+    const angle = (i / 8) * Math.PI * 2 + Math.random() * 0.5
+    const dist = 20 + Math.random() * 30
+    return {
+      dx: Math.cos(angle) * dist,
+      dy: Math.sin(angle) * dist,
+      r: Math.random() * 360,
+      delay: Math.random() * 0.15,
+    }
+  })
+}
+
 export default function SpecialPrediction({ onBack }: { onBack: () => void }) {
   const { currentUser } = useApp()
   const userId = currentUser?.name ?? 'unknown'
@@ -65,6 +81,9 @@ export default function SpecialPrediction({ onBack }: { onBack: () => void }) {
   const [state, setState] = useState<RitualState>(() => getRitualState(userId))
   const [now, setNow] = useState(Date.now())
   const [burningId, setBurningId] = useState<SymbolId | null>(null)
+  const [sparks, setSparks] = useState<Spark[]>([])
+  const [awakening, setAwakening] = useState(false)
+  const sparksRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const t = window.setInterval(() => setNow(Date.now()), 1000)
@@ -83,17 +102,37 @@ export default function SpecialPrediction({ onBack }: { onBack: () => void }) {
     if (!canDestroy || burningId) return
     if (state.destroyed.includes(symbol.id)) return
 
+    const isLast = state.destroyed.length === SYMBOLS.length - 1
     setBurningId(symbol.id)
+    setSparks(generateSparks())
+
+    const burnDuration = isLast ? 1200 : 800
     window.setTimeout(() => {
       const newDestroyed = [...state.destroyed, symbol.id]
       const completed = newDestroyed.length === SYMBOLS.length
-      persist({
-        destroyed: newDestroyed,
-        nextAvailableAt: completed ? 0 : Date.now() + COOLDOWN_MS,
-        completed,
-      })
-      setBurningId(null)
-    }, 800)
+
+      if (completed) {
+        setAwakening(true)
+        window.setTimeout(() => {
+          persist({
+            destroyed: newDestroyed,
+            nextAvailableAt: 0,
+            completed: true,
+          })
+          setBurningId(null)
+          setSparks([])
+          window.setTimeout(() => setAwakening(false), 600)
+        }, 1000)
+      } else {
+        persist({
+          destroyed: newDestroyed,
+          nextAvailableAt: Date.now() + COOLDOWN_MS,
+          completed: false,
+        })
+        setBurningId(null)
+        setSparks([])
+      }
+    }, burnDuration)
   }
 
   const remainingCount = SYMBOLS.length - state.destroyed.length
@@ -106,155 +145,221 @@ export default function SpecialPrediction({ onBack }: { onBack: () => void }) {
     <div className="mx-auto max-w-md px-4 pb-10 pt-8">
       <button
         onClick={onBack}
-        className="mb-4 flex items-center gap-2 text-sm font-bold text-neon hover:text-white transition-colors"
+        className="mb-3 flex items-center gap-1.5 text-sm font-bold text-neon hover:text-white transition-colors"
       >
         <ChevronLeft size={18} />
         Назад к Предсказаниям
       </button>
 
-      <div className="mb-4 text-center">
-        <p className="text-[10px] font-bold tracking-widest text-accent">АМАЛЬГАМА / 02</p>
-        <h1 className="mt-1 text-2xl font-extrabold text-ink">Особое предсказание</h1>
+      {/* ─── Mystical title ─── */}
+      <div className="mb-3 text-center">
+        <h1
+          className="text-2xl font-black tracking-wide text-white"
+          style={{ textShadow: '0 0 14px rgba(168,85,247,0.8), 0 0 28px rgba(255,43,214,0.4)' }}
+        >
+          ПРОБУДИ ФРАСИМАХА
+        </h1>
+        <p className="mx-auto mt-2 max-w-[300px] text-[12px] font-medium leading-snug text-purple-300/70">
+          Уничтожь 10 артефактов, чтобы пробудить Всевидящего. Когда исчезнет последний — Фрасимах откроет тебе особое напутствие.
+        </p>
       </div>
 
-      {/* ─── Final message card ─── */}
-      {state.completed && (
+      {/* ─── Final message ─── */}
+      {state.completed && !awakening && (
         <div
-          className="animate-scaleIn rounded-2xl border-2 border-purple-500/50 bg-black/60 p-5 text-center backdrop-blur-md"
+          className="animate-scaleIn rounded-2xl border-2 border-purple-500/50 bg-black/70 p-5 text-center backdrop-blur-md"
           style={{ boxShadow: '0 0 30px rgba(168,85,247,0.4), inset 0 0 16px rgba(168,85,247,0.15)' }}
         >
-          <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-full border-2 border-purple-400/60 bg-purple-500/15" style={{ boxShadow: '0 0 20px rgba(168,85,247,0.5)' }}>
-            <Eye size={30} className="text-purple-300" style={{ filter: 'drop-shadow(0 0 6px rgba(168,85,247,0.8))' }} />
+          <p
+            className="text-xl font-black tracking-wide text-white"
+            style={{ textShadow: '0 0 12px rgba(168,85,247,0.9), 0 0 24px rgba(255,43,214,0.5)' }}
+          >
+            ФРАСИМАХ ПРОБУЖДЁН
+          </p>
+          <div className="mx-auto mt-4 flex h-14 w-14 items-center justify-center rounded-full border-2 border-purple-400/60 bg-purple-500/15" style={{ boxShadow: '0 0 20px rgba(168,85,247,0.5)' }}>
+            <Eye size={26} className="text-purple-200" style={{ filter: 'drop-shadow(0 0 6px rgba(168,85,247,0.8))' }} />
           </div>
-          <p className="text-[10px] font-extrabold tracking-widest text-purple-300">ПОСЛАНИЕ ВСЕВИДЯЩЕГО ФРАСИМАХА</p>
-          <p className="mt-4 text-base font-bold leading-relaxed text-ink">{personalizedText}</p>
+          <p className="mt-4 text-[10px] font-extrabold tracking-widest text-purple-300">ОСОБОЕ НАПУТСТВИЕ ВСЕВИДЯЩЕГО ФРАСИМАХА</p>
+          <p className="mt-3 text-[15px] font-bold leading-relaxed text-ink">{personalizedText}</p>
         </div>
       )}
 
-      {/* ─── Ritual card ─── */}
+      {/* ─── Ritual scene ─── */}
       {!state.completed && (
         <div
-          className="relative overflow-hidden rounded-2xl border-2 border-purple-500/40 bg-black/50 p-4 backdrop-blur-md"
-          style={{ boxShadow: '0 0 24px rgba(168,85,247,0.25), inset 0 0 12px rgba(20,0,30,0.5)' }}
+          className="relative overflow-hidden rounded-2xl border-2 border-purple-500/40"
+          style={{ boxShadow: '0 0 24px rgba(168,85,247,0.25)' }}
         >
-          {/* Background image — replace SPECIAL_PREDICTION_IMAGE constant to swap */}
-          <div
-            className="pointer-events-none absolute inset-0 opacity-20"
-            style={{
-              backgroundImage: `url(${SPECIAL_PREDICTION_IMAGE})`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
-          />
+          {/* Ritual image as the scene base */}
+          <div className="relative w-full" style={{ aspectRatio: '1 / 1' }}>
+            <img
+              src={RITUAL_IMAGE}
+              alt="Ритуал пробуждения Фрасимаха"
+              className="absolute inset-0 h-full w-full object-cover"
+              draggable={false}
+            />
 
-          <div className="relative z-10">
-            {/* Progress */}
-            <div className="mb-3 flex items-center justify-between">
-              <p className="text-[11px] font-bold uppercase tracking-wide text-purple-300">Ритуал сгорания</p>
-              <p className="text-sm font-black text-white">
-                <span className="text-purple-300">{remainingCount}</span>
-                <span className="text-white/40">/{SYMBOLS.length}</span>
-              </p>
+            {/* Dark overlay for contrast when cooling down */}
+            {cooldownRemaining > 0 && !burningId && (
+              <div className="pointer-events-none absolute inset-0 bg-black/30 transition-opacity duration-500" />
+            )}
+
+            {/* Awakening flash */}
+            {awakening && (
+              <div className="pointer-events-none absolute inset-0 z-40 animate-ritualFlash bg-purple-400/40" />
+            )}
+
+            {/* Progress indicator — top left */}
+            <div className="absolute left-2 top-2 z-30 rounded-lg border border-purple-400/30 bg-black/60 px-2.5 py-1 backdrop-blur-sm">
+              <p className="text-[8px] font-bold uppercase tracking-widest text-purple-300/80">Ритуал пробуждения</p>
+              <div className="mt-1 flex items-center gap-1.5">
+                <span className="text-sm font-black text-white">
+                  <span className="text-purple-300">{remainingCount}</span>
+                  <span className="text-white/40">/{SYMBOLS.length}</span>
+                </span>
+                <div className="flex gap-0.5">
+                  {SYMBOLS.map((s) => (
+                    <div
+                      key={s.id}
+                      className="h-1.5 w-1.5 rounded-full transition-all duration-300"
+                      style={{
+                        background: state.destroyed.includes(s.id) ? 'rgba(60,30,80,0.4)' : 'rgba(168,85,247,0.8)',
+                        boxShadow: state.destroyed.includes(s.id) ? 'none' : '0 0 3px rgba(168,85,247,0.6)',
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
             </div>
 
-            {/* Progress bar */}
-            <div className="mb-4 flex gap-1">
-              {SYMBOLS.map((s) => (
-                <div
-                  key={s.id}
-                  className="h-1 flex-1 rounded-full transition-all duration-300"
+            {/* Timer — top right */}
+            {cooldownRemaining > 0 && !burningId && (
+              <div className="absolute right-2 top-2 z-30 rounded-lg border border-purple-400/30 bg-black/60 px-2.5 py-1 text-right backdrop-blur-sm">
+                <p className="text-[8px] font-bold uppercase tracking-wide text-purple-300/60">Следующий через</p>
+                <p className="text-sm font-black tabular-nums text-purple-200" style={{ textShadow: '0 0 6px rgba(168,85,247,0.5)' }}>
+                  {formatDuration(cooldownRemaining)}
+                </p>
+              </div>
+            )}
+
+            {/* Magical symbols overlaid on the image */}
+            {SYMBOLS.map((symbol) => {
+              const isDestroyed = state.destroyed.includes(symbol.id)
+              const isBurning = burningId === symbol.id
+              const isDisabled = !canDestroy || isDestroyed || burningId !== null
+              const Icon = symbol.icon
+              const isLast = state.destroyed.length === SYMBOLS.length - 1 && !isDestroyed
+
+              if (isDestroyed) {
+                return <div key={symbol.id} />
+              }
+
+              return (
+                <button
+                  key={symbol.id}
+                  onClick={() => destroySymbol(symbol)}
+                  disabled={isDisabled}
+                  className={`group absolute z-20 flex items-center justify-center rounded-full transition-all duration-200 ${
+                    isBurning
+                      ? 'animate-symbolBurn'
+                      : isDisabled
+                        ? 'opacity-50'
+                        : isLast
+                          ? 'animate-pulseGlow'
+                          : 'hover:scale-110 active:scale-90'
+                  }`}
                   style={{
-                    background: state.destroyed.includes(s.id) ? 'rgba(80,40,100,0.3)' : 'rgba(168,85,247,0.6)',
-                    boxShadow: state.destroyed.includes(s.id) ? 'none' : '0 0 4px rgba(168,85,247,0.5)',
+                    left: `${symbol.pos.x}%`,
+                    top: `${symbol.pos.y}%`,
+                    transform: 'translate(-50%, -50%)',
+                    width: '15%',
+                    aspectRatio: '1 / 1',
+                    minWidth: 38,
                   }}
-                />
-              ))}
-            </div>
-
-            {/* 5x2 grid of magical symbols */}
-            <div className="grid grid-cols-5 gap-2">
-              {SYMBOLS.map((symbol) => {
-                const isDestroyed = state.destroyed.includes(symbol.id)
-                const isBurning = burningId === symbol.id
-                const isDisabled = !canDestroy || isDestroyed || burningId !== null
-                const Icon = symbol.icon
-
-                if (isDestroyed) {
-                  return (
-                    <div key={symbol.id} className="flex aspect-square items-center justify-center">
-                      <div className="flex h-full w-full items-center justify-center rounded-xl border border-purple-900/30 bg-black/40">
-                        <Icon size={20} className="text-purple-900/40" />
-                      </div>
-                    </div>
-                  )
-                }
-
-                return (
-                  <button
-                    key={symbol.id}
-                    onClick={() => destroySymbol(symbol)}
-                    disabled={isDisabled}
-                    className={`group relative flex aspect-square items-center justify-center rounded-xl border-2 transition-all duration-200 ${
-                      isBurning
-                        ? 'animate-symbolBurn border-orange-400/80 bg-orange-500/20'
+                  aria-label={symbol.label}
+                >
+                  {/* Glow ring */}
+                  <div
+                    className="absolute inset-0 rounded-full transition-all duration-200"
+                    style={{
+                      background: isBurning
+                        ? 'radial-gradient(circle, rgba(255,60,100,0.5) 0%, rgba(168,30,247,0.3) 60%, transparent 100%)'
                         : isDisabled
-                          ? 'border-white/10 bg-black/40 opacity-40'
-                          : 'border-purple-400/50 bg-purple-500/10 hover:bg-purple-500/20 active:scale-90'
+                          ? 'radial-gradient(circle, rgba(40,20,60,0.3) 0%, transparent 70%)'
+                          : 'radial-gradient(circle, rgba(168,85,247,0.35) 0%, rgba(255,43,214,0.15) 60%, transparent 100%)',
+                      boxShadow: isBurning
+                        ? '0 0 24px rgba(255,60,100,0.8), 0 0 48px rgba(168,30,247,0.5)'
+                        : !isDisabled
+                          ? '0 0 12px rgba(168,85,247,0.4), inset 0 0 6px rgba(168,85,247,0.2)'
+                          : 'none',
+                    }}
+                  />
+                  {/* Symbol icon */}
+                  <Icon
+                    size={26}
+                    className={`relative z-10 transition-all duration-200 ${
+                      isBurning
+                        ? 'text-red-300'
+                        : isDisabled
+                          ? 'text-white/40'
+                          : 'text-purple-200 group-hover:text-white group-active:scale-75'
                     }`}
                     style={
                       isBurning
-                        ? { boxShadow: '0 0 20px rgba(255,140,0,0.7)' }
+                        ? { filter: 'drop-shadow(0 0 8px rgba(255,60,100,0.9))' }
                         : !isDisabled
-                          ? { boxShadow: '0 0 10px rgba(168,85,247,0.3)' }
+                          ? { filter: 'drop-shadow(0 0 5px rgba(168,85,247,0.7))' }
                           : undefined
                     }
-                  >
-                    <Icon
-                      size={24}
-                      className={`transition-all duration-200 ${
-                        isBurning
-                          ? 'text-orange-300'
-                          : isDisabled
-                            ? 'text-white/30'
-                            : 'text-purple-300 group-hover:text-white group-active:scale-90'
-                      }`}
-                      style={
-                        !isDisabled && !isBurning
-                          ? { filter: 'drop-shadow(0 0 4px rgba(168,85,247,0.6))' }
-                          : isBurning
-                            ? { filter: 'drop-shadow(0 0 6px rgba(255,140,0,0.8))' }
-                            : undefined
-                      }
+                    strokeWidth={1.6}
+                  />
+
+                  {/* Sparks during burn */}
+                  {isBurning && sparks.map((spark, i) => (
+                    <span
+                      key={i}
+                      className="pointer-events-none absolute left-1/2 top-1/2 z-30 h-1.5 w-1.5 rounded-full bg-orange-400"
+                      style={{
+                        animation: `sparkFly 0.6s ease-out ${spark.delay}s forwards`,
+                        ['--dx' as string]: `${spark.dx}px`,
+                        ['--dy' as string]: `${spark.dy}px`,
+                        ['--rot' as string]: `${spark.r}deg`,
+                        boxShadow: '0 0 6px rgba(255,140,0,0.8)',
+                      }}
                     />
-                  </button>
-                )
-              })}
-            </div>
+                  ))}
+                </button>
+              )
+            })}
+          </div>
 
-            {/* Cooldown timer */}
-            {!canDestroy && !state.completed && cooldownRemaining > 0 && (
-              <div className="mt-4 rounded-lg border border-purple-500/20 bg-black/40 px-3 py-2 text-center">
-                <p className="text-[11px] font-bold text-purple-300/80">
-                  Следующий выбор через <span className="font-black text-purple-200">{formatDuration(cooldownRemaining)}</span>
-                </p>
-              </div>
+          {/* Timer / hint below the image */}
+          <div className="border-t border-purple-500/20 bg-black/60 px-3 py-2 text-center backdrop-blur-sm">
+            {cooldownRemaining > 0 && !burningId ? (
+              <p className="text-[11px] font-bold text-purple-300/70">
+                Следующий артефакт можно уничтожить через: <span className="font-black tabular-nums text-purple-200">{formatDuration(cooldownRemaining)}</span>
+              </p>
+            ) : burningId ? (
+              <p className="text-[11px] font-bold text-orange-300/80 animate-pulse">Артефакт сгорает...</p>
+            ) : state.destroyed.length === 0 ? (
+              <p className="text-[11px] font-bold text-purple-300/70">Нажми на любой артефакт, чтобы начать ритуал</p>
+            ) : (
+              <p className="text-[11px] font-bold text-purple-300/70">Выбери один артефакт для уничтожения</p>
             )}
+          </div>
+        </div>
+      )}
 
-            {canDestroy && state.destroyed.length > 0 && (
-              <div className="mt-4 rounded-lg border border-purple-500/20 bg-black/40 px-3 py-2 text-center">
-                <p className="text-[11px] font-bold text-purple-300/80">
-                  Выбери один символ для сгорания
-                </p>
-              </div>
-            )}
-
-            {state.destroyed.length === 0 && (
-              <div className="mt-4 rounded-lg border border-purple-500/20 bg-black/40 px-3 py-2 text-center">
-                <p className="text-[11px] font-bold text-purple-300/80">
-                  Нажми на любой символ, чтобы начать ритуал
-                </p>
-              </div>
-            )}
+      {/* Awakening overlay */}
+      {awakening && (
+        <div className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center">
+          <div className="animate-scaleIn text-center">
+            <p
+              className="text-3xl font-black tracking-wide text-white"
+              style={{ textShadow: '0 0 20px rgba(168,85,247,1), 0 0 40px rgba(255,43,214,0.6)' }}
+            >
+              ФРАСИМАХ ПРОБУЖДЁН
+            </p>
           </div>
         </div>
       )}
