@@ -68,8 +68,9 @@ setPanelStyle({
           ref={buttonRef}
           type="button"
           onClick={() => onOpenChange(!open)}
-          className="flex w-full items-center justify-between gap-1 rounded-lg border bg-black px-3 py-2.5 text-left transition-all"
+          className="flex w-full items-center justify-between gap-1 rounded-lg border bg-black px-2.5 py-1.5 text-left transition-all"
           style={{
+            minHeight: 42,
             borderColor: value ? color.border : 'rgba(255,255,255,0.12)',
             boxShadow: value ? `0 0 10px ${color.glow}` : 'none',
           }}
