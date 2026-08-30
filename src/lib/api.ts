@@ -218,6 +218,18 @@ const GAME_PATHS: Record<string, string> = {
   roulette: 'roulette',
 }
 
+let _playersCache: PlayerRow[] | null = null
+
+async function resolvePlayerId(name: string): Promise<string> {
+  if (/^\d+$/.test(name)) return name
+  if (!_playersCache) {
+    _playersCache = await apiFetch<PlayerRow[]>('/api/players')
+  }
+  const match = _playersCache.find((p) => p.full_name === name)
+  if (!match) throw new Error(`Игрок «${name}» не найден на сервере`)
+  return String(match.id)
+}
+
 export const api = {
   // Employees
   getEmployees: () => apiFetch<Employee[]>('/api/employees'),
@@ -365,13 +377,15 @@ export const api = {
 
   // Mini-games profile (served by VPS API)
   getMiniGameData: async (userId: string): Promise<MiniGameData> => {
+    const numericId = await resolvePlayerId(userId)
     const result = await apiFetch<{ ok: boolean; profile: MiniGameProfile; progress: MiniGameProgress[] }>(
-      `/api/mini-games/profile/${encodeURIComponent(userId)}`
+      `/api/mini-games/profile/${encodeURIComponent(numericId)}`
     )
     return { profile: result.profile, progress: result.progress }
   },
   addMiniGameRewards: async (userId: string, addXp: number, addCoins: number): Promise<MiniGameProfile> => {
-    const result = await apiFetch<{ ok: boolean; player: MiniGameProfile }>(`/api/players/${encodeURIComponent(userId)}/reward`, {
+    const numericId = await resolvePlayerId(userId)
+    const result = await apiFetch<{ ok: boolean; player: MiniGameProfile }>(`/api/players/${encodeURIComponent(numericId)}/reward`, {
       method: 'POST',
       body: JSON.stringify({ addXp, addCoins }),
     })
@@ -384,22 +398,25 @@ export const api = {
 
   // Daily poll (mini-game #1) — served by VPS API
   getDailyPollState: async (userId: string): Promise<DailyPollState> => {
+    const numericId = await resolvePlayerId(userId)
     const result = await apiFetch<{ ok: boolean; today: DailyPollToday; yesterday: DailyPollYesterday | null }>(
-      `/api/games/daily-poll/today?playerId=${encodeURIComponent(userId)}`
+      `/api/games/daily-poll/today?playerId=${encodeURIComponent(numericId)}`
     )
     return { today: result.today, yesterday: result.yesterday }
   },
   voteDailyPoll: async (userId: string, selectedCandidates: string[]): Promise<{ success: boolean; message: string }> => {
+    const numericId = await resolvePlayerId(userId)
     const result = await apiFetch<{ ok: boolean; success: boolean; message: string }>(
       '/api/games/daily-poll/vote',
-      { method: 'POST', body: JSON.stringify({ voterId: userId, selectedCandidates }) }
+      { method: 'POST', body: JSON.stringify({ voterId: numericId, selectedCandidates }) }
     )
     return { success: result.success, message: result.message }
   },
   claimDailyPollResults: async (userId: string): Promise<DailyPollClaimResult> => {
+    const numericId = await resolvePlayerId(userId)
     const result = await apiFetch<{ ok: boolean; success: boolean; totalXp: number; totalTitleXp: number; breakdown?: DailyPollResultBreakdown[]; alreadyClaimed?: boolean; message?: string }>(
       '/api/games/daily-poll/claim-results',
-      { method: 'POST', body: JSON.stringify({ voterId: userId }) }
+      { method: 'POST', body: JSON.stringify({ voterId: numericId }) }
     )
     return {
       success: result.success,
@@ -414,8 +431,9 @@ export const api = {
   // Mini-games #2-10 (served by VPS API)
   getGameState: async (gameKey: string, userId: string): Promise<GameState> => {
     const urlPath = GAME_PATHS[gameKey] || gameKey
+    const numericId = await resolvePlayerId(userId)
     const result = await apiFetch<Record<string, unknown> & { ok?: boolean; today?: Record<string, unknown>; yesterday?: Record<string, unknown> | null }>(
-      `/api/games/${urlPath}/today?playerId=${encodeURIComponent(userId)}`
+      `/api/games/${urlPath}/today?playerId=${encodeURIComponent(numericId)}`
     )
     if (result.today) {
       return { today: result.today as GameState['today'], yesterday: (result.yesterday ?? null) as GameState['yesterday'] }
@@ -448,9 +466,10 @@ export const api = {
   },
   submitGameVote: async (gameKey: string, userId: string, voteData: Record<string, unknown>): Promise<GameVoteResult> => {
     const urlPath = GAME_PATHS[gameKey] || gameKey
+    const numericId = await resolvePlayerId(userId)
     const result = await apiFetch<{ ok: boolean; success: boolean; message: string; isCorrect?: boolean; correctIndex?: number; isMafia?: boolean; attemptNumber?: number; profile?: MiniGameProfile }>(
       `/api/games/${urlPath}/vote`,
-      { method: 'POST', body: JSON.stringify({ voterId: userId, ...voteData }) }
+      { method: 'POST', body: JSON.stringify({ voterId: numericId, ...voteData }) }
     )
     return {
       success: result.success,
@@ -464,9 +483,10 @@ export const api = {
   },
   claimGameResults: async (gameKey: string, userId: string): Promise<GameClaimResult> => {
     const urlPath = GAME_PATHS[gameKey] || gameKey
+    const numericId = await resolvePlayerId(userId)
     const result = await apiFetch<{ ok: boolean; success: boolean; totalTitleXp?: number; totalCoins?: number; winner?: string | number | null; alreadyClaimed?: boolean; message?: string }>(
       `/api/games/${urlPath}/claim-results`,
-      { method: 'POST', body: JSON.stringify({ voterId: userId }) }
+      { method: 'POST', body: JSON.stringify({ voterId: numericId }) }
     )
     return {
       success: result.success,
