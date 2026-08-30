@@ -4,12 +4,12 @@ import { api, type DailyPollState, type DailyPollClaimResult } from '../lib/api'
 import { useApp } from '../context/AppContext'
 import { workersList } from '../lib/data'
 
-type Props = { onBack: () => void }
+type Props = { onBack: () => void; onProfileUpdate?: () => void }
 
 const PLACEMENT_ICONS = ['🥇', '🥈', '🥉']
 const MAX_SELECTION = 3
 
-export default function DailyPollGame({ onBack }: Props) {
+export default function DailyPollGame({ onBack, onProfileUpdate }: Props) {
   const { currentUser } = useApp()
   const [state, setState] = useState<DailyPollState | null>(null)
   const [loading, setLoading] = useState(true)
@@ -56,6 +56,7 @@ export default function DailyPollGame({ onBack }: Props) {
     try {
       await api.voteDailyPoll(currentUser.id, selected)
       await loadState()
+      onProfileUpdate?.()
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Ошибка голосования')
     } finally {

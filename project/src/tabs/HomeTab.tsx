@@ -66,32 +66,6 @@ function useCountdown(getMs: () => number): string {
 
 export default function HomeTab({ onNavigate }: { onNavigate: (tab: Tab) => void }) {
   const { workers, currentUser, switchUser } = useApp()
-  const [showPasswordModal, setShowPasswordModal] = useState(false)
-  const [passwordInput, setPasswordInput] = useState('')
-  const [passwordError, setPasswordError] = useState('')
-
-  const handleGameRoomClick = () => {
-    setPasswordInput('')
-    setPasswordError('')
-    setShowPasswordModal(true)
-  }
-
-  const handlePasswordSubmit = () => {
-    if (passwordInput === '3010') {
-      setShowPasswordModal(false)
-      setPasswordInput('')
-      setPasswordError('')
-      onNavigate('newSection')
-    } else {
-      setPasswordError('Неверный пароль')
-    }
-  }
-
-  const closePasswordModal = () => {
-    setShowPasswordModal(false)
-    setPasswordInput('')
-    setPasswordError('')
-  }
 
   const newsCountdown = useCountdown(msUntilNextMidnight)
   const workerCountdown = useCountdown(msUntilNextMonday)
@@ -144,69 +118,11 @@ export default function HomeTab({ onNavigate }: { onNavigate: (tab: Tab) => void
 
       <div className="space-y-4">
         <BannerButton src="/banner-tests.webp" alt="Тесты" onClick={() => onNavigate('tests')} />
-        <div className="relative">
-          <BannerButton src="/banner-new-section.webp" alt="Игровая комната" onClick={handleGameRoomClick} />
-          <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center rounded-2xl">
-            <span
-              className="rounded-lg border border-neon/50 bg-black/50 px-4 py-2 text-sm font-black tracking-widest text-neon backdrop-blur-sm"
-              style={{ textShadow: '0 0 12px rgba(0,229,255,0.6)', boxShadow: '0 0 20px rgba(0,229,255,0.2)' }}
-            >
-              В РАЗРАБОТКЕ
-            </span>
-          </div>
-        </div>
+        <BannerButton src="/banner-new-section.webp" alt="Игровая комната" onClick={() => onNavigate('newSection')} />
         {banners.map((banner) => (
           <BannerButton key={banner.id} src={banner.src} alt={banner.alt} onClick={() => onNavigate(banner.id)} />
         ))}
       </div>
-
-      {/* Password modal for Game Room */}
-      {showPasswordModal && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-5 backdrop-blur-sm"
-          onClick={closePasswordModal}
-        >
-          <div
-            className="w-full max-w-xs rounded-2xl border border-neon/30 bg-card p-5"
-            style={{ boxShadow: '0 0 24px rgba(0,229,255,0.15)' }}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h3 className="mb-1 text-center text-base font-extrabold text-ink">Игровая комната</h3>
-            <p className="mb-4 text-center text-xs text-ink-muted">Раздел находится в разработке</p>
-
-            <input
-              type="password"
-              inputMode="numeric"
-              autoFocus
-              value={passwordInput}
-              onChange={(e) => { setPasswordInput(e.target.value); setPasswordError('') }}
-              onKeyDown={(e) => { if (e.key === 'Enter') handlePasswordSubmit() }}
-              placeholder="Введите пароль"
-              className="mb-3 w-full rounded-xl border border-line/40 bg-black/30 px-3 py-2.5 text-center text-sm font-bold text-ink placeholder:text-ink-muted/50 focus:border-neon/50 focus:outline-none"
-            />
-
-            {passwordError && (
-              <p className="mb-3 text-center text-xs font-bold text-error">{passwordError}</p>
-            )}
-
-            <div className="flex gap-2">
-              <button
-                onClick={closePasswordModal}
-                className="flex-1 rounded-xl border border-line/40 bg-black/20 py-2.5 text-sm font-bold text-ink-muted transition active:scale-95 hover:text-ink"
-              >
-                Отмена
-              </button>
-              <button
-                onClick={handlePasswordSubmit}
-                className="flex-1 rounded-xl bg-neon py-2.5 text-sm font-extrabold text-black transition active:scale-95"
-                style={{ boxShadow: '0 0 14px rgba(0,229,255,0.3)' }}
-              >
-                Войти
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   )
 }
