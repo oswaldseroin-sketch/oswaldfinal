@@ -92,6 +92,17 @@ export type KnowledgeNumber = {
   updated_at: string
 }
 
+export type PlayerRow = {
+  id: number
+  full_name: string
+  gender: string
+  coins: number
+  xp: number
+  level: number
+  title_level: number
+  title_xp: number
+}
+
 export type MiniGameProfile = {
   user_id: string
   level: number
@@ -348,6 +359,9 @@ export const api = {
     }
     return body as KnowledgeNumber
   },
+
+  // Players (served by VPS API) — used to resolve worker name to numeric player ID
+  getPlayers: () => apiFetch<PlayerRow[]>('/api/players'),
 
   // Mini-games profile (served by VPS API)
   getMiniGameData: async (userId: string): Promise<MiniGameData> => {

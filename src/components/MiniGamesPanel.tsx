@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Coins, Check } from 'lucide-react'
-import { api, type MiniGameProfile, type MiniGameProgress } from '../lib/api'
+import { api, type MiniGameProfile, type MiniGameProgress, type PlayerRow } from '../lib/api'
 import { getLevelInfo, MINI_GAMES } from '../lib/miniGames'
 import { getTitleInfo, isMaxTitle } from '../lib/titles'
 import { useApp } from '../context/AppContext'
@@ -52,6 +52,7 @@ function markCompleted(playerId: string, gameNumber: number): void {
 export default function MiniGamesPanel({ onBack }: Props) {
   const { currentUser } = useApp()
   const playerId = currentUser?.id ?? 'unknown'
+  const [numericPlayerId, setNumericPlayerId] = useState<string | null>(null)
   const [profile, setProfile] = useState<MiniGameProfile | null>(null)
   const [progress, setProgress] = useState<MiniGameProgress[]>([])
   const [loading, setLoading] = useState(true)
@@ -63,10 +64,28 @@ export default function MiniGamesPanel({ onBack }: Props) {
     setCompletedToday(getCompletedToday(playerId))
   }, [playerId])
 
-  const loadData = useCallback(async () => {
+  // Resolve worker name to numeric player ID via /api/players
+  useEffect(() => {
     if (!currentUser) return
+    let cancelled = false
+    setLoading(true)
+    ;(async () => {
+      try {
+        const players = await api.getPlayers()
+        const match = players.find((p: PlayerRow) => p.full_name === currentUser.id)
+        if (cancelled) return
+        setNumericPlayerId(match ? String(match.id) : null)
+      } catch {
+        if (!cancelled) setNumericPlayerId(null)
+      }
+    })()
+    return () => { cancelled = true }
+  }, [currentUser])
+
+  const loadData = useCallback(async () => {
+    if (!currentUser || !numericPlayerId) return
     try {
-      const data = await api.getMiniGameData(currentUser.id)
+      const data = await api.getMiniGameData(numericPlayerId)
       setProfile((prev) => {
         if (prev && data.profile.titleLevel > prev.titleLevel) {
           setTitlePopup(data.profile.title)
@@ -79,14 +98,14 @@ export default function MiniGamesPanel({ onBack }: Props) {
     } finally {
       setLoading(false)
     }
-  }, [currentUser])
+  }, [currentUser, numericPlayerId])
 
   useEffect(() => { void loadData() }, [loadData])
 
   const refreshProfile = useCallback(async () => {
-    if (!currentUser) return
+    if (!currentUser || !numericPlayerId) return
     try {
-      const data = await api.getMiniGameData(currentUser.id)
+      const data = await api.getMiniGameData(numericPlayerId)
       setProfile((prev) => {
         if (prev && data.profile.titleLevel > prev.titleLevel) {
           setTitlePopup(data.profile.title)
@@ -97,7 +116,7 @@ export default function MiniGamesPanel({ onBack }: Props) {
     } catch {
       // silent
     }
-  }, [currentUser])
+  }, [currentUser, numericPlayerId])
 
   const handleGameComplete = useCallback(async (gameNumber: number) => {
     markCompleted(playerId, gameNumber)
@@ -185,6 +204,11 @@ export default function MiniGamesPanel({ onBack }: Props) {
         {/* Profile card */}
         {loading ? (
           <div className="py-6 text-center text-sm text-ink-muted">Загрузка профиля...</div>
+        ) : !numericPlayerId ? (
+          <div className="mb-5 rounded-2xl border border-error/30 bg-error/10 p-4 text-center backdrop-blur-md">
+            <p className="text-sm font-bold text-error">Профиль не найден</p>
+            <p className="mt-1 text-xs text-ink-muted">Игрок «{currentUser?.name}» не зарегистрирован на сервере</p>
+          </div>
         ) : profile && levelInfo && titleInfo ? (
           <div
             className="mb-5 rounded-2xl border border-neon/30 bg-card/60 p-4 backdrop-blur-md"
