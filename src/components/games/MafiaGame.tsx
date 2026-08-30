@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { Check, X, Loader as Loader2 } from 'lucide-react'
 import { api, type GameState } from '../../lib/api'
 import { useApp } from '../../context/AppContext'
+import { getItem, setItem } from '../../lib/storage'
 
 type Props = {
   onBack: () => void
@@ -26,6 +27,26 @@ type YesterdayState = {
   totalPlayed: number
 }
 
+const MAX_ATTEMPTS = 2
+const PLAYERS_KEY = 'mafia-players'
+
+function todayKey(): string {
+  return new Date().toISOString().slice(0, 10)
+}
+
+function getSavedPlayers(numericId: string): string[] {
+  const data = getItem<Record<string, { players: string[]; date: string }>>(PLAYERS_KEY, {})
+  const entry = data[numericId]
+  if (entry && entry.date === todayKey()) return entry.players
+  return []
+}
+
+function savePlayers(numericId: string, players: string[]): void {
+  const data = getItem<Record<string, { players: string[]; date: string }>>(PLAYERS_KEY, {})
+  data[numericId] = { players, date: todayKey() }
+  setItem(PLAYERS_KEY, data)
+}
+
 export default function MafiaGame({ onBack, onProfileUpdate }: Props) {
   const { currentUser } = useApp()
   const [state, setState] = useState<GameState | null>(null)
@@ -33,11 +54,23 @@ export default function MafiaGame({ onBack, onProfileUpdate }: Props) {
   const [error, setError] = useState('')
   const [guessing, setGuessing] = useState(false)
   const [lastResult, setLastResult] = useState<{ isMafia: boolean; attemptNumber: number } | null>(null)
+  const [persistedPlayers, setPersistedPlayers] = useState<string[]>([])
 
   const loadState = useCallback(async () => {
     if (!currentUser) return
     try {
       const data = await api.getGameState('mafia', currentUser.id)
+      const today = (data?.today ?? null) as TodayState | null
+      if (today?.players && today.players.length > 0) {
+        savePlayers(currentUser.id, today.players)
+        setPersistedPlayers(today.players)
+      } else {
+        const saved = getSavedPlayers(currentUser.id)
+        if (saved.length > 0) setPersistedPlayers(saved)
+        if (today && !today.players) {
+          today.players = saved
+        }
+      }
       setState(data)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Ошибка загрузки')
@@ -86,7 +119,10 @@ export default function MafiaGame({ onBack, onProfileUpdate }: Props) {
 
   const today = (state?.today ?? null) as TodayState | null
   const yesterday = (state?.yesterday ?? null) as YesterdayState | null
-  const players = today?.players ?? []
+  const players = today?.players?.length ? today.players : persistedPlayers
+  const attemptsUsed = today?.attemptCount ?? 0
+  const attemptsLeft = MAX_ATTEMPTS - attemptsUsed
+  const isCompleted = today?.gameEnded || attemptsUsed >= MAX_ATTEMPTS
 
   return (
     <div className="mx-auto max-w-md px-4 pb-10 pt-6">
@@ -134,50 +170,16 @@ export default function MafiaGame({ onBack, onProfileUpdate }: Props) {
           <div className="mb-3 flex items-center justify-between">
             <p className="text-[10px] font-bold tracking-widest text-neon">НАЙДИ МАФИЮ</p>
             <p className="text-[10px] font-bold text-ink-muted">
-              {today.gameEnded ? 'Игра окончена' : `Попытка ${today.attemptCount + 1} / 2`}
+              {isCompleted ? 'Игра окончена' : `Попытка ${attemptsUsed + 1} / ${MAX_ATTEMPTS}`}
             </p>
           </div>
 
-          <div className="space-y-2">
-            {players.map((player, i) => {
-              const isEliminated = today.eliminated.includes(i)
-              const isMafiaRevealed = today.gameEnded && i === today.mafiaIndex
-              const isGuessedWrong = isEliminated && !isMafiaRevealed
-              return (
-                <button
-                  key={i}
-                  onClick={() => handleGuess(i)}
-                  disabled={today.gameEnded || isEliminated || guessing}
-                  className={`flex w-full items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all ${
-                    isMafiaRevealed
-                      ? 'border-amber-400/60 bg-amber-400/15'
-                      : isGuessedWrong
-                        ? 'border-error/30 bg-error/10 opacity-50'
-                        : today.gameEnded
-                          ? 'border-line/20 bg-black/20 opacity-40'
-                          : 'border-line/40 bg-black/20 hover:border-neon/40 active:scale-95'
-                  }`}
-                >
-                  <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-xs font-bold ${
-                    isMafiaRevealed ? 'border-amber-400 bg-amber-400/20 text-amber-300' :
-                    isGuessedWrong ? 'border-error/40 text-error' : 'border-line/50 text-ink-muted'
-                  }`}>
-                    {isMafiaRevealed ? '🕵️' : isGuessedWrong ? <X size={14} /> : i + 1}
-                  </div>
-                  <span className={`flex-1 text-sm font-bold ${isMafiaRevealed ? 'text-amber-200' : isGuessedWrong ? 'text-error' : 'text-ink'}`}>
-                    {player}
-                  </span>
-                  {isMafiaRevealed && <span className="text-xs font-bold text-amber-300">МАФИЯ</span>}
-                  {isGuessedWrong && <span className="text-xs text-error">Не мафия</span>}
-                </button>
-              )
-            })}
-          </div>
-
-          {today.gameEnded && (
-            <div className={`mt-4 rounded-xl border p-3 text-center ${today.foundMafia ? 'border-success/30 bg-success/10' : 'border-error/30 bg-error/10'}`}>
+          {isCompleted ? (
+            <div className={`rounded-xl border p-4 text-center ${today.foundMafia ? 'border-success/30 bg-success/10' : 'border-error/30 bg-error/10'}`}>
               <p className={`text-sm font-extrabold ${today.foundMafia ? 'text-success' : 'text-error'}`}>
-                {today.foundMafia ? `Поймали мафию! ${today.attemptCount === 1 ? 'С первой попытки!' : 'Со второй попытки!'}` : 'Мафия сбежала...'}
+                {today.foundMafia
+                  ? `Поймали мафию! ${today.attemptCount === 1 ? 'С первой попытки!' : 'Со второй попытки!'}`
+                  : 'Мафия сбежала...'}
               </p>
               {today.foundMafia && today.attemptCount === 1 && (
                 <p className="mt-1 text-sm font-extrabold text-neon" style={{ textShadow: '0 0 10px rgba(0,229,255,0.4)' }}>🥇×3 +9 XP звания +9🪙</p>
@@ -186,18 +188,68 @@ export default function MafiaGame({ onBack, onProfileUpdate }: Props) {
                 <p className="mt-1 text-sm font-extrabold text-neon" style={{ textShadow: '0 0 10px rgba(0,229,255,0.4)' }}>🥈×2 +6 XP звания +6🪙</p>
               )}
               <p className="mt-1 text-[11px] text-ink-muted">Базовая награда: +2 XP +1🪙</p>
-            </div>
-          )}
+              <p className="mt-3 text-[11px] text-ink-muted">Попытки закончились. Результат будет завтра в 08:00.</p>
 
-          {lastResult && !today.gameEnded && (
-            <div className="mt-4 rounded-xl border border-error/30 bg-error/10 p-3 text-center">
-              <div className="flex items-center justify-center gap-2"><X size={16} className="text-error" /><p className="text-sm font-bold text-error">Не мафия!</p></div>
-              <p className="mt-1 text-[11px] text-ink-muted">Осталась 1 попытка</p>
+              {today.mafiaIndex !== null && players[today.mafiaIndex] && (
+                <div className="mt-3 rounded-lg border border-amber-400/30 bg-amber-400/10 px-3 py-2 text-center">
+                  <p className="text-xs text-ink-muted">Мафия была:</p>
+                  <p className="text-sm font-extrabold text-amber-200">{players[today.mafiaIndex]}</p>
+                </div>
+              )}
             </div>
-          )}
+          ) : players.length > 0 ? (
+            <>
+              <div className="space-y-2">
+                {players.map((player, i) => {
+                  const isEliminated = today.eliminated.includes(i)
+                  const isMafiaRevealed = today.gameEnded && i === today.mafiaIndex
+                  const isGuessedWrong = isEliminated && !isMafiaRevealed
+                  return (
+                    <button
+                      key={i}
+                      onClick={() => handleGuess(i)}
+                      disabled={today.gameEnded || isEliminated || guessing}
+                      className={`flex w-full items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all ${
+                        isMafiaRevealed
+                          ? 'border-amber-400/60 bg-amber-400/15'
+                          : isGuessedWrong
+                            ? 'border-error/30 bg-error/10 opacity-50'
+                            : today.gameEnded
+                              ? 'border-line/20 bg-black/20 opacity-40'
+                              : 'border-line/40 bg-black/20 hover:border-neon/40 active:scale-95'
+                      }`}
+                    >
+                      <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-xs font-bold ${
+                        isMafiaRevealed ? 'border-amber-400 bg-amber-400/20 text-amber-300' :
+                        isGuessedWrong ? 'border-error/40 text-error' : 'border-line/50 text-ink-muted'
+                      }`}>
+                        {isMafiaRevealed ? '🕵️' : isGuessedWrong ? <X size={14} /> : i + 1}
+                      </div>
+                      <span className={`flex-1 text-sm font-bold ${isMafiaRevealed ? 'text-amber-200' : isGuessedWrong ? 'text-error' : 'text-ink'}`}>
+                        {player}
+                      </span>
+                      {isMafiaRevealed && <span className="text-xs font-bold text-amber-300">МАФИЯ</span>}
+                      {isGuessedWrong && <span className="text-xs text-error">Не мафия</span>}
+                    </button>
+                  )
+                })}
+              </div>
 
-          {!today.gameEnded && !lastResult && (
-            <p className="mt-3 text-center text-[11px] text-ink-muted">Выбери игрока, которого считаешь мафией</p>
+              {lastResult && !today.gameEnded && (
+                <div className="mt-4 rounded-xl border border-error/30 bg-error/10 p-3 text-center">
+                  <div className="flex items-center justify-center gap-2"><X size={16} className="text-error" /><p className="text-sm font-bold text-error">Не мафия!</p></div>
+                  <p className="mt-1 text-[11px] text-ink-muted">Осталась 1 попытка</p>
+                </div>
+              )}
+
+              {!today.gameEnded && !lastResult && (
+                <p className="mt-3 text-center text-[11px] text-ink-muted">Выбери игрока, которого считаешь мафией</p>
+              )}
+            </>
+          ) : (
+            <div className="rounded-xl border border-neon/20 bg-neon/5 p-4 text-center">
+              <p className="text-sm font-bold text-ink-muted">Загрузка игроков...</p>
+            </div>
           )}
         </div>
       )}
