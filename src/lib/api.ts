@@ -400,10 +400,37 @@ export const api = {
   // Mini-games #2-10 (served by VPS API)
   getGameState: async (gameKey: string, userId: string): Promise<GameState> => {
     const urlPath = GAME_PATHS[gameKey] || gameKey
-    const result = await apiFetch<{ ok: boolean; today: Record<string, unknown>; yesterday: Record<string, unknown> | null }>(
+    const result = await apiFetch<Record<string, unknown> & { ok?: boolean; today?: Record<string, unknown>; yesterday?: Record<string, unknown> | null }>(
       `/api/games/${urlPath}/today?playerId=${encodeURIComponent(userId)}`
     )
-    return { today: result.today as GameState['today'], yesterday: result.yesterday as GameState['yesterday'] }
+    if (result.today) {
+      return { today: result.today as GameState['today'], yesterday: (result.yesterday ?? null) as GameState['yesterday'] }
+    }
+    // who-of-them returns a flat response — wrap it into {today, yesterday}
+    const today: Record<string, unknown> = {}
+    if (gameKey === 'who_of_them') {
+      today.question = String(result.questionIndex ?? '')
+      today.player_1 = (result.player1 as { fullName?: string } | undefined)?.fullName ?? ''
+      today.player_2 = (result.player2 as { fullName?: string } | undefined)?.fullName ?? ''
+      today.userVote = result.userVote ?? null
+    } else {
+      today.question = (result.question as string) ?? ''
+      today.player_name = (result.player_name as string) ?? ''
+      today.players = result.players ?? []
+      today.userVote = result.userVote ?? null
+      today.attemptCount = result.attemptCount ?? 0
+      today.eliminated = result.eliminated ?? []
+      today.foundMafia = result.foundMafia ?? false
+      today.gameEnded = result.gameEnded ?? false
+      today.mafiaIndex = result.mafiaIndex ?? null
+      today.team1 = result.team1 ?? []
+      today.team2 = result.team2 ?? []
+      today.opponent_name = result.opponent_name ?? ''
+      today.result = result.result ?? null
+      today.correctIndex = result.correctIndex ?? null
+      today.isCorrect = result.isCorrect ?? null
+    }
+    return { today: today as GameState['today'], yesterday: (result.yesterday ?? null) as GameState['yesterday'] }
   },
   submitGameVote: async (gameKey: string, userId: string, voteData: Record<string, unknown>): Promise<GameVoteResult> => {
     const urlPath = GAME_PATHS[gameKey] || gameKey
