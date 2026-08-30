@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { Check, Trophy, Gift, Loader as Loader2 } from 'lucide-react'
 import { api, type GameState, type GameClaimResult, type PlayerRow } from '../../lib/api'
 import { useApp } from '../../context/AppContext'
+import { getItem, setItem } from '../../lib/storage'
 
 type Props = {
   onBack: () => void
@@ -13,6 +14,7 @@ type TodayState = {
   player_1: string
   player_2: string
   userVote: string | null
+  gameDay?: string | null
 }
 
 type YesterdayState = {
@@ -23,6 +25,28 @@ type YesterdayState = {
   winner: string | null
   userVote: string | null
   reward: { participation_rewarded: boolean; result_rewarded: boolean; xp_awarded: number; title_xp_awarded: number; coins_awarded: number } | null
+}
+
+const VOTE_KEY = 'wot-voted'
+
+function getVotedRecord(numericId: string): Record<string, string> {
+  return getItem<Record<string, string>>(VOTE_KEY, {})
+}
+
+function getVotedChoice(numericId: string, gameDay: string): string | null {
+  const records = getVotedRecord(numericId)
+  return records[`${numericId}:${gameDay}`] ?? null
+}
+
+function saveVotedChoice(numericId: string, gameDay: string, choice: string): void {
+  const records = getVotedRecord(numericId)
+  records[`${numericId}:${gameDay}`] = choice
+  setItem(VOTE_KEY, records)
+}
+
+function extractDay(gameDay: string | null | undefined): string {
+  if (!gameDay) return ''
+  return gameDay.slice(0, 10)
 }
 
 export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
@@ -36,14 +60,20 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
   const [claimResult, setClaimResult] = useState<GameClaimResult | null>(null)
   const [resultsClaimed, setResultsClaimed] = useState(false)
   const [playerMap, setPlayerMap] = useState<Record<string, number>>({})
+  const [numericUserId, setNumericUserId] = useState<string | null>(null)
+  const [votedChoice, setVotedChoice] = useState<string | null>(null)
 
   useEffect(() => {
     api.getPlayers().then((players: PlayerRow[]) => {
       const map: Record<string, number> = {}
       for (const p of players) map[p.full_name] = p.id
       setPlayerMap(map)
+      if (currentUser) {
+        const match = players.find((p) => p.full_name === currentUser.id)
+        if (match) setNumericUserId(String(match.id))
+      }
     }).catch(() => {})
-  }, [])
+  }, [currentUser])
 
   const loadState = useCallback(async () => {
     if (!currentUser) return
@@ -51,7 +81,18 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
       const data = await api.getGameState('who_of_them', currentUser.id)
       setState(data)
       const today = (data?.today ?? null) as TodayState | null
-      if (today?.userVote) setSelected(today.userVote)
+      const day = extractDay(today?.gameDay)
+      if (numericUserId && day) {
+        const stored = getVotedChoice(numericUserId, day)
+        if (stored) {
+          setVotedChoice(stored)
+          setSelected(stored)
+        }
+      }
+      if (today?.userVote) {
+        setSelected(today.userVote)
+        setVotedChoice(today.userVote)
+      }
       const yesterday = (data?.yesterday ?? null) as YesterdayState | null
       if (yesterday?.reward?.result_rewarded) setResultsClaimed(true)
     } catch (err) {
@@ -59,7 +100,7 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
     } finally {
       setLoading(false)
     }
-  }, [currentUser])
+  }, [currentUser, numericUserId])
 
   useEffect(() => { void loadState() }, [loadState])
 
@@ -70,7 +111,23 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
     try {
       const numericId = playerMap[selected]
       if (!numericId) { setError('Не удалось определить ID игрока'); return }
-      await api.submitGameVote('who_of_them', currentUser.id, { chosenPlayerId: numericId })
+      const today = (state?.today ?? null) as TodayState | null
+      const day = extractDay(today?.gameDay)
+      try {
+        await api.submitGameVote('who_of_them', currentUser.id, { chosenPlayerId: numericId })
+      } catch (err) {
+        const msg = err instanceof Error ? err.message : ''
+        if (msg.includes('ALREADY_VOTED') || msg.includes('уже проголосовали')) {
+          setVotedChoice(selected)
+          if (numericUserId && day) saveVotedChoice(numericUserId, day, selected)
+          await loadState()
+          onProfileUpdate()
+          return
+        }
+        throw err
+      }
+      setVotedChoice(selected)
+      if (numericUserId && day) saveVotedChoice(numericUserId, day, selected)
       await loadState()
       onProfileUpdate()
     } catch (err) {
@@ -117,7 +174,7 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
 
   const today = (state?.today ?? null) as TodayState | null
   const yesterday = (state?.yesterday ?? null) as YesterdayState | null
-  const hasVoted = !!today?.userVote
+  const hasVoted = !!votedChoice || !!today?.userVote
 
   return (
     <div className="mx-auto max-w-md px-4 pb-10 pt-6">
@@ -190,7 +247,7 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
           <div className="space-y-2">
             {[today.player_1, today.player_2].map((player) => {
               const isSelected = selected === player
-              const wasChosen = today.userVote === player
+              const wasChosen = votedChoice === player || today.userVote === player
               return (
                 <button
                   key={player}
@@ -213,8 +270,8 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
 
           {hasVoted ? (
             <div className="mt-4 rounded-xl border border-success/30 bg-success/10 p-3 text-center">
-              <div className="flex items-center justify-center gap-2"><Check size={16} className="text-success" /><p className="text-sm font-extrabold text-success">Голос учтён!</p></div>
-              <p className="mt-1 text-[11px] text-ink-muted">Результаты будут доступны завтра в 08:00</p>
+              <div className="flex items-center justify-center gap-2"><Check size={16} className="text-success" /><p className="text-sm font-extrabold text-success">Ты проголосовал.</p></div>
+              <p className="mt-1 text-[11px] text-ink-muted">Результат будет завтра в 08:00.</p>
             </div>
           ) : (
             <button onClick={handleVote} disabled={!selected || voting} className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-neon py-3 text-sm font-extrabold text-black transition active:scale-95 disabled:opacity-40" style={{ boxShadow: '0 0 16px rgba(0,229,255,0.3)' }}>
