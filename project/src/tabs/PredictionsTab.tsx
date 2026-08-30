@@ -19,12 +19,17 @@ type PredictionCount = {
   count: number
 }
 
-const predictionStorageKey = 'daily-prediction-v2'
+const predictionPrefix = 'daily-prediction-v2'
 
-function getSavedPrediction(): SavedPrediction | null {
-  const saved = getItem<SavedPrediction | null>(predictionStorageKey, null)
+function getPredictionKey(playerId: string): string {
+  return `${predictionPrefix}-${playerId}`
+}
+
+function getSavedPrediction(playerId: string): SavedPrediction | null {
+  const key = getPredictionKey(playerId)
+  const saved = getItem<SavedPrediction | null>(key, null)
   if (!saved || saved.date !== todayKey()) {
-    removeItem(predictionStorageKey)
+    removeItem(key)
     return null
   }
   return saved
@@ -39,8 +44,8 @@ function getMillisecondsUntilTomorrow(): number {
 export default function PredictionsTab({ onBack }: { onBack: () => void }) {
   const { isAdmin, unlock, lock, workers, currentUser } = useApp()
   const name = currentUser?.name ?? ''
-  const saved = getSavedPrediction()
-  const [prediction, setPrediction] = useState(saved?.text ?? '')
+  const playerId = currentUser?.name ?? 'unknown'
+  const [prediction, setPrediction] = useState(() => getSavedPrediction(playerId)?.text ?? '')
   const [adminOpen, setAdminOpen] = useState(false)
   const [adminPassword, setAdminPassword] = useState('')
   const [adminError, setAdminError] = useState('')
@@ -49,13 +54,18 @@ export default function PredictionsTab({ onBack }: { onBack: () => void }) {
   const [showSpecial, setShowSpecial] = useState(false)
 
   useEffect(() => {
+    const saved = getSavedPrediction(playerId)
+    setPrediction(saved?.text ?? '')
+  }, [playerId])
+
+  useEffect(() => {
     const timer = window.setTimeout(() => {
-      removeItem(predictionStorageKey)
+      removeItem(getPredictionKey(playerId))
       setPrediction('')
     }, getMillisecondsUntilTomorrow())
 
     return () => window.clearTimeout(timer)
-  }, [])
+  }, [playerId])
 
   const loadCounts = async (): Promise<void> => {
     try {
@@ -78,7 +88,7 @@ export default function PredictionsTab({ onBack }: { onBack: () => void }) {
 
     const text = getPredictionForWorker(worker, new Date(), 0, workers)
     setPrediction(text)
-    setItem(predictionStorageKey, { date: todayKey(), name: worker.name, text })
+    setItem(getPredictionKey(playerId), { date: todayKey(), name: worker.name, text })
     void api.incrementPredictionCount(worker.name)
   }
 
