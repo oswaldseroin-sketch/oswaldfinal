@@ -56,7 +56,7 @@ export default function MafiaGame({ onBack, onProfileUpdate }: Props) {
     setError('')
     try {
       const result = await api.submitGameVote('mafia', currentUser.id, { selectedIndex: index })
-      setLastResult({ isMafia: result.isMafia!, attemptNumber: result.attemptNumber! })
+      setLastResult({ isMafia: result.isMafia ?? false, attemptNumber: result.attemptNumber ?? 0 })
       await loadState()
       onProfileUpdate()
     } catch (err) {
@@ -86,6 +86,7 @@ export default function MafiaGame({ onBack, onProfileUpdate }: Props) {
 
   const today = (state?.today ?? null) as TodayState | null
   const yesterday = (state?.yesterday ?? null) as YesterdayState | null
+  const players = today?.players ?? []
 
   return (
     <div className="mx-auto max-w-md px-4 pb-10 pt-6">
@@ -138,7 +139,7 @@ export default function MafiaGame({ onBack, onProfileUpdate }: Props) {
           </div>
 
           <div className="space-y-2">
-            {today.players.map((player, i) => {
+            {players.map((player, i) => {
               const isEliminated = today.eliminated.includes(i)
               const isMafiaRevealed = today.gameEnded && i === today.mafiaIndex
               const isGuessedWrong = isEliminated && !isMafiaRevealed

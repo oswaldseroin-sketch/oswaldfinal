@@ -1,3 +1,5 @@
+import { whoOfThemQuestions } from './whoOfThemQuestions'
+
 const API_BASE = import.meta.env.VITE_API_URL
 
 async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
@@ -435,16 +437,32 @@ export const api = {
     const result = await apiFetch<Record<string, unknown> & { ok?: boolean; today?: Record<string, unknown>; yesterday?: Record<string, unknown> | null }>(
       `/api/games/${urlPath}/today?playerId=${encodeURIComponent(numericId)}`
     )
-    if (result.today) {
-      return { today: result.today as GameState['today'], yesterday: (result.yesterday ?? null) as GameState['yesterday'] }
-    }
     // who-of-them returns a flat response — wrap it into {today, yesterday}
     const today: Record<string, unknown> = {}
     if (gameKey === 'who_of_them') {
-      today.question = String(result.questionIndex ?? '')
+      const qIdx = typeof result.questionIndex === 'number' ? result.questionIndex : 0
+      today.question = (whoOfThemQuestions[qIdx] as string) || whoOfThemQuestions[0] || String(result.questionIndex ?? '')
       today.player_1 = (result.player1 as { fullName?: string } | undefined)?.fullName ?? ''
       today.player_2 = (result.player2 as { fullName?: string } | undefined)?.fullName ?? ''
       today.userVote = result.userVote ?? null
+    } else if (result.today) {
+      // Merge the server's today object with safe defaults for missing fields
+      const serverToday = result.today as Record<string, unknown>
+      today.question = serverToday.question ?? ''
+      today.player_name = serverToday.player_name ?? ''
+      today.players = serverToday.players ?? []
+      today.userVote = serverToday.userVote ?? null
+      today.attemptCount = serverToday.attemptCount ?? 0
+      today.eliminated = serverToday.eliminated ?? []
+      today.foundMafia = serverToday.foundMafia ?? false
+      today.gameEnded = serverToday.gameEnded ?? false
+      today.mafiaIndex = serverToday.mafiaIndex ?? null
+      today.team1 = serverToday.team1 ?? []
+      today.team2 = serverToday.team2 ?? []
+      today.opponent_name = serverToday.opponent_name ?? ''
+      today.result = serverToday.result ?? null
+      today.correctIndex = serverToday.correctIndex ?? null
+      today.isCorrect = serverToday.isCorrect ?? null
     } else {
       today.question = (result.question as string) ?? ''
       today.player_name = (result.player_name as string) ?? ''
@@ -473,7 +491,7 @@ export const api = {
     )
     return {
       success: result.success,
-      message: result.message,
+      message: result.message ?? '',
       profile: result.profile,
       isCorrect: result.isCorrect,
       correctIndex: result.correctIndex,

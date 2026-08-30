@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Check, Trophy, Gift, Loader as Loader2 } from 'lucide-react'
-import { api, type GameState, type GameClaimResult } from '../../lib/api'
+import { api, type GameState, type GameClaimResult, type PlayerRow } from '../../lib/api'
 import { useApp } from '../../context/AppContext'
 
 type Props = {
@@ -35,6 +35,15 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
   const [claiming, setClaiming] = useState(false)
   const [claimResult, setClaimResult] = useState<GameClaimResult | null>(null)
   const [resultsClaimed, setResultsClaimed] = useState(false)
+  const [playerMap, setPlayerMap] = useState<Record<string, number>>({})
+
+  useEffect(() => {
+    api.getPlayers().then((players: PlayerRow[]) => {
+      const map: Record<string, number> = {}
+      for (const p of players) map[p.full_name] = p.id
+      setPlayerMap(map)
+    }).catch(() => {})
+  }, [])
 
   const loadState = useCallback(async () => {
     if (!currentUser) return
@@ -59,7 +68,9 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
     setVoting(true)
     setError('')
     try {
-      await api.submitGameVote('who_of_them', currentUser.id, { selectedPlayer: selected })
+      const numericId = playerMap[selected]
+      if (!numericId) { setError('Не удалось определить ID игрока'); return }
+      await api.submitGameVote('who_of_them', currentUser.id, { chosenPlayerId: numericId })
       await loadState()
       onProfileUpdate()
     } catch (err) {
