@@ -169,10 +169,25 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
 
       {yesterday && (
         <div className="mb-5 rounded-2xl border border-amber-400/25 bg-card/50 p-4 backdrop-blur-md" style={{ boxShadow: '0 0 16px rgba(255,191,0,0.1)' }}>
-          <div className="mb-3 flex items-center gap-2">
-            <Trophy size={16} className="text-amber-300" />
-            <p className="text-[10px] font-bold tracking-widest text-amber-300">ВЧЕРАШНИЙ РЕЗУЛЬТАТ</p>
-          </div>
+          <button
+  type="button"
+  onClick={() => setYesterdayOpen((v) => !v)}
+  className={`flex w-full items-center justify-between ${yesterdayOpen ? 'mb-3' : ''}`}
+>
+  <div className="flex items-center gap-2">
+    <Trophy size={16} className="text-amber-300" />
+    <p className="text-[10px] font-bold tracking-widest text-amber-300">
+      ВЧЕРАШНИЙ РЕЗУЛЬТАТ
+    </p>
+  </div>
+
+  <ChevronDown
+    size={18}
+    className={`text-amber-300 transition-transform duration-200 ${
+      yesterdayOpen ? 'rotate-180' : ''
+    }`}
+  />
+</button>
           <p className="mb-3 text-sm font-bold text-ink/90">{yesterday.question}</p>
           <div className="space-y-2">
             {[yesterday.player_1, yesterday.player_2].map((player) => {
