@@ -325,6 +325,21 @@ export default function SecretQuest({ onUnlocked }: { onUnlocked: () => void }) 
       </div>
 
       {/* ─── Hints panel ─── */}
+      <div className="mt-4 mb-2 flex items-center justify-center gap-2">
+  <div className="h-px flex-1 bg-gradient-to-r from-transparent to-purple-500/60" />
+
+  <div
+    className="shrink-0 text-[14px] font-black tracking-[0.18em] text-purple-300"
+    style={{
+      textShadow:
+        '0 0 8px rgba(168,85,247,0.9), 0 0 18px rgba(168,85,247,0.5)',
+    }}
+  >
+    ✦ ПОДСКАЗКИ ✦
+  </div>
+
+  <div className="h-px flex-1 bg-gradient-to-l from-transparent to-purple-500/60" />
+</div>
       <div
         className="mt-3 rounded-xl border bg-black/60 p-2.5 backdrop-blur-md"
         style={{
