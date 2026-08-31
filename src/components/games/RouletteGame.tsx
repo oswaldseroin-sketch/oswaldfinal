@@ -434,11 +434,11 @@ style={{
           ТЫ
         </p>
         <p
-  className={`mt-1 text-sm font-extrabold transition-all duration-300 ${
-    currentTurn === 'me'
-      ? 'scale-105 text-neon'
-      : 'text-ink/50'
-  }`}
+  className={`mt-1 text-sm font-black tracking-wide transition-all duration-300 ${
+  currentTurn === 'me'
+    ? 'scale-110 text-amber-200'
+    : 'text-zinc-600'
+}`}
   style={
     currentTurn === 'me'
       ? { textShadow: '0 0 12px rgba(0,229,255,0.7)' }
