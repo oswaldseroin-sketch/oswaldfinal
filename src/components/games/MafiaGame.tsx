@@ -94,6 +94,8 @@ export default function MafiaGame({ onBack, onProfileUpdate }: Props) {
   const today = (state?.today ?? null) as TodayState | null
   const yesterday = (state?.yesterday ?? null) as YesterdayState | null
   const dailyPlayers: string[] = (today?.players && Array.isArray(today.players)) ? today.players : []
+  console.log('MAFIA TODAY:', today)
+console.log('MAFIA PLAYERS:', dailyPlayers)
   const attemptsUsed = today?.attemptCount ?? 0
   const isCompleted = (today?.gameEnded ?? false) || attemptsUsed >= MAX_ATTEMPTS
 
