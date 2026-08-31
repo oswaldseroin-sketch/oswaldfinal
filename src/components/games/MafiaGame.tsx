@@ -169,7 +169,13 @@ console.log('MAFIA PLAYERS:', dailyPlayers)
       )}
 
       {today && (
-        <div className="rounded-2xl border border-neon/30 bg-card/60 p-4 backdrop-blur-md" style={{ boxShadow: '0 0 18px rgba(0,229,255,0.1)' }}>
+        <div
+  className="rounded-2xl border border-red-500/25 bg-gradient-to-b from-red-950/20 via-zinc-950/80 to-black/50 p-4 backdrop-blur-md"
+  style={{
+    boxShadow:
+      '0 0 26px rgba(220,38,38,0.10), inset 0 0 30px rgba(127,29,29,0.05)',
+  }}
+>
           <div className="mb-3 flex items-center justify-between">
             <p className="text-[10px] font-bold tracking-widest text-neon">НАЙДИ МАФИЮ</p>
             <p className="text-[10px] font-bold text-ink-muted">
