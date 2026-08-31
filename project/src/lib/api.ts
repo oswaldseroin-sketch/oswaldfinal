@@ -1,3 +1,5 @@
+import { whoOfThemQuestions } from './whoOfThemQuestions'
+
 const API_BASE = import.meta.env.VITE_API_URL
 
 async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
@@ -90,6 +92,24 @@ export type KnowledgeNumber = {
   number: number
   content: string
   updated_at: string
+}
+
+export type PlayerRow = {
+  id: number
+  full_name: string
+  gender: string
+  coins: number
+  xp: number
+  level: number
+  title_level: number
+  title_xp: number
+}
+
+export type SecretRoomQuestion = {
+  slot_number: number
+  title: string
+  correct_player_id: number | null
+  correct_player_name: string | null
 }
 
 export type MiniGameProfile = {
@@ -187,6 +207,7 @@ export type GameVoteResult = {
 export type GameClaimResult = {
   success: boolean
   message?: string
+  totalXp?: number
   totalTitleXp?: number
   totalCoins?: number
   winner?: string | number | null
@@ -205,6 +226,18 @@ const GAME_PATHS: Record<string, string> = {
   yes_no: 'yes-no',
   secret_love: 'secret-love',
   roulette: 'roulette',
+}
+
+let _playersCache: PlayerRow[] | null = null
+
+async function resolvePlayerId(name: string): Promise<string> {
+  if (/^\d+$/.test(name)) return name
+  if (!_playersCache) {
+    _playersCache = await apiFetch<PlayerRow[]>('/api/players')
+  }
+  const match = _playersCache.find((p) => p.full_name === name)
+  if (!match) throw new Error(`Игрок «${name}» не найден на сервере`)
+  return String(match.id)
 }
 
 export const api = {
@@ -318,7 +351,7 @@ export const api = {
       body: JSON.stringify({ question_id: questionId, block_number: blockNumber, password }),
     }),
 
-   // Knowledge numbers (served by VPS API)
+    // Knowledge numbers (served by VPS API)
   getKnowledgeNumbers: () =>
     apiFetch<KnowledgeNumber[]>('/api/knowledge-numbers'),
 
@@ -328,15 +361,28 @@ export const api = {
       body: JSON.stringify({ number, content, password }),
     }),
 
+  // Players (served by VPS API) — used to resolve worker name to numeric player ID
+  getPlayers: () => apiFetch<PlayerRow[]>('/api/players'),
+
+  // Secret room questions (served by VPS API)
+  getSecretRoomQuestions: () => apiFetch<SecretRoomQuestion[]>('/api/secret-room/questions'),
+  updateSecretRoomQuestion: (slotNumber: number, title: string, correctPlayerId: number) =>
+    apiFetch<{ ok: boolean }>(`/api/secret-room/questions/${slotNumber}`, {
+      method: 'PATCH',
+      body: JSON.stringify({ title, correctPlayerId }),
+    }),
+
   // Mini-games profile (served by VPS API)
   getMiniGameData: async (userId: string): Promise<MiniGameData> => {
+    const numericId = await resolvePlayerId(userId)
     const result = await apiFetch<{ ok: boolean; profile: MiniGameProfile; progress: MiniGameProgress[] }>(
-      `/api/mini-games/profile/${encodeURIComponent(userId)}`
+      `/api/mini-games/profile/${encodeURIComponent(numericId)}`
     )
     return { profile: result.profile, progress: result.progress }
   },
   addMiniGameRewards: async (userId: string, addXp: number, addCoins: number): Promise<MiniGameProfile> => {
-    const result = await apiFetch<{ ok: boolean; player: MiniGameProfile }>(`/api/players/${encodeURIComponent(userId)}/reward`, {
+    const numericId = await resolvePlayerId(userId)
+    const result = await apiFetch<{ ok: boolean; player: MiniGameProfile }>(`/api/players/${encodeURIComponent(numericId)}/reward`, {
       method: 'POST',
       body: JSON.stringify({ addXp, addCoins }),
     })
@@ -349,22 +395,25 @@ export const api = {
 
   // Daily poll (mini-game #1) — served by VPS API
   getDailyPollState: async (userId: string): Promise<DailyPollState> => {
+    const numericId = await resolvePlayerId(userId)
     const result = await apiFetch<{ ok: boolean; today: DailyPollToday; yesterday: DailyPollYesterday | null }>(
-      `/api/games/daily-poll/today?playerId=${encodeURIComponent(userId)}`
+      `/api/games/daily-poll/today?playerId=${encodeURIComponent(numericId)}`
     )
     return { today: result.today, yesterday: result.yesterday }
   },
   voteDailyPoll: async (userId: string, selectedCandidates: string[]): Promise<{ success: boolean; message: string }> => {
+    const numericId = await resolvePlayerId(userId)
     const result = await apiFetch<{ ok: boolean; success: boolean; message: string }>(
       '/api/games/daily-poll/vote',
-      { method: 'POST', body: JSON.stringify({ voterId: userId, selectedCandidates }) }
+      { method: 'POST', body: JSON.stringify({ voterId: numericId, selectedCandidates }) }
     )
     return { success: result.success, message: result.message }
   },
   claimDailyPollResults: async (userId: string): Promise<DailyPollClaimResult> => {
+    const numericId = await resolvePlayerId(userId)
     const result = await apiFetch<{ ok: boolean; success: boolean; totalXp: number; totalTitleXp: number; breakdown?: DailyPollResultBreakdown[]; alreadyClaimed?: boolean; message?: string }>(
       '/api/games/daily-poll/claim-results',
-      { method: 'POST', body: JSON.stringify({ voterId: userId }) }
+      { method: 'POST', body: JSON.stringify({ voterId: numericId }) }
     )
     return {
       success: result.success,
@@ -379,20 +428,135 @@ export const api = {
   // Mini-games #2-10 (served by VPS API)
   getGameState: async (gameKey: string, userId: string): Promise<GameState> => {
     const urlPath = GAME_PATHS[gameKey] || gameKey
-    const result = await apiFetch<{ ok: boolean; today: Record<string, unknown>; yesterday: Record<string, unknown> | null }>(
-      `/api/games/${urlPath}/today?playerId=${encodeURIComponent(userId)}`
+    const numericId = await resolvePlayerId(userId)
+    const result = await apiFetch<Record<string, unknown> & { ok?: boolean; today?: Record<string, unknown>; yesterday?: Record<string, unknown> | null }>(
+      `/api/games/${urlPath}/today?playerId=${encodeURIComponent(numericId)}`
     )
-    return { today: result.today as GameState['today'], yesterday: result.yesterday as GameState['yesterday'] }
+    // who-of-them returns a flat response — wrap it into {today, yesterday}
+    const today: Record<string, unknown> = {}
+   if (gameKey === 'who_of_them') {
+  today.question = (result.question as string) ?? ''
+     today.player_1 = (result.player1 as { fullName?: string } | undefined)?.fullName ?? ''
+today.player_2 = (result.player2 as { fullName?: string } | undefined)?.fullName ?? ''
+    const status = await apiFetch<Record<string, unknown>>(
+  `/api/games/who-of-them/status/${encodeURIComponent(numericId)}`
+)
+
+const chosenPlayerId = Number(status.chosenPlayerId)
+
+today.userVote =
+  chosenPlayerId === (result.player1 as { id?: number } | undefined)?.id
+    ? (result.player1 as { fullName?: string } | undefined)?.fullName ?? null
+    : chosenPlayerId === (result.player2 as { id?: number } | undefined)?.id
+      ? (result.player2 as { fullName?: string } | undefined)?.fullName ?? null
+      : null
+      today.gameDay = result.gameDay ?? null
+    } else if (result.today) {
+      // Merge the server's today object with safe defaults for missing fields
+      const serverToday = result.today as Record<string, unknown>
+      today.question = serverToday.question ?? ''
+      today.player_name = serverToday.player_name ?? ''
+      today.players = serverToday.players ?? []
+      today.userVote = serverToday.userVote ?? null
+      today.attemptCount = serverToday.attemptCount ?? 0
+      today.eliminated = serverToday.eliminated ?? []
+      today.foundMafia = serverToday.foundMafia ?? false
+      today.gameEnded = serverToday.gameEnded ?? false
+      today.mafiaIndex = serverToday.mafiaIndex ?? null
+      today.team1 = serverToday.team1 ?? []
+      today.team2 = serverToday.team2 ?? []
+      today.opponent_name = serverToday.opponent_name ?? ''
+      today.result = serverToday.result ?? null
+      today.correctIndex = serverToday.correctIndex ?? null
+      today.isCorrect = serverToday.isCorrect ?? null
+    } else {
+      today.question = (result.question as string) ?? ''
+      today.player_name = (result.player_name as string) ?? ''
+      today.players = result.players ?? []
+      today.userVote = result.userVote ?? null
+      today.attemptCount = result.attemptCount ?? 0
+      today.eliminated = result.eliminated ?? []
+      today.foundMafia = result.foundMafia ?? false
+      today.gameEnded = result.gameEnded ?? false
+      today.mafiaIndex = result.mafiaIndex ?? null
+      today.team1 = result.team1 ?? []
+      today.team2 = result.team2 ?? []
+      today.opponent_name = result.opponent_name ?? ''
+      today.result = result.result ?? null
+      today.correctIndex = result.correctIndex ?? null
+      today.isCorrect = result.isCorrect ?? null
+    }
+    if (gameKey === 'who_of_them') {
+  const yesterdayResult = await apiFetch<Record<string, unknown>>(
+    `/api/games/who-of-them/yesterday-results`
+  )
+
+  let yesterday: GameState['yesterday'] = null
+
+  if (yesterdayResult.hasResults) {
+    const qIdx =
+      typeof yesterdayResult.questionIndex === 'number'
+        ? yesterdayResult.questionIndex
+        : 0
+
+    const player1 = yesterdayResult.player1 as
+      | { id?: number; fullName?: string; votes?: number }
+      | undefined
+
+    const player2 = yesterdayResult.player2 as
+      | { id?: number; fullName?: string; votes?: number }
+      | undefined
+
+    const winnerPlayerId =
+      typeof yesterdayResult.winnerPlayerId === 'number'
+        ? yesterdayResult.winnerPlayerId
+        : null
+
+    const winner =
+      winnerPlayerId === player1?.id
+        ? player1?.fullName ?? null
+        : winnerPlayerId === player2?.id
+          ? player2?.fullName ?? null
+          : null
+
+    yesterday = {
+      question:
+        (whoOfThemQuestions[qIdx] as string) ||
+        whoOfThemQuestions[0] ||
+        '',
+      player_1: player1?.fullName ?? '',
+      player_2: player2?.fullName ?? '',
+      votes: {
+        [player1?.fullName ?? '']: player1?.votes ?? 0,
+        [player2?.fullName ?? '']: player2?.votes ?? 0,
+      },
+      winner,
+      userVote: null,
+      reward: null,
+    }
+  }
+
+  return {
+    today: today as GameState['today'],
+    yesterday,
+  }
+}
+
+return {
+  today: today as GameState['today'],
+  yesterday: (result.yesterday ?? null) as GameState['yesterday'],
+}
   },
   submitGameVote: async (gameKey: string, userId: string, voteData: Record<string, unknown>): Promise<GameVoteResult> => {
     const urlPath = GAME_PATHS[gameKey] || gameKey
+    const numericId = await resolvePlayerId(userId)
     const result = await apiFetch<{ ok: boolean; success: boolean; message: string; isCorrect?: boolean; correctIndex?: number; isMafia?: boolean; attemptNumber?: number; profile?: MiniGameProfile }>(
       `/api/games/${urlPath}/vote`,
-      { method: 'POST', body: JSON.stringify({ voterId: userId, ...voteData }) }
+      { method: 'POST', body: JSON.stringify({ voterId: numericId, ...voteData }) }
     )
     return {
       success: result.success,
-      message: result.message,
+      message: result.message ?? '',
       profile: result.profile,
       isCorrect: result.isCorrect,
       correctIndex: result.correctIndex,
@@ -402,17 +566,33 @@ export const api = {
   },
   claimGameResults: async (gameKey: string, userId: string): Promise<GameClaimResult> => {
     const urlPath = GAME_PATHS[gameKey] || gameKey
-    const result = await apiFetch<{ ok: boolean; success: boolean; totalTitleXp?: number; totalCoins?: number; winner?: string | number | null; alreadyClaimed?: boolean; message?: string }>(
-      `/api/games/${urlPath}/claim-results`,
-      { method: 'POST', body: JSON.stringify({ voterId: userId }) }
-    )
-    return {
-      success: result.success,
-      message: result.message,
-      totalTitleXp: result.totalTitleXp,
-      totalCoins: result.totalCoins,
-      winner: result.winner,
-      alreadyClaimed: result.alreadyClaimed,
-    }
+    const numericId = await resolvePlayerId(userId)
+const result = await apiFetch<{
+  ok: boolean
+  success?: boolean
+  totalXp?: number
+  totalTitleXp?: number
+  totalCoins?: number
+  winner?: string | number | null
+  alreadyClaimed?: boolean
+  message?: string
+}>(
+  gameKey === 'who_of_them' || gameKey === 'rate_player'
+    ? `/api/games/${urlPath}/claim-yesterday`
+    : `/api/games/${urlPath}/claim-results`,
+  {
+    method: 'POST',
+    body: JSON.stringify({ voterId: numericId }),
+  },
+)
+   return {
+  success: result.success ?? result.ok,
+  message: result.message,
+  totalXp: result.totalXp,
+  totalTitleXp: result.totalTitleXp,
+  totalCoins: result.totalCoins,
+  winner: result.winner,
+  alreadyClaimed: result.alreadyClaimed,
+}
   },
 }
