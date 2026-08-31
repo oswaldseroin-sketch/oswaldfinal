@@ -225,9 +225,15 @@ export default function PastLifeGame({ onBack, onProfileUpdate }: Props) {
       : 'border-amber-900/40 bg-stone-950/40 hover:border-amber-500/40 hover:bg-amber-950/20 active:scale-95'
 }`}
                 >
-                  <div className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border ${isSelected || wasChosen ? 'border-neon bg-neon text-black' : 'border-line/50'}`}>
-                    {(isSelected || wasChosen) && <Check size={14} />}
-                  </div>
+                  <div
+  className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-xs font-black transition-all duration-200 ${
+    isSelected || wasChosen
+      ? 'border-amber-300 bg-amber-400 text-black shadow-[0_0_14px_rgba(245,158,11,0.55)]'
+      : 'border-amber-700/40 bg-amber-950/20 text-amber-600'
+  }`}
+>
+  {isSelected || wasChosen ? <Check size={15} /> : '✦'}
+</div>
                   <span className={`text-sm font-bold ${isSelected || wasChosen ? 'text-ink' : 'text-ink/80'}`}>{player}</span>
                 </button>
               )
