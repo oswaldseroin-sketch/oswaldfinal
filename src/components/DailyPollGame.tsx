@@ -379,7 +379,7 @@ export default function DailyPollGame({ onBack, onProfileUpdate }: Props) {
               <button
                 onClick={handleVote}
                 disabled={selected.length === 0 || voting}
-                className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl bg-neon py-3 text-sm font-extrabold text-black transition active:scale-95 disabled:opacity-40"
+               className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-purple-300/50 bg-gradient-to-r from-purple-500/90 to-fuchsia-500/90 py-3 text-sm font-extrabold text-white transition-all duration-200 active:scale-95 disabled:opacity-30"
                 style={{ boxShadow: '0 0 16px rgba(0,229,255,0.3)' }}
               >
                 {voting ? <Loader2 size={16} className="animate-spin" /> : <Check size={16} />}
