@@ -320,17 +320,35 @@ setPlaying(false)
       '0 0 30px rgba(251,191,36,0.08), 0 18px 50px rgba(0,0,0,0.35), inset 0 0 35px rgba(127,29,29,0.05)',
   }}
 >
-          <div className="mb-4 text-center">
-            <p className="text-[10px] font-bold tracking-widest text-neon">ТЫ ИГРАЕШЬ ПРОТИВ</p>
-            <div className="mt-3 flex items-center justify-center gap-3">
-              <div className="flex h-14 w-14 items-center justify-center rounded-full border border-neon/40 bg-neon/10">
-                <Swords size={24} className="text-neon" />
-              </div>
-              <div className="text-left">
-                <p className="text-base font-extrabold text-ink">{today.opponent_name}</p>
-              </div>
-            </div>
-          </div>
+         <div className="mb-5 text-center">
+  <p className="text-[9px] font-black tracking-[0.24em] text-amber-400/70">
+    ФИНАЛЬНАЯ ДУЭЛЬ
+  </p>
+
+  <div className="mt-3 flex items-center justify-center gap-3">
+    <div className="h-px w-10 bg-gradient-to-r from-transparent to-amber-400/40" />
+
+    <div
+      className="flex h-14 w-14 items-center justify-center rounded-full border border-amber-300/40 bg-amber-500/10"
+      style={{ boxShadow: '0 0 22px rgba(251,191,36,0.16)' }}
+    >
+      <Swords size={24} className="text-amber-300" />
+    </div>
+
+    <div className="h-px w-10 bg-gradient-to-l from-transparent to-red-500/40" />
+  </div>
+
+  <p className="mt-3 text-[9px] font-black tracking-[0.2em] text-zinc-600">
+    ПРОТИВНИК
+  </p>
+
+  <p
+    className="mt-1 text-base font-black tracking-wide text-zinc-100"
+    style={{ textShadow: '0 0 14px rgba(251,191,36,0.18)' }}
+  >
+    {today.opponent_name}
+  </p>
+</div>
 
           {/* Animation sequence */}
           {playing && animStep >= 0 && (
