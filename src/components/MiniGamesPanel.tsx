@@ -62,8 +62,12 @@ export default function MiniGamesPanel({ onBack }: Props) {
   const [completedToday, setCompletedToday] = useState<CompletedToday>(() => getCompletedToday(playerId))
 
   useEffect(() => {
-    setCompletedToday(getCompletedToday(playerId))
-  }, [playerId])
+  const completed = getCompletedToday(playerId)
+
+  console.log('COMPLETED TODAY:', completed)
+
+  setCompletedToday(completed)
+}, [playerId])
 
   const loadData = useCallback(async () => {
     if (!currentUser) return
