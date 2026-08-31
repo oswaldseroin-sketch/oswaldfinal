@@ -626,7 +626,13 @@ className={`relative flex h-16 w-16 items-center justify-center rounded-full bor
   </div>
 )}
           {hasPlayed && !playing && (
-            <div className={`mb-4 rounded-xl border p-4 text-center ${today.result === 'win' ? 'border-success/40 bg-success/10' : 'border-error/40 bg-error/10'}`}>
+          <div
+  className={`mb-4 rounded-2xl border p-4 text-center ${
+    today.result === 'win'
+      ? 'border-amber-400/40 bg-gradient-to-b from-amber-500/15 via-black/40 to-black/60 shadow-[0_0_30px_rgba(251,191,36,0.16)]'
+      : 'border-red-500/35 bg-gradient-to-b from-red-950/30 via-black/50 to-black/70 shadow-[0_0_30px_rgba(239,68,68,0.14)]'
+  }`}
+>
               <div className="flex items-center justify-center gap-2">
                 {today.result === 'win' ? <Check size={20} className="text-success" /> : <X size={20} className="text-error" />}
                 <p className={`text-xl font-extrabold ${today.result === 'win' ? 'text-success' : 'text-error'}`}>
