@@ -300,7 +300,16 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
               <p className="mt-1 text-[11px] text-ink-muted">Результат будет завтра в 08:00.</p>
             </div>
           ) : (
-            <button onClick={handleVote} disabled={!selected || voting} className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-neon py-3 text-sm font-extrabold text-black transition active:scale-95 disabled:opacity-40" style={{ boxShadow: '0 0 16px rgba(0,229,255,0.3)' }}>
+           <button
+  onClick={handleVote}
+  disabled={!selected || voting}
+  className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border border-orange-300/50 bg-gradient-to-r from-orange-500 to-amber-400 py-3 text-sm font-extrabold text-black transition-all duration-200 active:scale-95 disabled:opacity-30"
+  style={{
+    boxShadow: selected
+      ? '0 0 22px rgba(251,146,60,0.38)'
+      : 'none',
+  }}
+>
               {voting ? <Loader2 size={16} className="animate-spin" /> : <Check size={16} />}
               Проголосовать
             </button>
