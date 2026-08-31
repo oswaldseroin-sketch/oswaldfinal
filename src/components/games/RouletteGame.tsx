@@ -113,7 +113,22 @@ export default function RouletteGame({ onBack, onProfileUpdate }: Props) {
 
       {yesterday && (
         <div className="mb-5 rounded-2xl border border-amber-400/25 bg-card/50 p-4 backdrop-blur-md" style={{ boxShadow: '0 0 16px rgba(255,191,0,0.1)' }}>
-          <p className="mb-3 text-[10px] font-bold tracking-widest text-amber-300">ВЧЕРА В РУССКУЮ РУЛЕТКУ</p>
+         <button
+  onClick={() => setShowYesterdayResults((prev) => !prev)}
+  className="mb-3 flex w-full items-center justify-between rounded-xl border border-amber-400/30 bg-amber-400/10 px-3 py-2.5 transition-all active:scale-[0.98]"
+>
+  <p className="text-[11px] font-extrabold tracking-wide text-amber-300">
+    Вчера в русскую рулетку
+  </p>
+
+  <span
+    className={`text-sm text-amber-300 transition-transform duration-300 ${
+      showYesterdayResults ? 'rotate-180' : ''
+    }`}
+  >
+    ▼
+  </span>
+</button>
           <div className="space-y-2">
             <div className="flex justify-between rounded-lg border border-success/20 bg-success/10 px-3 py-2">
               <span className="text-sm font-bold text-success">Победили</span>
