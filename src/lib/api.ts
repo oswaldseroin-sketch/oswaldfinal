@@ -437,7 +437,8 @@ export const api = {
     if (gameKey === 'who_of_them') {
       const qIdx = typeof result.questionIndex === 'number' ? result.questionIndex : 0
       today.question = (whoOfThemQuestions[qIdx] as string) || whoOfThemQuestions[0] || String(result.questionIndex ?? '')
-      today.userVote = result.userVote ?? null
+     today.player_1 = (result.player1 as { fullName?: string } | undefined)?.fullName ?? ''
+today.player_2 = (result.player2 as { fullName?: string } | undefined)?.fullName ?? ''
       today.userVote = result.userVote ?? null
       today.gameDay = result.gameDay ?? null
     } else if (result.today) {
