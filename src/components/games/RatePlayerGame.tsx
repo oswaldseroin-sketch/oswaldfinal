@@ -137,9 +137,10 @@ export default function RatePlayerGame({ onBack, onProfileUpdate }: Props) {
             <p className="mt-1 text-xs text-ink-muted">Проголосовало: {yesterday.totalVotes}</p>
             {yesterday.userVote !== null && <p className="mt-1 text-xs text-ink-muted">Ваша оценка: {yesterday.userVote}</p>}
           </div>
-        </div>
-  </>
+      </>
 )}
+        </div>
+
       )}
 
       {today && (
