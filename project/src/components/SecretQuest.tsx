@@ -321,7 +321,11 @@ export default function SecretQuest({ onUnlocked }: { onUnlocked: () => void }) 
             </button>
           ))}
         </div>
-
+        {hintTab === 'mega' && (
+          <p className="mb-2 text-center text-[10px] font-bold text-purple-300/70">
+            Заряд Мега-подсказки
+          </p>
+        )}
         {/* Normal hint tab */}
         {hintTab === 'normal' && (
           <div className="space-y-2">
