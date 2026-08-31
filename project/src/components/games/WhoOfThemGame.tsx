@@ -132,7 +132,9 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
           </div>
           <p className="mb-3 text-sm font-bold text-ink/90">{yesterday.question}</p>
           <div className="space-y-2">
-            {[yesterday.player_1, yesterday.player_2].map((player) => {
+            {[yesterday.player_1, yesterday.player_2]
+  .filter((player) => (yesterday.votes[player] || 0) > 0)
+  .map((player) => {
               const votes = yesterday.votes[player] || 0
               const isWinner = yesterday.winner === player
               const isSelected = yesterday.userVote === player
