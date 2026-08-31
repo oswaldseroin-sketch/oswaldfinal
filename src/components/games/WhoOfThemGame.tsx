@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { Check, Trophy, Gift, Loader as Loader2 } from 'lucide-react'
 import { api, type GameState, type GameClaimResult, type PlayerRow } from '../../lib/api'
 import { useApp } from '../../context/AppContext'
-import { getItem, setItem } from '../../lib/storage'
+
 
 type Props = {
   onBack: () => void
@@ -27,22 +27,7 @@ type YesterdayState = {
   reward: { participation_rewarded: boolean; result_rewarded: boolean; xp_awarded: number; title_xp_awarded: number; coins_awarded: number } | null
 }
 
-const VOTE_KEY = 'wot-voted'
 
-function getVotedRecord(numericId: string): Record<string, string> {
-  return getItem<Record<string, string>>(VOTE_KEY, {})
-}
-
-function getVotedChoice(numericId: string, gameDay: string): string | null {
-  const records = getVotedRecord(numericId)
-  return records[`${numericId}:${gameDay}`] ?? null
-}
-
-function saveVotedChoice(numericId: string, gameDay: string, choice: string): void {
-  const records = getVotedRecord(numericId)
-  records[`${numericId}:${gameDay}`] = choice
-  setItem(VOTE_KEY, records)
-}
 
 function extractDay(gameDay: string | null | undefined): string {
   if (!gameDay) return ''
