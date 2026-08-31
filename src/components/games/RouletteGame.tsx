@@ -129,6 +129,8 @@ export default function RouletteGame({ onBack, onProfileUpdate }: Props) {
     ▼
   </span>
 </button>
+          {showYesterdayResults && (
+  <>
           <div className="space-y-2">
             <div className="flex justify-between rounded-lg border border-success/20 bg-success/10 px-3 py-2">
               <span className="text-sm font-bold text-success">Победили</span>
