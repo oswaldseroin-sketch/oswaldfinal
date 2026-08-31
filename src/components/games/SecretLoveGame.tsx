@@ -190,7 +190,13 @@ export default function SecretLoveGame({ onBack, onProfileUpdate }: Props) {
           </div>
 
           {hasAnswered ? (
-            <div className={`mt-4 rounded-xl border p-3 text-center ${today.userVote?.is_correct ? 'border-success/30 bg-success/10' : 'border-error/30 bg-error/10'}`}>
+            <div
+  className={`mt-4 rounded-xl border p-3 text-center ${
+    today.userVote?.is_correct
+      ? 'border-indigo-300/35 bg-gradient-to-b from-indigo-500/10 to-black/20 shadow-[0_0_20px_rgba(129,140,248,0.12)]'
+      : 'border-slate-500/25 bg-gradient-to-b from-slate-800/30 to-black/30'
+  }`}
+>
               <p className={`text-sm font-extrabold ${today.userVote?.is_correct ? 'text-success' : 'text-error'}`}>
                 {today.userVote?.is_correct ? 'Правильно!' : 'Неправильно'}
               </p>
