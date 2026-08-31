@@ -443,7 +443,14 @@ today.player_2 = (result.player2 as { fullName?: string } | undefined)?.fullName
   `/api/games/who-of-them/status/${encodeURIComponent(numericId)}`
 )
 
-today.userVote = status.userVote ?? status.chosenPlayer ?? null
+const chosenPlayerId = Number(status.chosenPlayerId)
+
+today.userVote =
+  chosenPlayerId === (result.player1 as { id?: number } | undefined)?.id
+    ? (result.player1 as { fullName?: string } | undefined)?.fullName ?? null
+    : chosenPlayerId === (result.player2 as { id?: number } | undefined)?.id
+      ? (result.player2 as { fullName?: string } | undefined)?.fullName ?? null
+      : null
       today.gameDay = result.gameDay ?? null
     } else if (result.today) {
       // Merge the server's today object with safe defaults for missing fields
