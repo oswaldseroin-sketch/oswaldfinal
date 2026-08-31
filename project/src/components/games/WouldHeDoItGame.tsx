@@ -249,10 +249,15 @@ export default function WouldHeDoItGame({ onBack, onProfileUpdate }: Props) {
           </div>
         )}
       </div>
-    )}
+      )}
   </div>
 )}
-        <div className="rounded-2xl border border-neon/30 bg-card/60 p-4 backdrop-blur-md" style={{ boxShadow: '0 0 18px rgba(0,229,255,0.1)' }}>
+
+{today && (
+  <div
+    className="rounded-2xl border border-neon/30 bg-card/60 p-4 backdrop-blur-md"
+    style={{ boxShadow: '0 0 18px rgba(0,229,255,0.1)' }}
+  >
           <p className="text-[11px] font-extrabold tracking-wide text-neon">
   {today.player_name}
 </p>
