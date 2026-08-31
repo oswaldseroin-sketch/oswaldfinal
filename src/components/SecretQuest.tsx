@@ -150,28 +150,29 @@ export default function SecretQuest({ onUnlocked }: { onUnlocked: () => void }) 
     }, 2000)
   }
 
-  const handleKeyClick = (): void => {
-    if (!allFilled || phase !== 'idle' || !keyRef.current || !lockRef.current) return
-    const keyRect = keyRef.current.getBoundingClientRect()
-    const lockRect = lockRef.current.getBoundingClientRect()
-    const dx = lockRect.left + lockRect.width / 2 - (keyRect.left + keyRect.width / 2)
-    const dy = lockRect.top + lockRect.height / 2 - (keyRect.top + keyRect.height / 2)
-    setKeyTransition(true)
-    setKeyTransform({ x: dx, y: dy })
-    setPhase('flying')
-    void api.incrementSecretAttempts().then((data) => {
-      if (data) setAttempts(data.attempts)
-    })
+const handleKeyClick = (): void => {
+  if (!allFilled || phase !== 'idle') return
+
+  void api.incrementSecretAttempts().then((data) => {
+    if (data) setAttempts(data.attempts)
+  })
+
+  if (isCorrect()) {
+    setPhase('success')
+    setItem(questKey, true)
+
     window.setTimeout(() => {
-      if (isCorrect()) {
-        setPhase('success')
-        setItem(questKey, true)
-        window.setTimeout(onUnlocked, 1500)
-      } else {
-        breakKey()
-      }
-    }, FLY_MS)
+      onUnlocked()
+    }, 3000)
+  } else {
+    setPhase('breaking')
+
+    window.setTimeout(() => {
+      setAnswers({})
+      setPhase('idle')
+    }, 3000)
   }
+}
 
   // ─── Hints system ───
   const allNames = workers.map((w) => w.name)
