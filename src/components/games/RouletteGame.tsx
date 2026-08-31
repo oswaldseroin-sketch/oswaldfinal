@@ -422,13 +422,13 @@ style={{
    <div className="relative mb-4 grid grid-cols-[1fr_auto_1fr] items-center gap-2">
      {currentTurn && (
   <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-    <div
-      className={`rounded-full border px-3 py-1 text-[8px] font-black tracking-[0.2em] ${
-        currentTurn === 'me'
-          ? 'border-amber-300/30 bg-amber-400/10 text-amber-200'
-          : 'border-red-400/30 bg-red-500/10 text-red-300'
-      }`}
-    >
+   <div
+  className={`rounded-full border px-4 py-1.5 text-[8px] font-black tracking-[0.22em] transition-all duration-300 ${
+    currentTurn === 'me'
+      ? 'border-amber-300/50 bg-gradient-to-r from-amber-500/15 via-amber-400/10 to-transparent text-amber-200 shadow-[0_0_18px_rgba(251,191,36,0.18)]'
+      : 'border-red-400/50 bg-gradient-to-r from-red-500/15 via-red-400/10 to-transparent text-red-300 shadow-[0_0_18px_rgba(239,68,68,0.18)]'
+  }`}
+>
       {currentTurn === 'me' ? 'ТВОЙ ХОД' : 'ХОД ПРОТИВНИКА'}
     </div>
   </div>
