@@ -142,6 +142,8 @@ console.log('MAFIA PLAYERS:', dailyPlayers)
     ▼
   </span>
 </button>
+          {showYesterdayResults && (
+  <>
           <p className="mb-3 text-sm text-ink-muted">Мафия: <span className="font-bold text-ink">{yesterday.mafia}</span></p>
           <div className="space-y-1.5">
             <div className="flex justify-between rounded-lg border border-success/20 bg-success/10 px-3 py-1.5">
