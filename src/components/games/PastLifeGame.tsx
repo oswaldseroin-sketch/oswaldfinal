@@ -213,11 +213,17 @@ export default function PastLifeGame({ onBack, onProfileUpdate }: Props) {
                   key={player}
                   onClick={() => !hasAnswered && setSelected(i)}
                   disabled={hasAnswered}
-                  className={`flex w-full items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all ${
-                    hasAnswered
-                      ? isCorrectAnswer ? 'border-success/50 bg-success/10' : isWrongAnswer ? 'border-error/40 bg-error/10' : 'border-line/20 bg-black/20 opacity-40'
-                      : isSelected ? 'border-neon/60 bg-neon/15 active:scale-95' : 'border-line/40 bg-black/20 hover:border-neon/30 active:scale-95'
-                  }`}
+                 className={`flex w-full items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all duration-200 ${
+  hasAnswered
+    ? isCorrectAnswer
+      ? 'scale-[1.02] border-amber-400/70 bg-amber-500/15 shadow-[0_0_18px_rgba(245,158,11,0.18)]'
+      : isWrongAnswer
+        ? 'border-red-400/50 bg-red-500/10'
+        : 'border-stone-700/30 bg-black/20 opacity-35'
+    : isSelected
+      ? 'scale-[1.02] border-amber-400/70 bg-amber-500/15 shadow-[0_0_18px_rgba(245,158,11,0.18)] active:scale-95'
+      : 'border-amber-900/40 bg-stone-950/40 hover:border-amber-500/40 hover:bg-amber-950/20 active:scale-95'
+}`}
                 >
                   <div className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border ${isSelected || wasChosen ? 'border-neon bg-neon text-black' : 'border-line/50'}`}>
                     {(isSelected || wasChosen) && <Check size={14} />}
