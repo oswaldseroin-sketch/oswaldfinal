@@ -107,35 +107,84 @@ export default function PastLifeGame({ onBack, onProfileUpdate }: Props) {
       )}
 
       {yesterday && (
-        <div className="mb-5 rounded-2xl border border-amber-400/25 bg-card/50 p-4 backdrop-blur-md" style={{ boxShadow: '0 0 16px rgba(255,191,0,0.1)' }}>
-          <div className="mb-3 flex items-center gap-2">
-            <Trophy size={16} className="text-amber-300" />
-            <p className="text-[10px] font-bold tracking-widest text-amber-300">ВЧЕРАШНИЙ РЕЗУЛЬТАТ</p>
-          </div>
-          <p className="mb-3 text-sm font-bold text-ink/90">{yesterday.question}</p>
-          <div className="space-y-2">
-            {[yesterday.player_1, yesterday.player_2, yesterday.player_3].map((player, i) => {
+  <div className="mb-5">
+    <button
+      onClick={() => setShowYesterdayResults((prev) => !prev)}
+      className="flex w-full items-center justify-between rounded-xl border border-amber-400/30 bg-amber-400/10 px-4 py-3 transition-all active:scale-[0.98]"
+    >
+      <div className="flex items-center gap-2">
+        <Trophy size={16} className="text-amber-300" />
+        <p className="text-[11px] font-extrabold tracking-wide text-amber-300">
+          Вчерашний результат
+        </p>
+      </div>
+
+      <span
+        className={`text-sm text-amber-300 transition-transform duration-300 ${
+          showYesterdayResults ? 'rotate-180' : ''
+        }`}
+      >
+        ▼
+      </span>
+    </button>
+
+    {showYesterdayResults && (
+      <div
+        className="mt-2 rounded-2xl border border-amber-400/25 bg-card/50 p-4 backdrop-blur-md"
+        style={{ boxShadow: '0 0 16px rgba(255,191,0,0.1)' }}
+      >
+        <p className="mb-3 text-sm font-bold text-ink/90">
+          {yesterday.question}
+        </p>
+
+        <div className="space-y-2">
+          {[yesterday.player_1, yesterday.player_2, yesterday.player_3].map(
+            (player, i) => {
               const isCorrect = i === yesterday.correct_index
               const isSelected = yesterday.userVote?.selected_index === i
+
               return (
-                <div key={player} className={`flex items-center justify-between rounded-lg border px-3 py-2 ${isCorrect ? 'border-amber-400/40 bg-amber-400/10' : 'border-line/50 bg-black/20'}`}>
+                <div
+                  key={player}
+                  className={`flex items-center justify-between rounded-lg border px-3 py-2 ${
+                    isCorrect
+                      ? 'border-amber-400/40 bg-amber-400/10'
+                      : 'border-line/50 bg-black/20'
+                  }`}
+                >
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-bold text-ink">{player}</span>
+                    <span className="text-sm font-bold text-ink">
+                      {player}
+                    </span>
+
                     {isCorrect && <span>🏆</span>}
-                    {isSelected && <Check size={13} className={isCorrect ? 'text-amber-300' : 'text-error'} />}
+
+                    {isSelected && (
+                      <Check
+                        size={13}
+                        className={isCorrect ? 'text-amber-300' : 'text-error'}
+                      />
+                    )}
                   </div>
-                  {isCorrect && <span className="text-xs font-bold text-amber-200">Правильный ответ</span>}
+
+                  {isCorrect && (
+                    <span className="text-xs font-bold text-amber-200">
+                      Правильный ответ
+                    </span>
+                  )}
                 </div>
               )
-            })}
-          </div>
-          <div className="mt-3 text-center text-xs text-ink-muted">
-            Правильных ответов: {yesterday.correctCount} из {yesterday.totalCount}
-          </div>
+            },
+          )}
         </div>
-      )}
 
-      {today && (
+        <div className="mt-3 text-center text-xs text-ink-muted">
+          Правильных ответов: {yesterday.correctCount} из {yesterday.totalCount}
+        </div>
+      </div>
+    )}
+  </div>
+)}
         <div className="rounded-2xl border border-neon/30 bg-card/60 p-4 backdrop-blur-md" style={{ boxShadow: '0 0 18px rgba(0,229,255,0.1)' }}>
           <p className="text-[10px] font-bold tracking-widest text-neon">ВОПРОС ДНЯ</p>
           <h2 className="mt-1.5 mb-3 text-base font-extrabold leading-snug text-ink">{today.question}</h2>
