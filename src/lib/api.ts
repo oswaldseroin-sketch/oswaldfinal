@@ -207,6 +207,7 @@ export type GameVoteResult = {
 export type GameClaimResult = {
   success: boolean
   message?: string
+  totalXp?: number
   totalTitleXp?: number
   totalCoins?: number
   winner?: string | number | null
