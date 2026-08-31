@@ -33,6 +33,13 @@ export default function RouletteGame({ onBack, onProfileUpdate }: Props) {
   const [playing, setPlaying] = useState(false)
   const [animStep, setAnimStep] = useState(-1)
   const [showYesterdayResults, setShowYesterdayResults] = useState(false)
+  const [gameStarted, setGameStarted] = useState(false)
+const [starter, setStarter] = useState<'me' | 'opponent' | null>(null)
+const [currentTurn, setCurrentTurn] = useState<'me' | 'opponent' | null>(null)
+const [chamber, setChamber] = useState<number | null>(null)
+const [shotIndex, setShotIndex] = useState(0)
+const [roundMessage, setRoundMessage] = useState('')
+const [roundFinished, setRoundFinished] = useState(false)
 
   const loadState = useCallback(async () => {
     if (!currentUser) return
