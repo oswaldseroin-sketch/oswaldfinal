@@ -133,7 +133,7 @@ const handleGamesMenu = () => {
     {game}
 
     {showGameCompleteNav && (
-      <div className="fixed inset-x-0 bottom-0 z-[100] mx-auto max-w-md p-4">
+      <div className="fixed inset-x-0 bottom-24 z-[100] mx-auto max-w-md p-4">
         <div
           className="rounded-2xl border border-cyan-400/20 bg-black/90 p-3 backdrop-blur-xl"
           style={{
