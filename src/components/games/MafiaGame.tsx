@@ -36,6 +36,7 @@ export default function MafiaGame({ onBack, onProfileUpdate }: Props) {
   const [error, setError] = useState('')
   const [guessing, setGuessing] = useState(false)
   const [lastResult, setLastResult] = useState<{ isMafia: boolean; attemptNumber: number } | null>(null)
+  const [showYesterdayResults, setShowYesterdayResults] = useState(false)
 
   const loadState = useCallback(async () => {
     if (!currentUser) return
