@@ -216,11 +216,21 @@ console.log('MAFIA PLAYERS:', dailyPlayers)
       : 'border-red-500/35 bg-gradient-to-b from-red-950/30 to-black/30 shadow-[0_0_22px_rgba(239,68,68,0.12)]'
   }`}
 >
-              <p className={`text-sm font-extrabold ${today.foundMafia ? 'text-success' : 'text-error'}`}>
-                {today.foundMafia
-                  ? `Поймали мафию! ${today.attemptCount === 1 ? 'С первой попытки!' : 'Со второй попытки!'}`
-                  : 'Мафия сбежала...'}
-              </p>
+              <div className="mb-2">
+  <p className={`text-[9px] font-black tracking-[0.22em] ${
+    today.foundMafia ? 'text-amber-400/70' : 'text-red-500/70'
+  }`}>
+    {today.foundMafia ? 'ДЕЛО РАСКРЫТО' : 'ДЕЛО ПРОВАЛЕНО'}
+  </p>
+
+  <p className={`mt-1 text-sm font-black ${
+    today.foundMafia ? 'text-amber-200' : 'text-red-300'
+  }`}>
+    {today.foundMafia
+      ? `МАФИЯ НАЙДЕНА ${today.attemptCount === 1 ? 'С ПЕРВОЙ ПОПЫТКИ' : 'СО ВТОРОЙ ПОПЫТКИ'}`
+      : 'МАФИЯ СКРЫЛАСЬ'}
+  </p>
+</div>
               {today.foundMafia && today.attemptCount === 1 && (
                 <p className="mt-1 text-sm font-extrabold text-neon" style={{ textShadow: '0 0 10px rgba(0,229,255,0.4)' }}>🥇×3 +9 XP звания +9🪙</p>
               )}
