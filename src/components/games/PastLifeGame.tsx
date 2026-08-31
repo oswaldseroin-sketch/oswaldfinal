@@ -193,7 +193,13 @@ export default function PastLifeGame({ onBack, onProfileUpdate }: Props) {
       '0 0 24px rgba(180,83,9,0.10), inset 0 0 28px rgba(245,158,11,0.035)',
   }}
 >
-          <p className="text-[10px] font-bold tracking-widest text-neon">ВОПРОС ДНЯ</p>
+          <div className="mb-2 flex items-center gap-2">
+  <span className="text-sm">📜</span>
+  <p className="text-[10px] font-black tracking-[0.2em] text-amber-300">
+    ЗАПИСЬ ИЗ ПРОШЛОЙ ЖИЗНИ
+  </p>
+  <div className="h-px flex-1 bg-gradient-to-r from-amber-500/30 to-transparent" />
+</div>
           <h2 className="mt-1.5 mb-3 text-base font-extrabold leading-snug text-ink">{today.question}</h2>
 
           <div className="space-y-2">
