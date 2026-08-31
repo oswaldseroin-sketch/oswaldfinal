@@ -34,6 +34,7 @@ export default function PastLifeGame({ onBack, onProfileUpdate }: Props) {
   const [selected, setSelected] = useState<number | null>(null)
   const [voting, setVoting] = useState(false)
   const [voteResult, setVoteResult] = useState<{ isCorrect: boolean; correctIndex: number } | null>(null)
+  const [showYesterdayResults, setShowYesterdayResults] = useState(false)
 
   const loadState = useCallback(async () => {
     if (!currentUser) return
