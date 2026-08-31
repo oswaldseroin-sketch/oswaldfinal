@@ -113,7 +113,15 @@ export default function SecretLoveGame({ onBack, onProfileUpdate }: Props) {
     </p>
   </div>
 </div>
-          <h2 className="mb-3 text-base font-extrabold leading-snug text-ink">{today.question}</h2>
+          <div className="mb-4 rounded-xl border border-indigo-400/15 bg-black/25 px-3.5 py-3.5">
+  <p className="mb-1 text-[9px] font-black tracking-[0.2em] text-slate-500">
+    ЛИЧНЫЙ ВОПРОС
+  </p>
+
+  <h2 className="text-base font-extrabold leading-snug text-slate-100">
+    {today.question}
+  </h2>
+</div>
 
           <div className="space-y-2">
             {today.players.map((player, i) => {
