@@ -337,7 +337,7 @@ export default function SecretQuest({ onUnlocked }: { onUnlocked: () => void }) 
           {([
             { key: 'normal', label: 'Обычная', icon: Sparkles },
             { key: 'big', label: 'Большая', icon: Crown },
-            { key: 'mega', label: 'Мега', icon: Zap },
+            { key: 'mega', label: 'МЕГА TEST', icon: Zap },
           ] as const).map(({ key, label, icon: Icon }) => (
             <button
               key={key}
