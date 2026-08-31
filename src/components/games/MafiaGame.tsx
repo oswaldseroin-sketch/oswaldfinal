@@ -163,6 +163,8 @@ console.log('MAFIA PLAYERS:', dailyPlayers)
               <span className="text-xs font-bold text-ink">{yesterday.totalPlayed}</span>
             </div>
           </div>
+      </>
+)}
         </div>
       )}
 
