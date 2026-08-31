@@ -399,10 +399,7 @@ const handleMyShot = async () => {
       className={`flex h-16 w-16 items-center justify-center rounded-full border-2 transition-all duration-100 ${
   gunKick
     ? 'scale-125 -rotate-12 border-error bg-error/40'
-    : currentTurn === 'me' && !playing && !roundFinished
-      ? 'border-error/70 bg-error/20 cursor-pointer active:scale-90'
-      : 'border-ink/20 bg-black/30 opacity-60 cursor-default'
-}`}
+   
         currentTurn === 'me' && !playing && !roundFinished
           ? 'border-error/70 bg-error/20 cursor-pointer active:scale-90'
           : 'border-ink/20 bg-black/30 opacity-60 cursor-default'
