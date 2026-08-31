@@ -174,15 +174,19 @@ export default function YesNoGame({ onBack, onProfileUpdate }: Props) {
               <p className="mt-1 text-sm font-extrabold text-neon" style={{ textShadow: '0 0 10px rgba(0,229,255,0.4)' }}>🥈 +{claimResult.totalTitleXp} XP звания +{claimResult.totalCoins}🪙</p>
             </div>
           )}
-          {resultsClaimed && yesterday.reward && (
-            <div className="mt-3 rounded-lg border border-neon/20 bg-neon/5 p-2.5 text-center"><p className="text-[11px] font-bold text-neon/70">Награда получена
-            </p>
-                </>
+        {resultsClaimed && yesterday.reward && (
+  <div className="mt-3 rounded-lg border border-neon/20 bg-neon/5 p-2.5 text-center">
+    <p className="text-[11px] font-bold text-neon/70">
+      Награда получена
+    </p>
+  </div>
 )}
-            </div>
-          )}
-        </div>
-      )}
+
+  </>
+)}
+
+</div>
+)}
 
       {today && (
         <div className="rounded-2xl border border-neon/30 bg-card/60 p-4 backdrop-blur-md" style={{ boxShadow: '0 0 18px rgba(0,229,255,0.1)' }}>
