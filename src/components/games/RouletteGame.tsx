@@ -362,9 +362,13 @@ setPlaying(false)
           {/* Result */}
           {gameStarted && !starter && !hasPlayed && (
   <div className="mb-4 rounded-xl border border-neon/30 bg-neon/5 p-4 text-center">
-    <p className="text-[10px] font-bold tracking-widest text-neon">
-      КТО НАЧИНАЕТ?
-    </p>
+   <p className="text-[9px] font-black tracking-[0.25em] text-amber-400/70">
+  ПРАВО ПЕРВОГО ВЫСТРЕЛА
+</p>
+
+<p className="mt-1 text-sm font-black tracking-wide text-zinc-200">
+  Кто сделает первый ход?
+</p>
 
     <div className="relative mt-4 grid grid-cols-2 gap-2.5">
       <button
