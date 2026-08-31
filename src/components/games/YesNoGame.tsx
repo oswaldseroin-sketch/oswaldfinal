@@ -196,11 +196,21 @@ export default function YesNoGame({ onBack, onProfileUpdate }: Props) {
       '0 0 24px rgba(148,163,184,0.07), inset 0 0 30px rgba(255,255,255,0.015)',
   }}
 >
-          <p className="text-[10px] font-bold tracking-widest text-neon">ВОПРОС ДНЯ</p>
-         <p className="mt-1.5 mb-2 text-base font-extrabold tracking-wide text-neon">
-  {today.player_name}
-</p>
-          <h2 className="mb-3 text-base font-extrabold leading-snug text-ink">{today.question}</h2>
+          <div className="mb-3">
+  <p className="text-[9px] font-black tracking-[0.22em] text-slate-500">
+    КОНТРОЛЬНЫЙ ВОПРОС
+  </p>
+
+  <p className="mt-1 text-sm font-black tracking-wide text-slate-200">
+    {today.player_name}
+  </p>
+</div>
+
+<div className="mb-4 rounded-xl border border-white/10 bg-white/[0.035] px-3.5 py-3.5">
+  <h2 className="text-base font-extrabold leading-snug text-zinc-100">
+    {today.question}
+  </h2>
+</div>
 
           <div className="grid grid-cols-2 gap-2.5">
             {['yes', 'no'].map((option) => {
