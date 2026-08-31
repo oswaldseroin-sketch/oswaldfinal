@@ -246,7 +246,16 @@ console.log('WOULD HE DO IT TODAY:', today)
               <p className="mt-1 text-[11px] text-ink-muted">Результаты будут доступны завтра в 08:00</p>
             </div>
           ) : (
-            <button onClick={handleVote} disabled={!selected || voting} className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-neon py-3 text-sm font-extrabold text-black transition active:scale-95 disabled:opacity-40" style={{ boxShadow: '0 0 16px rgba(0,229,255,0.3)' }}>
+           <button
+  onClick={handleVote}
+  disabled={!selected || voting}
+  className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border border-amber-300/60 bg-gradient-to-r from-amber-500 to-yellow-300 py-3 text-sm font-extrabold text-black transition-all duration-200 active:scale-95 disabled:opacity-30"
+  style={{
+    boxShadow: selected
+      ? '0 0 22px rgba(245,158,11,0.35)'
+      : 'none',
+  }}
+>
               {voting ? <Loader2 size={16} className="animate-spin" /> : <Check size={16} />}
               Ответить
             </button>
