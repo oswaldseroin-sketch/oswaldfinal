@@ -300,7 +300,7 @@ export default function DailyPollGame({ onBack, onProfileUpdate }: Props) {
                           : 'border-line/40 bg-black/20 hover:border-neon/30 active:scale-95'
                   }`}
                 >
-                  <div className={`flex h-5 w-5 shrink-0 items-center justify-center rounded border ${
+                  <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border ${
                     isSelected || wasChosen
                       ? 'border-neon bg-neon text-black'
                       : 'border-line/50'
