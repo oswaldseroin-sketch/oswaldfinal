@@ -134,7 +134,15 @@ export default function BestDuoGame({ onBack, onProfileUpdate }: Props) {
 } ${isWinner ? 'ring-2 ring-amber-400/50' : ''}`}
     >
       <div className="mb-1.5 flex items-center justify-between">
-        <span className="text-[10px] font-bold tracking-widest text-neon">{team}</span>
+       <span
+  className={`text-[10px] font-black tracking-[0.18em] ${
+    teamNum === 1
+      ? 'text-cyan-300'
+      : 'text-red-300'
+  }`}
+>
+  {team}
+</span>
         <div className={`flex h-5 w-5 items-center justify-center rounded-full border ${isSelected || isChosen ? 'border-neon bg-neon text-black' : 'border-line/50'}`}>
           {(isSelected || isChosen) && <Check size={12} />}
         </div>
