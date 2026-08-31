@@ -257,9 +257,17 @@ console.log('MAFIA PLAYERS:', dailyPlayers)
 >
   {isMafiaRevealed ? '🕵️' : isEliminated ? <X size={14} /> : `#${index + 1}`}
 </div>
-                      <span className={`flex-1 text-sm font-bold ${isMafiaRevealed ? 'text-amber-200' : isEliminated ? 'text-error' : 'text-ink'}`}>
-                        {player.full_name}
-                      </span>
+                     <span
+  className={`flex-1 text-sm font-extrabold tracking-wide transition-all ${
+    isMafiaRevealed
+      ? 'text-amber-200'
+      : isEliminated
+        ? 'text-red-500/60 line-through'
+        : 'text-zinc-100'
+  }`}
+>
+  {player.full_name}
+</span>
                       {isMafiaRevealed && <span className="text-xs font-bold text-amber-300">МАФИЯ</span>}
                       {isEliminated && <span className="text-xs text-error">Не мафия</span>}
                     </button>
