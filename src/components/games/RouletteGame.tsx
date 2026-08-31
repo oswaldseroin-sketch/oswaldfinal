@@ -79,6 +79,17 @@ const [roundFinished, setRoundFinished] = useState(false)
       setAnimStep(-1)
     }
   }
+  const finishRoulette = async (result: 'win' | 'lose') => {
+  if (!currentUser) return
+
+  try {
+    await api.submitGameVote('roulette', currentUser.id, { result })
+    await loadState()
+    onProfileUpdate()
+  } catch (err) {
+    setError(err instanceof Error ? err.message : 'Ошибка сохранения результата')
+  }
+}
 const handleMyShot = async () => {
   if (currentTurn !== 'me' || roundFinished || chamber === null) return
 
