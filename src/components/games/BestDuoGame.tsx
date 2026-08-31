@@ -117,11 +117,21 @@ export default function BestDuoGame({ onBack, onProfileUpdate }: Props) {
     <button
       onClick={onClick}
       disabled={hasVoted}
-      className={`w-full rounded-xl border p-3 text-left transition-all ${
-        hasVoted
-          ? isChosen ? 'border-neon/50 bg-neon/15' : 'border-line/20 bg-black/20 opacity-40'
-          : isSelected ? 'border-neon/60 bg-neon/15 active:scale-95' : 'border-line/40 bg-black/20 hover:border-neon/30 active:scale-95'
-      } ${isWinner ? 'ring-2 ring-amber-400/40' : ''}`}
+      className={`w-full rounded-xl border p-3 text-left transition-all duration-200 ${
+  hasVoted
+    ? isChosen
+      ? teamNum === 1
+        ? 'scale-[1.02] border-cyan-400/70 bg-cyan-500/15 shadow-[0_0_20px_rgba(34,211,238,0.22)]'
+        : 'scale-[1.02] border-red-400/70 bg-red-500/15 shadow-[0_0_20px_rgba(248,113,113,0.22)]'
+      : 'border-line/20 bg-black/20 opacity-35'
+    : isSelected
+      ? teamNum === 1
+        ? 'scale-[1.03] border-cyan-300/80 bg-cyan-500/20 shadow-[0_0_24px_rgba(34,211,238,0.30)] active:scale-95'
+        : 'scale-[1.03] border-red-300/80 bg-red-500/20 shadow-[0_0_24px_rgba(248,113,113,0.30)] active:scale-95'
+      : teamNum === 1
+        ? 'border-cyan-500/25 bg-cyan-950/20 hover:border-cyan-400/50 hover:bg-cyan-500/10 active:scale-95'
+        : 'border-red-500/25 bg-red-950/20 hover:border-red-400/50 hover:bg-red-500/10 active:scale-95'
+} ${isWinner ? 'ring-2 ring-amber-400/50' : ''}`}
     >
       <div className="mb-1.5 flex items-center justify-between">
         <span className="text-[10px] font-bold tracking-widest text-neon">{team}</span>
