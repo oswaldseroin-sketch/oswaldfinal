@@ -569,6 +569,11 @@ if (selectedGame === 10) {
   </div>
 </div>
 </div>
+        {showGameCompleteNav && selectedGame === null && (
+  <div className="mb-4">
+    {renderCompleteNav()}
+  </div>
+)}
         {/* 10 mini-game cards */}
         <div className="grid grid-cols-2 gap-2.5">
           {MINI_GAMES.map((game) => {
