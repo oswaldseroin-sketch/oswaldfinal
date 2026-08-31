@@ -145,8 +145,6 @@ const renderCompleteNav = () => {
 
   if (!gameCompleted) return null
 
-  if (gameNumber === null) return null
-
   return (
     <div className="relative z-[100] mx-auto -mt-2 max-w-md px-4 pb-4">
       <div
