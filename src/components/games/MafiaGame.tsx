@@ -175,10 +175,13 @@ export default function MafiaGame({ onBack, onProfileUpdate }: Props) {
                 </div>
               )}
             </div>
-          ) : allPlayers.length > 0 ? (
-            <>
-              <div className="space-y-2">
-                {allPlayers.map((player) => {
+          ) : dailyPlayers.length > 0 ? (
+  <>
+    <div className="space-y-2">
+      {dailyPlayers.map((playerName) => {
+        const player = allPlayers.find((p) => p.full_name === playerName)
+
+        if (!player) return null
                   const isEliminated = eliminatedNames.has(player.full_name)
                   const isMafiaRevealed = today.gameEnded && player.full_name === mafiaName
                   return (
