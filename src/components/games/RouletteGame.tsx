@@ -466,9 +466,7 @@ style={{
   boxShadow:
     '0 0 30px rgba(251,191,36,0.10), inset 0 0 35px rgba(127,29,29,0.14)',
 }}
-    style={{
-      animationDuration: cylinderSpinning ? '0.35s' : undefined,
-    }}
+  
   >
     <div className="absolute inset-4 rounded-full border-2 border-ink/20" />
 
