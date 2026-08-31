@@ -236,15 +236,15 @@ console.log('MAFIA PLAYERS:', dailyPlayers)
                       key={player.id}
                      onClick={() => handleGuess(index)}
                       disabled={today.gameEnded || isEliminated || guessing}
-                      className={`flex w-full items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all ${
-                        isMafiaRevealed
-                          ? 'border-amber-400/60 bg-amber-400/15'
-                          : isEliminated
-                            ? 'border-error/30 bg-error/10 opacity-50'
-                            : today.gameEnded
-                              ? 'border-line/20 bg-black/20 opacity-40'
-                              : 'border-line/40 bg-black/20 hover:border-neon/40 active:scale-95'
-                      }`}
+                     className={`relative flex w-full items-center gap-3 overflow-hidden rounded-xl border px-4 py-3 text-left transition-all duration-200 ${
+  isMafiaRevealed
+    ? 'scale-[1.02] border-amber-400/70 bg-amber-500/15 shadow-[0_0_22px_rgba(251,191,36,0.20)]'
+    : isEliminated
+      ? 'border-red-900/40 bg-red-950/20 opacity-40'
+      : today.gameEnded
+        ? 'border-zinc-800/40 bg-black/30 opacity-35'
+        : 'border-red-500/15 bg-zinc-950/60 hover:border-red-400/50 hover:bg-red-950/25 hover:shadow-[0_0_18px_rgba(239,68,68,0.12)] active:scale-[0.98]'
+}`}
                     >
                       <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-xs font-bold ${
                         isMafiaRevealed ? 'border-amber-400 bg-amber-400/20 text-amber-300' :
