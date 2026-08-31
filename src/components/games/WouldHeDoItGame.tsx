@@ -105,6 +105,7 @@ export default function WouldHeDoItGame({ onBack, onProfileUpdate }: Props) {
 
   const today = (state?.today ?? null) as TodayState | null
   const yesterday = (state?.yesterday ?? null) as YesterdayState | null
+  const hasVoted = !!today?.userVote
 console.log('WOULD HE DO IT TODAY:', today)
 
   return (
