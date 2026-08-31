@@ -113,7 +113,21 @@ export default function MiniGamesPanel({ onBack }: Props) {
       setSelectedGame(null)
       setCompletedToday(getCompletedToday(playerId))
     }
+const handleNextGame = () => {
+  setShowGameCompleteNav(false)
 
+  if (selectedGame < 10) {
+    setSelectedGame(selectedGame + 1)
+  } else {
+    setSelectedGame(null)
+  }
+}
+
+const handleGamesMenu = () => {
+  setShowGameCompleteNav(false)
+  setSelectedGame(null)
+  setCompletedToday(getCompletedToday(playerId))
+}
     if (selectedGame === 1) {
       return <DailyPollGame onBack={handleBack} onProfileUpdate={() => void handleGameComplete(1)} />
     }
