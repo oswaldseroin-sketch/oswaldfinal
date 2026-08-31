@@ -124,46 +124,134 @@ export default function WouldHeDoItGame({ onBack, onProfileUpdate }: Props) {
         <div className="mb-4 rounded-xl border border-error/30 bg-error/10 p-3 text-center"><p className="text-xs font-bold text-error">{error}</p></div>
       )}
 
-      {yesterday && (
-        <div className="mb-5 rounded-2xl border border-amber-400/25 bg-card/50 p-4 backdrop-blur-md" style={{ boxShadow: '0 0 16px rgba(255,191,0,0.1)' }}>
-          <div className="mb-3 flex items-center gap-2">
-            <Trophy size={16} className="text-amber-300" />
-            <p className="text-[10px] font-bold tracking-widest text-amber-300">ВЧЕРАШНИЙ РЕЗУЛЬТАТ</p>
-          </div>
-          <p className="mb-3 text-sm font-bold text-ink/90">{yesterday.question}</p>
-          <p className="mb-2 text-xs text-ink-muted">Игрок: <span className="font-bold text-ink">{yesterday.player_name}</span></p>
-          <div className="space-y-2">
-            <div className={`flex items-center justify-between rounded-lg border px-3 py-2 ${yesterday.winner === 'yes' ? 'border-amber-400/40 bg-amber-400/10' : 'border-line/50 bg-black/20'}`}>
-              <div className="flex items-center gap-2"><span className="text-sm font-bold text-ink">ДА</span>{yesterday.winner === 'yes' && <span>🏆</span>}{yesterday.userVote === 'yes' && <Check size={13} className="text-amber-300" />}</div>
-              <span className="text-sm font-extrabold text-amber-200">{yesterday.yesVotes}</span>
-            </div>
-            <div className={`flex items-center justify-between rounded-lg border px-3 py-2 ${yesterday.winner === 'no' ? 'border-amber-400/40 bg-amber-400/10' : 'border-line/50 bg-black/20'}`}>
-              <div className="flex items-center gap-2"><span className="text-sm font-bold text-ink">НЕТ</span>{yesterday.winner === 'no' && <span>🏆</span>}{yesterday.userVote === 'no' && <Check size={13} className="text-amber-300" />}</div>
-              <span className="text-sm font-extrabold text-amber-200">{yesterday.noVotes}</span>
-            </div>
-          </div>
-          {!yesterday.winner && <p className="mt-2 text-center text-xs text-ink-muted">Ничья — награда не выдаётся</p>}
+    {yesterday && (
+  <div className="mb-5">
+    <button
+      onClick={() => setShowYesterdayResults((prev) => !prev)}
+      className="flex w-full items-center justify-between rounded-xl border border-amber-400/30 bg-amber-400/10 px-4 py-3 transition-all active:scale-[0.98]"
+      style={{
+        boxShadow: showYesterdayResults
+          ? '0 0 18px rgba(255,191,0,0.18)'
+          : '0 0 10px rgba(255,191,0,0.08)',
+      }}
+    >
+      <div className="flex items-center gap-2">
+        <Trophy size={17} className="text-amber-300" />
+        <span className="text-[12px] font-extrabold tracking-wide text-amber-300">
+          Вчерашний результат
+        </span>
+      </div>
 
-          {yesterday.userVote && !resultsClaimed && yesterday.winner && (
-            <button onClick={handleClaim} disabled={claiming} className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-amber-400/40 bg-amber-400/15 py-2.5 text-sm font-extrabold text-amber-200 transition hover:bg-amber-400/25 active:scale-95 disabled:opacity-50">
-              {claiming ? <Loader2 size={16} className="animate-spin" /> : <Gift size={16} />}
-              Получить награду
-            </button>
-          )}
+      <span
+        className={`text-sm text-amber-300 transition-transform duration-300 ${
+          showYesterdayResults ? 'rotate-180' : ''
+        }`}
+      >
+        ▼
+      </span>
+    </button>
 
-          {claimResult && claimResult.totalTitleXp! > 0 && (
-            <div className="mt-3 rounded-lg border border-neon/30 bg-neon/10 p-3 text-center">
-              <p className="text-xs font-bold text-neon">Награда получена!</p>
-              <p className="mt-1 text-sm font-extrabold text-neon" style={{ textShadow: '0 0 10px rgba(0,229,255,0.4)' }}>🥉 +{claimResult.totalTitleXp} XP звания +{claimResult.totalCoins}🪙</p>
+    {showYesterdayResults && (
+      <div
+        className="mt-2 rounded-2xl border border-amber-400/25 bg-card/50 p-4 backdrop-blur-md"
+        style={{ boxShadow: '0 0 16px rgba(255,191,0,0.1)' }}
+      >
+        <p className="text-[11px] font-extrabold tracking-wide text-amber-300">
+          {yesterday.player_name}
+        </p>
+
+        <p className="mt-1 mb-3 text-sm font-bold text-ink/90">
+          {yesterday.question}
+        </p>
+
+        <div className="space-y-2">
+          <div
+            className={`flex items-center justify-between rounded-lg border px-3 py-2 ${
+              yesterday.winner === 'yes'
+                ? 'border-amber-400/40 bg-amber-400/10'
+                : 'border-line/50 bg-black/20'
+            }`}
+          >
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-bold text-ink">ДА</span>
+              {yesterday.winner === 'yes' && <span>🏆</span>}
+              {yesterday.userVote === 'yes' && (
+                <Check size={13} className="text-amber-300" />
+              )}
             </div>
-          )}
-          {resultsClaimed && yesterday.reward && (
-            <div className="mt-3 rounded-lg border border-neon/20 bg-neon/5 p-2.5 text-center"><p className="text-[11px] font-bold text-neon/70">Награда получена</p></div>
-          )}
+
+            <span className="text-sm font-extrabold text-amber-200">
+              {yesterday.yesVotes}
+            </span>
+          </div>
+
+          <div
+            className={`flex items-center justify-between rounded-lg border px-3 py-2 ${
+              yesterday.winner === 'no'
+                ? 'border-amber-400/40 bg-amber-400/10'
+                : 'border-line/50 bg-black/20'
+            }`}
+          >
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-bold text-ink">НЕТ</span>
+              {yesterday.winner === 'no' && <span>🏆</span>}
+              {yesterday.userVote === 'no' && (
+                <Check size={13} className="text-amber-300" />
+              )}
+            </div>
+
+            <span className="text-sm font-extrabold text-amber-200">
+              {yesterday.noVotes}
+            </span>
+          </div>
         </div>
-      )}
 
-      {today && (
+        {!yesterday.winner && (
+          <p className="mt-2 text-center text-xs text-ink-muted">
+            Ничья — награда не выдаётся
+          </p>
+        )}
+
+        {yesterday.userVote && !resultsClaimed && yesterday.winner && (
+          <button
+            onClick={handleClaim}
+            disabled={claiming}
+            className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-amber-400/40 bg-amber-400/15 py-2.5 text-sm font-extrabold text-amber-200 transition hover:bg-amber-400/25 active:scale-95 disabled:opacity-50"
+          >
+            {claiming ? (
+              <Loader2 size={16} className="animate-spin" />
+            ) : (
+              <Gift size={16} />
+            )}
+            Получить награду
+          </button>
+        )}
+
+        {claimResult && claimResult.totalTitleXp! > 0 && (
+          <div className="mt-3 rounded-lg border border-neon/30 bg-neon/10 p-3 text-center">
+            <p className="text-xs font-bold text-neon">
+              Награда получена!
+            </p>
+            <p
+              className="mt-1 text-sm font-extrabold text-neon"
+              style={{ textShadow: '0 0 10px rgba(0,229,255,0.4)' }}
+            >
+              🥉 +{claimResult.totalTitleXp} XP звания +{claimResult.totalCoins}🪙
+            </p>
+          </div>
+        )}
+
+        {resultsClaimed && yesterday.reward && (
+          <div className="mt-3 rounded-lg border border-neon/20 bg-neon/5 p-2.5 text-center">
+            <p className="text-[11px] font-bold text-neon/70">
+              Награда получена
+            </p>
+          </div>
+        )}
+      </div>
+    )}
+  </div>
+)}
         <div className="rounded-2xl border border-neon/30 bg-card/60 p-4 backdrop-blur-md" style={{ boxShadow: '0 0 18px rgba(0,229,255,0.1)' }}>
           <p className="text-[11px] font-extrabold tracking-wide text-neon">
   {today.player_name}
