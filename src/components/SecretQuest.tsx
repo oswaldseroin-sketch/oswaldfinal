@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
-import { DoorOpen, KeyRound, Lock, Sparkles, Zap, Crown, Settings } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { Sparkles, Zap, Crown } from 'lucide-react'
 import { nominations as fallbackNominations, type Nomination } from '../lib/nominations'
 import { getItem, setItem } from '../lib/storage'
 import { api, type SecretRoomQuestion } from '../lib/api'
