@@ -123,6 +123,8 @@ export default function RatePlayerGame({ onBack, onProfileUpdate }: Props) {
     ▼
   </span>
 </button>
+          {showYesterdayResults && (
+  <>
           <p className="mb-1 text-sm font-bold text-ink/90">{yesterday.question}</p>
           <p className="mb-3 text-xs text-ink-muted">Игрок: <span className="font-bold text-ink">{yesterday.player_name}</span></p>
           <div className="rounded-lg border border-amber-400/30 bg-amber-400/10 p-3 text-center">
