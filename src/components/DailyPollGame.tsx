@@ -300,13 +300,15 @@ export default function DailyPollGame({ onBack, onProfileUpdate }: Props) {
         : 'border-purple-400/15 bg-black/25 hover:border-purple-400/45 hover:bg-purple-500/10 active:scale-95'
 }`}
                 >
-                  <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border ${
-                    isSelected || wasChosen
-                      ? 'border-neon bg-neon text-black'
-                      : 'border-line/50'
-                  }`}>
-                    {(isSelected || wasChosen) && <Check size={13} />}
-                  </div>
+                 <div
+  className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-[10px] font-black transition-all duration-200 ${
+    isSelected || wasChosen
+      ? 'border-purple-300 bg-purple-400 text-black shadow-[0_0_14px_rgba(192,132,252,0.65)]'
+      : 'border-purple-400/25 bg-black/30 text-purple-200'
+  }`}
+>
+  {isSelected || wasChosen ? <Check size={15} /> : '✦'}
+</div>
                  <span
   className={`truncate text-[10px] font-bold ${
     isSelected || wasChosen ? 'text-ink' : 'text-ink/80'
