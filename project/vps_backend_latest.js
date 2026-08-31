@@ -2198,29 +2198,51 @@ function setupGameRoutes(app, pool) {
   }
 
   async function handleMafiaVote(pool, res, userId, todayStr, params) {
-    const { selectedPlayerId, selectedIndex } = params
+   const { selectedPlayerId, selectedIndex: incomingSelectedIndex } = params
 
-    // Get daily entry
-    const { rows: dailyRows } = await pool.query(
-      'SELECT * FROM mafia_daily WHERE game_day = $1',
-      [todayStr]
-    )
-    if (dailyRows.length === 0) return res.status(400).json({ error: 'Игра не найдена' })
-    const daily = dailyRows[0]
-    const dailyPlayers = [daily.player_1, daily.player_2, daily.player_3, daily.player_4, daily.player_5]
+// Get daily entry
+const { rows: dailyRows } = await pool.query(
+  'SELECT * FROM mafia_daily WHERE game_day = $1',
+  [todayStr]
+)
 
-    let selectedIndex
-    if (typeof selectedPlayerId === 'number') {
-      const { rows: playerRows } = await pool.query('SELECT full_name FROM players WHERE id = $1', [selectedPlayerId])
-      if (playerRows.length === 0) return res.status(400).json({ error: 'Игрок не найден' })
-      selectedIndex = dailyPlayers.indexOf(playerRows[0].full_name)
-      // -1 means the player is not among today's 5 candidates — always a wrong guess
-    } else {
-      selectedIndex = selectedIndex
-    }
-    if (typeof selectedIndex !== 'number' || selectedIndex < -1 || selectedIndex > 4) {
-      return res.status(400).json({ error: 'selectedIndex must be 0-4' })
-    }
+if (dailyRows.length === 0) {
+  return res.status(400).json({ error: 'Игра не найдена' })
+}
+
+const daily = dailyRows[0]
+const dailyPlayers = [
+  daily.player_1,
+  daily.player_2,
+  daily.player_3,
+  daily.player_4,
+  daily.player_5,
+]
+
+let selectedIndex
+
+if (typeof selectedPlayerId === 'number') {
+  const { rows: playerRows } = await pool.query(
+    'SELECT full_name FROM players WHERE id = $1',
+    [selectedPlayerId],
+  )
+
+  if (playerRows.length === 0) {
+    return res.status(400).json({ error: 'Игрок не найден' })
+  }
+
+  selectedIndex = dailyPlayers.indexOf(playerRows[0].full_name)
+} else {
+  selectedIndex = incomingSelectedIndex
+}
+
+if (
+  typeof selectedIndex !== 'number' ||
+  selectedIndex < 0 ||
+  selectedIndex > 4
+) {
+  return res.status(400).json({ error: 'selectedIndex must be 0-4' })
+}
 
     // Get or create user state
     let { rows: userStateRows } = await pool.query(
