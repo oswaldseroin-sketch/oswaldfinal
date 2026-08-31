@@ -319,7 +319,12 @@ const yesterdayClaimed =
 </div>
 
           {hasVoted ? (
-            <div className="mt-4 rounded-xl border border-success/30 bg-success/10 p-3 text-center">
+            <div
+  className="mt-4 rounded-xl border border-violet-400/25 bg-violet-500/10 p-3 text-center"
+  style={{
+    boxShadow: '0 0 18px rgba(139,92,246,0.10)',
+  }}
+>
               <div className="flex items-center justify-center gap-2"><Check size={16} className="text-success" /><p className="text-sm font-extrabold text-success">Оценка принята!</p></div>
               {today.userVote !== null && today.userVote !== undefined && (
                 <p className="mt-2 text-xs text-ink-muted">
