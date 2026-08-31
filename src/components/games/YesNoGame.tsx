@@ -222,11 +222,21 @@ export default function YesNoGame({ onBack, onProfileUpdate }: Props) {
                   key={option}
                   onClick={() => !hasVoted && setSelected(option)}
                   disabled={hasVoted}
-                  className={`flex items-center justify-center gap-2 rounded-xl border py-5 text-lg font-extrabold transition-all ${
-                    hasVoted
-                      ? wasChosen ? 'border-neon/50 bg-neon/15 text-ink' : 'border-line/20 bg-black/20 text-ink/40'
-                      : isSelected ? 'border-neon/60 bg-neon/15 text-ink active:scale-95' : 'border-line/40 bg-black/20 text-ink/80 hover:border-neon/30 active:scale-95'
-                  }`}
+                  className={`flex items-center justify-center gap-2 rounded-xl border py-5 text-lg font-black tracking-wide transition-all duration-200 ${
+  hasVoted
+    ? wasChosen
+      ? option === 'yes'
+        ? 'scale-[1.02] border-emerald-400/70 bg-emerald-500/15 text-emerald-100 shadow-[0_0_22px_rgba(52,211,153,0.20)]'
+        : 'scale-[1.02] border-red-400/70 bg-red-500/15 text-red-100 shadow-[0_0_22px_rgba(248,113,113,0.20)]'
+      : 'border-white/5 bg-white/[0.02] text-zinc-600 opacity-35'
+    : isSelected
+      ? option === 'yes'
+        ? 'scale-[1.03] border-emerald-300/80 bg-emerald-500/20 text-emerald-50 shadow-[0_0_24px_rgba(52,211,153,0.28)] active:scale-95'
+        : 'scale-[1.03] border-red-300/80 bg-red-500/20 text-red-50 shadow-[0_0_24px_rgba(248,113,113,0.28)] active:scale-95'
+      : option === 'yes'
+        ? 'border-emerald-500/20 bg-emerald-950/15 text-emerald-200 hover:border-emerald-400/45 hover:bg-emerald-500/10 active:scale-95'
+        : 'border-red-500/20 bg-red-950/15 text-red-200 hover:border-red-400/45 hover:bg-red-500/10 active:scale-95'
+}`}
                 >
                   {label}
                 </button>
