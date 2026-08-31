@@ -258,7 +258,7 @@ if (selectedGame === 10) {
     />
   )
 }
-
+}
   // -- Main panel --
   const levelInfo = profile
   ? getLevelInfo(profile.xp, profile.level)
