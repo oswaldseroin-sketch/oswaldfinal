@@ -100,9 +100,19 @@ export default function SecretLoveGame({ onBack, onProfileUpdate }: Props) {
   }}
 >
           <div className="mb-3 flex items-center gap-2">
-            <Heart size={14} className="text-accent" />
-            <p className="text-[10px] font-bold tracking-widest text-accent">ВОПРОС ДНЯ</p>
-          </div>
+  <div className="flex h-6 w-6 items-center justify-center rounded-lg border border-indigo-400/20 bg-indigo-500/5">
+    <span className="text-xs">👁️</span>
+  </div>
+
+  <div>
+    <p className="text-[9px] font-black tracking-[0.22em] text-indigo-300/70">
+      КАСАЕТСЯ ЛИЧНО ТЕБЯ
+    </p>
+    <p className="text-[10px] font-bold text-slate-400">
+      Психологический выбор
+    </p>
+  </div>
+</div>
           <h2 className="mb-3 text-base font-extrabold leading-snug text-ink">{today.question}</h2>
 
           <div className="space-y-2">
