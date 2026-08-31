@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { type ReactNode, useCallback, useEffect, useState } from 'react'
 import { Coins, Check } from 'lucide-react'
 import { api, type MiniGameProfile, type MiniGameProgress } from '../lib/api'
 import { getLevelInfo, MINI_GAMES } from '../lib/miniGames'
