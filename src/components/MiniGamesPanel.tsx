@@ -145,7 +145,9 @@ export default function MiniGamesPanel({ onBack }: Props) {
   }
 
   // -- Main panel --
-  const levelInfo = profile ? getLevelInfo(profile.xp) : null
+  const levelInfo = profile
+  ? getLevelInfo(profile.xp, profile.level)
+  : null
   const titleInfo = profile ? getTitleInfo(profile.titleXp) : null
 
   return (
