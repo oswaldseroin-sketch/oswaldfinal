@@ -287,7 +287,15 @@ export default function BestDuoGame({ onBack, onProfileUpdate }: Props) {
 
   <div className="h-px flex-1 bg-gradient-to-r from-amber-400/40 to-transparent" />
 </div>
-          <h2 className="mt-1.5 mb-3 text-base font-extrabold leading-snug text-ink">{today.question}</h2>
+          <div className="mb-3 rounded-xl border border-amber-400/20 bg-black/30 px-3 py-3 text-center">
+  <p className="mb-1 text-[9px] font-black tracking-[0.2em] text-amber-400/70">
+    ⚡ ИСПЫТАНИЕ ⚡
+  </p>
+
+  <h2 className="text-base font-black leading-snug text-ink">
+    {today.question}
+  </h2>
+</div>
 
           <div className="grid grid-cols-2 gap-2.5">
             <TeamCard team="КОМАНДА 1" teamNum={1} players={today.team1} isSelected={selected === 1} isChosen={today.userVote === 1} onClick={() => setSelected(1)} />
