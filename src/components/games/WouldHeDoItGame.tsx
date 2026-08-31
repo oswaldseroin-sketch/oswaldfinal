@@ -198,9 +198,15 @@ console.log('WOULD HE DO IT TODAY:', today)
   </p>
 </div>
 
-<h2 className="mt-1.5 mb-3 text-base font-extrabold leading-snug text-ink">
-  {today.question}
-</h2>
+<div className="mb-3 rounded-xl border border-amber-400/20 bg-amber-400/5 px-3 py-3">
+  <p className="mb-1 text-[9px] font-black tracking-[0.18em] text-amber-300/80">
+    СТАВКА ДНЯ
+  </p>
+
+  <h2 className="text-base font-extrabold leading-snug text-ink">
+    {today.question}
+  </h2>
+</div>
 
           <div className="grid grid-cols-2 gap-2.5">
             {['yes', 'no'].map((option) => {
