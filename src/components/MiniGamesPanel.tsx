@@ -56,6 +56,7 @@ export default function MiniGamesPanel({ onBack }: Props) {
   const [progress, setProgress] = useState<MiniGameProgress[]>([])
   const [loading, setLoading] = useState(true)
   const [selectedGame, setSelectedGame] = useState<number | null>(null)
+  const [showGameCompleteNav, setShowGameCompleteNav] = useState(false)
   const [titlePopup, setTitlePopup] = useState<string | null>(null)
   const [completedToday, setCompletedToday] = useState<CompletedToday>(() => getCompletedToday(playerId))
 
