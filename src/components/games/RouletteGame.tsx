@@ -381,9 +381,20 @@ setPlaying(false)
         <p className="text-[9px] font-bold tracking-widest text-amber-300">
           ПРОТИВНИК
         </p>
-        <p className="mt-1 text-xs font-extrabold text-ink">
-          {today.opponent_name}
-        </p>
+       <p
+  className={`mt-1 text-sm font-extrabold transition-all duration-300 ${
+    currentTurn === 'opponent'
+      ? 'scale-105 text-amber-300'
+      : 'text-ink/50'
+  }`}
+  style={
+    currentTurn === 'opponent'
+      ? { textShadow: '0 0 12px rgba(252,211,77,0.7)' }
+      : undefined
+  }
+>
+  {today.opponent_name}
+</p>
       </div>
     </div>
 
