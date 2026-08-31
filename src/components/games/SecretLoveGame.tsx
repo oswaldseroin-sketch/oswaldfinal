@@ -197,9 +197,23 @@ export default function SecretLoveGame({ onBack, onProfileUpdate }: Props) {
       : 'border-slate-500/25 bg-gradient-to-b from-slate-800/30 to-black/30'
   }`}
 >
-              <p className={`text-sm font-extrabold ${today.userVote?.is_correct ? 'text-success' : 'text-error'}`}>
-                {today.userVote?.is_correct ? 'Правильно!' : 'Неправильно'}
-              </p>
+              <div>
+  <p className="text-[9px] font-black tracking-[0.22em] text-indigo-300/60">
+    РЕЗУЛЬТАТ ПРОФИЛЯ
+  </p>
+
+  <p
+    className={`mt-1 text-sm font-black ${
+      today.userVote?.is_correct
+        ? 'text-indigo-200'
+        : 'text-slate-400'
+    }`}
+  >
+    {today.userVote?.is_correct
+      ? 'ТВОЯ ИНТУИЦИЯ СРАБОТАЛА'
+      : 'ТЫ ПРОЧИТАЛ ИХ НЕВЕРНО'}
+  </p>
+</div>
               {today.userVote?.is_correct ? (
                 <p className="mt-1 text-sm font-extrabold text-neon" style={{ textShadow: '0 0 10px rgba(0,229,255,0.4)' }}>🥈 +2 XP звания +2🪙</p>
               ) : (
