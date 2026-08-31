@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Eye, Moon, Skull, KeyRound, Gem, Flame, Star, Scroll, Sparkles, Snowflake, ChevronLeft } from 'lucide-react'
 import { getItem, setItem } from '../lib/storage'
 import { useApp } from '../context/AppContext'
+import { SPECIAL_PREDICTION_MESSAGES } from '../lib/specialPredictionMessages'
 
 const RITUAL_IMAGE = '/frasimah-ritual.webp'
 
