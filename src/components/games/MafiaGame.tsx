@@ -240,12 +240,28 @@ console.log('MAFIA PLAYERS:', dailyPlayers)
               <p className="mt-1 text-[11px] text-ink-muted">Базовая награда: +2 XP +1🪙</p>
               <p className="mt-3 text-[11px] text-ink-muted">Попытки закончились. Результат будет завтра в 08:00.</p>
 
-              {mafiaName && (
-                <div className="mt-3 rounded-lg border border-amber-400/30 bg-amber-400/10 px-3 py-2 text-center">
-                  <p className="text-xs text-ink-muted">Мафия была:</p>
-                  <p className="text-sm font-extrabold text-amber-200">{mafiaName}</p>
-                </div>
-              )}
+             {mafiaName && (
+  <div className="mt-3 overflow-hidden rounded-xl border border-amber-400/30 bg-black/30">
+    <div className="border-b border-amber-400/15 bg-amber-500/5 px-3 py-1.5">
+      <p className="text-[9px] font-black tracking-[0.22em] text-amber-400/60">
+        ЛИЧНОСТЬ УСТАНОВЛЕНА
+      </p>
+    </div>
+
+    <div className="px-3 py-3">
+      <p className="text-[10px] font-bold text-zinc-500">
+        МАФИЯ
+      </p>
+
+      <p
+        className="mt-0.5 text-base font-black tracking-wide text-amber-200"
+        style={{ textShadow: '0 0 12px rgba(251,191,36,0.25)' }}
+      >
+        {mafiaName}
+      </p>
+    </div>
+  </div>
+)}
             </div>
           ) : dailyPlayers.length > 0 ? (
   <>
