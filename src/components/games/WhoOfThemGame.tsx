@@ -71,7 +71,7 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
     } finally {
       setLoading(false)
     }
-  }, [currentUser, numericUserId])
+ }, [currentUser])
 
   useEffect(() => { void loadState() }, [loadState])
 
