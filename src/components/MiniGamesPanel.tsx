@@ -213,9 +213,25 @@ export default function MiniGamesPanel({ onBack }: Props) {
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-bold text-ink/80">{currentUser?.name}</p>
                 <div className="mt-1.5 flex items-baseline gap-2">
-                  <span className="text-xl font-extrabold text-neon" style={{ textShadow: '0 0 10px rgba(0,229,255,0.4)' }}>
-                    Уровень {levelInfo.level}
-                  </span>
+                  <div
+  className="inline-flex items-center gap-2 rounded-xl border border-cyan-400/20 bg-cyan-400/[0.07] px-2.5 py-1.5"
+  style={{
+    boxShadow: 'inset 0 0 14px rgba(0,229,255,0.05)',
+  }}
+>
+  <span className="text-[8px] font-black tracking-[0.2em] text-cyan-300/50">
+    LVL
+  </span>
+
+  <span
+    className="text-xl font-black leading-none text-cyan-200"
+    style={{
+      textShadow: '0 0 12px rgba(0,229,255,0.55)',
+    }}
+  >
+    {levelInfo.level}
+  </span>
+</div>
                 </div>
                 <p className="mt-0.5 text-xs font-bold tracking-wide text-accent" style={{ textShadow: '0 0 8px rgba(255,43,214,0.4)' }}>
                   {titleInfo.title}
