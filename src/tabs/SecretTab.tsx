@@ -28,10 +28,9 @@ const [questUnlocked, setQuestUnlocked] = useState(() =>
   const unlockQuest = useCallback(() => setQuestUnlocked(true), [])
 
   const leaveQuest = useCallback(() => {
-    removeItem('secret-quest-passed')
-    setQuestUnlocked(false)
-  }, [])
-
+  removeItem(questKey)
+  setQuestUnlocked(false)
+}, [questKey])
   const openShadowRealm = () => {
     setShadowDimmed(true)
     setTimeout(() => {
