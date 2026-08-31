@@ -240,7 +240,7 @@ console.log('MAFIA PLAYERS:', dailyPlayers)
                 })}
               </div>
 
-              {lastResult && !today.gameEnded && (
+            {lastResult && !lastResult.isMafia && !today.gameEnded && (
                 <div className="mt-4 rounded-xl border border-error/30 bg-error/10 p-3 text-center">
                   <div className="flex items-center justify-center gap-2"><X size={16} className="text-error" /><p className="text-sm font-bold text-error">Не мафия!</p></div>
                   <p className="mt-1 text-[11px] text-ink-muted">Осталась 1 попытка</p>
