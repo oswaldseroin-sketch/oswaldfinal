@@ -126,7 +126,6 @@ const handleNextGame = () => {
 }
 
 const handleGamesMenu = () => {
-  setShowGameCompleteNav(false)
   setSelectedGame(null)
   setCompletedToday(getCompletedToday(playerId))
 }
