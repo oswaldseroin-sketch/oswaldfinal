@@ -127,6 +127,8 @@ export default function PastLifeGame({ onBack, onProfileUpdate }: Props) {
     ▼
   </span>
 </button>
+          {showYesterdayResults && (
+  <>
           <p className="mb-3 text-sm font-bold text-ink/90">{yesterday.question}</p>
           <div className="space-y-2">
             {[yesterday.player_1, yesterday.player_2, yesterday.player_3].map((player, i) => {
