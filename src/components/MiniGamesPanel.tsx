@@ -104,6 +104,7 @@ export default function MiniGamesPanel({ onBack }: Props) {
   const handleGameComplete = useCallback(async (gameNumber: number) => {
   markCompleted(playerId, gameNumber)
   setCompletedToday(getCompletedToday(playerId))
+  setLastCompletedGame(gameNumber)
   await refreshProfile()
   setShowGameCompleteNav(true)
 }, [playerId, refreshProfile])
