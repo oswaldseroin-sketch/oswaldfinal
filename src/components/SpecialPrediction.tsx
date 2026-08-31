@@ -145,10 +145,11 @@ export default function SpecialPrediction({ onBack }: { onBack: () => void }) {
         setAwakening(true)
         window.setTimeout(() => {
           persist({
-            destroyed: newDestroyed,
-            nextAvailableAt: 0,
-            completed: true,
-          })
+  destroyed: newDestroyed,
+  nextAvailableAt: 0,
+  completed: true,
+  messageIndex: state.messageIndex,
+})
           setBurningId(null)
           setSparks([])
           window.setTimeout(() => setAwakening(false), 600)
