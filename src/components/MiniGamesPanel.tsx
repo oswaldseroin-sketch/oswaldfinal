@@ -145,7 +145,11 @@ const renderCompleteNav = () => {
   if (gameNumber === null) return null
 
   const gameCompleted =
-  showGameCompleteNav || Boolean(completedToday[String(gameNumber)])
+  showGameCompleteNav ||
+  Boolean(completedToday[String(gameNumber)]) ||
+  progress.some(
+    (game) => game.game_number === gameNumber && game.completed,
+  )
 
   if (!gameCompleted) return null
 
