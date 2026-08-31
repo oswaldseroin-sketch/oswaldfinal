@@ -400,10 +400,7 @@ const handleMyShot = async () => {
   gunKick
     ? 'scale-125 -rotate-12 border-error bg-error/40'
    
-        currentTurn === 'me' && !playing && !roundFinished
-          ? 'border-error/70 bg-error/20 cursor-pointer active:scale-90'
-          : 'border-ink/20 bg-black/30 opacity-60 cursor-default'
-      }`}
+       
       style={
         currentTurn === 'me' && !playing && !roundFinished
           ? { boxShadow: '0 0 24px rgba(239,68,68,0.35)' }
