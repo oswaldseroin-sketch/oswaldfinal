@@ -359,9 +359,20 @@ setPlaying(false)
         <p className="text-[9px] font-bold tracking-widest text-neon">
           ТЫ
         </p>
-        <p className="mt-1 text-xs font-extrabold text-ink">
-          {currentUser?.full_name || 'Ты'}
-        </p>
+        <p
+  className={`mt-1 text-sm font-extrabold transition-all duration-300 ${
+    currentTurn === 'me'
+      ? 'scale-105 text-neon'
+      : 'text-ink/50'
+  }`}
+  style={
+    currentTurn === 'me'
+      ? { textShadow: '0 0 12px rgba(0,229,255,0.7)' }
+      : undefined
+  }
+>
+  {currentUser?.full_name || 'Ты'}
+</p>
       </div>
 
       <Swords size={18} className="text-error" />
