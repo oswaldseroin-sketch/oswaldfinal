@@ -529,78 +529,99 @@ const handleKeyClick = (): void => {
         )}
       </div>
 
-      {/* Lock area — compact */}
-      <div className="relative mt-4 flex flex-col items-center justify-center" style={{ minHeight: '140px' }}>
-        <div
-          ref={lockRef}
-          className={`relative z-20 flex items-center justify-center rounded-2xl border-2 transition-all duration-300 ${phase === 'flying' ? 'scale-110' : 'scale-100'}`}
-          style={{
-            width: 76,
-            height: 76,
-            borderColor: phase === 'success' ? 'rgba(34,197,94,0.9)' : 'rgba(168,85,247,0.9)',
-            background: phase === 'success' ? 'rgba(34,197,94,0.15)' : 'rgba(20,0,30,0.7)',
-            boxShadow: phase === 'flying'
-              ? '0 0 40px rgba(168,85,247,0.9), 0 0 80px rgba(168,85,247,0.4), inset 0 0 12px rgba(168,85,247,0.4)'
-              : phase === 'success'
-                ? '0 0 35px rgba(34,197,94,0.7), 0 0 70px rgba(34,197,94,0.3), inset 0 0 10px rgba(34,197,94,0.3)'
-                : '0 0 30px rgba(168,85,247,0.6), 0 0 60px rgba(168,85,247,0.25), inset 0 0 10px rgba(168,85,247,0.3)',
-          }}
-        >
-          {phase === 'success' ? (
-            <DoorOpen size={36} className="text-success" style={{ filter: 'drop-shadow(0 0 8px rgba(34,197,94,0.7))' }} />
-          ) : (
-            <Lock size={38} className="text-purple-400" style={{ filter: 'drop-shadow(0 0 6px rgba(168,85,247,0.8))' }} />
-          )}
-        </div>
+ {/* Final key check */}
+<div className="mt-5 flex flex-col items-center">
 
-        {allFilled && phase !== 'success' && (
-          <div
-            ref={keyRef}
-            className={`absolute z-30 ${phase === 'breaking' ? 'animate-keyBreak' : 'animate-keyPulse'} ${phase === 'idle' ? 'cursor-pointer' : ''}`}
-            style={{
-              left: '50%',
-              top: '50%',
-              transform: `translate(calc(-50% + 72px + ${keyTransform.x}px), calc(-50% + ${keyTransform.y}px))`,
-              transition: keyTransition ? `transform ${FLY_MS}ms cubic-bezier(0.4, 0, 0.2, 1)` : 'none',
-            }}
-            onClick={handleKeyClick}
-          >
-            <div className="mb-1 text-center text-[13px] font-extrabold tracking-wide text-amber-300" style={{ textShadow: '0 0 8px rgba(251,191,36,0.7)' }}>Пробуем?</div>
-            <div className="key-artifact relative flex h-12 w-12 items-center justify-center rounded-full border-2 border-amber-400 bg-amber-400/10" style={{ boxShadow: '0 0 24px rgba(251,191,36,0.7), 0 0 48px rgba(251,191,36,0.3)' }}>
-              <KeyRound size={24} className="text-amber-300" style={{ filter: 'drop-shadow(0 0 5px rgba(251,191,36,0.8))' }} />
-            </div>
-          </div>
-        )}
+  {!allFilled && phase === 'idle' && (
+    <p className="text-center text-[12px] font-bold text-white/35">
+      Выбери все 10 вариантов
+    </p>
+  )}
 
-        {phase === 'breaking' && shards.map((shard, index) => (
-          <span
-            key={index}
-            className="pointer-events-none fixed z-50 h-2 w-2 rounded-sm bg-amber-400"
-            style={{
-              left: shard.x,
-              top: shard.y,
-              animation: 'shardFly .8s ease-out forwards',
-              ['--dx' as string]: `${shard.dx}px`,
-              ['--dy' as string]: `${shard.dy}px`,
-              ['--rot' as string]: `${shard.r}deg`,
-              boxShadow: '0 0 6px rgba(251,191,36,0.8)',
-            }}
-          />
-        ))}
-        {showRedFlash && <div className="pointer-events-none fixed inset-0 z-40 animate-redFlash bg-red-500/30" />}
+  {allFilled && phase === 'idle' && (
+    <button
+      onClick={handleKeyClick}
+      className="w-full rounded-xl border border-purple-400/70 bg-purple-500/20 px-4 py-3 text-[14px] font-extrabold tracking-wide text-white transition-all hover:bg-purple-500/30 active:scale-95"
+      style={{
+        boxShadow:
+          '0 0 14px rgba(168,85,247,0.45), inset 0 0 10px rgba(168,85,247,0.12)',
+      }}
+    >
+      🔑 ВХОДИМ?
+    </button>
+  )}
 
-        {attempts !== null && (
-          <div className="mt-3 flex items-center gap-1.5 rounded-full border border-accent/30 bg-black/40 px-3 py-1 backdrop-blur-md" style={{ boxShadow: '0 0 10px rgba(255,43,214,0.15)' }}>
-            <span className="text-sm">🗝️</span>
-            <span className="text-[12px] font-bold tracking-wide text-accent/80">Попыток входа:</span>
-            <span className="text-sm font-black text-accent" style={{ textShadow: '0 0 6px rgba(255,43,214,0.5)' }}>{attempts}</span>
-          </div>
-        )}
-      </div>
-
-      <p className="mt-2 text-center text-[13px] font-bold text-ink-muted" style={{ textShadow: '0 0 6px rgba(0,0,0,0.6)' }}>
-        {!allFilled ? 'Заполни все номинации, чтобы получить ключ' : phase === 'breaking' ? 'Ключ сломался. Выбери заново' : phase === 'flying' ? 'Ключ летит к замку...' : 'Нажми на ключ, чтобы открыть дверь'}
+  {phase === 'success' && (
+    <div
+      className="w-full rounded-xl border border-green-400/70 bg-green-500/15 px-4 py-5 text-center"
+      style={{
+        boxShadow:
+          '0 0 20px rgba(34,197,94,0.45), inset 0 0 12px rgba(34,197,94,0.12)',
+      }}
+    >
+      <p
+        className="text-[17px] font-black tracking-wide text-green-300"
+        style={{
+          textShadow: '0 0 12px rgba(34,197,94,0.8)',
+        }}
+      >
+        🔑 КЛЮЧ СРАБОТАЛ!
       </p>
+
+      <p className="mt-1 text-[11px] font-bold text-white/50">
+        Входим в комнату...
+      </p>
+    </div>
+  )}
+
+  {phase === 'breaking' && (
+    <div
+      className="w-full rounded-xl border border-red-400/60 bg-red-500/10 px-4 py-5 text-center"
+      style={{
+        boxShadow:
+          '0 0 18px rgba(239,68,68,0.35), inset 0 0 10px rgba(239,68,68,0.1)',
+      }}
+    >
+      <p
+        className="text-[17px] font-black text-red-300"
+        style={{
+          textShadow: '0 0 10px rgba(239,68,68,0.65)',
+        }}
+      >
+        😔 Ключ сломался
+      </p>
+
+      <p className="mt-1 text-[11px] font-bold text-white/40">
+        Попробуй выбрать варианты заново
+      </p>
+    </div>
+  )}
+
+  {attempts !== null && (
+    <div
+      className="mt-4 flex items-center gap-1.5 rounded-full border border-accent/30 bg-black/40 px-3 py-1 backdrop-blur-md"
+      style={{
+        boxShadow: '0 0 10px rgba(255,43,214,0.15)',
+      }}
+    >
+      <span className="text-sm">🗝️</span>
+
+      <span className="text-[12px] font-bold tracking-wide text-accent/80">
+        Попыток входа:
+      </span>
+
+      <span
+        className="text-sm font-black text-accent"
+        style={{
+          textShadow: '0 0 6px rgba(255,43,214,0.5)',
+        }}
+      >
+        {attempts}
+      </span>
+    </div>
+  )}
+
+</div>
 
       {showAdmin && (
         <SecretAdminPanel
