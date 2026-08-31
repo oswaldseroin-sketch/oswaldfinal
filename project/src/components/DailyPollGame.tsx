@@ -130,83 +130,139 @@ export default function DailyPollGame({ onBack, onProfileUpdate }: Props) {
         </div>
       )}
 
-      {/* ─── Yesterday's results ─── */}
+          {/* ─── Yesterday's results ─── */}
       {yesterday && (
-        <div className="mb-5 rounded-2xl border border-amber-400/25 bg-card/50 p-4 backdrop-blur-md" style={{ boxShadow: '0 0 16px rgba(255,191,0,0.1)' }}>
-          <div className="mb-3 flex items-center gap-2">
-            <Trophy size={16} className="text-amber-300" />
-            <p className="text-[10px] font-bold tracking-widest text-amber-300">ВЧЕРАШНИЙ РЕЗУЛЬТАТ</p>
-          </div>
-          <p className="mb-3 text-sm font-bold text-ink/90">{yesterday.question}</p>
+        <div className="mb-5">
+          <button
+            onClick={() => setShowYesterdayResults((prev) => !prev)}
+            className="flex w-full items-center justify-between rounded-xl border border-amber-400/30 bg-amber-400/10 px-4 py-3 transition-all active:scale-[0.98]"
+            style={{
+              boxShadow: showYesterdayResults
+                ? '0 0 18px rgba(255,191,0,0.18)'
+                : '0 0 10px rgba(255,191,0,0.08)',
+            }}
+          >
+            <div className="flex items-center gap-2">
+              <Trophy size={17} className="text-amber-300" />
+              <span className="text-[12px] font-extrabold tracking-wide text-amber-300">
+                Вчерашний результат
+              </span>
+            </div>
 
-          <div className="space-y-2">
-            {yesterday.results.slice(0, 3).map((r, i) => {
-              const isSelectedByUser = yesterday.userVote?.includes(r.candidate)
-              return (
-                <div
-                  key={r.candidate}
-                  className={`flex items-center justify-between rounded-lg border px-3 py-2 ${
-                    isSelectedByUser
-                      ? 'border-amber-400/40 bg-amber-400/10'
-                      : 'border-line/50 bg-black/20'
-                  }`}
-                >
-                  <div className="flex items-center gap-2">
-                    <span className="text-lg">{PLACEMENT_ICONS[i] || '📦'}</span>
-                    <span className="text-sm font-bold text-ink">{r.candidate}</span>
-                    {isSelectedByUser && (
-                      <Check size={13} className="text-amber-300" />
-                    )}
-                  </div>
-                  <span className="text-sm font-extrabold text-amber-200">{r.votes}</span>
-                </div>
-              )
-            })}
-          </div>
-
-          {yesterday.userVote && !resultsClaimed && (
-            <button
-              onClick={handleClaimResults}
-              disabled={claiming}
-              className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-amber-400/40 bg-amber-400/15 py-2.5 text-sm font-extrabold text-amber-200 transition hover:bg-amber-400/25 active:scale-95 disabled:opacity-50"
+            <span
+              className={`text-sm text-amber-300 transition-transform duration-300 ${
+                showYesterdayResults ? 'rotate-180' : ''
+              }`}
             >
-              {claiming ? <Loader2 size={16} className="animate-spin" /> : <Gift size={16} />}
-              Получить награду
-            </button>
-          )}
+              ▼
+            </span>
+          </button>
 
-          {claimResult && claimResult.totalXp > 0 && (
-            <div className="mt-3 rounded-lg border border-neon/30 bg-neon/10 p-3 text-center">
-              <p className="text-xs font-bold text-neon">Награда получена!</p>
-              <p className="mt-1 text-sm font-extrabold text-neon" style={{ textShadow: '0 0 10px rgba(0,229,255,0.4)' }}>
-                +{claimResult.totalXp} XP
+          {showYesterdayResults && (
+            <div
+              className="mt-2 rounded-2xl border border-amber-400/25 bg-card/50 p-4 backdrop-blur-md"
+              style={{ boxShadow: '0 0 16px rgba(255,191,0,0.1)' }}
+            >
+              <p className="mb-3 text-sm font-bold text-ink/90">
+                {yesterday.question}
               </p>
-              {claimResult.breakdown?.map((b, i) => (
-                <p key={i} className="mt-1 text-[10px] text-ink-muted">
-                  {PLACEMENT_ICONS[b.placement - 1]} {b.candidate} — +{b.xp} XP
-                </p>
-              ))}
-            </div>
-          )}
-          {claimResult && claimResult.totalXp === 0 && claimResult.success && (
-            <div className="mt-3 rounded-lg border border-line/40 bg-black/20 p-3 text-center">
-              <p className="text-xs text-ink-muted">
-                {claimResult.message || 'Ваши кандидаты не попали в ТОП-3'}
-              </p>
-            </div>
-          )}
-          {resultsClaimed && yesterday.reward && (
-            <div className="mt-3 rounded-lg border border-neon/20 bg-neon/5 p-2.5 text-center">
-              <p className="text-[11px] font-bold text-neon/70">
-                Награда получена: +{yesterday.reward.xp_awarded} XP
-              </p>
+
+              <div className="space-y-2">
+                {yesterday.results
+                  .filter((r) => r.votes > 0)
+                  .slice(0, 3)
+                  .map((r, i) => {
+                    const isSelectedByUser = yesterday.userVote?.includes(r.candidate)
+
+                    return (
+                      <div
+                        key={r.candidate}
+                        className={`flex items-center justify-between rounded-lg border px-3 py-2 ${
+                          isSelectedByUser
+                            ? 'border-amber-400/40 bg-amber-400/10'
+                            : 'border-line/50 bg-black/20'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2">
+                          <span className="text-lg">
+                            {PLACEMENT_ICONS[i] || '📦'}
+                          </span>
+
+                          <span className="text-sm font-bold text-ink">
+                            {r.candidate}
+                          </span>
+
+                          {isSelectedByUser && (
+                            <Check size={13} className="text-amber-300" />
+                          )}
+                        </div>
+
+                        <span className="text-sm font-extrabold text-amber-200">
+                          {r.votes}
+                        </span>
+                      </div>
+                    )
+                  })}
+              </div>
+
+              {yesterday.userVote && !resultsClaimed && (
+                <button
+                  onClick={handleClaimResults}
+                  disabled={claiming}
+                  className="mt-3 flex w-full items-center justify-center gap-2 rounded-xl border border-amber-400/40 bg-amber-400/15 py-2.5 text-sm font-extrabold text-amber-200 transition hover:bg-amber-400/25 active:scale-95 disabled:opacity-50"
+                >
+                  {claiming ? (
+                    <Loader2 size={16} className="animate-spin" />
+                  ) : (
+                    <Gift size={16} />
+                  )}
+                  Получить награду
+                </button>
+              )}
+
+              {claimResult && claimResult.totalXp > 0 && (
+                <div className="mt-3 rounded-lg border border-neon/30 bg-neon/10 p-3 text-center">
+                  <p className="text-xs font-bold text-neon">
+                    Награда получена!
+                  </p>
+
+                  <p
+                    className="mt-1 text-sm font-extrabold text-neon"
+                    style={{ textShadow: '0 0 10px rgba(0,229,255,0.4)' }}
+                  >
+                    +{claimResult.totalXp} XP
+                  </p>
+
+                  {claimResult.breakdown?.map((b, i) => (
+                    <p key={i} className="mt-1 text-[10px] text-ink-muted">
+                      {PLACEMENT_ICONS[b.placement - 1]} {b.candidate} — +{b.xp} XP
+                    </p>
+                  ))}
+                </div>
+              )}
+
+              {claimResult &&
+                claimResult.totalXp === 0 &&
+                claimResult.success && (
+                  <div className="mt-3 rounded-lg border border-line/40 bg-black/20 p-3 text-center">
+                    <p className="text-xs text-ink-muted">
+                      {claimResult.message ||
+                        'Ваши кандидаты не попали в ТОП-3'}
+                    </p>
+                  </div>
+                )}
+
+              {resultsClaimed && yesterday.reward && (
+                <div className="mt-3 rounded-lg border border-neon/20 bg-neon/5 p-2.5 text-center">
+                  <p className="text-[11px] font-bold text-neon/70">
+                    Награда получена: +{yesterday.reward.xp_awarded} XP
+                  </p>
+                </div>
+              )}
             </div>
           )}
         </div>
       )}
-      </div>
-    )}
-      {/* ─── Today's poll ─── */}
       {state && (
         <div className="rounded-2xl border border-neon/30 bg-card/60 p-4 backdrop-blur-md" style={{ boxShadow: '0 0 18px rgba(0,229,255,0.1)' }}>
           <p className="text-[10px] font-bold tracking-widest text-neon">ВОПРОС ДНЯ</p>
