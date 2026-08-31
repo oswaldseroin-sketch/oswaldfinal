@@ -637,8 +637,11 @@ style={{
       setShotIndex(0)
       setChamber(Math.floor(Math.random() * 8))
     }}
-    className="flex w-full items-center justify-center gap-2 rounded-xl border border-error/40 bg-error/15 py-4 text-sm font-extrabold text-error transition hover:bg-error/25 active:scale-95"
-    style={{ boxShadow: '0 0 16px rgba(239,68,68,0.15)' }}
+    className="group relative flex w-full items-center justify-center gap-3 overflow-hidden rounded-xl border border-amber-400/35 bg-gradient-to-r from-red-950/60 via-zinc-950 to-amber-950/40 py-4 text-sm font-black tracking-[0.08em] text-amber-200 transition-all duration-200 hover:border-amber-300/60 hover:from-red-900/50 hover:to-amber-900/30 active:scale-[0.97]"
+style={{
+  boxShadow:
+    '0 0 24px rgba(251,191,36,0.10), inset 0 0 20px rgba(127,29,29,0.12)',
+}}
   >
     <Swords size={18} />
     Сыграть
