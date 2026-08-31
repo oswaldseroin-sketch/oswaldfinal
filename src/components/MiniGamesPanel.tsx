@@ -376,11 +376,26 @@ export default function MiniGamesPanel({ onBack }: Props) {
     </p>
   </div>
 
-  <div className="rounded-lg border border-white/10 bg-black/30 px-2.5 py-1.5">
-    <span className="text-[9px] font-black tracking-wider text-zinc-400">
-      {Object.values(completedToday).filter(Boolean).length}/10
+  <div className="flex items-center gap-2 rounded-lg border border-emerald-400/15 bg-emerald-400/[0.06] px-2.5 py-1.5">
+  <Check
+    size={11}
+    strokeWidth={3}
+    className="text-emerald-400"
+    style={{
+      filter: 'drop-shadow(0 0 5px rgba(52,211,153,0.6))',
+    }}
+  />
+
+  <div className="flex items-baseline gap-1">
+    <span className="text-[11px] font-black text-emerald-200">
+      {Object.values(completedToday).filter(Boolean).length}
+    </span>
+
+    <span className="text-[8px] font-black text-zinc-600">
+      / 10
     </span>
   </div>
+</div>
 </div>
         {/* 10 mini-game cards */}
         <div className="grid grid-cols-2 gap-2.5">
