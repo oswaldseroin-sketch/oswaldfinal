@@ -60,10 +60,13 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
       setState(data)
       const today = (data?.today ?? null) as TodayState | null
    
-      if (today?.userVote) {
-        setSelected(today.userVote)
-        setVotedChoice(today.userVote)
-      }
+    if (today?.userVote) {
+  setSelected(today.userVote)
+  setVotedChoice(today.userVote)
+} else {
+  setSelected(null)
+  setVotedChoice(null)
+}
       const yesterday = (data?.yesterday ?? null) as YesterdayState | null
       if (yesterday?.reward?.result_rewarded) setResultsClaimed(true)
     } catch (err) {
