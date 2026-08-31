@@ -155,10 +155,11 @@ export default function SpecialPrediction({ onBack }: { onBack: () => void }) {
         }, 1000)
       } else {
         persist({
-          destroyed: newDestroyed,
-          nextAvailableAt: Date.now() + COOLDOWN_MS,
-          completed: false,
-        })
+  destroyed: newDestroyed,
+  nextAvailableAt: Date.now() + COOLDOWN_MS,
+  completed: false,
+  messageIndex: state.messageIndex,
+})
         setBurningId(null)
         setSparks([])
       }
