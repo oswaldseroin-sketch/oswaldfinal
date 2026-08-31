@@ -460,7 +460,7 @@ setPlaying(false)
   </div>
 
   {/* Неподвижный револьвер */}
-  <div className={"absolute inset-0 z-10 flex items-center justify-center">
+  <div className="absolute inset-0 z-10 flex items-center justify-center">
     <button
   onClick={handleMyShot}
   disabled={currentTurn !== 'me' || playing || roundFinished}
