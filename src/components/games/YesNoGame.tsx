@@ -175,7 +175,11 @@ export default function YesNoGame({ onBack, onProfileUpdate }: Props) {
             </div>
           )}
           {resultsClaimed && yesterday.reward && (
-            <div className="mt-3 rounded-lg border border-neon/20 bg-neon/5 p-2.5 text-center"><p className="text-[11px] font-bold text-neon/70">Награда получена</p></div>
+            <div className="mt-3 rounded-lg border border-neon/20 bg-neon/5 p-2.5 text-center"><p className="text-[11px] font-bold text-neon/70">Награда получена
+            </p>
+                </>
+)}
+            </div>
           )}
         </div>
       )}
