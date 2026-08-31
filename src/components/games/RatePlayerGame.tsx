@@ -31,6 +31,7 @@ export default function RatePlayerGame({ onBack, onProfileUpdate }: Props) {
   const [error, setError] = useState('')
   const [selected, setSelected] = useState<number | null>(null)
   const [voting, setVoting] = useState(false)
+  const [showYesterdayResults, setShowYesterdayResults] = useState(false)
 
   const loadState = useCallback(async () => {
     if (!currentUser) return
