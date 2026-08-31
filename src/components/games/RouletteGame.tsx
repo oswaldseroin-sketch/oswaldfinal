@@ -440,10 +440,10 @@ style={{
     : 'text-zinc-600'
 }`}
   style={
-    currentTurn === 'me'
-      ? { textShadow: '0 0 12px rgba(0,229,255,0.7)' }
-      : undefined
-  }
+  currentTurn === 'me'
+    ? { textShadow: '0 0 14px rgba(251,191,36,0.65)' }
+    : undefined
+}
 >
   {currentUser?.full_name || 'Ты'}
 </p>
