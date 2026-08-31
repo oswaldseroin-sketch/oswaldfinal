@@ -130,9 +130,20 @@ const handleMyShot = async () => {
   if (currentTurn !== 'opponent' || roundFinished || chamber === null) return
 
   const isShot = shotIndex === chamber
+  const opponentName = today?.opponent_name || 'Противник'
 
   setPlaying(true)
-  setRoundMessage(`${today?.opponent_name || 'Противник'} нажимает на курок...`)
+
+  setRoundMessage(`${opponentName} берёт револьвер...`)
+  await new Promise((r) => setTimeout(r, 700))
+
+  setCylinderSpinning(true)
+  setRoundMessage('Барабан вращается...')
+
+  await new Promise((r) => setTimeout(r, 700))
+
+  setCylinderSpinning(false)
+  setRoundMessage(`${opponentName} нажимает на курок...`)
 
   await new Promise((r) => setTimeout(r, 1500))
 
