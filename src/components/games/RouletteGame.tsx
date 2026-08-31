@@ -409,7 +409,7 @@ setPlaying(false)
   >
 
     {/* Игроки */}
-    <div className="mb-4 grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+   <div className="relative mb-4 grid grid-cols-[1fr_auto_1fr] items-center gap-2">
       <div>
         <p className="text-[9px] font-bold tracking-widest text-neon">
           ТЫ
