@@ -185,6 +185,7 @@ export default function PastLifeGame({ onBack, onProfileUpdate }: Props) {
     )}
   </div>
 )}
+      {today && (
         <div className="rounded-2xl border border-neon/30 bg-card/60 p-4 backdrop-blur-md" style={{ boxShadow: '0 0 18px rgba(0,229,255,0.1)' }}>
           <p className="text-[10px] font-bold tracking-widest text-neon">ВОПРОС ДНЯ</p>
           <h2 className="mt-1.5 mb-3 text-base font-extrabold leading-snug text-ink">{today.question}</h2>
