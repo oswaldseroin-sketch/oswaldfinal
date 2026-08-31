@@ -331,7 +331,12 @@ const yesterdayClaimed =
                   Твоя оценка: <span className="font-bold text-neon">{today.userVote} / 5</span>
                 </p>
               )}
-              <p className="mt-1 text-sm font-extrabold text-neon" style={{ textShadow: '0 0 10px rgba(0,229,255,0.4)' }}>+2 XP · +3🪙</p>
+            <p
+  className="mt-1 text-sm font-extrabold text-amber-300"
+  style={{ textShadow: '0 0 10px rgba(251,191,36,0.35)' }}
+>
+  +2 XP · +3🪙
+</p>
               <p className="mt-1 text-[11px] text-ink-muted">Средняя оценка будет доступна завтра в 08:00</p>
             </div>
           ) : (
