@@ -145,7 +145,7 @@ setShotIndex((prev) => prev + 1)
 setCurrentTurn('opponent')
 setRoundMessage(`ХОД: ${today?.opponent_name || 'Противник'}`)
 
-await new Promise((r) => setTimeout(r, 500))
+await new Promise((r) => setTimeout(r, 2000))
 
 setPlaying(false)
 }
