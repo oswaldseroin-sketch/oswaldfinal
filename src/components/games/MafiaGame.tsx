@@ -176,12 +176,28 @@ console.log('MAFIA PLAYERS:', dailyPlayers)
       '0 0 26px rgba(220,38,38,0.10), inset 0 0 30px rgba(127,29,29,0.05)',
   }}
 >
-          <div className="mb-3 flex items-center justify-between">
-            <p className="text-[10px] font-bold tracking-widest text-neon">НАЙДИ МАФИЮ</p>
-            <p className="text-[10px] font-bold text-ink-muted">
-              {isCompleted ? 'Игра окончена' : `Попытка ${attemptsUsed + 1} / ${MAX_ATTEMPTS}`}
-            </p>
-          </div>
+         <div className="mb-3 flex items-center justify-between border-b border-red-500/15 pb-2.5">
+  <div className="flex items-center gap-2">
+    <span className="text-sm">🕵️</span>
+
+    <div>
+      <p className="text-[9px] font-black tracking-[0.2em] text-red-400">
+        СЕКРЕТНОЕ ДЕЛО
+      </p>
+      <p className="text-[10px] font-extrabold text-red-100">
+        ВЫЧИСЛИ МАФИЮ
+      </p>
+    </div>
+  </div>
+
+  <div className="rounded-lg border border-red-500/20 bg-red-950/30 px-2.5 py-1.5">
+    <p className="text-[9px] font-black tracking-wide text-red-200">
+      {isCompleted
+        ? 'ДЕЛО ЗАКРЫТО'
+        : `ПОПЫТКА ${attemptsUsed + 1}/${MAX_ATTEMPTS}`}
+    </p>
+  </div>
+</div>
 
           {isCompleted ? (
             <div className={`rounded-xl border p-4 text-center ${today.foundMafia ? 'border-success/30 bg-success/10' : 'border-error/30 bg-error/10'}`}>
