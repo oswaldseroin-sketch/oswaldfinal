@@ -100,12 +100,15 @@ const handleMyShot = async () => {
 
   await new Promise((r) => setTimeout(r, 1200))
 
-  if (isShot) {
-    setRoundMessage('💥 ВЫСТРЕЛ! ВЫ ПОГИБЛИ')
-    setRoundFinished(true)
-    setPlaying(false)
-    return
-  }
+ if (isShot) {
+  setRoundMessage('💥 ВЫСТРЕЛ! ВЫ ПОГИБЛИ')
+  setRoundFinished(true)
+
+  await finishRoulette('lose')
+
+  setPlaying(false)
+  return
+}
 
   setRoundMessage('ЩЁЛК... ПРОМАХ!')
   await new Promise((r) => setTimeout(r, 1000))
