@@ -145,6 +145,8 @@ export default function YesNoGame({ onBack, onProfileUpdate }: Props) {
     ▼
   </span>
 </button>
+          {showYesterdayResults && (
+  <>
           <p className="mb-1 text-sm font-bold text-ink/90">{yesterday.question}</p>
           <p className="mb-3 text-xs text-ink-muted">Игрок: <span className="font-bold text-ink">{yesterday.player_name}</span></p>
           <div className="space-y-2">
