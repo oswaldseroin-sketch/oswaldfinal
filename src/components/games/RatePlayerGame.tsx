@@ -121,6 +121,16 @@ const handleClaimYesterday = async () => {
   const today = (state?.today ?? null) as TodayState | null
   const yesterday = (state?.yesterday ?? null) as YesterdayState | null
   const hasVoted = today?.userVote !== null && today?.userVote !== undefined
+  const yesterdayDifference =
+  yesterday?.userVote !== null && yesterday?.userVote !== undefined
+    ? Math.abs(yesterday.userVote - yesterday.avgRating)
+    : null
+
+const yesterdayWon =
+  yesterdayDifference !== null && yesterdayDifference <= 1
+
+const yesterdayClaimed =
+  yesterday?.reward?.result_rewarded === true
 
   return (
     <div className="mx-auto max-w-md px-4 pb-10 pt-6">
