@@ -185,6 +185,10 @@ const renderCompleteNav = () => {
   <div className="relative min-h-screen">
     {game}
 
+    {renderCompleteNav()}
+  </div>
+)
+
     {showGameCompleteNav && (
       <div className="relative z-[100] mx-auto -mt-2 max-w-md px-4 pb-4">
         <div
