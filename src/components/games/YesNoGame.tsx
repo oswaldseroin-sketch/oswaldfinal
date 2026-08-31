@@ -189,7 +189,13 @@ export default function YesNoGame({ onBack, onProfileUpdate }: Props) {
 )}
 
       {today && (
-        <div className="rounded-2xl border border-neon/30 bg-card/60 p-4 backdrop-blur-md" style={{ boxShadow: '0 0 18px rgba(0,229,255,0.1)' }}>
+        <div
+  className="rounded-2xl border border-slate-400/20 bg-gradient-to-b from-slate-900/80 via-zinc-950/80 to-black/60 p-4 backdrop-blur-md"
+  style={{
+    boxShadow:
+      '0 0 24px rgba(148,163,184,0.07), inset 0 0 30px rgba(255,255,255,0.015)',
+  }}
+>
           <p className="text-[10px] font-bold tracking-widest text-neon">ВОПРОС ДНЯ</p>
          <p className="mt-1.5 mb-2 text-base font-extrabold tracking-wide text-neon">
   {today.player_name}
