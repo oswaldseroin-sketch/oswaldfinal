@@ -95,12 +95,16 @@ export default function PastLifeGame({ onBack, onProfileUpdate }: Props) {
       <button onClick={onBack} className="mb-4 flex items-center gap-2 text-sm font-bold text-neon hover:text-white transition-colors">← Назад</button>
 
       <div className="mb-4 flex items-center gap-2">
-        <span className="text-2xl">🔥</span>
-        <div>
-          <p className="text-[10px] font-bold tracking-widest text-neon">МИНИ-ИГРА 4</p>
-          <h1 className="text-xl font-extrabold text-ink">Прошлая жизнь</h1>
-        </div>
-      </div>
+  <span className="text-2xl">📜</span>
+  <div>
+    <p className="text-[10px] font-black tracking-[0.18em] text-amber-400">
+      МИНИ-ИГРА 4
+    </p>
+    <h1 className="text-xl font-extrabold text-amber-50">
+      Прошлая жизнь
+    </h1>
+  </div>
+</div>
 
       {error && (
         <div className="mb-4 rounded-xl border border-error/30 bg-error/10 p-3 text-center"><p className="text-xs font-bold text-error">{error}</p></div>
