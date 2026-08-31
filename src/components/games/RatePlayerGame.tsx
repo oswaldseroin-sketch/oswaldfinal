@@ -124,10 +124,13 @@ export default function RatePlayerGame({ onBack, onProfileUpdate }: Props) {
 
       {today && (
         <div className="rounded-2xl border border-neon/30 bg-card/60 p-4 backdrop-blur-md" style={{ boxShadow: '0 0 18px rgba(0,229,255,0.1)' }}>
-          <p className="text-[10px] font-bold tracking-widest text-neon">ВОПРОС ДНЯ</p>
-          <h2 className="mt-1.5 mb-1 text-base font-extrabold leading-snug text-ink">{today.question}</h2>
-          <p className="mb-3 text-sm text-ink-muted">Игрок: <span className="font-bold text-ink">{today.player_name}</span></p>
+        <p className="text-[10px] font-bold tracking-widest text-neon">
+  {today.player_name}
+</p>
 
+<h2 className="mt-1.5 mb-3 text-base font-extrabold leading-snug text-ink">
+  {today.question}
+</h2>
           <div className="grid grid-cols-6 gap-1.5">
             {RATINGS.map((rating) => {
               const isSelected = selected === rating
