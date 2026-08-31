@@ -233,8 +233,21 @@ console.log('MAFIA PLAYERS:', dailyPlayers)
             </div>
           ) : dailyPlayers.length > 0 ? (
   <>
-    <div className="space-y-2">
-      {dailyPlayers.map((playerName, index) => {
+    <div>
+  <div className="mb-2 flex items-center gap-2 px-1">
+    <span className="text-[9px] font-black tracking-[0.22em] text-red-400/70">
+      ПОДОЗРЕВАЕМЫЕ
+    </span>
+
+    <div className="h-px flex-1 bg-gradient-to-r from-red-500/25 to-transparent" />
+
+    <span className="text-[9px] font-bold text-zinc-600">
+      5 ЛИЦ
+    </span>
+  </div>
+
+  <div className="space-y-2">
+    {dailyPlayers.map((playerName, index) => {
         const player = allPlayers.find((p) => p.full_name === playerName)
 
         if (!player) return null
