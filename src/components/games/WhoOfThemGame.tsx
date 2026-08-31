@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { Check, Trophy, Gift, Loader as Loader2 } from 'lucide-react'
+import { Check, Trophy, Gift, Loader as Loader2, ChevronDown } from 'lucide-react'
 import { api, type GameState, type GameClaimResult, type PlayerRow } from '../../lib/api'
 import { useApp } from '../../context/AppContext'
 
