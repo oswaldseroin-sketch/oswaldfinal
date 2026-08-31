@@ -417,7 +417,14 @@ const style = gameStyle[game.number]
     {game.icon}
   </span>
 </div>
-                <span className="mt-1.5 text-[13px] font-extrabold text-ink">{game.title}</span>
+                <span
+  className={`mt-2 text-[13px] font-black tracking-wide ${style.accent}`}
+  style={{
+    textShadow: isDone ? 'none' : '0 0 10px currentColor',
+  }}
+>
+  {game.title}
+</span>
                 <span className="mt-0.5 text-[10px] leading-tight text-ink-muted">{game.description}</span>
                 {isDone && (
                   <span className="mt-1 text-[8px] font-bold tracking-wide text-success/80">Сегодня пройдено</span>
