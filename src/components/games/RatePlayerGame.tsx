@@ -238,9 +238,19 @@ const yesterdayClaimed =
       '0 0 24px rgba(139,92,246,0.10), inset 0 0 24px rgba(251,191,36,0.025)',
   }}
 >
-        <p className="text-[10px] font-bold tracking-widest text-neon">
-  {today.player_name}
-</p>
+       <div className="mb-2 flex items-center gap-2">
+  <div className="h-7 w-1 rounded-full bg-gradient-to-b from-violet-400 to-amber-300" />
+
+  <div>
+    <p className="text-[9px] font-black tracking-[0.18em] text-violet-300/70">
+      ОЦЕНИВАЕМ
+    </p>
+
+    <p className="text-sm font-extrabold tracking-wide text-violet-100">
+      {today.player_name}
+    </p>
+  </div>
+</div>
 
 <h2 className="mt-1.5 mb-3 text-base font-extrabold leading-snug text-ink">
   {today.question}
