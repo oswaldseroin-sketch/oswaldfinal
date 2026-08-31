@@ -126,11 +126,41 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
       )}
 
       {yesterday && (
-        <div className="mb-5 rounded-2xl border border-amber-400/25 bg-card/50 p-4 backdrop-blur-md" style={{ boxShadow: '0 0 16px rgba(255,191,0,0.1)' }}>
-          <div className="mb-3 flex items-center gap-2">
-            <Trophy size={16} className="text-amber-300" />
-            <p className="text-[10px] font-bold tracking-widest text-amber-300">ВЧЕРАШНИЙ РЕЗУЛЬТАТ</p>
-          </div>
+  <div className="mb-5">
+    <button
+      onClick={() => setShowYesterdayResults((prev) => !prev)}
+      className="flex w-full items-center justify-between rounded-xl border border-amber-400/30 bg-amber-400/10 px-4 py-3 transition-all active:scale-[0.98]"
+      style={{
+        boxShadow: showYesterdayResults
+          ? '0 0 18px rgba(255,191,0,0.18)'
+          : '0 0 10px rgba(255,191,0,0.08)',
+      }}
+    >
+      <div className="flex items-center gap-2">
+        <Trophy size={17} className="text-amber-300" />
+        <span className="text-[12px] font-extrabold tracking-wide text-amber-300">
+          Вчерашний результат
+        </span>
+      </div>
+
+      <span
+        className={`text-sm text-amber-300 transition-transform duration-300 ${
+          showYesterdayResults ? 'rotate-180' : ''
+        }`}
+      >
+        ▼
+      </span>
+    </button>
+
+    {showYesterdayResults && (
+      <div
+        className="mt-2 rounded-2xl border border-amber-400/25 bg-card/50 p-4 backdrop-blur-md"
+        style={{ boxShadow: '0 0 16px rgba(255,191,0,0.1)' }}
+      >
+              </div>
+    )}
+  </div>
+)}
           <p className="mb-3 text-sm font-bold text-ink/90">{yesterday.question}</p>
           <div className="space-y-2">
             {[yesterday.player_1, yesterday.player_2]
