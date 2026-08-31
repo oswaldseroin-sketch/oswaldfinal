@@ -633,12 +633,39 @@ className={`relative flex h-16 w-16 items-center justify-center rounded-full bor
       : 'border-red-500/35 bg-gradient-to-b from-red-950/30 via-black/50 to-black/70 shadow-[0_0_30px_rgba(239,68,68,0.14)]'
   }`}
 >
-              <div className="flex items-center justify-center gap-2">
-                {today.result === 'win' ? <Check size={20} className="text-success" /> : <X size={20} className="text-error" />}
-                <p className={`text-xl font-extrabold ${today.result === 'win' ? 'text-success' : 'text-error'}`}>
-                  {today.result === 'win' ? 'ПОБЕДА!' : 'ПОРАЖЕНИЕ'}
-                </p>
-              </div>
+              <div className="flex flex-col items-center justify-center">
+  <p
+    className={`text-[9px] font-black tracking-[0.28em] ${
+      today.result === 'win'
+        ? 'text-amber-400/70'
+        : 'text-red-400/70'
+    }`}
+  >
+    {today.result === 'win' ? 'ДУЭЛЬ ЗАВЕРШЕНА' : 'ДУЭЛЬ ПРОИГРАНА'}
+  </p>
+
+  <div className="mt-1 flex items-center justify-center gap-2">
+    {today.result === 'win'
+      ? <Check size={20} className="text-amber-300" />
+      : <X size={20} className="text-red-300" />
+    }
+
+    <p
+      className={`text-xl font-black tracking-wide ${
+        today.result === 'win'
+          ? 'text-amber-200'
+          : 'text-red-300'
+      }`}
+      style={{
+        textShadow: today.result === 'win'
+          ? '0 0 16px rgba(251,191,36,0.45)'
+          : '0 0 16px rgba(239,68,68,0.35)',
+      }}
+    >
+      {today.result === 'win' ? 'ТЫ ПОБЕДИЛ' : 'ТЫ ПРОИГРАЛ'}
+    </p>
+  </div>
+</div>
               {today.result === 'win' && (
                 <p className="mt-2 text-sm font-extrabold text-neon" style={{ textShadow: '0 0 10px rgba(0,229,255,0.4)' }}>🥇 +3 XP звания +3🪙</p>
               )}
