@@ -32,6 +32,7 @@ export default function RouletteGame({ onBack, onProfileUpdate }: Props) {
   const [error, setError] = useState('')
   const [playing, setPlaying] = useState(false)
   const [animStep, setAnimStep] = useState(-1)
+  const [showYesterdayResults, setShowYesterdayResults] = useState(false)
 
   const loadState = useCallback(async () => {
     if (!currentUser) return
