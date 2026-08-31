@@ -432,9 +432,16 @@ const style = gameStyle[game.number]
 </span>
                 <span className="mt-0.5 text-[10px] leading-tight text-ink-muted">{game.description}</span>
                 
-                {isDone && (
-                  <span className="mt-1 text-[8px] font-bold tracking-wide text-success/80">Сегодня пройдено</span>
-                )}
+               {isDone && (
+  <span
+    className="mt-2 rounded-full border border-success/20 bg-success/10 px-2.5 py-1 text-[8px] font-black tracking-[0.14em] text-success"
+    style={{
+      boxShadow: '0 0 10px rgba(34,255,136,0.10)',
+    }}
+  >
+    ПРОЙДЕНО
+  </span>
+)}
               </button>
             )
           })}
