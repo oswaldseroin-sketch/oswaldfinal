@@ -16,7 +16,11 @@ export default function SecretTab({ onBack }: SecretTabProps) {
   const [open, setOpen] = useState(false)
   const [description, setDescription] = useState('')
   const [imageUrl, setImageUrl] = useState('')
-  const [questUnlocked, setQuestUnlocked] = useState(() => getItem<boolean>('secret-quest-passed', false))
+ const questKey = `secret-quest-passed-${currentUser?.name ?? 'unknown'}`
+
+const [questUnlocked, setQuestUnlocked] = useState(() =>
+  getItem<boolean>(questKey, false)
+)
   const [innerView, setInnerView] = useState<InnerView>('main')
   const [shadowFade, setShadowFade] = useState(false)
   const [shadowDimmed, setShadowDimmed] = useState(false)
