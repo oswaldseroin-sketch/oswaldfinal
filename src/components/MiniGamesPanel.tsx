@@ -386,11 +386,11 @@ const style = gameStyle[game.number]
     ? 'border-success/40 bg-success/8'
     : `${style.border} ${style.bg}`
 }`}
-                style={{
-                  boxShadow: isDone
-                    ? '0 0 12px rgba(34,255,136,0.15)'
-                    : '0 0 10px rgba(0,229,255,0.06)',
-                }}
+               style={{
+  boxShadow: isDone
+    ? '0 0 12px rgba(34,255,136,0.15)'
+    : style.glow,
+}}
               >
                 {isDone && (
                   <span
