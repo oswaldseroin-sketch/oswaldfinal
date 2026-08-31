@@ -139,7 +139,7 @@ await new Promise((r) => setTimeout(r, 1200))
 
 setRoundMessage('Ты выжил...')
 
-await new Promise((r) => setTimeout(r, 700))
+await new Promise((r) => setTimeout(r, 1500))
 
 setShotIndex((prev) => prev + 1)
 setCurrentTurn('opponent')
