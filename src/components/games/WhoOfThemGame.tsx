@@ -90,7 +90,7 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
       const numericId = playerMap[selected]
       if (!numericId) { setError('Не удалось определить ID игрока'); return }
       const today = (state?.today ?? null) as TodayState | null
-      const day = extractDay(today?.gameDay)
+      
       try {
         await api.submitGameVote('who_of_them', currentUser.id, { chosenPlayerId: numericId })
       } catch (err) {
