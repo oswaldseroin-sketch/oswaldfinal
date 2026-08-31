@@ -422,8 +422,7 @@ setPlaying(false)
       const used = index < shotIndex
 
       return (
-        <div
-          key={index}
+       
        <div
   key={index}
   className={`absolute left-1/2 top-1/2 flex h-9 w-9 items-center justify-center rounded-full border-2 transition-all duration-500 ${
