@@ -212,6 +212,80 @@ const [roundFinished, setRoundFinished] = useState(false)
     </div>
   </div>
 )}
+          {gameStarted && starter && !hasPlayed && (
+  <div className="mb-4 rounded-2xl border border-error/30 bg-black/30 p-4 text-center">
+
+    {/* Игроки */}
+    <div className="mb-4 grid grid-cols-[1fr_auto_1fr] items-center gap-2">
+      <div>
+        <p className="text-[9px] font-bold tracking-widest text-neon">
+          ТЫ
+        </p>
+        <p className="mt-1 text-xs font-extrabold text-ink">
+          {currentUser?.full_name || 'Ты'}
+        </p>
+      </div>
+
+      <Swords size={18} className="text-error" />
+
+      <div>
+        <p className="text-[9px] font-bold tracking-widest text-amber-300">
+          ПРОТИВНИК
+        </p>
+        <p className="mt-1 text-xs font-extrabold text-ink">
+          {today.opponent_name}
+        </p>
+      </div>
+    </div>
+
+    {/* Револьвер */}
+    <div className="relative mx-auto flex h-44 w-44 items-center justify-center rounded-full border-4 border-ink/20 bg-black/40 shadow-lg">
+
+      <div className="absolute inset-4 rounded-full border-2 border-ink/20" />
+
+      {Array.from({ length: 8 }).map((_, index) => {
+        const angle = (index / 8) * Math.PI * 2 - Math.PI / 2
+        const radius = 54
+
+        const x = Math.cos(angle) * radius
+        const y = Math.sin(angle) * radius
+
+        const used = index < shotIndex
+
+        return (
+          <div
+            key={index}
+            className={`absolute flex h-8 w-8 items-center justify-center rounded-full border-2 transition-all ${
+              used
+                ? 'border-error/30 bg-error/10 text-error/40'
+                : 'border-ink/30 bg-card text-ink'
+            }`}
+            style={{
+              transform: `translate(${x}px, ${y}px)`,
+            }}
+          >
+            <span className="text-[10px] font-extrabold">
+              {used ? '×' : index + 1}
+            </span>
+          </div>
+        )
+      })}
+
+      <div className="z-10 flex h-14 w-14 items-center justify-center rounded-full border-2 border-error/40 bg-error/10">
+        <span className="text-3xl">🔫</span>
+      </div>
+    </div>
+
+    <p className="mt-4 text-lg font-extrabold text-amber-300">
+      {roundMessage}
+    </p>
+
+    <p className="mt-1 text-[10px] font-bold tracking-widest text-ink-muted">
+      КАМОРА {Math.min(shotIndex + 1, 8)} / 8
+    </p>
+
+  </div>
+)}
           {hasPlayed && !playing && (
             <div className={`mb-4 rounded-xl border p-4 text-center ${today.result === 'win' ? 'border-success/40 bg-success/10' : 'border-error/40 bg-error/10'}`}>
               <div className="flex items-center justify-center gap-2">
