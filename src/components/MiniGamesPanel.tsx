@@ -121,6 +121,16 @@ const handleNextGame = () => {
     setSelectedGame(null)
   }
 }
+  const handleNextGame = () => {
+  ...
+}
+
+const handleGamesMenu = () => {
+  ...
+}
+
+// -- Game screen --
+if (selectedGame !== null) {
   // -- Game screen --
   if (selectedGame !== null) {
    const handleBack = () => {
@@ -128,11 +138,6 @@ const handleNextGame = () => {
   setCompletedToday(getCompletedToday(playerId))
 }
 
-
-const handleGamesMenu = () => {
-  setSelectedGame(null)
-  setCompletedToday(getCompletedToday(playerId))
-}
     const renderGame = (game: ReactNode) => (
   <div className="relative min-h-screen">
     {game}
