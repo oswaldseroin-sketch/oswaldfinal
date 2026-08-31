@@ -468,7 +468,13 @@ style={{
 }}
   
   >
-    <div className="absolute inset-4 rounded-full border-2 border-ink/20" />
+    <div
+  className="absolute inset-4 rounded-full border-2 border-amber-300/15"
+  style={{
+    boxShadow:
+      'inset 0 0 18px rgba(251,191,36,0.06), 0 0 12px rgba(127,29,29,0.08)',
+  }}
+/>
 
     {Array.from({ length: 8 }).map((_, index) => {
       const angle = (index / 8) * Math.PI * 2 - Math.PI / 2
