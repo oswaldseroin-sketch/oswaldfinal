@@ -178,7 +178,7 @@ export default function MafiaGame({ onBack, onProfileUpdate }: Props) {
           ) : dailyPlayers.length > 0 ? (
   <>
     <div className="space-y-2">
-      {dailyPlayers.map((playerName) => {
+      {dailyPlayers.map((playerName, index) => {
         const player = allPlayers.find((p) => p.full_name === playerName)
 
         if (!player) return null
