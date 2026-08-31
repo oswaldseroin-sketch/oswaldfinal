@@ -12,7 +12,7 @@ type SecretTabProps = { onBack: () => void }
 type InnerView = 'main' | 'teamLife' | 'shadowRealm'
 
 export default function SecretTab({ onBack }: SecretTabProps) {
-  const { memes, isAdmin, addMeme, loading } = useApp()
+  const { memes, isAdmin, addMeme, loading, currentUser } = useApp()
   const [open, setOpen] = useState(false)
   const [description, setDescription] = useState('')
   const [imageUrl, setImageUrl] = useState('')
