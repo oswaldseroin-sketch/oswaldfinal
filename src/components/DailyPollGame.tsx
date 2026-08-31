@@ -288,17 +288,17 @@ export default function DailyPollGame({ onBack, onProfileUpdate }: Props) {
                   key={name}
                   onClick={() => toggleCandidate(name)}
                   disabled={hasVoted || isMaxed}
-                 className={`flex min-h-[38px] items-center gap-2 rounded-lg border px-2 py-1.5 text-left transition-all ${
-                    hasVoted
-                      ? wasChosen
-                        ? 'border-neon/50 bg-neon/15'
-                        : 'border-line/20 bg-black/20 opacity-40'
-                      : isSelected
-                        ? 'border-neon/60 bg-neon/15 active:scale-95'
-                        : isMaxed
-                          ? 'border-line/20 bg-black/20 opacity-30'
-                          : 'border-line/40 bg-black/20 hover:border-neon/30 active:scale-95'
-                  }`}
+                 className={`relative flex min-h-[52px] items-center gap-2 overflow-hidden rounded-xl border px-3 py-2 text-left transition-all duration-200 ${
+  hasVoted
+    ? wasChosen
+      ? 'scale-[1.02] border-purple-400/70 bg-purple-500/20 shadow-[0_0_18px_rgba(168,85,247,0.22)]'
+      : 'border-line/20 bg-black/20 opacity-35'
+    : isSelected
+      ? 'scale-[1.02] border-purple-400/80 bg-purple-500/20 shadow-[0_0_20px_rgba(168,85,247,0.28)]'
+      : isMaxed
+        ? 'border-line/20 bg-black/20 opacity-25'
+        : 'border-purple-400/15 bg-black/25 hover:border-purple-400/45 hover:bg-purple-500/10 active:scale-95'
+}`}
                 >
                   <div className={`flex h-4 w-4 shrink-0 items-center justify-center rounded border ${
                     isSelected || wasChosen
