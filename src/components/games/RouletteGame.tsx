@@ -387,7 +387,10 @@ style={{
           setCurrentTurn('opponent')
           setRoundMessage(`${today.opponent_name} начинает`)
         }}
-        className="rounded-xl border border-amber-400/40 bg-amber-400/10 px-3 py-3 text-sm font-extrabold text-amber-200 transition active:scale-95"
+       className="rounded-xl border border-red-400/25 bg-gradient-to-b from-red-500/10 to-black/30 px-3 py-3 text-sm font-black text-red-100 transition-all hover:border-red-300/50 hover:bg-red-500/15 active:scale-95"
+style={{
+  boxShadow: 'inset 0 0 18px rgba(239,68,68,0.05)',
+}}
       >
         {today.opponent_name}
       </button>
