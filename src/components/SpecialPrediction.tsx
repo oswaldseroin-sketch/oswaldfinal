@@ -221,6 +221,20 @@ const personalizedText = useMemo(() => {
           </div>
           <p className="mt-4 text-[10px] font-extrabold tracking-widest text-purple-300">ОСОБОЕ НАПУТСТВИЕ ВСЕВИДЯЩЕГО ФРАСИМАХА</p>
           <p className="mt-3 text-[15px] font-bold leading-relaxed text-ink">{personalizedText}</p>
+          <button
+  type="button"
+  onClick={() => {
+    persist({
+      destroyed: [],
+      nextAvailableAt: Date.now() + COOLDOWN_MS,
+      completed: false,
+      messageIndex: (state.messageIndex + 1) % 20,
+    })
+  }}
+  className="mt-5 w-full rounded-xl border border-purple-400/40 bg-purple-500/15 px-4 py-3 text-sm font-extrabold text-purple-200 transition active:scale-95"
+>
+  НАЧАТЬ НОВЫЙ РИТУАЛ
+</button>
         </div>
       )}
 
