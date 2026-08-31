@@ -209,7 +209,13 @@ console.log('MAFIA PLAYERS:', dailyPlayers)
 </div>
 
           {isCompleted ? (
-            <div className={`rounded-xl border p-4 text-center ${today.foundMafia ? 'border-success/30 bg-success/10' : 'border-error/30 bg-error/10'}`}>
+            <div
+  className={`rounded-xl border p-4 text-center ${
+    today.foundMafia
+      ? 'border-amber-400/35 bg-gradient-to-b from-amber-950/25 to-black/30 shadow-[0_0_22px_rgba(251,191,36,0.10)]'
+      : 'border-red-500/35 bg-gradient-to-b from-red-950/30 to-black/30 shadow-[0_0_22px_rgba(239,68,68,0.12)]'
+  }`}
+>
               <p className={`text-sm font-extrabold ${today.foundMafia ? 'text-success' : 'text-error'}`}>
                 {today.foundMafia
                   ? `Поймали мафию! ${today.attemptCount === 1 ? 'С первой попытки!' : 'Со второй попытки!'}`
