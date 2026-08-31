@@ -19,6 +19,7 @@ export default function DailyPollGame({ onBack, onProfileUpdate }: Props) {
   const [claiming, setClaiming] = useState(false)
   const [claimResult, setClaimResult] = useState<DailyPollClaimResult | null>(null)
   const [resultsClaimed, setResultsClaimed] = useState(false)
+  const [showYesterdayResults, setShowYesterdayResults] = useState(false)
 
   const loadState = useCallback(async () => {
     if (!currentUser) return
