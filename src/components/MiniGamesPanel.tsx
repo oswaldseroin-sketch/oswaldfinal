@@ -397,6 +397,13 @@ const style = gameStyle[game.number]
 >
   ИГРА {String(game.number).padStart(2, '0')}
 </span>
+                <div
+  className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+  style={{
+    background:
+      'radial-gradient(circle at 50% 35%, rgba(255,255,255,0.10), transparent 55%)',
+  }}
+/>
                 {isDone && (
                   <span
                     className="absolute right-2 top-2 flex h-5 w-5 items-center justify-center rounded-full bg-success/25"
