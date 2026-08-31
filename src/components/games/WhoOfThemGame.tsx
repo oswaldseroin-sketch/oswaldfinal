@@ -228,6 +228,8 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
               <p className="text-[11px] font-bold text-neon/70">Награда получена</p>
             </div>
           )}
+      </>
+)}
         </div>
       )}
 
