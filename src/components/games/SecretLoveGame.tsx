@@ -149,13 +149,25 @@ export default function SecretLoveGame({ onBack, onProfileUpdate }: Props) {
       : 'border-indigo-400/15 bg-slate-950/50 hover:border-indigo-300/40 hover:bg-indigo-500/10 active:scale-[0.98]'
 }`}
                 >
-                  <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-xs font-bold ${
-                    isCorrect ? 'border-success bg-success/20 text-success' :
-                    isWrong ? 'border-error/40 text-error' :
-                    isRevealedCorrect ? 'border-success/40 text-success' : 'border-line/50 text-ink-muted'
-                  }`}>
-                    {isCorrect ? <Check size={14} /> : isWrong ? <X size={14} /> : i + 1}
-                  </div>
+                  <div
+  className={`flex h-8 w-9 shrink-0 items-center justify-center rounded-lg border text-[10px] font-black tracking-wider transition-all ${
+    isCorrect
+      ? 'border-emerald-400/60 bg-emerald-500/10 text-emerald-300'
+      : isWrong
+        ? 'border-red-400/35 bg-red-500/10 text-red-300'
+        : isRevealedCorrect
+          ? 'border-emerald-400/30 bg-emerald-500/5 text-emerald-400'
+          : isSelected
+            ? 'border-indigo-300/60 bg-indigo-500/15 text-indigo-100'
+            : 'border-indigo-400/20 bg-black/25 text-slate-400'
+  }`}
+>
+  {isCorrect
+    ? <Check size={14} />
+    : isWrong
+      ? <X size={14} />
+      : `0${i + 1}`}
+</div>
                   <span className={`flex-1 text-sm font-bold ${
                     isCorrect ? 'text-success' : isWrong ? 'text-error' : isRevealedCorrect ? 'text-success/80' : 'text-ink'
                   }`}>{player}</span>
