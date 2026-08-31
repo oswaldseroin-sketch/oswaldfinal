@@ -178,9 +178,14 @@ const handleGamesMenu = () => {
     />
   )
 }
-    if (selectedGame === 2) {
-      return <WhoOfThemGame onBack={handleBack} onProfileUpdate={() => void handleGameComplete(2)} />
-    }
+   if (selectedGame === 2) {
+  return renderGame(
+    <WhoOfThemGame
+      onBack={handleBack}
+      onProfileUpdate={() => void handleGameComplete(2)}
+    />
+  )
+}
     if (selectedGame === 3) {
       return <WouldHeDoItGame onBack={handleBack} onProfileUpdate={() => void handleGameComplete(3)} />
     }
