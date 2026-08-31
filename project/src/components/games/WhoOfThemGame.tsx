@@ -193,7 +193,7 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
           {claimResult && claimResult.totalTitleXp! > 0 && (
             <div className="mt-3 rounded-lg border border-neon/30 bg-neon/10 p-3 text-center">
               <p className="text-xs font-bold text-neon">Награда получена!</p>
-              <p className="mt-1 text-sm font-extrabold text-neon" style={{ textShadow: '0 0 10px rgba(0,229,255,0.4)' }}>🥈 +{claimResult.totalTitleXp} XP звания +{claimResult.totalCoins}🪙</p>
+              <p className="mt-1 text-sm font-extrabold text-neon" style={{ textShadow: '0 0 10px rgba(0,229,255,0.4)' }}>🥈 +{claimResult.totalXp} XP +{claimResult.totalTitleXp} XP звания +{claimResult.totalCoins}🪙</p>
             </div>
           )}
           {resultsClaimed && yesterday.reward && (
