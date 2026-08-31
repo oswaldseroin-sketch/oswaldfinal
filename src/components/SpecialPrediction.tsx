@@ -65,12 +65,14 @@ function getStorageKey(userId: string): string {
 }
 
 function getRitualState(userId: string): RitualState {
-  return getItem<RitualState>(getStorageKey(userId), {
-    destroyed: [],
-    nextAvailableAt: 0,
-    completed: false,
-    messageIndex: 0,
-  })
+  const saved = getItem<Partial<RitualState>>(getStorageKey(userId), {})
+
+  return {
+    destroyed: saved.destroyed ?? [],
+    nextAvailableAt: saved.nextAvailableAt ?? 0,
+    completed: saved.completed ?? false,
+    messageIndex: saved.messageIndex ?? 0,
+  }
 }
 
 function formatDuration(ms: number): string {
