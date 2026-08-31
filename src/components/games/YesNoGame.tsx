@@ -251,13 +251,31 @@ export default function YesNoGame({ onBack, onProfileUpdate }: Props) {
             })}
           </div>
 
-          {hasVoted ? (
-            <div className="mt-4 rounded-xl border border-success/30 bg-success/10 p-3 text-center">
-              <div className="flex items-center justify-center gap-2"><Check size={16} className="text-success" /><p className="text-sm font-extrabold text-success">Ответ учтён!</p></div>
-              <p className="mt-1 text-xs text-ink-muted">Твой выбор: <span className="font-bold text-ink">{today.userVote === 'yes' ? 'ДА' : 'НЕТ'}</span></p>
-              <p className="mt-1 text-[11px] text-ink-muted">Результаты будут доступны завтра в 08:00</p>
-            </div>
-          ) : (
+         {hasVoted ? (
+  <div className="mt-4 rounded-xl border border-slate-400/15 bg-white/[0.03] p-3 text-center">
+    <p className="text-[9px] font-black tracking-[0.2em] text-slate-500">
+      РЕШЕНИЕ ЗАФИКСИРОВАНО
+    </p>
+
+    <div className="mt-2 flex items-center justify-center gap-2">
+      <Check size={15} className="text-slate-300" />
+      <p className="text-sm font-black text-zinc-100">
+        ТВОЙ ВЫБОР:
+        <span className={`ml-1 ${
+          today.userVote === 'yes'
+            ? 'text-emerald-300'
+            : 'text-red-300'
+        }`}>
+          {today.userVote === 'yes' ? 'ДА' : 'НЕТ'}
+        </span>
+      </p>
+    </div>
+
+    <p className="mt-1.5 text-[10px] text-zinc-500">
+      Результат откроется завтра в 08:00
+    </p>
+  </div>
+) : (
             <button
   onClick={handleVote}
   disabled={!selected || voting}
