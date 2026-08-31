@@ -241,7 +241,13 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
       '0 0 24px rgba(251,146,60,0.12), inset 0 0 24px rgba(251,146,60,0.04)',
   }}
 >
-          <p className="text-[10px] font-bold tracking-widest text-neon">ВОПРОС ДНЯ</p>
+          <div className="mb-2 flex items-center gap-2">
+  <span className="text-lg">⚔️</span>
+  <p className="text-[10px] font-black tracking-[0.18em] text-orange-300">
+    ДУЭЛЬ ДНЯ
+  </p>
+  <div className="h-px flex-1 bg-gradient-to-r from-orange-400/40 to-transparent" />
+</div>
           <h2 className="mt-1.5 mb-3 text-base font-extrabold leading-snug text-ink">{today.question}</h2>
 
           <div className="space-y-2">
