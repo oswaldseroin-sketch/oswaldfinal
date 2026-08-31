@@ -71,7 +71,35 @@ const [claimMessage, setClaimMessage] = useState('')
       setVoting(false)
     }
   }
+const handleClaimYesterday = async () => {
+  if (!currentUser || claiming) return
 
+  setClaiming(true)
+  setClaimMessage('')
+  setError('')
+
+  try {
+    const result = await api.claimGameResults('rate_player', currentUser.id)
+
+    if (!result.success) {
+      setError(result.message || 'Не удалось получить награду')
+      return
+    }
+
+    const xp = result.totalXp ?? 0
+    const titleXp = result.totalTitleXp ?? 0
+    const coins = result.totalCoins ?? 0
+
+    setClaimMessage(`+${xp} XP · +${titleXp} XP звания · +${coins}🪙`)
+
+    await loadState()
+    onProfileUpdate()
+  } catch (err) {
+    setError(err instanceof Error ? err.message : 'Ошибка получения награды')
+  } finally {
+    setClaiming(false)
+  }
+}
   if (loading) {
     return (
       <div className="mx-auto max-w-md px-5 pb-10 pt-6">
