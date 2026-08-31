@@ -141,7 +141,7 @@ const renderCompleteNav = () => {
   if (gameNumber === null) return null
 
   const gameCompleted =
-  showGameCompleteNav || completedToday.includes(gameNumber)
+  showGameCompleteNav || Boolean(completedToday[String(gameNumber)])
 
   if (!gameCompleted) return null
 
