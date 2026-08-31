@@ -394,21 +394,23 @@ const handleMyShot = async () => {
   {/* Неподвижный револьвер */}
   <div className="absolute inset-0 z-10 flex items-center justify-center">
     <button
-      onClick={handleMyShot}
-      disabled={currentTurn !== 'me' || playing || roundFinished}
-      className={`flex h-16 w-16 items-center justify-center rounded-full border-2 transition-all duration-100 ${
-  gunKick
-    ? 'scale-125 -rotate-12 border-error bg-error/40'
-   
-       
-      style={
-        currentTurn === 'me' && !playing && !roundFinished
-          ? { boxShadow: '0 0 24px rgba(239,68,68,0.35)' }
-          : undefined
-      }
-    >
-      <span className="text-3xl">🔫</span>
-    </button>
+  onClick={handleMyShot}
+  disabled={currentTurn !== 'me' || playing || roundFinished}
+  className={`flex h-16 w-16 items-center justify-center rounded-full border-2 transition-all duration-100 ${
+    gunKick
+      ? 'scale-125 -rotate-12 border-error bg-error/40'
+      : currentTurn === 'me' && !playing && !roundFinished
+        ? 'border-error/70 bg-error/20 cursor-pointer active:scale-90'
+        : 'border-ink/20 bg-black/30 opacity-60 cursor-default'
+  }`}
+  style={
+    currentTurn === 'me' && !playing && !roundFinished
+      ? { boxShadow: '0 0 24px rgba(239,68,68,0.35)' }
+      : undefined
+  }
+>
+  <span className="text-3xl">🔫</span>
+</button>
   </div>
 
 </div>
