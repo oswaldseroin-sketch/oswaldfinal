@@ -69,32 +69,21 @@ export type LevelInfo = {
   progressPercent: number
 }
 
-export function getLevelInfo(xp: number): LevelInfo {
-  let level = 1
-  let remaining = xp
-  while (level < MAX_LEVEL) {
-    const needed = xpForLevel(level)
-    if (remaining >= needed) {
-      remaining -= needed
-      level++
-    } else {
-      break
-    }
-  }
+export function getLevelInfo(xp: number, level: number = 1): LevelInfo {
+  const safeLevel = Math.min(Math.max(Number(level) || 1, 1), MAX_LEVEL)
 
-  let spent = 0
-  for (let l = 1; l < level; l++) {
-    spent += xpForLevel(l)
-  }
-  const currentXp = xp - spent
-  const neededXp = level >= MAX_LEVEL ? currentXp : xpForLevel(level)
-  const progressPercent = neededXp > 0 ? Math.min(100, (currentXp / neededXp) * 100) : 100
+  const currentXp = Math.max(0, Number(xp) || 0)
+  const neededXp = safeLevel >= MAX_LEVEL ? currentXp : 20
+  const progressPercent =
+    neededXp > 0
+      ? Math.min(100, (currentXp / neededXp) * 100)
+      : 100
 
   return {
-    level,
+    level: safeLevel,
     currentXp,
     neededXp,
-    title: getTitleForLevel(level),
+    title: getTitleForLevel(safeLevel),
     progressPercent,
   }
 }
