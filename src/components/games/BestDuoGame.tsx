@@ -173,6 +173,8 @@ export default function BestDuoGame({ onBack, onProfileUpdate }: Props) {
     ▼
   </span>
 </button>
+          {showYesterdayResults && (
+  <>
           <p className="mb-3 text-sm font-bold text-ink/90">{yesterday.question}</p>
           <div className="grid grid-cols-2 gap-2.5">
             <TeamCard team="КОМАНДА 1" teamNum={1} players={yesterday.team1} votes={yesterday.team1Votes} isWinner={yesterday.winner === 1} isSelected={false} isChosen={yesterday.userVote === 1} onClick={() => {}} />
