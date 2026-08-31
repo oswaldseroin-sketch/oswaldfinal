@@ -319,26 +319,63 @@ const yesterdayClaimed =
 </div>
 
           {hasVoted ? (
-            <div
-  className="mt-4 rounded-xl border border-violet-400/25 bg-violet-500/10 p-3 text-center"
+           <div
+  className="relative mt-4 overflow-hidden rounded-2xl border border-violet-400/30 bg-gradient-to-br from-violet-500/10 via-black/45 to-fuchsia-500/5 p-4 text-center"
   style={{
-    boxShadow: '0 0 18px rgba(139,92,246,0.10)',
+    boxShadow:
+      '0 0 26px rgba(139,92,246,0.14), inset 0 0 24px rgba(139,92,246,0.04)',
   }}
 >
-              <div className="flex items-center justify-center gap-2"><Check size={16} className="text-success" /><p className="text-sm font-extrabold text-success">Оценка принята!</p></div>
-              {today.userVote !== null && today.userVote !== undefined && (
-                <p className="mt-2 text-xs text-ink-muted">
-                  Твоя оценка: <span className="font-bold text-neon">{today.userVote} / 5</span>
-                </p>
-              )}
-            <p
-  className="mt-1 text-sm font-extrabold text-amber-300"
-  style={{ textShadow: '0 0 10px rgba(251,191,36,0.35)' }}
->
-  +2 XP · +3🪙
-</p>
-              <p className="mt-1 text-[11px] text-ink-muted">Средняя оценка будет доступна завтра в 08:00</p>
-            </div>
+  <div className="pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full bg-violet-500/10 blur-2xl" />
+  <div className="pointer-events-none absolute -bottom-10 -left-10 h-24 w-24 rounded-full bg-fuchsia-500/10 blur-2xl" />
+
+  <div className="relative">
+    <div className="flex items-center justify-center gap-2">
+      <span className="text-violet-300">◈</span>
+
+      <p className="text-[9px] font-black tracking-[0.25em] text-violet-300">
+        ВЕРДИКТ ВЫНЕСЕН
+      </p>
+
+      <span className="text-violet-300">◈</span>
+    </div>
+
+    <p
+      className="mt-2 text-xl font-black tracking-wide text-violet-100"
+      style={{ textShadow: '0 0 16px rgba(167,139,250,0.4)' }}
+    >
+      Оценка зафиксирована
+    </p>
+
+    {today.userVote !== null && today.userVote !== undefined && (
+      <div className="mx-auto mt-3 w-fit rounded-xl border border-violet-300/25 bg-violet-500/10 px-5 py-2">
+        <p className="text-[8px] font-black tracking-[0.2em] text-violet-300/60">
+          ТВОЙ ВЕРДИКТ
+        </p>
+
+        <p
+          className="mt-0.5 text-2xl font-black text-amber-200"
+          style={{ textShadow: '0 0 12px rgba(251,191,36,0.35)' }}
+        >
+          {today.userVote} <span className="text-sm text-amber-300/60">/ 5</span>
+        </p>
+      </div>
+    )}
+
+    <div className="mx-auto mt-3 h-px w-32 bg-gradient-to-r from-transparent via-violet-400/50 to-transparent" />
+
+    <p
+      className="mt-2 text-sm font-black text-amber-200"
+      style={{ textShadow: '0 0 10px rgba(251,191,36,0.3)' }}
+    >
+      +2 XP · +3🪙
+    </p>
+
+    <p className="mt-1.5 text-[10px] text-ink-muted">
+      Средняя оценка откроется завтра в 08:00
+    </p>
+  </div>
+</div>
           ) : (
             <button
   onClick={handleVote}
