@@ -136,9 +136,14 @@ const handleGamesMenu = () => {
   setCompletedToday(getCompletedToday(playerId))
 }
 const renderCompleteNav = () => {
-  if (!showGameCompleteNav) return null
-
   const gameNumber = selectedGame ?? lastCompletedGame
+
+  if (gameNumber === null) return null
+
+  const gameCompleted =
+    showGameCompleteNav || Boolean(completedToday[String(gameNumber)])
+
+  if (!gameCompleted) return null
 
   if (gameNumber === null) return null
 
