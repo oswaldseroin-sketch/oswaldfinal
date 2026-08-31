@@ -231,7 +231,13 @@ const yesterdayClaimed =
       )}
 
       {today && (
-        <div className="rounded-2xl border border-neon/30 bg-card/60 p-4 backdrop-blur-md" style={{ boxShadow: '0 0 18px rgba(0,229,255,0.1)' }}>
+        <div
+  className="rounded-2xl border border-violet-400/25 bg-gradient-to-b from-violet-950/25 via-card/70 to-black/35 p-4 backdrop-blur-md"
+  style={{
+    boxShadow:
+      '0 0 24px rgba(139,92,246,0.10), inset 0 0 24px rgba(251,191,36,0.025)',
+  }}
+>
         <p className="text-[10px] font-bold tracking-widest text-neon">
   {today.player_name}
 </p>
