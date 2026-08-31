@@ -275,8 +275,9 @@ export default function DailyPollGame({ onBack, onProfileUpdate }: Props) {
             </p>
           )}
 
-          {/* Full employee list — 2-column grid */}
-          <div className="grid grid-cols-2 gap-2">
+         {/* Full employee list — compact scroll */}
+<div className="max-h-[330px] overflow-y-auto pr-1">
+  <div className="grid grid-cols-2 gap-1.5">
             {allWorkers.map((name) => {
               const isSelected = selected.includes(name)
               const wasChosen = state.today.userVote?.includes(name)
