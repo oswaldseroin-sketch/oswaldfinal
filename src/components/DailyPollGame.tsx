@@ -288,7 +288,7 @@ export default function DailyPollGame({ onBack, onProfileUpdate }: Props) {
                   key={name}
                   onClick={() => toggleCandidate(name)}
                   disabled={hasVoted || isMaxed}
-                  className={`flex items-center gap-2 rounded-lg border px-2.5 py-2 text-left transition-all ${
+                 className={`flex min-h-[38px] items-center gap-2 rounded-lg border px-2 py-1.5 text-left transition-all ${
                     hasVoted
                       ? wasChosen
                         ? 'border-neon/50 bg-neon/15'
