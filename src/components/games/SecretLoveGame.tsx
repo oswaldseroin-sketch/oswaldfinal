@@ -92,7 +92,13 @@ export default function SecretLoveGame({ onBack, onProfileUpdate }: Props) {
       )}
 
       {today && (
-        <div className="rounded-2xl border border-neon/30 bg-card/60 p-4 backdrop-blur-md" style={{ boxShadow: '0 0 18px rgba(0,229,255,0.1)' }}>
+      <div
+  className="rounded-2xl border border-indigo-400/20 bg-gradient-to-b from-indigo-950/25 via-slate-950/80 to-black/50 p-4 backdrop-blur-md"
+  style={{
+    boxShadow:
+      '0 0 24px rgba(99,102,241,0.10), inset 0 0 28px rgba(226,232,240,0.025)',
+  }}
+>
           <div className="mb-3 flex items-center gap-2">
             <Heart size={14} className="text-accent" />
             <p className="text-[10px] font-bold tracking-widest text-accent">ВОПРОС ДНЯ</p>
