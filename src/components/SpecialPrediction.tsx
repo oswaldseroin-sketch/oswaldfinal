@@ -55,6 +55,7 @@ type RitualState = {
   destroyed: SymbolId[]
   nextAvailableAt: number
   completed: boolean
+  messageIndex: number
 }
 
 type Spark = { dx: number; dy: number; r: number; delay: number }
