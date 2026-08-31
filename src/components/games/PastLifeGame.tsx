@@ -186,7 +186,13 @@ export default function PastLifeGame({ onBack, onProfileUpdate }: Props) {
   </div>
 )}
       {today && (
-        <div className="rounded-2xl border border-neon/30 bg-card/60 p-4 backdrop-blur-md" style={{ boxShadow: '0 0 18px rgba(0,229,255,0.1)' }}>
+        <div
+  className="rounded-2xl border border-amber-700/40 bg-gradient-to-b from-amber-950/30 via-stone-950/70 to-black/40 p-4 backdrop-blur-md"
+  style={{
+    boxShadow:
+      '0 0 24px rgba(180,83,9,0.10), inset 0 0 28px rgba(245,158,11,0.035)',
+  }}
+>
           <p className="text-[10px] font-bold tracking-widest text-neon">ВОПРОС ДНЯ</p>
           <h2 className="mt-1.5 mb-3 text-base font-extrabold leading-snug text-ink">{today.question}</h2>
 
