@@ -130,6 +130,30 @@ const handleMyShot = async () => {
   setRoundMessage('ТВОЯ ОЧЕРЕДЬ')
   setPlaying(false)
 }
+  useEffect(() => {
+  if (
+    !gameStarted ||
+    !starter ||
+    currentTurn !== 'opponent' ||
+    roundFinished ||
+    playing
+  ) {
+    return
+  }
+
+  const timer = setTimeout(() => {
+    void handleOpponentShot()
+  }, 800)
+
+  return () => clearTimeout(timer)
+}, [
+  gameStarted,
+  starter,
+  currentTurn,
+  roundFinished,
+  playing,
+  shotIndex,
+])
   if (loading) {
     return (
       <div className="mx-auto max-w-md px-5 pb-10 pt-6">
