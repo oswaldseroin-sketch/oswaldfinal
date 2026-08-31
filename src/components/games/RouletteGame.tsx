@@ -338,62 +338,71 @@ const handleMyShot = async () => {
     </div>
 
     {/* Револьвер */}
-   <div
-  className={`relative mx-auto flex h-44 w-44 items-center justify-center rounded-full border-4 border-ink/20 bg-black/40 shadow-lg transition-transform ${
-    cylinderSpinning ? 'animate-spin' : ''
-  }`}
-  style={{
-    animationDuration: cylinderSpinning ? '0.35s' : undefined,
-  }}
->
+<div className="relative mx-auto h-44 w-44">
 
-      <div className="absolute inset-4 rounded-full border-2 border-ink/20" />
+  {/* Вращающийся барабан */}
+  <div
+    className={`absolute inset-0 rounded-full border-4 border-ink/20 bg-black/40 shadow-lg ${
+      cylinderSpinning ? 'animate-spin' : ''
+    }`}
+    style={{
+      animationDuration: cylinderSpinning ? '0.35s' : undefined,
+    }}
+  >
+    <div className="absolute inset-4 rounded-full border-2 border-ink/20" />
 
-      {Array.from({ length: 8 }).map((_, index) => {
-        const angle = (index / 8) * Math.PI * 2 - Math.PI / 2
-        const radius = 54
+    {Array.from({ length: 8 }).map((_, index) => {
+      const angle = (index / 8) * Math.PI * 2 - Math.PI / 2
+      const radius = 54
 
-        const x = Math.cos(angle) * radius
-        const y = Math.sin(angle) * radius
+      const x = Math.cos(angle) * radius
+      const y = Math.sin(angle) * radius
 
-        const used = index < shotIndex
+      const used = index < shotIndex
 
-        return (
-          <div
-            key={index}
-            className={`absolute flex h-8 w-8 items-center justify-center rounded-full border-2 transition-all ${
-              used
-                ? 'border-error/30 bg-error/10 text-error/40'
-                : 'border-ink/30 bg-card text-ink'
-            }`}
-            style={{
-              transform: `translate(${x}px, ${y}px)`,
-            }}
-          >
-            <span className="text-[10px] font-extrabold">
-              {used ? '×' : index + 1}
-            </span>
-          </div>
-        )
-      })}
+      return (
+        <div
+          key={index}
+          className={`absolute left-1/2 top-1/2 flex h-8 w-8 items-center justify-center rounded-full border-2 transition-all ${
+            used
+              ? 'border-error/30 bg-error/10 text-error/40'
+              : 'border-ink/30 bg-card text-ink'
+          }`}
+          style={{
+            marginLeft: '-16px',
+            marginTop: '-16px',
+            transform: `translate(${x}px, ${y}px)`,
+          }}
+        >
+          <span className="text-[10px] font-extrabold">
+            {used ? '×' : index + 1}
+          </span>
+        </div>
+      )
+    })}
+  </div>
 
-     <button
-  onClick={handleMyShot}
-  disabled={currentTurn !== 'me' || playing || roundFinished}
-  className={`z-10 flex h-16 w-16 items-center justify-center rounded-full border-2 transition-all ${
-    currentTurn === 'me' && !playing && !roundFinished
-      ? 'border-error/70 bg-error/20 active:scale-90 cursor-pointer'
-      : 'border-ink/20 bg-black/30 opacity-60 cursor-default'
-  }`}
-  style={
-    currentTurn === 'me' && !playing && !roundFinished
-      ? { boxShadow: '0 0 24px rgba(239,68,68,0.35)' }
-      : undefined
-  }
->
-  <span className="text-3xl">🔫</span>
-</button>
-    </div>
+  {/* Неподвижный револьвер */}
+  <div className="absolute inset-0 z-10 flex items-center justify-center">
+    <button
+      onClick={handleMyShot}
+      disabled={currentTurn !== 'me' || playing || roundFinished}
+      className={`flex h-16 w-16 items-center justify-center rounded-full border-2 transition-all ${
+        currentTurn === 'me' && !playing && !roundFinished
+          ? 'border-error/70 bg-error/20 cursor-pointer active:scale-90'
+          : 'border-ink/20 bg-black/30 opacity-60 cursor-default'
+      }`}
+      style={
+        currentTurn === 'me' && !playing && !roundFinished
+          ? { boxShadow: '0 0 24px rgba(239,68,68,0.35)' }
+          : undefined
+      }
+    >
+      <span className="text-3xl">🔫</span>
+    </button>
+  </div>
+
+</div>
 
     <p className="mt-4 text-lg font-extrabold text-amber-300">
       {roundMessage}
