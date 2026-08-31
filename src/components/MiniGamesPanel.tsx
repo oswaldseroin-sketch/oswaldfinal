@@ -194,7 +194,7 @@ export default function MiniGamesPanel({ onBack }: Props) {
           </div>
         ) : profile && levelInfo && titleInfo ? (
           <div
-            className="mb-5 rounded-2xl border border-neon/30 bg-card/60 p-4 backdrop-blur-md"
+            className="relative mb-5 overflow-hidden rounded-2xl border border-cyan-400/25 bg-gradient-to-br from-cyan-950/35 via-black/75 to-fuchsia-950/25 p-4 backdrop-blur-md"
             style={{ boxShadow: '0 0 18px rgba(0,229,255,0.1)' }}
           >
             <div className="mb-2 flex items-center justify-between">
