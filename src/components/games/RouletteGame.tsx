@@ -373,7 +373,10 @@ setPlaying(false)
           setCurrentTurn('me')
           setRoundMessage('Твой ход')
         }}
-        className="rounded-xl border border-neon/40 bg-neon/10 px-3 py-3 text-sm font-extrabold text-ink transition active:scale-95"
+        className="rounded-xl border border-amber-400/25 bg-gradient-to-b from-amber-500/10 to-black/30 px-3 py-3 text-sm font-black text-amber-100 transition-all hover:border-amber-300/50 hover:bg-amber-500/15 active:scale-95"
+style={{
+  boxShadow: 'inset 0 0 18px rgba(251,191,36,0.05)',
+}}
       >
         {currentUser?.full_name || 'Ты'}
       </button>
