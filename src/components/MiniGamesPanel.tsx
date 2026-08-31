@@ -303,7 +303,7 @@ export default function MiniGamesPanel({ onBack }: Props) {
           </div>
         </button>
 
-        {/* 10 mini-game cards */}
+        
 
         {/* 10 mini-game cards */}
         <div className="grid grid-cols-2 gap-2.5">
