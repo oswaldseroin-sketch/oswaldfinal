@@ -145,6 +145,8 @@ export default function RouletteGame({ onBack, onProfileUpdate }: Props) {
               <span className="text-xs font-bold text-ink">{yesterday.total}</span>
             </div>
           </div>
+      </>
+)}
         </div>
       )}
 
