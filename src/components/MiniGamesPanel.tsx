@@ -254,6 +254,56 @@ export default function MiniGamesPanel({ onBack }: Props) {
             </div>
           </div>
         ) : null}
+                {/* Магазиньш */}
+        <button
+          type="button"
+          className="group relative mb-4 w-full overflow-hidden rounded-2xl border border-amber-400/40 bg-gradient-to-r from-amber-950/70 via-black/80 to-fuchsia-950/50 px-4 py-3.5 text-left backdrop-blur-md transition-all duration-300 active:scale-[0.98]"
+          style={{
+            boxShadow:
+              '0 0 20px rgba(251,191,36,0.12), inset 0 0 25px rgba(255,43,214,0.05)',
+          }}
+        >
+          <div className="absolute -right-4 -top-8 h-24 w-24 rounded-full bg-amber-400/10 blur-2xl" />
+          <div className="absolute -bottom-8 left-1/3 h-20 w-20 rounded-full bg-fuchsia-500/10 blur-2xl" />
+
+          <div className="relative flex items-center gap-3">
+            <div
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-amber-300/40 bg-amber-400/10 text-2xl"
+              style={{
+                boxShadow: '0 0 14px rgba(251,191,36,0.18)',
+              }}
+            >
+              🛒
+            </div>
+
+            <div className="min-w-0 flex-1">
+              <p className="text-[9px] font-black tracking-[0.24em] text-amber-300/70">
+                ТАИНСТВЕННАЯ ЛАВКА
+              </p>
+
+              <p
+                className="text-lg font-black tracking-wide text-amber-100"
+                style={{
+                  textShadow: '0 0 12px rgba(251,191,36,0.30)',
+                }}
+              >
+                МАГАЗИНЬШ
+              </p>
+
+              <p className="text-[10px] font-medium text-zinc-500">
+                Скоро здесь появится всякое добро
+              </p>
+            </div>
+
+            <div className="rounded-lg border border-amber-400/20 bg-black/30 px-2 py-1">
+              <span className="text-[8px] font-black tracking-widest text-amber-300/60">
+                СКОРО
+              </span>
+            </div>
+          </div>
+        </button>
+
+        {/* 10 mini-game cards */}
 
         {/* 10 mini-game cards */}
         <div className="grid grid-cols-2 gap-2.5">
