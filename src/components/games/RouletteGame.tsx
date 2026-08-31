@@ -207,7 +207,7 @@ setShotIndex((prev) => prev + 1)
 setCurrentTurn('me')
 setRoundMessage('ТВОЯ ОЧЕРЕДЬ')
 
-await new Promise((r) => setTimeout(r, 500))
+await new Promise((r) => setTimeout(r, 2000))
 
 setPlaying(false)
 }
