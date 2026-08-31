@@ -197,16 +197,24 @@ const [roundFinished, setRoundFinished] = useState(false)
           )}
 
           {/* Play button */}
-          {!hasPlayed && !playing && (
-            <button
-              onClick={handlePlay}
-              className="flex w-full items-center justify-center gap-2 rounded-xl border border-error/40 bg-error/15 py-4 text-sm font-extrabold text-error transition hover:bg-error/25 active:scale-95"
-              style={{ boxShadow: '0 0 16px rgba(239,68,68,0.15)' }}
-            >
-              <Swords size={18} />
-              Сыграть
-            </button>
-          )}
+         {!hasPlayed && !playing && !gameStarted && (
+  <button
+    onClick={() => {
+      setGameStarted(true)
+      setRoundMessage('')
+      setRoundFinished(false)
+      setStarter(null)
+      setCurrentTurn(null)
+      setShotIndex(0)
+      setChamber(Math.floor(Math.random() * 8))
+    }}
+    className="flex w-full items-center justify-center gap-2 rounded-xl border border-error/40 bg-error/15 py-4 text-sm font-extrabold text-error transition hover:bg-error/25 active:scale-95"
+    style={{ boxShadow: '0 0 16px rgba(239,68,68,0.15)' }}
+  >
+    <Swords size={18} />
+    Сыграть
+  </button>
+)}
 
           {hasPlayed && !playing && (
             <p className="text-center text-[11px] text-ink-muted">Повторно крутить рулетку сегодня нельзя</p>
