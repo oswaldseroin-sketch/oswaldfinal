@@ -49,10 +49,7 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
       const map: Record<string, number> = {}
       for (const p of players) map[p.full_name] = p.id
       setPlayerMap(map)
-      if (currentUser) {
-        const match = players.find((p) => p.full_name === currentUser.id)
-        if (match) setNumericUserId(String(match.id))
-      }
+     
     }).catch(() => {})
   }, [currentUser])
 
