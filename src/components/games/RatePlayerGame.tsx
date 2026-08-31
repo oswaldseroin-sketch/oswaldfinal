@@ -182,6 +182,47 @@ const yesterdayClaimed =
             )}
             <p className="mt-1 text-xs text-ink-muted">Проголосовало: {yesterday.totalVotes}</p>
             {yesterday.userVote !== null && <p className="mt-1 text-xs text-ink-muted">Ваша оценка: {yesterday.userVote}</p>}
+            {yesterday.userVote !== null && (
+  <div className="mt-3">
+    {yesterdayWon ? (
+      yesterdayClaimed ? (
+        <div className="rounded-lg border border-success/30 bg-success/10 p-2.5">
+          <p className="text-xs font-extrabold text-success">
+            ✓ Награда получена
+          </p>
+          <p className="mt-1 text-sm font-extrabold text-neon">
+            +{yesterday.reward?.xp_awarded ?? 3} XP · +{yesterday.reward?.title_xp_awarded ?? 3} XP звания · +{yesterday.reward?.coins_awarded ?? 3}🪙
+          </p>
+        </div>
+      ) : (
+        <button
+          onClick={handleClaimYesterday}
+          disabled={claiming}
+          className="w-full rounded-lg bg-amber-400 px-3 py-2.5 text-sm font-extrabold text-black transition active:scale-95 disabled:opacity-50"
+        >
+          {claiming ? (
+            <span className="flex items-center justify-center gap-2">
+              <Loader2 size={15} className="animate-spin" />
+              Получаем...
+            </span>
+          ) : (
+            '🏆 Получить награду'
+          )}
+        </button>
+      )
+    ) : (
+      <p className="text-xs font-bold text-ink-muted">
+        До средней оценки больше 1 — без бонуса
+      </p>
+    )}
+
+    {claimMessage && (
+      <p className="mt-2 text-sm font-extrabold text-success">
+        {claimMessage}
+      </p>
+    )}
+  </div>
+)}
           </div>
       </>
 )}
