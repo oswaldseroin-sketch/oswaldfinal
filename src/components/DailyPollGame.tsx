@@ -351,8 +351,25 @@ export default function DailyPollGame({ onBack, onProfileUpdate }: Props) {
             </div>
           ) : (
             <>
-              <div className="mt-3 flex items-center justify-between text-[10px] font-bold">
-                <span className="text-ink-muted">Выбрано: {selected.length} / {MAX_SELECTION}</span>
+             <div className="mt-3 flex items-center justify-between">
+  <div className="flex items-center gap-2">
+    <div className="flex gap-1.5">
+      {Array.from({ length: MAX_SELECTION }).map((_, i) => (
+        <div
+          key={i}
+          className={`h-2.5 w-7 rounded-full transition-all duration-300 ${
+            i < selected.length
+              ? 'bg-purple-400 shadow-[0_0_10px_rgba(192,132,252,0.8)]'
+              : 'bg-white/10'
+          }`}
+        />
+      ))}
+    </div>
+
+    <span className="text-[10px] font-extrabold text-purple-200">
+      {selected.length}/{MAX_SELECTION}
+    </span>
+  </div>
                 {selected.length > 0 && (
                   <button onClick={() => setSelected([])} className="text-neon/60 hover:text-neon">
                     Очистить
