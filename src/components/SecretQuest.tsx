@@ -9,7 +9,7 @@ import SecretAdminPanel from './SecretAdminPanel'
 
 const QUEST_PREFIX = 'secret-quest-passed'
 
-type Phase = 'idle' | 'flying' | 'success' | 'breaking'
+type Phase = 'idle' | 'success' | 'breaking'
 
 
 type NeonColor = { border: string; glow: string; text: string }
