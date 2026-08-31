@@ -146,6 +146,8 @@ console.log('WOULD HE DO IT TODAY:', today)
     ▼
   </span>
 </button>
+          {showYesterdayResults && (
+  <>
           <p className="mb-3 text-sm font-bold text-ink/90">{yesterday.question}</p>
           <p className="mb-2 text-xs text-ink-muted">Игрок: <span className="font-bold text-ink">{yesterday.player_name}</span></p>
           <div className="space-y-2">
@@ -176,6 +178,8 @@ console.log('WOULD HE DO IT TODAY:', today)
           {resultsClaimed && yesterday.reward && (
             <div className="mt-3 rounded-lg border border-neon/20 bg-neon/5 p-2.5 text-center"><p className="text-[11px] font-bold text-neon/70">Награда получена</p></div>
           )}
+      </>
+)}
         </div>
       )}
 
