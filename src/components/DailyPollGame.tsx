@@ -140,7 +140,10 @@ export default function DailyPollGame({ onBack, onProfileUpdate }: Props) {
           <p className="mb-3 text-sm font-bold text-ink/90">{yesterday.question}</p>
 
           <div className="space-y-2">
-            {yesterday.results.slice(0, 3).map((r, i) => {
+           {yesterday.results
+  .filter((r) => r.votes > 0)
+  .slice(0, 3)
+  .map((r, i) => {
               const isSelectedByUser = yesterday.userVote?.includes(r.candidate)
               return (
                 <div
