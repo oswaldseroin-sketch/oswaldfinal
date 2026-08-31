@@ -204,6 +204,21 @@ export default function BestDuoGame({ onBack, onProfileUpdate }: Props) {
           {showYesterdayResults && (
   <>
           <p className="mb-3 text-sm font-bold text-ink/90">{yesterday.question}</p>
+    <div className="mb-2 flex items-center justify-center gap-3">
+  <div className="h-px flex-1 bg-gradient-to-r from-transparent to-cyan-400/50" />
+
+  <span
+    className="text-xl font-black italic tracking-wider text-amber-300"
+    style={{
+      textShadow:
+        '0 0 8px rgba(251,191,36,0.8), 0 0 18px rgba(251,191,36,0.35)',
+    }}
+  >
+    VS
+  </span>
+
+  <div className="h-px flex-1 bg-gradient-to-r from-red-400/50 to-transparent" />
+</div>
           <div className="grid grid-cols-2 gap-2.5">
             <TeamCard team="КОМАНДА 1" teamNum={1} players={yesterday.team1} votes={yesterday.team1Votes} isWinner={yesterday.winner === 1} isSelected={false} isChosen={yesterday.userVote === 1} onClick={() => {}} />
             <TeamCard team="КОМАНДА 2" teamNum={2} players={yesterday.team2} votes={yesterday.team2Votes} isWinner={yesterday.winner === 2} isSelected={false} isChosen={yesterday.userVote === 2} onClick={() => {}} />
