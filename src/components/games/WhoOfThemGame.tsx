@@ -97,7 +97,7 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
         const msg = err instanceof Error ? err.message : ''
         if (msg.includes('ALREADY_VOTED') || msg.includes('уже проголосовали')) {
           setVotedChoice(selected)
-          if (numericUserId && day) saveVotedChoice(numericUserId, day, selected)
+          
           await loadState()
           onProfileUpdate()
           return
@@ -105,7 +105,7 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
         throw err
       }
       setVotedChoice(selected)
-      if (numericUserId && day) saveVotedChoice(numericUserId, day, selected)
+      
       await loadState()
       onProfileUpdate()
     } catch (err) {
