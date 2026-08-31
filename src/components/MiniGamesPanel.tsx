@@ -294,16 +294,19 @@ export default function MiniGamesPanel({ onBack }: Props) {
                   {isMaxTitle(titleInfo.level) ? 'MAX' : `${titleInfo.currentXp} / ${titleInfo.neededXp}`}
                 </span>
               </div>
-              <div className="h-2 w-full overflow-hidden rounded-full bg-black/40">
-                <div
-                  className="h-full rounded-full transition-all duration-500"
-                  style={{
-                    width: `${titleInfo.progressPercent}%`,
-                    background: 'linear-gradient(90deg, rgba(255,43,214,0.6), rgba(255,43,214,1))',
-                    boxShadow: '0 0 8px rgba(255,43,214,0.4)',
-                  }}
-                />
-              </div>
+             <div className="relative h-2.5 w-full overflow-hidden rounded-full border border-fuchsia-400/10 bg-black/60">
+  <div
+    className="relative h-full rounded-full transition-all duration-700"
+    style={{
+      width: `${titleInfo.progressPercent}%`,
+      background:
+        'linear-gradient(90deg, rgba(126,34,206,0.9), rgba(217,70,239,1), rgba(251,207,232,1))',
+      boxShadow: '0 0 12px rgba(217,70,239,0.5)',
+    }}
+  >
+    <div className="absolute inset-x-0 top-0 h-px bg-white/40" />
+  </div>
+</div>
             </div>
           </div>
         ) : null}
