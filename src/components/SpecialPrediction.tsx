@@ -178,7 +178,7 @@ const personalizedText = useMemo(() => {
   const index = ritualState.messageIndex % messages.length
 
   return messages[index]
-}, [userName, state.messageIndex)
+}, [userName, state.messageIndex])
  
 
   return (
