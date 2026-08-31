@@ -304,9 +304,16 @@ console.log('MAFIA PLAYERS:', dailyPlayers)
                 </div>
               )}
 
-              {!today.gameEnded && !lastResult && (
-                <p className="mt-3 text-center text-[11px] text-ink-muted">Выбери игрока, которого считаешь мафией</p>
-              )}
+             {!today.gameEnded && !lastResult && (
+  <div className="mt-3 text-center">
+    <p className="text-[9px] font-black tracking-[0.2em] text-red-500/60">
+      ДОВЕРЯЙ ИНТУИЦИИ
+    </p>
+    <p className="mt-1 text-[11px] text-zinc-500">
+      Выбери того, кто скрывается среди своих
+    </p>
+  </div>
+)}
             </>
           ) : (
             <div className="rounded-xl border border-error/30 bg-error/10 p-4 text-center">
