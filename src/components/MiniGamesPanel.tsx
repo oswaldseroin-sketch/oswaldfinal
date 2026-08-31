@@ -187,9 +187,6 @@ const renderCompleteNav = () => {
   </div>
 )
 
-   
-  </div>
-)
     if (selectedGame === 1) {
   return renderGame(
     <DailyPollGame
