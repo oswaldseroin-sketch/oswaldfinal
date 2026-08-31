@@ -187,42 +187,7 @@ const renderCompleteNav = () => {
   </div>
 )
 
-    {showGameCompleteNav && (
-      <div className="relative z-[100] mx-auto -mt-2 max-w-md px-4 pb-4">
-        <div
-          className="rounded-2xl border border-cyan-400/20 bg-black/90 p-3 backdrop-blur-xl"
-          style={{
-            boxShadow:
-              '0 -10px 40px rgba(0,0,0,0.55), 0 0 20px rgba(34,211,238,0.08)',
-          }}
-        >
-          <p className="mb-2 text-center text-[9px] font-black tracking-[0.25em] text-cyan-300/60">
-            ИСПЫТАНИЕ ЗАВЕРШЕНО
-          </p>
-
-          <div className="grid grid-cols-2 gap-2">
-            <button
-              type="button"
-              onClick={handleGamesMenu}
-              className="rounded-xl border border-white/10 bg-white/[0.05] px-3 py-3 text-[11px] font-black tracking-wide text-zinc-300 transition active:scale-95"
-            >
-              В МЕНЮ ИГР
-            </button>
-
-            <button
-              type="button"
-              onClick={handleNextGame}
-              className="rounded-xl border border-cyan-300/30 bg-gradient-to-r from-cyan-500/20 to-fuchsia-500/20 px-3 py-3 text-[11px] font-black tracking-wide text-white transition active:scale-95"
-              style={{
-                boxShadow: '0 0 14px rgba(34,211,238,0.14)',
-              }}
-            >
-             {(selectedGame ?? lastCompletedGame ?? 10) < 10 ? 'ДАЛЕЕ →' : 'ЗАВЕРШИТЬ'}
-            </button>
-          </div>
-        </div>
-      </div>
-    )}
+   
   </div>
 )
     if (selectedGame === 1) {
