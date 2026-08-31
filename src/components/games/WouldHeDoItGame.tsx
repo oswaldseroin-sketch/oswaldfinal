@@ -184,7 +184,13 @@ console.log('WOULD HE DO IT TODAY:', today)
       )}
 
       {today && (
-        <div className="rounded-2xl border border-neon/30 bg-card/60 p-4 backdrop-blur-md" style={{ boxShadow: '0 0 18px rgba(0,229,255,0.1)' }}>
+        <div
+  className="rounded-2xl border border-emerald-400/30 bg-gradient-to-b from-emerald-500/10 via-card/70 to-black/30 p-4 backdrop-blur-md"
+  style={{
+    boxShadow:
+      '0 0 24px rgba(16,185,129,0.10), inset 0 0 22px rgba(245,158,11,0.04)',
+  }}
+>
           <p className="text-base font-extrabold tracking-wide text-neon">
   {today.player_name}
 </p>
