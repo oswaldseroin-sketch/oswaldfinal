@@ -234,7 +234,15 @@ export default function PastLifeGame({ onBack, onProfileUpdate }: Props) {
 >
   {isSelected || wasChosen ? <Check size={15} /> : '✦'}
 </div>
-                  <span className={`text-sm font-bold ${isSelected || wasChosen ? 'text-ink' : 'text-ink/80'}`}>{player}</span>
+                  <span
+  className={`text-sm font-bold tracking-wide transition-colors ${
+    isSelected || wasChosen
+      ? 'text-amber-100'
+      : 'text-stone-300'
+  }`}
+>
+  {player}
+</span>
                 </button>
               )
             })}
