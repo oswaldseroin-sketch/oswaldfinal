@@ -171,7 +171,11 @@ export default function SecretLoveGame({ onBack, onProfileUpdate }: Props) {
                   <span className={`flex-1 text-sm font-bold ${
                     isCorrect ? 'text-success' : isWrong ? 'text-error' : isRevealedCorrect ? 'text-success/80' : 'text-ink'
                   }`}>{player}</span>
-                  {isCorrect && <Heart size={14} className="text-accent" />}
+                  {isCorrect && (
+  <span className="text-[10px] font-black tracking-[0.16em] text-emerald-300">
+    СОВПАЛО
+  </span>
+)}
                   {isRevealedCorrect && <span className="text-xs text-success">Это он</span>}
                 </button>
               )
