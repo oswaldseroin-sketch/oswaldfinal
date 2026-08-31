@@ -171,8 +171,13 @@ const handleGamesMenu = () => {
   </div>
 )
     if (selectedGame === 1) {
-      return <DailyPollGame onBack={handleBack} onProfileUpdate={() => void handleGameComplete(1)} />
-    }
+  return renderGame(
+    <DailyPollGame
+      onBack={handleBack}
+      onProfileUpdate={() => void handleGameComplete(1)}
+    />
+  )
+}
     if (selectedGame === 2) {
       return <WhoOfThemGame onBack={handleBack} onProfileUpdate={() => void handleGameComplete(2)} />
     }
