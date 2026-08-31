@@ -170,14 +170,21 @@ const handleMyShot = async () => {
   return
 }
 
-  setRoundMessage('ЩЁЛК... ПРОМАХ!')
+ setRoundMessage('ЩЁЛК... ПРОМАХ!')
 
-  await new Promise((r) => setTimeout(r, 1200))
+await new Promise((r) => setTimeout(r, 1200))
 
-  setShotIndex((prev) => prev + 1)
-  setCurrentTurn('me')
-  setRoundMessage('ТВОЯ ОЧЕРЕДЬ')
-  setPlaying(false)
+setRoundMessage(`${opponentName} выжил...`)
+
+await new Promise((r) => setTimeout(r, 700))
+
+setShotIndex((prev) => prev + 1)
+setCurrentTurn('me')
+setRoundMessage('ТВОЯ ОЧЕРЕДЬ')
+
+await new Promise((r) => setTimeout(r, 500))
+
+setPlaying(false)
 }
   useEffect(() => {
   if (
