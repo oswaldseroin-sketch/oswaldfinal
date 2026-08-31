@@ -252,9 +252,15 @@ const yesterdayClaimed =
   </div>
 </div>
 
-<h2 className="mt-1.5 mb-3 text-base font-extrabold leading-snug text-ink">
-  {today.question}
-</h2>
+<div className="mb-3 rounded-xl border border-violet-400/15 bg-black/25 px-3 py-3">
+  <p className="mb-1 text-[9px] font-black tracking-[0.18em] text-amber-300/60">
+    КРИТЕРИЙ ОЦЕНКИ
+  </p>
+
+  <h2 className="text-base font-extrabold leading-snug text-ink">
+    {today.question}
+  </h2>
+</div>
          <div className="rounded-2xl border border-violet-400/15 bg-black/25 p-2.5">
   <div className="mb-2 flex items-center justify-between px-1">
     <span className="text-[9px] font-black tracking-[0.18em] text-violet-300/70">
