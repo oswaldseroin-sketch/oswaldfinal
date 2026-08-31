@@ -297,12 +297,24 @@ console.log('MAFIA PLAYERS:', dailyPlayers)
                 })}
               </div>
 </div>
-            {lastResult && !lastResult.isMafia && !today.gameEnded && (
-                <div className="mt-4 rounded-xl border border-error/30 bg-error/10 p-3 text-center">
-                  <div className="flex items-center justify-center gap-2"><X size={16} className="text-error" /><p className="text-sm font-bold text-error">Не мафия!</p></div>
-                  <p className="mt-1 text-[11px] text-ink-muted">Осталась 1 попытка</p>
-                </div>
-              )}
+           {lastResult && !lastResult.isMafia && !today.gameEnded && (
+  <div className="mt-4 rounded-xl border border-red-500/30 bg-gradient-to-b from-red-950/30 to-black/30 p-3 text-center shadow-[0_0_20px_rgba(239,68,68,0.10)]">
+    <p className="text-[9px] font-black tracking-[0.22em] text-red-500/60">
+      ПОДОЗРЕНИЕ СНЯТО
+    </p>
+
+    <div className="mt-1 flex items-center justify-center gap-2">
+      <X size={16} className="text-red-400" />
+      <p className="text-sm font-black text-red-300">
+        ЭТО НЕ МАФИЯ
+      </p>
+    </div>
+
+    <p className="mt-1.5 text-[10px] font-bold tracking-wide text-zinc-500">
+      ОСТАЛАСЬ ПОСЛЕДНЯЯ ПОПЫТКА
+    </p>
+  </div>
+)}
 
              {!today.gameEnded && !lastResult && (
   <div className="mt-3 text-center">
