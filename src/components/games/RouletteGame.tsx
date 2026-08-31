@@ -338,7 +338,14 @@ const handleMyShot = async () => {
     </div>
 
     {/* Револьвер */}
-    <div className="relative mx-auto flex h-44 w-44 items-center justify-center rounded-full border-4 border-ink/20 bg-black/40 shadow-lg">
+   <div
+  className={`relative mx-auto flex h-44 w-44 items-center justify-center rounded-full border-4 border-ink/20 bg-black/40 shadow-lg transition-transform ${
+    cylinderSpinning ? 'animate-spin' : ''
+  }`}
+  style={{
+    animationDuration: cylinderSpinning ? '0.35s' : undefined,
+  }}
+>
 
       <div className="absolute inset-4 rounded-full border-2 border-ink/20" />
 
