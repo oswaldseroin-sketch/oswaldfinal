@@ -166,7 +166,17 @@ export default function SpecialPrediction({ onBack }: { onBack: () => void }) {
   }
 
   const remainingCount = SYMBOLS.length - state.destroyed.length
+const personalizedText = useMemo(() => {
+  const messages = SPECIAL_PREDICTION_MESSAGES[userName] ?? []
 
+  if (messages.length === 0) {
+    return 'Фрасимах пока не оставил для тебя особого напутствия.'
+  }
+
+  const index = ritualState.messageIndex % messages.length
+
+  return messages[index]
+}, [userName, ritualState.messageIndex])
  
 
   return (
