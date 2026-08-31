@@ -559,9 +559,29 @@ style={{
 
 </div>
 
-    <p className="mt-4 text-lg font-extrabold text-amber-300">
-      {roundMessage}
-    </p>
+   <div className="mt-4">
+  <p
+    className={`text-lg font-black tracking-wide transition-all duration-300 ${
+      roundMessage.includes('ВЫСТРЕЛ')
+        ? 'scale-110 text-red-300'
+        : roundMessage.includes('ПОБЕДА')
+          ? 'scale-110 text-amber-200'
+          : roundMessage.includes('ПОГИБ')
+            ? 'text-red-300'
+            : 'text-amber-200'
+    }`}
+    style={{
+      textShadow:
+        roundMessage.includes('ВЫСТРЕЛ')
+          ? '0 0 18px rgba(239,68,68,0.65)'
+          : '0 0 12px rgba(251,191,36,0.35)',
+    }}
+  >
+    {roundMessage}
+  </p>
+
+  <div className="mx-auto mt-2 h-px w-24 bg-gradient-to-r from-transparent via-amber-400/40 to-transparent" />
+</div>
 
     <p className="mt-1 text-[10px] font-bold tracking-widest text-ink-muted">
       КАМОРА {Math.min(shotIndex + 1, 8)} / 8
