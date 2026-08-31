@@ -8,9 +8,9 @@ import NameDropdown from './NameDropdown'
 import SecretAdminPanel from './SecretAdminPanel'
 
 const QUEST_PREFIX = 'secret-quest-passed'
-const FLY_MS = 700
+
 type Phase = 'idle' | 'flying' | 'success' | 'breaking'
-type Shard = { x: number; y: number; dx: number; dy: number; r: number }
+
 
 type NeonColor = { border: string; glow: string; text: string }
 
