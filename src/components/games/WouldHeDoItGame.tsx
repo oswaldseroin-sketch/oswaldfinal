@@ -116,7 +116,9 @@ console.log('WOULD HE DO IT TODAY:', today)
       <div className="mb-4 flex items-center gap-2">
         <span className="text-2xl">🌙</span>
         <div>
-          <p className="text-[10px] font-bold tracking-widest text-neon">МИНИ-ИГРА 3</p>
+          <p className="text-[10px] font-black tracking-[0.18em] text-amber-300">
+  МИНИ-ИГРА 3
+</p>
           <h1 className="text-xl font-extrabold text-ink">Сделал бы за 100 000?</h1>
         </div>
       </div>
