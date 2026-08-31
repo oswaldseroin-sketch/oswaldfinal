@@ -239,26 +239,56 @@ const yesterdayClaimed =
 <h2 className="mt-1.5 mb-3 text-base font-extrabold leading-snug text-ink">
   {today.question}
 </h2>
-          <div className="grid grid-cols-6 gap-1.5">
-            {RATINGS.map((rating) => {
-              const isSelected = selected === rating
-              const wasChosen = today.userVote === rating
-              return (
-                <button
-                  key={rating}
-                  onClick={() => !hasVoted && setSelected(rating)}
-                  disabled={hasVoted}
-                  className={`flex flex-col items-center justify-center rounded-lg border py-3 transition-all ${
-                    hasVoted
-                      ? wasChosen ? 'border-neon/50 bg-neon/15' : 'border-line/20 bg-black/20 opacity-40'
-                      : isSelected ? 'border-neon/60 bg-neon/15 active:scale-95' : 'border-line/40 bg-black/20 hover:border-neon/30 active:scale-95'
-                  }`}
-                >
-                  <span className={`text-lg font-extrabold ${isSelected || wasChosen ? 'text-neon' : 'text-ink/80'}`}>{rating}</span>
-                </button>
-              )
-            })}
-          </div>
+         <div className="rounded-2xl border border-violet-400/15 bg-black/25 p-2.5">
+  <div className="mb-2 flex items-center justify-between px-1">
+    <span className="text-[9px] font-black tracking-[0.18em] text-violet-300/70">
+      ШКАЛА ОЦЕНКИ
+    </span>
+
+    <span className="text-[9px] font-bold text-amber-300/60">
+      0 — 5
+    </span>
+  </div>
+
+  <div className="grid grid-cols-6 gap-1.5">
+    {RATINGS.map((rating) => {
+      const isSelected = selected === rating
+      const wasChosen = today.userVote === rating
+      const active = isSelected || wasChosen
+
+      return (
+        <button
+          key={rating}
+          onClick={() => !hasVoted && setSelected(rating)}
+          disabled={hasVoted}
+          className={`relative flex h-12 items-center justify-center overflow-hidden rounded-xl border transition-all duration-200 ${
+            hasVoted
+              ? active
+                ? 'scale-110 border-violet-300/80 bg-violet-500/20 shadow-[0_0_20px_rgba(167,139,250,0.40)]'
+                : 'border-white/5 bg-white/[0.03] opacity-30'
+              : active
+                ? 'scale-110 border-violet-300/80 bg-violet-500/20 shadow-[0_0_20px_rgba(167,139,250,0.40)]'
+                : 'border-white/10 bg-white/[0.04] hover:border-violet-400/35 hover:bg-violet-500/10 active:scale-95'
+          }`}
+        >
+          {active && (
+            <div className="absolute inset-x-2 bottom-1 h-[2px] rounded-full bg-gradient-to-r from-violet-400 via-fuchsia-300 to-amber-300" />
+          )}
+
+          <span
+            className={`relative z-10 text-lg font-black transition-all ${
+              active
+                ? 'text-white'
+                : 'text-ink/70'
+            }`}
+          >
+            {rating}
+          </span>
+        </button>
+      )
+    })}
+  </div>
+</div>
 
           {hasVoted ? (
             <div className="mt-4 rounded-xl border border-success/30 bg-success/10 p-3 text-center">
