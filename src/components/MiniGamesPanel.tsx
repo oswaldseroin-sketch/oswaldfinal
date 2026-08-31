@@ -108,13 +108,6 @@ export default function MiniGamesPanel({ onBack }: Props) {
   await refreshProfile()
   setShowGameCompleteNav(true)
 }, [playerId, refreshProfile])
-
-  // -- Game screen --
-  if (selectedGame !== null) {
-   const handleBack = () => {
-  setSelectedGame(null)
-  setCompletedToday(getCompletedToday(playerId))
-}
 const handleNextGame = () => {
   const gameNumber = selectedGame ?? lastCompletedGame
 
@@ -128,6 +121,13 @@ const handleNextGame = () => {
     setSelectedGame(null)
   }
 }
+  // -- Game screen --
+  if (selectedGame !== null) {
+   const handleBack = () => {
+  setSelectedGame(null)
+  setCompletedToday(getCompletedToday(playerId))
+}
+
 
 const handleGamesMenu = () => {
   setSelectedGame(null)
