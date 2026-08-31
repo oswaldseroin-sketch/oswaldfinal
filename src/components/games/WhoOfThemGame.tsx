@@ -253,11 +253,15 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
                   key={player}
                   onClick={() => !hasVoted && setSelected(player)}
                   disabled={hasVoted}
-                  className={`flex w-full items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all ${
-                    hasVoted
-                      ? wasChosen ? 'border-neon/50 bg-neon/15' : 'border-line/20 bg-black/20 opacity-40'
-                      : isSelected ? 'border-neon/60 bg-neon/15 active:scale-95' : 'border-line/40 bg-black/20 hover:border-neon/30 active:scale-95'
-                  }`}
+                  className={`flex w-full items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all duration-200 ${
+  hasVoted
+    ? wasChosen
+      ? 'scale-[1.02] border-orange-400/70 bg-orange-500/20 shadow-[0_0_18px_rgba(251,146,60,0.22)]'
+      : 'border-line/20 bg-black/20 opacity-35'
+    : isSelected
+      ? 'scale-[1.02] border-orange-400/80 bg-orange-500/20 shadow-[0_0_20px_rgba(251,146,60,0.28)]'
+      : 'border-orange-400/20 bg-black/25 hover:border-orange-400/50 hover:bg-orange-500/10 active:scale-95'
+}`}
                 >
                   <div className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border ${isSelected || wasChosen ? 'border-neon bg-neon text-black' : 'border-line/50'}`}>
                     {(isSelected || wasChosen) && <Check size={14} />}
