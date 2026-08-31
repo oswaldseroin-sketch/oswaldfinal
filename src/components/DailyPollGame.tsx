@@ -269,11 +269,22 @@ export default function DailyPollGame({ onBack, onProfileUpdate }: Props) {
           <p className="text-[10px] font-bold tracking-widest text-neon">ВОПРОС ДНЯ</p>
           <h2 className="mt-1.5 mb-3 text-base font-extrabold leading-snug text-ink">{state.today.question}</h2>
 
-          {!hasVoted && (
-            <p className="mb-3 text-xs font-bold text-ink-muted">
-              Выберите до {MAX_SELECTION} человек:
-            </p>
-          )}
+         {!hasVoted && (
+  <div className="mb-3 flex items-center justify-between rounded-xl border border-purple-400/20 bg-purple-500/10 px-3 py-2">
+    <div>
+      <p className="text-[10px] font-black tracking-[0.18em] text-purple-300">
+        ✦ СДЕЛАЙ СВОЙ ВЫБОР
+      </p>
+      <p className="mt-0.5 text-[10px] text-ink-muted">
+        Можно выбрать до {MAX_SELECTION} человек
+      </p>
+    </div>
+
+    <div className="text-lg">
+      🔮
+    </div>
+  </div>
+)}
 
          {/* Full employee list — compact scroll */}
 <div className="max-h-[176px] overflow-y-auto pr-1">
