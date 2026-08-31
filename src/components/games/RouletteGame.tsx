@@ -487,8 +487,8 @@ style={{
     used
       ? 'scale-75 border-black/40 bg-black/70 text-ink/20 opacity-40'
       : index === shotIndex
-        ? 'scale-110 border-error/70 bg-error/15 text-error'
-        : 'border-ink/30 bg-card/90 text-ink/70'
+  ? 'scale-115 border-red-400/80 bg-red-500/20 text-red-200 shadow-[0_0_22px_rgba(239,68,68,0.45)]'
+  : 'border-amber-200/15 bg-zinc-900/90 text-zinc-400'
   }`}
   style={{
     marginLeft: '-18px',
