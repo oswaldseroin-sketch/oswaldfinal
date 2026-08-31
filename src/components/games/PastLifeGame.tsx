@@ -261,7 +261,12 @@ export default function PastLifeGame({ onBack, onProfileUpdate }: Props) {
                 </p>
               </div>
               {(voteResult?.isCorrect || today.userVote?.is_correct) && (
-                <p className="mt-1 text-sm font-extrabold text-neon" style={{ textShadow: '0 0 10px rgba(0,229,255,0.4)' }}>🥇 +3 XP звания +3🪙</p>
+               <p
+  className="mt-1 text-sm font-extrabold text-amber-300"
+  style={{ textShadow: '0 0 10px rgba(245,158,11,0.35)' }}
+>
+  🥇 +3 XP звания +3🪙
+</p>
               )}
               {!(voteResult?.isCorrect || today.userVote?.is_correct) && (
                 <p className="mt-1 text-[11px] text-ink-muted">Правильный ответ: {today.players[today.correctIndex ?? 0]}</p>
