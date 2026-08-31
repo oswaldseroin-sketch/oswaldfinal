@@ -294,6 +294,20 @@ setPlaying(false)
 </button>
           {showYesterdayResults && (
   <>
+    {yesterday.opponent_name && (
+  <div className="mb-3 rounded-xl border border-red-400/20 bg-red-950/10 px-3 py-2.5 text-center">
+    <p className="text-[9px] font-black tracking-[0.2em] text-red-400/60">
+      ВЧЕРАШНИЙ СОПЕРНИК
+    </p>
+
+    <p
+      className="mt-1 text-sm font-black text-zinc-100"
+      style={{ textShadow: '0 0 10px rgba(248,113,113,0.2)' }}
+    >
+      {yesterday.opponent_name}
+    </p>
+  </div>
+)}
           <div className="space-y-2">
             <div className="flex justify-between rounded-lg border border-success/20 bg-success/10 px-3 py-2">
               <span className="text-sm font-bold text-success">Победили</span>
