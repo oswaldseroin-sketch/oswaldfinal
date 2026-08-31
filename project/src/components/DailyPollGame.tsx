@@ -204,7 +204,8 @@ export default function DailyPollGame({ onBack, onProfileUpdate }: Props) {
           )}
         </div>
       )}
-
+      </div>
+    )}
       {/* ─── Today's poll ─── */}
       {state && (
         <div className="rounded-2xl border border-neon/30 bg-card/60 p-4 backdrop-blur-md" style={{ boxShadow: '0 0 18px rgba(0,229,255,0.1)' }}>
