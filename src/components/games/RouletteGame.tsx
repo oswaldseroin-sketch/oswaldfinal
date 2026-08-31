@@ -224,7 +224,7 @@ setPlaying(false)
 
   const timer = setTimeout(() => {
     void handleOpponentShot()
-  }, 800)
+  }, 1500)
 
   return () => clearTimeout(timer)
 }, [
