@@ -360,7 +360,7 @@ export default function MiniGamesPanel({ onBack }: Props) {
           </div>
         </button>
    
-<div className="mb-3 mt-1 flex items-end justify-between px-1">
+<div className="relative mb-3 mt-1 flex items-end justify-between overflow-hidden rounded-xl border border-cyan-400/10 bg-black/25 px-3 py-2.5 backdrop-blur-sm">
   <div>
     <p className="text-[8px] font-black tracking-[0.28em] text-cyan-300/50">
       АРКАДНЫЙ СЕКТОР
