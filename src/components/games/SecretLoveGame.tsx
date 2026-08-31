@@ -203,8 +203,12 @@ export default function SecretLoveGame({ onBack, onProfileUpdate }: Props) {
             </div>
           ) : (
             <button onClick={handleVote} disabled={selected === null || voting} className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-neon py-3 text-sm font-extrabold text-black transition active:scale-95 disabled:opacity-40" style={{ boxShadow: '0 0 16px rgba(0,229,255,0.3)' }}>
-              {voting ? <Loader2 size={16} className="animate-spin" /> : <Heart size={16} />}
-              Ответить
+             {voting ? (
+  <Loader2 size={16} className="animate-spin" />
+) : (
+  <span className="text-base">◈</span>
+)}
+Зафиксировать выбор
             </button>
           )}
         </div>
