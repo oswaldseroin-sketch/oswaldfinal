@@ -400,7 +400,23 @@ const style = gameStyle[game.number]
                     <Check size={12} strokeWidth={3} className="text-success" />
                   </span>
                 )}
-                <span className="text-3xl transition-transform duration-200 group-hover:scale-110">{game.icon}</span>
+                <div
+  className={`relative flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-black/30 ${style.accent} transition-all duration-300 group-hover:scale-110`}
+  style={{
+    boxShadow: isDone ? 'none' : style.glow,
+  }}
+>
+  <div className="absolute inset-1 rounded-lg border border-white/[0.04]" />
+
+  <span
+    className="relative text-2xl"
+    style={{
+      filter: isDone ? 'none' : 'drop-shadow(0 0 7px currentColor)',
+    }}
+  >
+    {game.icon}
+  </span>
+</div>
                 <span className="mt-1.5 text-[13px] font-extrabold text-ink">{game.title}</span>
                 <span className="mt-0.5 text-[10px] leading-tight text-ink-muted">{game.description}</span>
                 {isDone && (
