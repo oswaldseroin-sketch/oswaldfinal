@@ -253,25 +253,100 @@ export default function PastLifeGame({ onBack, onProfileUpdate }: Props) {
           </div>
 
           {hasAnswered ? (
-            <div className={`mt-4 rounded-xl border p-3 text-center ${voteResult?.isCorrect || today.userVote?.is_correct ? 'border-success/30 bg-success/10' : 'border-error/30 bg-error/10'}`}>
-              <div className="flex items-center justify-center gap-2">
-                <Check size={16} className={voteResult?.isCorrect || today.userVote?.is_correct ? 'text-success' : 'text-error'} />
-                <p className={`text-sm font-extrabold ${voteResult?.isCorrect || today.userVote?.is_correct ? 'text-success' : 'text-error'}`}>
-                  {voteResult?.isCorrect || today.userVote?.is_correct ? 'Правильно!' : 'Неправильно'}
-                </p>
-              </div>
-              {(voteResult?.isCorrect || today.userVote?.is_correct) && (
-               <p
-  className="mt-1 text-sm font-extrabold text-amber-300"
-  style={{ textShadow: '0 0 10px rgba(245,158,11,0.35)' }}
+          <div
+  className={`relative mt-4 overflow-hidden rounded-2xl border p-4 text-center ${
+    voteResult?.isCorrect || today.userVote?.is_correct
+      ? 'border-amber-400/35 bg-gradient-to-br from-amber-500/10 via-black/50 to-yellow-500/5'
+      : 'border-stone-500/30 bg-gradient-to-br from-stone-500/10 via-black/50 to-black/70'
+  }`}
+  style={{
+    boxShadow:
+      voteResult?.isCorrect || today.userVote?.is_correct
+        ? '0 0 28px rgba(245,158,11,0.14), inset 0 0 24px rgba(245,158,11,0.04)'
+        : '0 0 24px rgba(120,113,108,0.08), inset 0 0 24px rgba(120,113,108,0.03)',
+  }}
 >
-  🥇 +3 XP звания +3🪙
-</p>
-              )}
-              {!(voteResult?.isCorrect || today.userVote?.is_correct) && (
-                <p className="mt-1 text-[11px] text-ink-muted">Правильный ответ: {today.players[today.correctIndex ?? 0]}</p>
-              )}
-            </div>
+  <div
+    className={`pointer-events-none absolute -right-10 -top-10 h-24 w-24 rounded-full blur-2xl ${
+      voteResult?.isCorrect || today.userVote?.is_correct
+        ? 'bg-amber-400/10'
+        : 'bg-stone-400/5'
+    }`}
+  />
+
+  <div className="relative">
+    <p
+      className={`text-[9px] font-black tracking-[0.28em] ${
+        voteResult?.isCorrect || today.userVote?.is_correct
+          ? 'text-amber-400/70'
+          : 'text-stone-400/70'
+      }`}
+    >
+      ВИДЕНИЕ РАСКРЫТО
+    </p>
+
+    <div className="mt-1 flex items-center justify-center gap-2">
+      <span className="text-lg">
+        {voteResult?.isCorrect || today.userVote?.is_correct ? '✦' : '◈'}
+      </span>
+
+      <p
+        className={`text-xl font-black tracking-wide ${
+          voteResult?.isCorrect || today.userVote?.is_correct
+            ? 'text-amber-100'
+            : 'text-stone-200'
+        }`}
+        style={{
+          textShadow:
+            voteResult?.isCorrect || today.userVote?.is_correct
+              ? '0 0 16px rgba(245,158,11,0.45)'
+              : '0 0 12px rgba(168,162,158,0.2)',
+        }}
+      >
+        {voteResult?.isCorrect || today.userVote?.is_correct
+          ? 'ТЫ УГАДАЛ'
+          : 'ТЫ НЕ УГАДАЛ'}
+      </p>
+
+      <span className="text-lg">
+        {voteResult?.isCorrect || today.userVote?.is_correct ? '✦' : '◈'}
+      </span>
+    </div>
+
+    {voteResult?.isCorrect || today.userVote?.is_correct ? (
+      <>
+        <div className="mx-auto mt-3 h-px w-32 bg-gradient-to-r from-transparent via-amber-400/50 to-transparent" />
+
+        <p
+          className="mt-2 text-sm font-black text-amber-200"
+          style={{ textShadow: '0 0 12px rgba(245,158,11,0.35)' }}
+        >
+          Тайна прошлого раскрыта
+        </p>
+
+        <p className="mt-2 text-[11px] text-ink-muted">
+          🥇 +3 XP звания · +3🪙
+        </p>
+      </>
+    ) : (
+      <>
+        <div className="mx-auto mt-3 h-px w-32 bg-gradient-to-r from-transparent via-stone-400/30 to-transparent" />
+
+        <p className="mt-2 text-[10px] font-bold tracking-widest text-stone-400/70">
+          ИСТИНА БЫЛА ДРУГОЙ
+        </p>
+
+        <p className="mt-1 text-sm font-black text-stone-200">
+          {today.players[today.correctIndex ?? 0]}
+        </p>
+
+        <p className="mt-1 text-[10px] text-ink-muted">
+          Именно он скрывался в твоём прошлом
+        </p>
+      </>
+    )}
+  </div>
+</div>
           ) : (
            <button
   onClick={handleVote}
