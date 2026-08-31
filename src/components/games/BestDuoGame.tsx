@@ -303,15 +303,57 @@ export default function BestDuoGame({ onBack, onProfileUpdate }: Props) {
           </div>
 
           {hasVoted ? (
-            <div className="mt-4 rounded-xl border border-success/30 bg-success/10 p-3 text-center">
-              <div className="flex items-center justify-center gap-2"><Check size={16} className="text-success" /><p className="text-sm font-extrabold text-success">Голос учтён!</p></div>
-              {today.userVote && (
-                <p className="mt-2 text-xs text-ink-muted">
-                  Твой выбор: <span className="font-bold text-ink">{(today.userVote === 1 ? today.team1 : today.team2).join(' + ')}</span>
-                </p>
-              )}
-              <p className="mt-1 text-[11px] text-ink-muted">Результаты будут доступны завтра в 08:00</p>
-            </div>
+          <div
+  className="relative mt-4 overflow-hidden rounded-2xl border border-amber-400/30 bg-gradient-to-br from-amber-500/10 via-black/45 to-slate-950/60 p-4 text-center"
+  style={{
+    boxShadow:
+      '0 0 26px rgba(251,191,36,0.10), inset 0 0 24px rgba(251,191,36,0.035)',
+  }}
+>
+  <div className="pointer-events-none absolute -left-10 -top-10 h-24 w-24 rounded-full bg-cyan-400/5 blur-2xl" />
+  <div className="pointer-events-none absolute -bottom-10 -right-10 h-24 w-24 rounded-full bg-red-400/5 blur-2xl" />
+
+  <div className="relative">
+    <div className="flex items-center justify-center gap-2">
+      <span className="text-amber-300">⚔</span>
+
+      <p className="text-[9px] font-black tracking-[0.25em] text-amber-300">
+        РЕШЕНИЕ ЗАФИКСИРОВАНО
+      </p>
+
+      <span className="text-amber-300">⚔</span>
+    </div>
+
+    <p
+      className="mt-2 text-sm font-black tracking-wide text-amber-100"
+      style={{ textShadow: '0 0 14px rgba(251,191,36,0.4)' }}
+    >
+      Твой выбор принят
+    </p>
+
+    {today.userVote && (
+      <div className="mt-3 rounded-xl border border-amber-400/20 bg-black/30 px-3 py-2.5">
+        <p className="text-[8px] font-black tracking-[0.2em] text-amber-400/60">
+          ТЫ СТАВИШЬ НА
+        </p>
+
+        <p
+          className={`mt-1 text-sm font-black ${
+            today.userVote === 1 ? 'text-cyan-200' : 'text-red-200'
+          }`}
+        >
+          {(today.userVote === 1 ? today.team1 : today.team2).join(' + ')}
+        </p>
+      </div>
+    )}
+
+    <div className="mx-auto mt-3 h-px w-32 bg-gradient-to-r from-transparent via-amber-400/40 to-transparent" />
+
+    <p className="mt-2 text-[10px] text-ink-muted">
+      Результат арены откроется завтра в 08:00
+    </p>
+  </div>
+</div>
           ) : (
             <button
   onClick={handleVote}
