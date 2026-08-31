@@ -79,13 +79,20 @@ export default function SecretLoveGame({ onBack, onProfileUpdate }: Props) {
     <div className="mx-auto max-w-md px-4 pb-10 pt-6">
       <button onClick={onBack} className="mb-4 flex items-center gap-2 text-sm font-bold text-neon hover:text-white transition-colors">← Назад</button>
 
-      <div className="mb-4 flex items-center gap-2">
-        <span className="text-2xl">🗝️</span>
-        <div>
-          <p className="text-[10px] font-bold tracking-widest text-neon">МИНИ-ИГРА 9</p>
-          <h1 className="text-xl font-extrabold text-ink">Кто тайно влюблён?</h1>
-        </div>
-      </div>
+     <div className="mb-4 flex items-center gap-2">
+  <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-indigo-400/25 bg-indigo-500/10">
+    <span className="text-lg">👁️</span>
+  </div>
+
+  <div>
+    <p className="text-[10px] font-black tracking-[0.2em] text-indigo-300/70">
+      МИНИ-ИГРА 9
+    </p>
+    <h1 className="text-xl font-black text-slate-100">
+      Что они думают о тебе?
+    </h1>
+  </div>
+</div>
 
       {error && (
         <div className="mb-4 rounded-xl border border-error/30 bg-error/10 p-3 text-center"><p className="text-xs font-bold text-error">{error}</p></div>
