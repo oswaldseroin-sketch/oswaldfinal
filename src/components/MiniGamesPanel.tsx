@@ -197,6 +197,8 @@ export default function MiniGamesPanel({ onBack }: Props) {
             className="relative mb-5 overflow-hidden rounded-2xl border border-cyan-400/25 bg-gradient-to-br from-cyan-950/35 via-black/75 to-fuchsia-950/25 p-4 backdrop-blur-md"
             style={{ boxShadow: '0 0 18px rgba(0,229,255,0.1)' }}
           >
+            <div className="pointer-events-none absolute -left-10 -top-12 h-32 w-32 rounded-full bg-cyan-400/10 blur-3xl" />
+<div className="pointer-events-none absolute -bottom-14 -right-10 h-36 w-36 rounded-full bg-fuchsia-500/10 blur-3xl" />
             <div className="mb-2 flex items-center justify-between">
   <span className="text-[8px] font-black tracking-[0.28em] text-fuchsia-300/60">
     ПРОФИЛЬ ИГРОКА
@@ -206,7 +208,7 @@ export default function MiniGamesPanel({ onBack }: Props) {
     <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_7px_rgba(52,211,153,0.8)]" />
     ONLINE
   </span>
-</div>
+</div>            
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-bold text-ink/80">{currentUser?.name}</p>
