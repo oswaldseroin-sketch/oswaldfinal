@@ -38,6 +38,8 @@ export default function RatePlayerGame({ onBack, onProfileUpdate }: Props) {
   const [selected, setSelected] = useState<number | null>(null)
   const [voting, setVoting] = useState(false)
   const [showYesterdayResults, setShowYesterdayResults] = useState(false)
+  const [claiming, setClaiming] = useState(false)
+const [claimMessage, setClaimMessage] = useState('')
 
   const loadState = useCallback(async () => {
     if (!currentUser) return
