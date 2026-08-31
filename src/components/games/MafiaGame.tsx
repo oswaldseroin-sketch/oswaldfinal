@@ -203,7 +203,7 @@ export default function MafiaGame({ onBack, onProfileUpdate }: Props) {
                         isMafiaRevealed ? 'border-amber-400 bg-amber-400/20 text-amber-300' :
                         isEliminated ? 'border-error/40 text-error' : 'border-line/50 text-ink-muted'
                       }`}>
-                        {isMafiaRevealed ? '🕵️' : isEliminated ? <X size={14} /> : player.id}
+                       {isMafiaRevealed ? '🕵️' : isEliminated ? <X size={14} /> : index + 1}
                       </div>
                       <span className={`flex-1 text-sm font-bold ${isMafiaRevealed ? 'text-amber-200' : isEliminated ? 'text-error' : 'text-ink'}`}>
                         {player.full_name}
