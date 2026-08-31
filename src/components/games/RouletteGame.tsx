@@ -295,9 +295,22 @@ const handleMyShot = async () => {
         )
       })}
 
-      <div className="z-10 flex h-14 w-14 items-center justify-center rounded-full border-2 border-error/40 bg-error/10">
-        <span className="text-3xl">🔫</span>
-      </div>
+     <button
+  onClick={handleMyShot}
+  disabled={currentTurn !== 'me' || playing || roundFinished}
+  className={`z-10 flex h-16 w-16 items-center justify-center rounded-full border-2 transition-all ${
+    currentTurn === 'me' && !playing && !roundFinished
+      ? 'border-error/70 bg-error/20 active:scale-90 cursor-pointer'
+      : 'border-ink/20 bg-black/30 opacity-60 cursor-default'
+  }`}
+  style={
+    currentTurn === 'me' && !playing && !roundFinished
+      ? { boxShadow: '0 0 24px rgba(239,68,68,0.35)' }
+      : undefined
+  }
+>
+  <span className="text-3xl">🔫</span>
+</button>
     </div>
 
     <p className="mt-4 text-lg font-extrabold text-amber-300">
