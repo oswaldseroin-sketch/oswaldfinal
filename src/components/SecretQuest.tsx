@@ -67,8 +67,6 @@ export default function SecretQuest({ onUnlocked }: { onUnlocked: () => void }) 
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
   const [nominations, setNominations] = useState<Nomination[]>(fallbackNominations)
   const [showAdmin, setShowAdmin] = useState(false)
-  const keyRef = useRef<HTMLDivElement>(null)
-  const lockRef = useRef<HTMLDivElement>(null)
   const questKey = `${QUEST_PREFIX}-${playerId}`
   const alreadyPassed = getItem<boolean>(questKey, false)
 
