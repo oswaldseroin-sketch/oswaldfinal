@@ -43,6 +43,7 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
   const [resultsClaimed, setResultsClaimed] = useState(false)
   const [playerMap, setPlayerMap] = useState<Record<string, number>>({}) 
   const [votedChoice, setVotedChoice] = useState<string | null>(null)
+  const [yesterdayOpen, setYesterdayOpen] = useState(false)
 
   useEffect(() => {
     api.getPlayers().then((players: PlayerRow[]) => {
