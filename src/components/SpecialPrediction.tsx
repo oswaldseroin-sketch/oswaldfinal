@@ -175,7 +175,7 @@ const personalizedText = useMemo(() => {
     return 'Фрасимах пока не оставил для тебя особого напутствия.'
   }
 
-  const index = ritualState.messageIndex % messages.length
+  const index = state.messageIndex % messages.length
 
   return messages[index]
 }, [userName, state.messageIndex])
