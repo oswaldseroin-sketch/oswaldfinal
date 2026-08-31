@@ -263,7 +263,15 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
       : 'border-orange-400/20 bg-black/25 hover:border-orange-400/50 hover:bg-orange-500/10 active:scale-95'
 }`}
                 >
-                  <div className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border ${isSelected || wasChosen ? 'border-neon bg-neon text-black' : 'border-line/50'}`}>
+                  <div
+  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 text-xs font-black transition-all duration-200 ${
+    isSelected || wasChosen
+      ? 'border-orange-300 bg-orange-400 text-black shadow-[0_0_14px_rgba(251,146,60,0.65)]'
+      : 'border-orange-400/30 bg-black/30 text-orange-200'
+  }`}
+>
+  {isSelected || wasChosen ? <Check size={16} /> : '⚡'}
+</div>
                     {(isSelected || wasChosen) && <Check size={14} />}
                   </div>
                   <span className={`text-sm font-bold ${isSelected || wasChosen ? 'text-ink' : 'text-ink/80'}`}>{player}</span>
