@@ -62,7 +62,7 @@ export default function MafiaGame({ onBack, onProfileUpdate }: Props) {
     setGuessing(true)
     setError('')
     try {
-      const result = await api.submitGameVote('mafia', currentUser.id, { selectedPlayerId: playerId })
+      const result = await api.submitGameVote('mafia', currentUser.id, { selectedIndex })
       setLastResult({ isMafia: result.isMafia ?? false, attemptNumber: result.attemptNumber ?? 0 })
       await loadState()
       onProfileUpdate()
