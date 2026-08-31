@@ -278,8 +278,7 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
 >
   {isSelected || wasChosen ? <Check size={16} /> : '⚡'}
 </div>
-                    {(isSelected || wasChosen) && <Check size={14} />}
-                  </div>
+                   
                   <span
   className={`text-sm font-extrabold tracking-wide ${
     isSelected || wasChosen
