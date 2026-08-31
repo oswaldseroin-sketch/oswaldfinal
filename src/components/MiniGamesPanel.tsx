@@ -308,6 +308,75 @@ export default function MiniGamesPanel({ onBack }: Props) {
         <div className="grid grid-cols-2 gap-2.5">
           {MINI_GAMES.map((game) => {
             const isDone = Boolean(completedToday[String(game.number)])
+      const gameStyle: Record<number, {
+  border: string
+  bg: string
+  glow: string
+  accent: string
+}> = {
+  1: {
+    border: 'border-purple-400/30',
+    bg: 'bg-gradient-to-br from-purple-950/70 via-black/80 to-fuchsia-950/40',
+    glow: '0 0 18px rgba(168,85,247,0.14)',
+    accent: 'text-purple-200',
+  },
+  2: {
+    border: 'border-orange-400/30',
+    bg: 'bg-gradient-to-br from-orange-950/70 via-black/80 to-amber-950/40',
+    glow: '0 0 18px rgba(251,146,60,0.14)',
+    accent: 'text-orange-200',
+  },
+  3: {
+    border: 'border-amber-400/30',
+    bg: 'bg-gradient-to-br from-amber-950/70 via-black/80 to-yellow-950/30',
+    glow: '0 0 18px rgba(245,158,11,0.14)',
+    accent: 'text-amber-200',
+  },
+  4: {
+    border: 'border-stone-400/25',
+    bg: 'bg-gradient-to-br from-stone-900/80 via-black/85 to-amber-950/30',
+    glow: '0 0 18px rgba(168,162,158,0.10)',
+    accent: 'text-stone-200',
+  },
+  5: {
+    border: 'border-cyan-400/30',
+    bg: 'bg-gradient-to-br from-cyan-950/60 via-black/85 to-red-950/40',
+    glow: '0 0 18px rgba(34,211,238,0.12)',
+    accent: 'text-cyan-200',
+  },
+  6: {
+    border: 'border-violet-400/30',
+    bg: 'bg-gradient-to-br from-violet-950/70 via-black/80 to-fuchsia-950/40',
+    glow: '0 0 18px rgba(139,92,246,0.14)',
+    accent: 'text-violet-200',
+  },
+  7: {
+    border: 'border-red-500/30',
+    bg: 'bg-gradient-to-br from-red-950/70 via-black/90 to-zinc-950',
+    glow: '0 0 18px rgba(239,68,68,0.14)',
+    accent: 'text-red-200',
+  },
+  8: {
+    border: 'border-slate-400/25',
+    bg: 'bg-gradient-to-br from-slate-900/80 via-black/85 to-zinc-950',
+    glow: '0 0 18px rgba(148,163,184,0.10)',
+    accent: 'text-slate-200',
+  },
+  9: {
+    border: 'border-indigo-400/30',
+    bg: 'bg-gradient-to-br from-indigo-950/70 via-black/85 to-slate-950/50',
+    glow: '0 0 18px rgba(99,102,241,0.14)',
+    accent: 'text-indigo-200',
+  },
+  10: {
+    border: 'border-amber-400/30',
+    bg: 'bg-gradient-to-br from-amber-950/60 via-black/90 to-red-950/40',
+    glow: '0 0 20px rgba(251,191,36,0.14)',
+    accent: 'text-amber-200',
+  },
+}
+
+const style = gameStyle[game.number]
             return (
               <button
                 key={game.number}
