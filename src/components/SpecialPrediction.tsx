@@ -49,7 +49,7 @@ const SYMBOLS: MagicalSymbol[] = [
     color: { glow: 'rgba(255,215,80,0.35)', glowStrong: 'rgba(255,215,80,0.15)', icon: '#ffd750', spark: '#ffd750', burnFlash: 'rgba(255,215,80,0.9)' } },
 ]
 
-const COOLDOWN_MS = 5 * 1000
+const COOLDOWN_MS = 24 * 60 * 60 * 1000
 
 type RitualState = {
   destroyed: SymbolId[]
