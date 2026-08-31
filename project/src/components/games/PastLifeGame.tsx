@@ -149,6 +149,8 @@ export default function PastLifeGame({ onBack, onProfileUpdate }: Props) {
           <div className="mt-3 text-center text-xs text-ink-muted">
             Правильных ответов: {yesterday.correctCount} из {yesterday.totalCount}
           </div>
+      </>
+)}
         </div>
       )}
 
