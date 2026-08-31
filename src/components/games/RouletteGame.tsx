@@ -393,11 +393,11 @@ setPlaying(false)
 )}
           {gameStarted && starter && !hasPlayed && (
     <div
-    className={`mb-4 rounded-2xl border p-4 text-center transition-all duration-100 ${
-      shotFlash
-        ? 'scale-[1.02] border-error bg-error/30'
-        : 'border-error/30 bg-black/30'
-    }`}
+   className={`mb-4 rounded-2xl border p-4 text-center transition-all duration-100 ${
+  shotFlash
+    ? 'scale-[1.025] border-red-400 bg-red-500/30 shadow-[0_0_50px_rgba(239,68,68,0.65)]'
+    : 'border-red-500/30 bg-gradient-to-b from-black/60 via-zinc-950/80 to-red-950/15 shadow-[inset_0_0_30px_rgba(127,29,29,0.08)]'
+}`}
     style={
       shotFlash
         ? {
