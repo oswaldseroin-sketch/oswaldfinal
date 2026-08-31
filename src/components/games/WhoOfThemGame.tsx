@@ -188,6 +188,8 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
     }`}
   />
 </button>
+          {yesterdayOpen && (
+  <>
           <p className="mb-3 text-sm font-bold text-ink/90">{yesterday.question}</p>
           <div className="space-y-2">
             {[yesterday.player_1, yesterday.player_2].map((player) => {
