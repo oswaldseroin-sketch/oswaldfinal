@@ -215,7 +215,12 @@ export default function SecretLoveGame({ onBack, onProfileUpdate }: Props) {
   </p>
 </div>
               {today.userVote?.is_correct ? (
-                <p className="mt-1 text-sm font-extrabold text-neon" style={{ textShadow: '0 0 10px rgba(0,229,255,0.4)' }}>🥈 +2 XP звания +2🪙</p>
+               <p
+  className="mt-2 text-sm font-extrabold text-indigo-200"
+  style={{ textShadow: '0 0 12px rgba(129,140,248,0.35)' }}
+>
+  🥈 +2 XP звания +2🪙
+</p>
               ) : (
                 <p className="mt-1 text-xs text-ink-muted">Правильный ответ: {today.players[today.correctIndex || 0]}</p>
               )}
