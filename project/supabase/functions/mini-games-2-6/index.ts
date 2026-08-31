@@ -856,7 +856,7 @@ async function handleWouldHeDoItGet(supabase: SupabaseClient, userId: string, to
 
   return json({
     today: {
-      question: questions[daily.question_index] || questions[0],
+      question: (await (await fetch("https://api.serointeam.ru/api/games/who-of-them/today")).json()).question,
       player_name: daily.player_name,
       userVote: vote?.vote || null,
     },
