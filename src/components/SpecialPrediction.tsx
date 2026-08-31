@@ -69,6 +69,7 @@ function getRitualState(userId: string): RitualState {
     destroyed: [],
     nextAvailableAt: 0,
     completed: false,
+    messageIndex: 0,
   })
 }
 
