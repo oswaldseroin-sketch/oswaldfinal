@@ -2139,22 +2139,32 @@ async function handleRouletteGet(supabase: SupabaseClient, userId: string, today
     .eq("user_id", userId)
     .maybeSingle();
 
-  // Yesterday's stats
-  let yesterdayData = null;
-  const { data: yStates } = await supabase
-    .from("roulette_user_state")
-    .select("result")
-    .eq("game_day", yesterdayStr);
+// Yesterday's stats
+let yesterdayData = null;
 
-  if (yStates && yStates.length > 0) {
-    const wins = yStates.filter((s: { result: string }) => s.result === "win").length;
-    const losses = yStates.filter((s: { result: string }) => s.result === "lose").length;
-    yesterdayData = {
-      wins,
-      losses,
-      total: yStates.length,
-    };
-  }
+const { data: yStates } = await supabase
+  .from("roulette_user_state")
+  .select("result")
+  .eq("game_day", yesterdayStr);
+
+const { data: yDaily } = await supabase
+  .from("roulette_user_daily")
+  .select("opponent_name")
+  .eq("game_day", yesterdayStr)
+  .eq("user_id", userId)
+  .maybeSingle();
+
+if (yStates && yStates.length > 0) {
+  const wins = yStates.filter((s: { result: string }) => s.result === "win").length;
+  const losses = yStates.filter((s: { result: string }) => s.result === "lose").length;
+
+  yesterdayData = {
+    opponent_name: yDaily?.opponent_name || null,
+    wins,
+    losses,
+    total: yStates.length,
+  };
+}
 
   return json({
     today: {
