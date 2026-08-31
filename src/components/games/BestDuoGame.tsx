@@ -252,7 +252,13 @@ export default function BestDuoGame({ onBack, onProfileUpdate }: Props) {
       )}
 
       {today && (
-        <div className="rounded-2xl border border-neon/30 bg-card/60 p-4 backdrop-blur-md" style={{ boxShadow: '0 0 18px rgba(0,229,255,0.1)' }}>
+        <div
+  className="rounded-2xl border border-amber-400/25 bg-gradient-to-b from-slate-900/80 via-black/60 to-slate-950/80 p-4 backdrop-blur-md"
+  style={{
+    boxShadow:
+      '-12px 0 28px rgba(34,211,238,0.08), 12px 0 28px rgba(248,113,113,0.08), inset 0 0 30px rgba(251,191,36,0.025)',
+  }}
+>
          <div className="mb-2 flex items-center gap-2">
   <span className="text-sm">⚔️</span>
 
