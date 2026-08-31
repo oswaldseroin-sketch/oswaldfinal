@@ -392,6 +392,11 @@ const style = gameStyle[game.number]
     : style.glow,
 }}
               >
+                <span
+  className={`absolute left-2 top-2 text-[8px] font-black tracking-[0.18em] ${style.accent} opacity-60`}
+>
+  ИГРА {String(game.number).padStart(2, '0')}
+</span>
                 {isDone && (
                   <span
                     className="absolute right-2 top-2 flex h-5 w-5 items-center justify-center rounded-full bg-success/25"
@@ -426,6 +431,7 @@ const style = gameStyle[game.number]
   {game.title}
 </span>
                 <span className="mt-0.5 text-[10px] leading-tight text-ink-muted">{game.description}</span>
+                
                 {isDone && (
                   <span className="mt-1 text-[8px] font-bold tracking-wide text-success/80">Сегодня пройдено</span>
                 )}
