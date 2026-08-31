@@ -574,13 +574,14 @@ const result = await apiFetch<{
     body: JSON.stringify({ voterId: numericId }),
   },
 )
-    return {
-      success: result.success,
-      message: result.message,
-      totalTitleXp: result.totalTitleXp,
-      totalCoins: result.totalCoins,
-      winner: result.winner,
-      alreadyClaimed: result.alreadyClaimed,
-    }
+   return {
+  success: result.success ?? result.ok,
+  message: result.message,
+  totalXp: result.totalXp,
+  totalTitleXp: result.totalTitleXp,
+  totalCoins: result.totalCoins,
+  winner: result.winner,
+  alreadyClaimed: result.alreadyClaimed,
+}
   },
 }
