@@ -191,9 +191,12 @@ console.log('WOULD HE DO IT TODAY:', today)
       '0 0 24px rgba(16,185,129,0.10), inset 0 0 22px rgba(245,158,11,0.04)',
   }}
 >
-          <p className="text-base font-extrabold tracking-wide text-neon">
-  {today.player_name}
-</p>
+        <div className="mb-2 flex items-center gap-2">
+  <span className="text-lg">💰</span>
+  <p className="text-base font-extrabold tracking-wide text-amber-300">
+    {today.player_name}
+  </p>
+</div>
 
 <h2 className="mt-1.5 mb-3 text-base font-extrabold leading-snug text-ink">
   {today.question}
