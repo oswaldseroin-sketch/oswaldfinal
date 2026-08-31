@@ -79,7 +79,31 @@ const [roundFinished, setRoundFinished] = useState(false)
       setAnimStep(-1)
     }
   }
+const handleMyShot = async () => {
+  if (currentTurn !== 'me' || roundFinished || chamber === null) return
 
+  const isShot = shotIndex === chamber
+
+  setPlaying(true)
+  setRoundMessage('Ты нажимаешь на курок...')
+
+  await new Promise((r) => setTimeout(r, 1200))
+
+  if (isShot) {
+    setRoundMessage('💥 ВЫСТРЕЛ! ВЫ ПОГИБЛИ')
+    setRoundFinished(true)
+    setPlaying(false)
+    return
+  }
+
+  setRoundMessage('ЩЁЛК... ПРОМАХ!')
+  await new Promise((r) => setTimeout(r, 1000))
+
+  setShotIndex((prev) => prev + 1)
+  setCurrentTurn('opponent')
+  setRoundMessage(`${today?.opponent_name || 'Противник'} готовится...`)
+  setPlaying(false)
+}
   if (loading) {
     return (
       <div className="mx-auto max-w-md px-5 pb-10 pt-6">
