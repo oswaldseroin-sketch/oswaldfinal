@@ -98,6 +98,12 @@ const handleMyShot = async () => {
   const isShot = shotIndex === chamber
 
   setPlaying(true)
+  setCylinderSpinning(true)
+  setRoundMessage('Барабан вращается...')
+
+  await new Promise((r) => setTimeout(r, 700))
+
+  setCylinderSpinning(false)
   setRoundMessage('Ты нажимаешь на курок...')
 
   await new Promise((r) => setTimeout(r, 1200))
