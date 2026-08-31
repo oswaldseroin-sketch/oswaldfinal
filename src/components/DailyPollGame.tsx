@@ -313,6 +313,7 @@ export default function DailyPollGame({ onBack, onProfileUpdate }: Props) {
                 </button>
               )
             })}
+    </div>
           </div>
 
           {/* Vote button or confirmation */}
