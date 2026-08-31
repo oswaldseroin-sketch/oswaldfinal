@@ -439,7 +439,11 @@ export const api = {
       today.question = (whoOfThemQuestions[qIdx] as string) || whoOfThemQuestions[0] || String(result.questionIndex ?? '')
      today.player_1 = (result.player1 as { fullName?: string } | undefined)?.fullName ?? ''
 today.player_2 = (result.player2 as { fullName?: string } | undefined)?.fullName ?? ''
-      today.userVote = result.userVote ?? null
+    const status = await apiFetch<Record<string, unknown>>(
+  `/api/games/who-of-them/status/${encodeURIComponent(numericId)}`
+)
+
+today.userVote = status.userVote ?? status.chosenPlayer ?? null
       today.gameDay = result.gameDay ?? null
     } else if (result.today) {
       // Merge the server's today object with safe defaults for missing fields
