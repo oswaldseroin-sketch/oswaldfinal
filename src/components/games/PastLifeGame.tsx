@@ -264,7 +264,17 @@ export default function PastLifeGame({ onBack, onProfileUpdate }: Props) {
               )}
             </div>
           ) : (
-            <button onClick={handleVote} disabled={selected === null || voting} className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-neon py-3 text-sm font-extrabold text-black transition active:scale-95 disabled:opacity-40" style={{ boxShadow: '0 0 16px rgba(0,229,255,0.3)' }}>
+           <button
+  onClick={handleVote}
+  disabled={selected === null || voting}
+  className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border border-amber-400/50 bg-gradient-to-r from-amber-700 via-amber-500 to-yellow-500 py-3 text-sm font-extrabold text-black transition-all duration-200 active:scale-95 disabled:opacity-30"
+  style={{
+    boxShadow:
+      selected !== null
+        ? '0 0 22px rgba(245,158,11,0.30)'
+        : 'none',
+  }}
+>
               {voting ? <Loader2 size={16} className="animate-spin" /> : <Check size={16} />}
               Ответить
             </button>
