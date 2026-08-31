@@ -163,15 +163,7 @@ export default function SpecialPrediction({ onBack }: { onBack: () => void }) {
 
   const remainingCount = SYMBOLS.length - state.destroyed.length
 
- const personalizedText = useMemo(() => {
-  const messages = SPECIAL_PREDICTION_MESSAGES[userName] ?? []
-
-  if (messages.length === 0) {
-    return 'Фрасимах пока не оставил для тебя особого напутствия.'
-  }
-
-  return messages[Math.floor(Math.random() * messages.length)]
-}, [userName])
+ 
 
   return (
     <div className="mx-auto max-w-md px-4 pb-10 pt-8">
