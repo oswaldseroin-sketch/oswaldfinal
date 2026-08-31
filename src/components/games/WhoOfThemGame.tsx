@@ -29,10 +29,7 @@ type YesterdayState = {
 
 
 
-function extractDay(gameDay: string | null | undefined): string {
-  if (!gameDay) return ''
-  return gameDay.slice(0, 10)
-}
+
 
 export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
   const { currentUser } = useApp()
