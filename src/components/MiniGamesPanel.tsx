@@ -116,10 +116,14 @@ export default function MiniGamesPanel({ onBack }: Props) {
   setCompletedToday(getCompletedToday(playerId))
 }
 const handleNextGame = () => {
+  const gameNumber = selectedGame ?? lastCompletedGame
+
+  if (gameNumber === null) return
+
   setShowGameCompleteNav(false)
 
-  if (selectedGame < 10) {
-    setSelectedGame(selectedGame + 1)
+  if (gameNumber < 10) {
+    setSelectedGame(gameNumber + 1)
   } else {
     setSelectedGame(null)
   }
