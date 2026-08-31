@@ -572,7 +572,7 @@ const handleKeyClick = (): void => {
       <span className="text-sm">🗝️</span>
 
       <span className="text-[12px] font-bold tracking-wide text-accent/80">
-        Попыток входа:
+        Попытки команды::
       </span>
 
       <span
