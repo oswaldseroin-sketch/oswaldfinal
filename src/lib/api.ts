@@ -475,7 +475,66 @@ export const api = {
       today.correctIndex = result.correctIndex ?? null
       today.isCorrect = result.isCorrect ?? null
     }
-    return { today: today as GameState['today'], yesterday: (result.yesterday ?? null) as GameState['yesterday'] }
+    if (gameKey === 'who_of_them') {
+  const yesterdayResult = await apiFetch<Record<string, unknown>>(
+    `/api/games/who-of-them/yesterday-results`
+  )
+
+  let yesterday: GameState['yesterday'] = null
+
+  if (yesterdayResult.hasResults) {
+    const qIdx =
+      typeof yesterdayResult.questionIndex === 'number'
+        ? yesterdayResult.questionIndex
+        : 0
+
+    const player1 = yesterdayResult.player1 as
+      | { id?: number; fullName?: string; votes?: number }
+      | undefined
+
+    const player2 = yesterdayResult.player2 as
+      | { id?: number; fullName?: string; votes?: number }
+      | undefined
+
+    const winnerPlayerId =
+      typeof yesterdayResult.winnerPlayerId === 'number'
+        ? yesterdayResult.winnerPlayerId
+        : null
+
+    const winner =
+      winnerPlayerId === player1?.id
+        ? player1?.fullName ?? null
+        : winnerPlayerId === player2?.id
+          ? player2?.fullName ?? null
+          : null
+
+    yesterday = {
+      question:
+        (whoOfThemQuestions[qIdx] as string) ||
+        whoOfThemQuestions[0] ||
+        '',
+      player_1: player1?.fullName ?? '',
+      player_2: player2?.fullName ?? '',
+      votes: {
+        [player1?.fullName ?? '']: player1?.votes ?? 0,
+        [player2?.fullName ?? '']: player2?.votes ?? 0,
+      },
+      winner,
+      userVote: null,
+      reward: null,
+    }
+  }
+
+  return {
+    today: today as GameState['today'],
+    yesterday,
+  }
+}
+
+return {
+  today: today as GameState['today'],
+  yesterday: (result.yesterday ?? null) as GameState['yesterday'],
+}
   },
   submitGameVote: async (gameKey: string, userId: string, voteData: Record<string, unknown>): Promise<GameVoteResult> => {
     const urlPath = GAME_PATHS[gameKey] || gameKey
