@@ -453,7 +453,12 @@ style={{
 </p>
       </div>
 
-      <Swords size={18} className="text-error" />
+      <div className="flex flex-col items-center gap-0.5">
+  <span className="text-[8px] font-black tracking-[0.2em] text-red-400/60">
+    VS
+  </span>
+  <Swords size={18} className="text-red-400" />
+</div>
 
       <div>
         <p className="text-[9px] font-bold tracking-widest text-amber-300">
