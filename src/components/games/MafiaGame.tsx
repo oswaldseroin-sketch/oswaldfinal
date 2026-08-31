@@ -55,7 +55,7 @@ export default function MafiaGame({ onBack, onProfileUpdate }: Props) {
 
   useEffect(() => { void loadState() }, [loadState])
 
-  const handleGuess = async (playerId: number) => {
+  const handleGuess = async (selectedIndex: number) => {
     if (!currentUser) return
     const today = (state?.today ?? null) as TodayState | null
     if (today?.gameEnded) return
