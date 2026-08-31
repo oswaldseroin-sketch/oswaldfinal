@@ -286,7 +286,17 @@ export default function BestDuoGame({ onBack, onProfileUpdate }: Props) {
               <p className="mt-1 text-[11px] text-ink-muted">Результаты будут доступны завтра в 08:00</p>
             </div>
           ) : (
-            <button onClick={handleVote} disabled={selected === null || voting} className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-neon py-3 text-sm font-extrabold text-black transition active:scale-95 disabled:opacity-40" style={{ boxShadow: '0 0 16px rgba(0,229,255,0.3)' }}>
+            <button
+  onClick={handleVote}
+  disabled={selected === null || voting}
+  className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border border-amber-300/60 bg-gradient-to-r from-amber-600 via-yellow-400 to-amber-600 py-3 text-sm font-black tracking-wide text-black transition-all duration-200 active:scale-95 disabled:opacity-30"
+  style={{
+    boxShadow:
+      selected !== null
+        ? '0 0 24px rgba(251,191,36,0.38)'
+        : 'none',
+  }}
+>
               {voting ? <Loader2 size={16} className="animate-spin" /> : <Check size={16} />}
               Проголосовать
             </button>
