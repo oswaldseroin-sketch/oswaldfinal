@@ -6,7 +6,7 @@ import { SPECIAL_PREDICTION_MESSAGES } from '../lib/specialPredictionMessages'
 
 const RITUAL_IMAGE = '/frasimah-ritual.webp'
 
-const SPECIAL_PREDICTION_TEXT = `Послание Всевидящего Фрасимаха открывается лишь тому, кто прошёл все десять врат. Ты сжёг каждый символ, и туман рассеялся. Теперь ты видишь то, что скрыто от остальных. Запомни эти слова, [Имя] — они написаны именно для тебя.`
+
 
 type SymbolId = 'eye' | 'rune' | 'moon' | 'skull' | 'key' | 'crystal' | 'flame' | 'star' | 'scroll' | 'snowflake'
 
@@ -163,9 +163,15 @@ export default function SpecialPrediction({ onBack }: { onBack: () => void }) {
 
   const remainingCount = SYMBOLS.length - state.destroyed.length
 
-  const personalizedText = useMemo(() => {
-    return SPECIAL_PREDICTION_TEXT.replaceAll('[Имя]', userName)
-  }, [userName])
+ const personalizedText = useMemo(() => {
+  const messages = SPECIAL_PREDICTION_MESSAGES[userName] ?? []
+
+  if (messages.length === 0) {
+    return 'Фрасимах пока не оставил для тебя особого напутствия.'
+  }
+
+  return messages[Math.floor(Math.random() * messages.length)]
+}, [userName])
 
   return (
     <div className="mx-auto max-w-md px-4 pb-10 pt-8">
