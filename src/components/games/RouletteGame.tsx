@@ -424,21 +424,37 @@ setPlaying(false)
       return (
         <div
           key={index}
-          className={`absolute left-1/2 top-1/2 flex h-8 w-8 items-center justify-center rounded-full border-2 transition-all ${
-            used
-              ? 'border-error/30 bg-error/10 text-error/40'
-              : 'border-ink/30 bg-card text-ink'
-          }`}
-          style={{
-            marginLeft: '-16px',
-            marginTop: '-16px',
-            transform: `translate(${x}px, ${y}px)`,
-          }}
-        >
-          <span className="text-[10px] font-extrabold">
-            {used ? '×' : index + 1}
-          </span>
-        </div>
+       <div
+  key={index}
+  className={`absolute left-1/2 top-1/2 flex h-9 w-9 items-center justify-center rounded-full border-2 transition-all duration-500 ${
+    used
+      ? 'scale-75 border-black/40 bg-black/70 text-ink/20 opacity-40'
+      : index === shotIndex
+        ? 'scale-110 border-error/70 bg-error/15 text-error'
+        : 'border-ink/30 bg-card/90 text-ink/70'
+  }`}
+  style={{
+    marginLeft: '-18px',
+    marginTop: '-18px',
+    transform: `translate(${x}px, ${y}px)`,
+    boxShadow:
+      index === shotIndex && !used
+        ? '0 0 16px rgba(239,68,68,0.45)'
+        : undefined,
+  }}
+>
+  <div
+    className={`flex h-6 w-6 items-center justify-center rounded-full border ${
+      used
+        ? 'border-ink/10 bg-black/50'
+        : 'border-ink/20 bg-black/30'
+    }`}
+  >
+    <span className="text-[10px] font-black">
+      {used ? '×' : index + 1}
+    </span>
+  </div>
+</div>
       )
     })}
   </div>
