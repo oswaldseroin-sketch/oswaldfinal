@@ -583,9 +583,30 @@ style={{
   <div className="mx-auto mt-2 h-px w-24 bg-gradient-to-r from-transparent via-amber-400/40 to-transparent" />
 </div>
 
-    <p className="mt-1 text-[10px] font-bold tracking-widest text-ink-muted">
-      КАМОРА {Math.min(shotIndex + 1, 8)} / 8
-    </p>
+    <div className="mt-2 flex items-center justify-center gap-2">
+  <span className="text-[8px] font-black tracking-[0.2em] text-zinc-600">
+    КАМОРЫ
+  </span>
+
+  <div className="flex gap-1">
+    {Array.from({ length: 8 }).map((_, index) => (
+      <span
+        key={index}
+        className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${
+          index < shotIndex
+            ? 'bg-zinc-700'
+            : index === shotIndex
+              ? 'bg-red-400 shadow-[0_0_7px_rgba(248,113,113,0.8)]'
+              : 'bg-amber-300/30'
+        }`}
+      />
+    ))}
+  </div>
+
+  <span className="text-[8px] font-black tracking-wider text-zinc-500">
+    {Math.min(shotIndex + 1, 8)}/8
+  </span>
+</div>
 
   </div>
 )}
