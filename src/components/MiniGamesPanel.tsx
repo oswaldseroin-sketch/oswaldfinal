@@ -237,10 +237,32 @@ export default function MiniGamesPanel({ onBack }: Props) {
                   {titleInfo.title}
                 </p>
               </div>
-              <div className="flex shrink-0 items-center gap-1.5 rounded-lg border border-amber-400/30 bg-amber-400/10 px-3 py-1.5">
-                <Coins size={15} className="text-amber-300" />
-                <span className="text-sm font-extrabold text-amber-200">{profile.coins}</span>
-              </div>
+              <div
+  className="relative flex shrink-0 items-center gap-2 overflow-hidden rounded-xl border border-amber-400/30 bg-gradient-to-br from-amber-400/15 to-orange-950/30 px-3 py-2"
+  style={{
+    boxShadow:
+      '0 0 14px rgba(251,191,36,0.10), inset 0 0 12px rgba(251,191,36,0.05)',
+  }}
+>
+  <div className="absolute -right-3 -top-4 h-10 w-10 rounded-full bg-amber-300/10 blur-xl" />
+
+  <Coins
+    size={16}
+    className="relative text-amber-300"
+    style={{
+      filter: 'drop-shadow(0 0 5px rgba(251,191,36,0.55))',
+    }}
+  />
+
+  <div className="relative">
+    <p className="text-[7px] font-black leading-none tracking-[0.16em] text-amber-300/50">
+      МОНЕТЫ
+    </p>
+    <p className="mt-1 text-sm font-black leading-none text-amber-100">
+      {profile.coins}
+    </p>
+  </div>
+</div>
             </div>
 
             <div className="mt-3">
