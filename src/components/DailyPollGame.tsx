@@ -309,9 +309,11 @@ export default function DailyPollGame({ onBack, onProfileUpdate }: Props) {
 >
   {isSelected || wasChosen ? <Check size={15} /> : '✦'}
 </div>
-                 <span
-  className={`truncate text-[10px] font-bold ${
-    isSelected || wasChosen ? 'text-ink' : 'text-ink/80'
+                <span
+  className={`truncate text-[11px] font-extrabold tracking-wide ${
+    isSelected || wasChosen
+      ? 'text-purple-100'
+      : 'text-ink/85'
   }`}
 >
   {name}
