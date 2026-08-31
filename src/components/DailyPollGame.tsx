@@ -279,6 +279,7 @@ export default function DailyPollGame({ onBack, onProfileUpdate }: Props) {
 <div className="max-h-[330px] overflow-y-auto pr-1">
   <div className="grid grid-cols-2 gap-1.5">
             {allWorkers.map((name) => {
+  </div>
               const isSelected = selected.includes(name)
               const wasChosen = state.today.userVote?.includes(name)
               const isMaxed = !hasVoted && selected.length >= MAX_SELECTION && !isSelected
