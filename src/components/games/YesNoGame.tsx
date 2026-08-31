@@ -112,13 +112,20 @@ export default function YesNoGame({ onBack, onProfileUpdate }: Props) {
     <div className="mx-auto max-w-md px-4 pb-10 pt-6">
       <button onClick={onBack} className="mb-4 flex items-center gap-2 text-sm font-bold text-neon hover:text-white transition-colors">← Назад</button>
 
-      <div className="mb-4 flex items-center gap-2">
-        <span className="text-2xl">💫</span>
-        <div>
-          <p className="text-[10px] font-bold tracking-widest text-neon">МИНИ-ИГРА 8</p>
-          <h1 className="text-xl font-extrabold text-ink">Да или Нет</h1>
-        </div>
-      </div>
+     <div className="mb-4 flex items-center gap-2">
+  <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-slate-400/20 bg-slate-400/5">
+    <span className="text-lg font-black text-slate-300">?</span>
+  </div>
+
+  <div>
+    <p className="text-[10px] font-black tracking-[0.2em] text-slate-500">
+      МИНИ-ИГРА 8
+    </p>
+    <h1 className="text-xl font-black text-zinc-100">
+      Да или Нет
+    </h1>
+  </div>
+</div>
 
       {error && (
         <div className="mb-4 rounded-xl border border-error/30 bg-error/10 p-3 text-center"><p className="text-xs font-bold text-error">{error}</p></div>
