@@ -42,6 +42,7 @@ const [roundMessage, setRoundMessage] = useState('')
 const [roundFinished, setRoundFinished] = useState(false)
   const [cylinderSpinning, setCylinderSpinning] = useState(false)
 const [gunKick, setGunKick] = useState(false)
+  const [shotFlash, setShotFlash] = useState(false)
 
   const loadState = useCallback(async () => {
     if (!currentUser) return
