@@ -246,12 +246,17 @@ console.log('MAFIA PLAYERS:', dailyPlayers)
         : 'border-red-500/15 bg-zinc-950/60 hover:border-red-400/50 hover:bg-red-950/25 hover:shadow-[0_0_18px_rgba(239,68,68,0.12)] active:scale-[0.98]'
 }`}
                     >
-                      <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-xs font-bold ${
-                        isMafiaRevealed ? 'border-amber-400 bg-amber-400/20 text-amber-300' :
-                        isEliminated ? 'border-error/40 text-error' : 'border-line/50 text-ink-muted'
-                      }`}>
-                       {isMafiaRevealed ? '🕵️' : isEliminated ? <X size={14} /> : index + 1}
-                      </div>
+                      <div
+  className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border text-xs font-black transition-all duration-200 ${
+    isMafiaRevealed
+      ? 'border-amber-300/70 bg-amber-500/15 text-amber-200 shadow-[0_0_14px_rgba(251,191,36,0.35)]'
+      : isEliminated
+        ? 'border-red-800/50 bg-red-950/30 text-red-400'
+        : 'border-red-500/20 bg-black/30 text-red-200'
+  }`}
+>
+  {isMafiaRevealed ? '🕵️' : isEliminated ? <X size={14} /> : `#${index + 1}`}
+</div>
                       <span className={`flex-1 text-sm font-bold ${isMafiaRevealed ? 'text-amber-200' : isEliminated ? 'text-error' : 'text-ink'}`}>
                         {player.full_name}
                       </span>
