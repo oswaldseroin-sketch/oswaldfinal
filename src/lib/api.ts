@@ -556,12 +556,24 @@ return {
   claimGameResults: async (gameKey: string, userId: string): Promise<GameClaimResult> => {
     const urlPath = GAME_PATHS[gameKey] || gameKey
     const numericId = await resolvePlayerId(userId)
-    const result = await apiFetch<{ ok: boolean; success: boolean; totalTitleXp?: number; totalCoins?: number; winner?: string | number | null; alreadyClaimed?: boolean; message?: string }>(
-    gameKey === 'who_of_them' || gameKey === 'rate_player'
-  ? `/api/games/${urlPath}/claim-yesterday`
-  : `/api/games/${urlPath}/claim-results`
-      { method: 'POST', body: JSON.stringify({ voterId: numericId }) }
-    )
+const result = await apiFetch<{
+  ok: boolean
+  success?: boolean
+  totalXp?: number
+  totalTitleXp?: number
+  totalCoins?: number
+  winner?: string | number | null
+  alreadyClaimed?: boolean
+  message?: string
+}>(
+  gameKey === 'who_of_them' || gameKey === 'rate_player'
+    ? `/api/games/${urlPath}/claim-yesterday`
+    : `/api/games/${urlPath}/claim-results`,
+  {
+    method: 'POST',
+    body: JSON.stringify({ voterId: numericId }),
+  },
+)
     return {
       success: result.success,
       message: result.message,
