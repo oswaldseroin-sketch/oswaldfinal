@@ -111,11 +111,7 @@ export default function SecretQuest({ onUnlocked }: { onUnlocked: () => void }) 
   const isCorrect = (): boolean =>
     nominations.every((nomination) => answers[nomination.id] === nomination.correct)
 
-  const resetKey = (): void => {
-    setKeyTransition(true)
-    setKeyTransform({ x: 0, y: 0 })
-    setPhase('idle')
-  }
+
 
   const breakKey = (): void => {
     const key = keyRef.current
