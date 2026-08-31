@@ -167,7 +167,7 @@ const handleGamesMenu = () => {
                 boxShadow: '0 0 14px rgba(34,211,238,0.14)',
               }}
             >
-              {selectedGame < 10 ? 'ДАЛЕЕ →' : 'ЗАВЕРШИТЬ'}
+             {(selectedGame ?? lastCompletedGame ?? 10) < 10 ? 'ДАЛЕЕ →' : 'ЗАВЕРШИТЬ'}
             </button>
           </div>
         </div>
