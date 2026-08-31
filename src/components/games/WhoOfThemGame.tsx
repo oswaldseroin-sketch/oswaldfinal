@@ -234,7 +234,13 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
       )}
 
       {today && (
-        <div className="rounded-2xl border border-neon/30 bg-card/60 p-4 backdrop-blur-md" style={{ boxShadow: '0 0 18px rgba(0,229,255,0.1)' }}>
+       <div
+  className="rounded-2xl border border-orange-400/35 bg-gradient-to-b from-orange-500/10 via-card/70 to-black/30 p-4 backdrop-blur-md"
+  style={{
+    boxShadow:
+      '0 0 24px rgba(251,146,60,0.12), inset 0 0 24px rgba(251,146,60,0.04)',
+  }}
+>
           <p className="text-[10px] font-bold tracking-widest text-neon">ВОПРОС ДНЯ</p>
           <h2 className="mt-1.5 mb-3 text-base font-extrabold leading-snug text-ink">{today.question}</h2>
 
