@@ -434,9 +434,8 @@ export const api = {
     )
     // who-of-them returns a flat response — wrap it into {today, yesterday}
     const today: Record<string, unknown> = {}
-    if (gameKey === 'who_of_them') {
-      const qIdx = typeof result.questionIndex === 'number' ? result.questionIndex : 0
-      today.question = (whoOfThemQuestions[qIdx] as string) || whoOfThemQuestions[0] || String(result.questionIndex ?? '')
+   if (gameKey === 'who_of_them') {
+  today.question = (result.question as string) ?? ''
      today.player_1 = (result.player1 as { fullName?: string } | undefined)?.fullName ?? ''
 today.player_2 = (result.player2 as { fullName?: string } | undefined)?.fullName ?? ''
     const status = await apiFetch<Record<string, unknown>>(
