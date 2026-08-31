@@ -366,7 +366,7 @@ setPlaying(false)
       КТО НАЧИНАЕТ?
     </p>
 
-    <div className="mt-3 grid grid-cols-2 gap-2.5">
+    <div className="relative mt-4 grid grid-cols-2 gap-2.5">
       <button
         onClick={() => {
           setStarter('me')
