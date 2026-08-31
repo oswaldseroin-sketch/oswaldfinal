@@ -434,9 +434,14 @@ export default function SecretQuest({ onUnlocked }: { onUnlocked: () => void }) 
           </div>
         )}
 
-        {/* Mega hint tab */}
-        {hintTab === 'mega' && (
-          <div className="space-y-2">
+       {/* Mega hint tab */}
+{hintTab === 'mega' && (
+  <div className="space-y-2">
+
+    <p className="text-center text-[11px] font-bold text-purple-300/80">
+      Заряд Мега-подсказки
+    </p>
+
             {megaResult && (
               <div
                 className="max-h-52 space-y-1 overflow-y-auto rounded-lg border border-purple-500/30 bg-black/50 p-2"
