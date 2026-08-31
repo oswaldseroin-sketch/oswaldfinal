@@ -276,7 +276,7 @@ export default function DailyPollGame({ onBack, onProfileUpdate }: Props) {
           )}
 
          {/* Full employee list — compact scroll */}
-<div className="max-h-[330px] overflow-y-auto pr-1">
+<div className="max-h-[176px] overflow-y-auto pr-1">
   <div className="grid grid-cols-2 gap-1.5">
             {allWorkers.map((name) => {
  
