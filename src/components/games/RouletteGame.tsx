@@ -546,12 +546,12 @@ style={{
     <button
   onClick={handleMyShot}
   disabled={currentTurn !== 'me' || playing || roundFinished}
- className={`flex h-16 w-16 items-center justify-center rounded-full border-2 transition-all duration-100 ${
+className={`relative flex h-16 w-16 items-center justify-center rounded-full border-2 transition-all duration-150 ${
   gunKick
-    ? 'scale-125 -rotate-12 border-red-300 bg-red-500/50 shadow-[0_0_40px_rgba(239,68,68,0.75)]'
+    ? 'scale-125 -rotate-12 border-red-200 bg-red-500/60 shadow-[0_0_45px_rgba(239,68,68,0.85)]'
     : currentTurn === 'me' && !playing && !roundFinished
-      ? 'cursor-pointer border-red-400/80 bg-red-500/15 shadow-[0_0_28px_rgba(239,68,68,0.40)] active:scale-90'
-      : 'cursor-default border-amber-200/10 bg-black/40 opacity-55'
+      ? 'cursor-pointer border-red-400/80 bg-gradient-to-br from-red-500/25 to-black/60 shadow-[0_0_30px_rgba(239,68,68,0.45),inset_0_0_18px_rgba(239,68,68,0.12)] active:scale-90'
+      : 'cursor-default border-amber-200/10 bg-black/50 opacity-55'
 }`}
   style={
     currentTurn === 'me' && !playing && !roundFinished
