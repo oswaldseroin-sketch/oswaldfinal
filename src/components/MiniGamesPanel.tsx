@@ -197,6 +197,16 @@ export default function MiniGamesPanel({ onBack }: Props) {
             className="mb-5 rounded-2xl border border-neon/30 bg-card/60 p-4 backdrop-blur-md"
             style={{ boxShadow: '0 0 18px rgba(0,229,255,0.1)' }}
           >
+            <div className="mb-2 flex items-center justify-between">
+  <span className="text-[8px] font-black tracking-[0.28em] text-fuchsia-300/60">
+    ПРОФИЛЬ ИГРОКА
+  </span>
+
+  <span className="flex items-center gap-1 text-[8px] font-black tracking-wider text-emerald-300/70">
+    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_7px_rgba(52,211,153,0.8)]" />
+    ONLINE
+  </span>
+</div>
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-bold text-ink/80">{currentUser?.name}</p>
@@ -254,6 +264,7 @@ export default function MiniGamesPanel({ onBack }: Props) {
             </div>
           </div>
         ) : null}
+        
                 {/* Магазиньш */}
         <button
           type="button"
