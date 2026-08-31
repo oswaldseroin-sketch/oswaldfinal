@@ -34,6 +34,7 @@ export default function YesNoGame({ onBack, onProfileUpdate }: Props) {
   const [claiming, setClaiming] = useState(false)
   const [claimResult, setClaimResult] = useState<GameClaimResult | null>(null)
   const [resultsClaimed, setResultsClaimed] = useState(false)
+  const [showYesterdayResults, setShowYesterdayResults] = useState(false)
 
   const loadState = useCallback(async () => {
     if (!currentUser) return
