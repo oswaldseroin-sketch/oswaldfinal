@@ -498,7 +498,9 @@ export const api = {
     const urlPath = GAME_PATHS[gameKey] || gameKey
     const numericId = await resolvePlayerId(userId)
     const result = await apiFetch<{ ok: boolean; success: boolean; totalTitleXp?: number; totalCoins?: number; winner?: string | number | null; alreadyClaimed?: boolean; message?: string }>(
-      `/api/games/${urlPath}/claim-results`,
+     gameKey === 'who_of_them'
+  ? `/api/games/${urlPath}/claim-yesterday`
+  : `/api/games/${urlPath}/claim-results`,
       { method: 'POST', body: JSON.stringify({ voterId: numericId }) }
     )
     return {
