@@ -143,9 +143,19 @@ export default function BestDuoGame({ onBack, onProfileUpdate }: Props) {
 >
   {team}
 </span>
-        <div className={`flex h-5 w-5 items-center justify-center rounded-full border ${isSelected || isChosen ? 'border-neon bg-neon text-black' : 'border-line/50'}`}>
-          {(isSelected || isChosen) && <Check size={12} />}
-        </div>
+        <div
+  className={`flex h-6 w-6 items-center justify-center rounded-full border transition-all duration-200 ${
+    isSelected || isChosen
+      ? teamNum === 1
+        ? 'border-cyan-300 bg-cyan-400 text-black shadow-[0_0_14px_rgba(34,211,238,0.60)]'
+        : 'border-red-300 bg-red-400 text-black shadow-[0_0_14px_rgba(248,113,113,0.60)]'
+      : teamNum === 1
+        ? 'border-cyan-500/30 bg-cyan-950/20'
+        : 'border-red-500/30 bg-red-950/20'
+  }`}
+>
+  {(isSelected || isChosen) && <Check size={13} />}
+</div>
       </div>
       <p className="text-sm font-bold text-ink">{players[0]}</p>
       <p className="text-sm font-bold text-ink">{players[1]}</p>
