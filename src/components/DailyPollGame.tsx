@@ -337,18 +337,55 @@ export default function DailyPollGame({ onBack, onProfileUpdate }: Props) {
 
           {/* Vote button or confirmation */}
           {hasVoted ? (
-            <div className="mt-4 rounded-xl border border-success/30 bg-success/10 p-3 text-center">
-              <div className="flex items-center justify-center gap-2">
-                <Check size={16} className="text-success" />
-                <p className="text-sm font-extrabold text-success">Голос учтён!</p>
-              </div>
-              <p className="mt-1 text-[11px] text-ink-muted">Результаты будут доступны завтра в 08:00</p>
-              {state.today.userVote && state.today.userVote.length > 0 && (
-                <p className="mt-2 text-[11px] text-ink-muted">
-                  Вы выбрали: {state.today.userVote.join(', ')}
-                </p>
-              )}
-            </div>
+           <div
+  className="relative mt-4 overflow-hidden rounded-2xl border border-purple-400/30 bg-gradient-to-br from-purple-500/10 via-black/40 to-fuchsia-500/5 p-4 text-center"
+  style={{
+    boxShadow:
+      '0 0 24px rgba(168,85,247,0.10), inset 0 0 24px rgba(168,85,247,0.04)',
+  }}
+>
+  {/* декоративное свечение */}
+  <div className="pointer-events-none absolute -right-8 -top-8 h-20 w-20 rounded-full bg-purple-500/10 blur-2xl" />
+  <div className="pointer-events-none absolute -bottom-8 -left-8 h-20 w-20 rounded-full bg-fuchsia-500/10 blur-2xl" />
+
+  <div className="relative">
+    <div className="flex items-center justify-center gap-2">
+      <span className="text-purple-300">✦</span>
+
+      <p className="text-[9px] font-black tracking-[0.24em] text-purple-300">
+        ВЫБОР ЗАФИКСИРОВАН
+      </p>
+
+      <span className="text-purple-300">✦</span>
+    </div>
+
+    <p
+      className="mt-2 text-sm font-black text-purple-100"
+      style={{ textShadow: '0 0 12px rgba(192,132,252,0.35)' }}
+    >
+      Голос принят
+    </p>
+
+    {state.today.userVote && state.today.userVote.length > 0 && (
+      <div className="mt-3 flex flex-wrap justify-center gap-1.5">
+        {state.today.userVote.map((name) => (
+          <span
+            key={name}
+            className="rounded-lg border border-purple-300/25 bg-purple-400/10 px-2.5 py-1 text-[10px] font-bold text-purple-100"
+          >
+            ✦ {name}
+          </span>
+        ))}
+      </div>
+    )}
+
+    <div className="mx-auto mt-3 h-px w-28 bg-gradient-to-r from-transparent via-purple-400/40 to-transparent" />
+
+    <p className="mt-2 text-[10px] text-ink-muted">
+      Результаты откроются завтра в 08:00
+    </p>
+  </div>
+</div>
           ) : (
             <>
              <div className="mt-3 flex items-center justify-between">
