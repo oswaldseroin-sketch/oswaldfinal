@@ -20,6 +20,12 @@ type YesterdayState = {
   avgRating: number
   totalVotes: number
   userVote: number | null
+  reward?: {
+    result_rewarded: boolean
+    xp_awarded: number
+    title_xp_awarded: number
+    coins_awarded: number
+  } | null
 }
 
 const RATINGS = [0, 1, 2, 3, 4, 5]
