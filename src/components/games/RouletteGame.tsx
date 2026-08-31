@@ -181,6 +181,37 @@ const [roundFinished, setRoundFinished] = useState(false)
           )}
 
           {/* Result */}
+          {gameStarted && !starter && !hasPlayed && (
+  <div className="mb-4 rounded-xl border border-neon/30 bg-neon/5 p-4 text-center">
+    <p className="text-[10px] font-bold tracking-widest text-neon">
+      КТО НАЧИНАЕТ?
+    </p>
+
+    <div className="mt-3 grid grid-cols-2 gap-2.5">
+      <button
+        onClick={() => {
+          setStarter('me')
+          setCurrentTurn('me')
+          setRoundMessage('Твой ход')
+        }}
+        className="rounded-xl border border-neon/40 bg-neon/10 px-3 py-3 text-sm font-extrabold text-ink transition active:scale-95"
+      >
+        {currentUser?.full_name || 'Ты'}
+      </button>
+
+      <button
+        onClick={() => {
+          setStarter('opponent')
+          setCurrentTurn('opponent')
+          setRoundMessage(`${today.opponent_name} начинает`)
+        }}
+        className="rounded-xl border border-amber-400/40 bg-amber-400/10 px-3 py-3 text-sm font-extrabold text-amber-200 transition active:scale-95"
+      >
+        {today.opponent_name}
+      </button>
+    </div>
+  </div>
+)}
           {hasPlayed && !playing && (
             <div className={`mb-4 rounded-xl border p-4 text-center ${today.result === 'win' ? 'border-success/40 bg-success/10' : 'border-error/40 bg-error/10'}`}>
               <div className="flex items-center justify-center gap-2">
