@@ -186,31 +186,78 @@ const handleGamesMenu = () => {
     />
   )
 }
-    if (selectedGame === 3) {
-      return <WouldHeDoItGame onBack={handleBack} onProfileUpdate={() => void handleGameComplete(3)} />
-    }
-    if (selectedGame === 4) {
-      return <PastLifeGame onBack={handleBack} onProfileUpdate={() => void handleGameComplete(4)} />
-    }
-    if (selectedGame === 5) {
-      return <BestDuoGame onBack={handleBack} onProfileUpdate={() => void handleGameComplete(5)} />
-    }
-    if (selectedGame === 6) {
-      return <RatePlayerGame onBack={handleBack} onProfileUpdate={() => void handleGameComplete(6)} />
-    }
-    if (selectedGame === 7) {
-      return <MafiaGame onBack={handleBack} onProfileUpdate={() => void handleGameComplete(7)} />
-    }
-    if (selectedGame === 8) {
-      return <YesNoGame onBack={handleBack} onProfileUpdate={() => void handleGameComplete(8)} />
-    }
-    if (selectedGame === 9) {
-      return <SecretLoveGame onBack={handleBack} onProfileUpdate={() => void handleGameComplete(9)} />
-    }
-    if (selectedGame === 10) {
-      return <RouletteGame onBack={handleBack} onProfileUpdate={() => void handleGameComplete(10)} />
-    }
-  }
+
+if (selectedGame === 3) {
+  return renderGame(
+    <WouldHeDoItGame
+      onBack={handleBack}
+      onProfileUpdate={() => void handleGameComplete(3)}
+    />
+  )
+}
+
+if (selectedGame === 4) {
+  return renderGame(
+    <PastLifeGame
+      onBack={handleBack}
+      onProfileUpdate={() => void handleGameComplete(4)}
+    />
+  )
+}
+
+if (selectedGame === 5) {
+  return renderGame(
+    <BestDuoGame
+      onBack={handleBack}
+      onProfileUpdate={() => void handleGameComplete(5)}
+    />
+  )
+}
+
+if (selectedGame === 6) {
+  return renderGame(
+    <RatePlayerGame
+      onBack={handleBack}
+      onProfileUpdate={() => void handleGameComplete(6)}
+    />
+  )
+}
+
+if (selectedGame === 7) {
+  return renderGame(
+    <MafiaGame
+      onBack={handleBack}
+      onProfileUpdate={() => void handleGameComplete(7)}
+    />
+  )
+}
+
+if (selectedGame === 8) {
+  return renderGame(
+    <YesNoGame
+      onBack={handleBack}
+      onProfileUpdate={() => void handleGameComplete(8)}
+    />
+  )
+}
+
+if (selectedGame === 9) {
+  return renderGame(
+    <SecretLoveGame
+      onBack={handleBack}
+      onProfileUpdate={() => void handleGameComplete(9)}
+    />
+  )
+}
+
+if (selectedGame === 10) {
+  return renderGame(
+    <RouletteGame
+      onBack={handleBack}
+      onProfileUpdate={() => void handleGameComplete(10)}
+    />
+  )
+}
 
   // -- Main panel --
   const levelInfo = profile
