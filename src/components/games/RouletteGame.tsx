@@ -118,13 +118,21 @@ const handleMyShot = async () => {
   return
 }
 
-  setRoundMessage('ЩЁЛК... ПРОМАХ!')
-  await new Promise((r) => setTimeout(r, 1000))
+ setRoundMessage('ЩЁЛК... ПРОМАХ!')
 
-  setShotIndex((prev) => prev + 1)
-  setCurrentTurn('opponent')
-  setRoundMessage(`${today?.opponent_name || 'Противник'} готовится...`)
-  setPlaying(false)
+await new Promise((r) => setTimeout(r, 1200))
+
+setRoundMessage('Ты выжил...')
+
+await new Promise((r) => setTimeout(r, 700))
+
+setShotIndex((prev) => prev + 1)
+setCurrentTurn('opponent')
+setRoundMessage(`ХОД: ${today?.opponent_name || 'Противник'}`)
+
+await new Promise((r) => setTimeout(r, 500))
+
+setPlaying(false)
 }
   const handleOpponentShot = async () => {
   if (currentTurn !== 'opponent' || roundFinished || chamber === null) return
