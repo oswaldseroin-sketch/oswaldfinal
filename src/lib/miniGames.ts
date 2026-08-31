@@ -96,14 +96,14 @@ export type GameInfo = {
 }
 
 export const MINI_GAMES: GameInfo[] = [
-  { number: 1, title: 'Вопрос дня', icon: '🔮', description: 'Ежедневный опрос с наградами' },
-  { number: 2, title: 'Кто из них?', icon: '⚡', description: 'Кто выживет в экстремальной ситуации?' },
-  { number: 3, title: 'Сделал бы?', icon: '🌙', description: 'Сделал бы это за 100 000?' },
-  { number: 4, title: 'Прошлая жизнь', icon: '🔥', description: 'Кто кем был в прошлой жизни?' },
-  { number: 5, title: 'Лучший дуэт', icon: '⭐', description: 'Какая команда лучше?' },
-  { number: 6, title: 'Оцени', icon: '🎭', description: 'Оцени коллегу от 0 до 5' },
-  { number: 7, title: 'Угадай мафию', icon: '🎯', description: 'Найди мафию за 2 попытки' },
-  { number: 8, title: 'Да или Нет', icon: '💫', description: 'Смог бы ты выгулять собаку?' },
-  { number: 9, title: 'Тайная любовь', icon: '🗝️', description: 'Кто тайно в тебя влюблён?' },
-  { number: 10, title: 'Рулетка', icon: '👑', description: '50 на 50 против игрока' },
+  { number: 1, title: 'Оракул дня', icon: '🔮', description: 'Выбор команды на сегодня' },
+  { number: 2, title: 'Дуэль судеб', icon: '⚡', description: 'Кто из двоих окажется сильнее?' },
+  { number: 3, title: 'Цена безумия', icon: '🌙', description: 'На что он согласится ради денег?' },
+  { number: 4, title: 'Архив прошлых жизней', icon: '🔥', description: 'Раскрой тайну чужого прошлого' },
+  { number: 5, title: 'Арена дуэтов', icon: '⭐', description: 'Две команды. Один выбор.' },
+  { number: 6, title: 'Вердикт', icon: '🎭', description: 'Вынеси свою оценку' },
+  { number: 7, title: 'Охота на мафию', icon: '🎯', description: 'Вычисли того, кто скрывается' },
+  { number: 8, title: 'Точка выбора', icon: '💫', description: 'Только Да или Нет' },
+  { number: 9, title: 'Чужие мысли', icon: '🗝️', description: 'Что они думают именно о тебе?' },
+  { number: 10, title: 'Последняя дуэль', icon: '👑', description: 'Один шанс. Один противник.' },
 ]
