@@ -187,7 +187,7 @@ export default function MafiaGame({ onBack, onProfileUpdate }: Props) {
                   return (
                     <button
                       key={player.id}
-                      onClick={() => handleGuess(player.id)}
+                     onClick={() => handleGuess(index)}
                       disabled={today.gameEnded || isEliminated || guessing}
                       className={`flex w-full items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all ${
                         isMafiaRevealed
