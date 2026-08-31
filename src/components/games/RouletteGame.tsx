@@ -667,7 +667,18 @@ className={`relative flex h-16 w-16 items-center justify-center rounded-full bor
   </div>
 </div>
               {today.result === 'win' && (
-                <p className="mt-2 text-sm font-extrabold text-neon" style={{ textShadow: '0 0 10px rgba(0,229,255,0.4)' }}>🥇 +3 XP звания +3🪙</p>
+                <div className="mt-3 flex items-center justify-center gap-2">
+  <span className="h-px w-8 bg-gradient-to-r from-transparent to-amber-400/40" />
+
+  <p
+    className="text-sm font-black tracking-wide text-amber-200"
+    style={{ textShadow: '0 0 14px rgba(251,191,36,0.4)' }}
+  >
+    🥇 +3 XP звания · +3🪙
+  </p>
+
+  <span className="h-px w-8 bg-gradient-to-l from-transparent to-amber-400/40" />
+</div>
               )}
               <p className="mt-1 text-[11px] text-ink-muted">Базовая награда: +2 XP +1🪙</p>
             </div>
