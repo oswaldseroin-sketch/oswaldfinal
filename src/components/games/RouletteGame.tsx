@@ -354,7 +354,21 @@ setPlaying(false)
   </div>
 )}
           {gameStarted && starter && !hasPlayed && (
-  <div className="mb-4 rounded-2xl border border-error/30 bg-black/30 p-4 text-center">
+    <div
+    className={`mb-4 rounded-2xl border p-4 text-center transition-all duration-100 ${
+      shotFlash
+        ? 'scale-[1.02] border-error bg-error/30'
+        : 'border-error/30 bg-black/30'
+    }`}
+    style={
+      shotFlash
+        ? {
+            boxShadow:
+              '0 0 45px rgba(239,68,68,0.75), inset 0 0 40px rgba(239,68,68,0.25)',
+          }
+        : undefined
+    }
+  >
 
     {/* Игроки */}
     <div className="mb-4 grid grid-cols-[1fr_auto_1fr] items-center gap-2">
