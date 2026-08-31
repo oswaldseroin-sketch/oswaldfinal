@@ -313,7 +313,13 @@ setPlaying(false)
       )}
 
       {today && (
-        <div className="rounded-2xl border border-neon/30 bg-card/60 p-4 backdrop-blur-md" style={{ boxShadow: '0 0 18px rgba(0,229,255,0.1)' }}>
+        <div
+  className="rounded-2xl border border-amber-400/25 bg-gradient-to-b from-amber-950/10 via-zinc-950/90 to-red-950/15 p-4 backdrop-blur-md"
+  style={{
+    boxShadow:
+      '0 0 30px rgba(251,191,36,0.08), 0 18px 50px rgba(0,0,0,0.35), inset 0 0 35px rgba(127,29,29,0.05)',
+  }}
+>
           <div className="mb-4 text-center">
             <p className="text-[10px] font-bold tracking-widest text-neon">ТЫ ИГРАЕШЬ ПРОТИВ</p>
             <div className="mt-3 flex items-center justify-center gap-3">
