@@ -66,14 +66,7 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
       const data = await api.getGameState('who_of_them', currentUser.id)
       setState(data)
       const today = (data?.today ?? null) as TodayState | null
-      const day = extractDay(today?.gameDay)
-      if (numericUserId && day) {
-        const stored = getVotedChoice(numericUserId, day)
-        if (stored) {
-          setVotedChoice(stored)
-          setSelected(stored)
-        }
-      }
+   
       if (today?.userVote) {
         setSelected(today.userVote)
         setVotedChoice(today.userVote)
