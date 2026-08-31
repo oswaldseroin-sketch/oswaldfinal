@@ -157,12 +157,14 @@ setPlaying(false)
   await new Promise((r) => setTimeout(r, 1500))
 
  if (isShot) {
-  setGunKick(true)
-  setRoundMessage('💥 ВЫСТРЕЛ!')
+ setGunKick(true)
+setShotFlash(true)
+setRoundMessage('💥 ВЫСТРЕЛ!')
 
-  await new Promise((r) => setTimeout(r, 250))
+await new Promise((r) => setTimeout(r, 180))
 
-  setGunKick(false)
+setGunKick(false)
+setShotFlash(false)
 
   await new Promise((r) => setTimeout(r, 850))
 
