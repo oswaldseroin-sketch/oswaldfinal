@@ -14,6 +14,7 @@ type TodayState = {
 }
 
 type YesterdayState = {
+  opponent_name: string | null
   wins: number
   losses: number
   total: number
