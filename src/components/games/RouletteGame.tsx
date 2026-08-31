@@ -104,6 +104,32 @@ const handleMyShot = async () => {
   setRoundMessage(`${today?.opponent_name || 'Противник'} готовится...`)
   setPlaying(false)
 }
+  const handleOpponentShot = async () => {
+  if (currentTurn !== 'opponent' || roundFinished || chamber === null) return
+
+  const isShot = shotIndex === chamber
+
+  setPlaying(true)
+  setRoundMessage(`${today?.opponent_name || 'Противник'} нажимает на курок...`)
+
+  await new Promise((r) => setTimeout(r, 1500))
+
+  if (isShot) {
+    setRoundMessage(`💥 ВЫСТРЕЛ! ${today?.opponent_name || 'Противник'} погибает`)
+    setRoundFinished(true)
+    setPlaying(false)
+    return
+  }
+
+  setRoundMessage('ЩЁЛК... ПРОМАХ!')
+
+  await new Promise((r) => setTimeout(r, 1200))
+
+  setShotIndex((prev) => prev + 1)
+  setCurrentTurn('me')
+  setRoundMessage('ТВОЯ ОЧЕРЕДЬ')
+  setPlaying(false)
+}
   if (loading) {
     return (
       <div className="mx-auto max-w-md px-5 pb-10 pt-6">
