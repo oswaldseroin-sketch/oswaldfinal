@@ -303,7 +303,28 @@ export default function MiniGamesPanel({ onBack }: Props) {
           </div>
         </button>
    
+<div className="mb-3 mt-1 flex items-end justify-between px-1">
+  <div>
+    <p className="text-[8px] font-black tracking-[0.28em] text-cyan-300/50">
+      АРКАДНЫЙ СЕКТОР
+    </p>
 
+    <p
+      className="mt-0.5 text-sm font-black tracking-wide text-white"
+      style={{
+        textShadow: '0 0 12px rgba(34,211,238,0.20)',
+      }}
+    >
+      10 ИСПЫТАНИЙ
+    </p>
+  </div>
+
+  <div className="rounded-lg border border-white/10 bg-black/30 px-2.5 py-1.5">
+    <span className="text-[9px] font-black tracking-wider text-zinc-400">
+      {Object.values(completedToday).filter(Boolean).length}/10
+    </span>
+  </div>
+</div>
         {/* 10 mini-game cards */}
         <div className="grid grid-cols-2 gap-2.5">
           {MINI_GAMES.map((game) => {
