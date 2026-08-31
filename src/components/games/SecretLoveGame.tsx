@@ -135,11 +135,19 @@ export default function SecretLoveGame({ onBack, onProfileUpdate }: Props) {
                   key={i}
                   onClick={() => !hasAnswered && setSelected(i)}
                   disabled={hasAnswered}
-                  className={`flex w-full items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all ${
-                    hasAnswered
-                      ? isCorrect ? 'border-success/50 bg-success/10' : isWrong ? 'border-error/40 bg-error/10' : isRevealedCorrect ? 'border-success/30 bg-success/5' : 'border-line/20 bg-black/20 opacity-40'
-                      : isSelected ? 'border-accent/60 bg-accent/15 active:scale-95' : 'border-line/40 bg-black/20 hover:border-accent/30 active:scale-95'
-                  }`}
+                 className={`relative flex w-full items-center gap-3 overflow-hidden rounded-xl border px-4 py-3 text-left transition-all duration-200 ${
+  hasAnswered
+    ? isCorrect
+      ? 'scale-[1.02] border-emerald-400/60 bg-emerald-500/10 shadow-[0_0_20px_rgba(52,211,153,0.16)]'
+      : isWrong
+        ? 'border-red-400/35 bg-red-500/10 opacity-60'
+        : isRevealedCorrect
+          ? 'border-emerald-400/35 bg-emerald-500/5'
+          : 'border-white/5 bg-black/20 opacity-30'
+    : isSelected
+      ? 'scale-[1.02] border-indigo-300/70 bg-indigo-500/15 shadow-[0_0_22px_rgba(129,140,248,0.22)] active:scale-95'
+      : 'border-indigo-400/15 bg-slate-950/50 hover:border-indigo-300/40 hover:bg-indigo-500/10 active:scale-[0.98]'
+}`}
                 >
                   <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-xs font-bold ${
                     isCorrect ? 'border-success bg-success/20 text-success' :
