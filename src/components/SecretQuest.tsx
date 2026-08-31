@@ -113,32 +113,7 @@ export default function SecretQuest({ onUnlocked }: { onUnlocked: () => void }) 
 
 
 
-  const breakKey = (): void => {
-    const key = keyRef.current
-    if (!key) return
-    const rect = key.getBoundingClientRect()
-    const cx = rect.left + rect.width / 2
-    const cy = rect.top + rect.height / 2
-    const next = Array.from({ length: 18 }, (_, i) => {
-      const angle = (i / 18) * Math.PI * 2
-      return {
-        x: cx,
-        y: cy,
-        dx: Math.cos(angle) * (55 + Math.random() * 75),
-        dy: Math.sin(angle) * (55 + Math.random() * 75),
-        r: Math.random() * 360,
-      }
-    })
-    setShards(next)
-    setShowRedFlash(true)
-    setPhase('breaking')
-    window.setTimeout(() => {
-      setShards([])
-      setShowRedFlash(false)
-      setAnswers({})
-      resetKey()
-    }, 2000)
-  }
+
 
 const handleKeyClick = (): void => {
   if (!allFilled || phase !== 'idle') return
