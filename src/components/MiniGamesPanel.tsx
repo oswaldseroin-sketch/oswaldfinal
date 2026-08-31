@@ -179,8 +179,8 @@ const renderCompleteNav = () => {
     </div>
   )
 }
-    const renderGame = (game: ReactNode) => (
-  <div className="relative min-h-screen">
+   const renderGame = (game: ReactNode) => (
+  <div className="relative">
     {game}
 
     {renderCompleteNav()}
