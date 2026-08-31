@@ -157,8 +157,21 @@ export default function BestDuoGame({ onBack, onProfileUpdate }: Props) {
   {(isSelected || isChosen) && <Check size={13} />}
 </div>
       </div>
-      <p className="text-sm font-bold text-ink">{players[0]}</p>
-      <p className="text-sm font-bold text-ink">{players[1]}</p>
+     <p
+  className={`text-sm font-extrabold ${
+    teamNum === 1 ? 'text-cyan-100' : 'text-red-100'
+  }`}
+>
+  {players[0]}
+</p>
+
+<p
+  className={`text-sm font-extrabold ${
+    teamNum === 1 ? 'text-cyan-100' : 'text-red-100'
+  }`}
+>
+  {players[1]}
+</p>
       {votes !== undefined && <p className="mt-1.5 text-lg font-extrabold text-amber-200">{votes}</p>}
       {isWinner && <span className="mt-1 inline-block text-xs">🏆</span>}
     </button>
