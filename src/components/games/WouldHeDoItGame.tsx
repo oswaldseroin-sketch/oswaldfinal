@@ -241,7 +241,10 @@ console.log('WOULD HE DO IT TODAY:', today)
           </div>
 
           {hasVoted ? (
-            <div className="mt-4 rounded-xl border border-success/30 bg-success/10 p-3 text-center">
+           <div
+  className="mt-4 rounded-xl border border-emerald-400/30 bg-emerald-500/10 p-3 text-center"
+  style={{ boxShadow: '0 0 16px rgba(16,185,129,0.10)' }}
+>
               <div className="flex items-center justify-center gap-2"><Check size={16} className="text-success" /><p className="text-sm font-extrabold text-success">Ответ учтён!</p></div>
               <p className="mt-1 text-[11px] text-ink-muted">Результаты будут доступны завтра в 08:00</p>
             </div>
