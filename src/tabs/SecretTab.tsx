@@ -388,6 +388,115 @@ useEffect(() => {
     </div>
   </div>
 )}
+      {editingRoomId !== null && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 px-4">
+    <div className="w-full max-w-md rounded-3xl border border-accent/30 bg-[#0b0b12] p-5 shadow-2xl">
+      <h3 className="text-center text-lg font-black uppercase text-white">
+        Настройка комнаты
+      </h3>
+
+      <div className="mt-4 grid grid-cols-5 gap-2">
+        {editingQuestions.map((_, index) => (
+          <button
+            key={index}
+            type="button"
+            onClick={() => setEditingQuestionIndex(index)}
+            className={`h-10 rounded-xl text-xs font-black transition ${
+              editingQuestionIndex === index
+                ? 'border border-accent/50 bg-accent/20 text-accent'
+                : 'border border-white/10 bg-white/5 text-white/40'
+            }`}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
+
+      <input
+        value={editingQuestions[editingQuestionIndex].title}
+        onChange={(e) => {
+          const value = e.target.value
+
+          setEditingQuestions((current) =>
+            current.map((question, index) =>
+              index === editingQuestionIndex
+                ? { ...question, title: value }
+                : question,
+            ),
+          )
+        }}
+        placeholder="Название испытания"
+        className="mt-5 h-14 w-full rounded-2xl border border-white/10 bg-black/50 px-4 text-base font-bold text-white outline-none placeholder:text-white/25 focus:border-accent/50"
+      />
+
+      <input
+        value={editingQuestions[editingQuestionIndex].correctAnswer}
+        onChange={(e) => {
+          const value = e.target.value
+
+          setEditingQuestions((current) =>
+            current.map((question, index) =>
+              index === editingQuestionIndex
+                ? { ...question, correctAnswer: value }
+                : question,
+            ),
+          )
+        }}
+        placeholder="Правильный ответ"
+        className="mt-3 h-14 w-full rounded-2xl border border-white/10 bg-black/50 px-4 text-base font-bold text-white outline-none placeholder:text-white/25 focus:border-accent/50"
+      />
+
+      {saveQuestionsError && (
+        <p className="mt-3 rounded-xl border border-red-500/30 bg-red-500/10 px-3 py-2 text-center text-xs font-bold text-red-400">
+          {saveQuestionsError}
+        </p>
+      )}
+
+      <div className="mt-5 grid grid-cols-2 gap-3">
+        <button
+          type="button"
+          onClick={() => {
+            setEditingRoomId(null)
+            setSaveQuestionsError('')
+          }}
+          className="h-12 rounded-2xl border border-white/10 bg-white/5 text-sm font-black text-white/60"
+        >
+          ЗАКРЫТЬ
+        </button>
+
+        <button
+          type="button"
+          onClick={async () => {
+            if (!currentUser?.name || editingRoomId === null) return
+
+            try {
+              setSaveQuestionsError('')
+
+              await api.saveSecretUserRoomQuestions(
+                editingRoomId,
+                currentUser.name,
+                editingQuestions,
+              )
+
+              setEditingRoomId(null)
+            } catch (error) {
+              console.error('Save secret room questions error:', error)
+
+              setSaveQuestionsError(
+                error instanceof Error
+                  ? error.message
+                  : 'Не удалось сохранить испытания',
+              )
+            }
+          }}
+          className="h-12 rounded-2xl border border-accent/40 bg-accent/15 text-sm font-black text-accent"
+        >
+          СОХРАНИТЬ
+        </button>
+      </div>
+    </div>
+  </div>
+)}
       <p className="mt-5 max-w-[260px] text-center text-xs font-medium leading-relaxed text-ink-muted">
         За дверью скрыто главное испытание Амальгамы
       </p>
