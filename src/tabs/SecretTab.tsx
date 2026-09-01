@@ -97,6 +97,7 @@ useEffect(() => {
     setMyRoom(data.room)
   })
 }, [currentUser?.name, mainDoorOpen])
+  const [insideUserRoom, setInsideUserRoom] = useState(false)
   const [shadowFade, setShadowFade] = useState(false)
   const [shadowDimmed, setShadowDimmed] = useState(false)
 
