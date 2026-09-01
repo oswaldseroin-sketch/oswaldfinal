@@ -175,24 +175,47 @@ console.log('MAFIA PLAYERS:', dailyPlayers)
     </div>
   </div>
 </div>
-          <div className="space-y-1.5">
-            <div className="flex justify-between rounded-lg border border-success/20 bg-success/10 px-3 py-1.5">
-              <span className="text-xs font-bold text-success">Угадали с 1-й попытки</span>
-              <span className="text-xs font-extrabold text-success">{yesterday.firstTry}</span>
-            </div>
-            <div className="flex justify-between rounded-lg border border-neon/20 bg-neon/10 px-3 py-1.5">
-              <span className="text-xs font-bold text-neon">Угадали со 2-й</span>
-              <span className="text-xs font-extrabold text-neon">{yesterday.secondTry}</span>
-            </div>
-            <div className="flex justify-between rounded-lg border border-error/20 bg-error/10 px-3 py-1.5">
-              <span className="text-xs font-bold text-error">Не угадали</span>
-              <span className="text-xs font-extrabold text-error">{yesterday.notGuessed}</span>
-            </div>
-            <div className="flex justify-between rounded-lg border border-line/30 bg-black/20 px-3 py-1.5">
-              <span className="text-xs text-ink-muted">Всего сыграли</span>
-              <span className="text-xs font-bold text-ink">{yesterday.totalPlayed}</span>
-            </div>
-          </div>
+         <div className="grid grid-cols-3 gap-2">
+  <div className="rounded-xl border border-emerald-400/25 bg-emerald-500/10 px-2 py-3 text-center">
+    <p className="text-lg">🎯</p>
+    <p className="mt-1 text-xl font-black text-emerald-300">
+      {yesterday.firstTry}
+    </p>
+    <p className="mt-1 text-[8px] font-black tracking-wide text-emerald-300/70">
+      С 1-Й ПОПЫТКИ
+    </p>
+  </div>
+
+  <div className="rounded-xl border border-cyan-400/25 bg-cyan-500/10 px-2 py-3 text-center">
+    <p className="text-lg">⚡</p>
+    <p className="mt-1 text-xl font-black text-cyan-300">
+      {yesterday.secondTry}
+    </p>
+    <p className="mt-1 text-[8px] font-black tracking-wide text-cyan-300/70">
+      СО 2-Й ПОПЫТКИ
+    </p>
+  </div>
+
+  <div className="rounded-xl border border-red-400/25 bg-red-500/10 px-2 py-3 text-center">
+    <p className="text-lg">☠️</p>
+    <p className="mt-1 text-xl font-black text-red-300">
+      {yesterday.notGuessed}
+    </p>
+    <p className="mt-1 text-[8px] font-black tracking-wide text-red-300/70">
+      НЕ ВЫЧИСЛИЛИ
+    </p>
+  </div>
+
+  <div className="col-span-3 mt-1 flex items-center justify-between rounded-xl border border-white/10 bg-black/25 px-3 py-2">
+    <span className="text-[10px] font-bold tracking-wide text-zinc-500">
+      ВСЕГО УЧАСТНИКОВ
+    </span>
+
+    <span className="text-sm font-black text-zinc-200">
+      {yesterday.totalPlayed}
+    </span>
+  </div>
+</div>
       </>
 )}
         </div>
