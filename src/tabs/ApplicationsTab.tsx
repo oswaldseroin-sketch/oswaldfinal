@@ -294,7 +294,7 @@ const handleUpdateDate = async (): Promise<void> => {
   <div className="mt-3 rounded-lg border border-green-500/40 bg-green-500/10 px-3 py-2 text-center text-sm font-extrabold text-green-400">
     ✓ УСПЕШНО ДОБАВЛЕН
   </div>
-)}                <button onClick={() => void submitPerson()} disabled={!pName.trim() || !pOrg.trim() || !pDate.trim()} className="mt-4 h-11 w-full rounded-lg bg-neon text-sm font-extrabold text-bg transition-transform active:scale-95 disabled:opacity-40">ДОБАВИТЬ</button>
+)}                <button onClick={() => void submitPerson()} disabled={!pName.trim() || !pOrg.trim() || !pDate.trim()} className="mt-5 h-14 w-full rounded-xl bg-neon text-base font-extrabold text-bg transition-transform active:scale-95 disabled:opacity-40">ДОБАВИТЬ</button>
                 <button onClick={() => setPanelMode('delete')} className="mt-2 flex h-11 w-full items-center justify-center gap-2 rounded-lg border border-error/40 bg-error/10 text-sm font-extrabold text-error transition-transform active:scale-95">
                   <Trash2 size={15} /> УДАЛИТЬ СОТРУДНИКА ИЗ БАЗЫ
                 </button>
