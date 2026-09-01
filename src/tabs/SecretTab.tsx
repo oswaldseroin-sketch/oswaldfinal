@@ -560,7 +560,15 @@ setUserRooms(freshRooms)
           key={slotNumber}
           type="button"
           onClick={() => setShowCreateRoom(true)}
-          className="flex min-h-[120px] flex-col items-center justify-center rounded-2xl border border-dashed border-white/15 bg-black/30 px-3 text-center text-white/35"
+          className={`absolute flex min-h-[145px] w-[118px] flex-col items-center justify-center rounded-2xl border border-dashed border-white/15 bg-black/40 px-2 text-center text-white/35 ${
+  slotNumber === 1
+    ? 'left-1/2 top-[105px] -translate-x-1/2'
+    : slotNumber === 2
+      ? 'left-0 top-[405px]'
+      : slotNumber === 3
+        ? 'right-0 top-[405px]'
+        : 'left-1/2 top-[700px] -translate-x-1/2'
+}`}
         >
           <span className="text-3xl">🚪</span>
           <span className="mt-2 text-xs font-black uppercase tracking-wider">
