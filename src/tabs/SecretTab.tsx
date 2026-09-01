@@ -790,7 +790,11 @@ onOpenChange={setAnswerDropdownOpen}
                 currentUser.name,
                 editingQuestions,
               )
-
+await api.updateSecretUserRoomMessage(
+  editingRoomId,
+  currentUser.name,
+  roomMessage,
+)
               setEditingRoomId(null)
             } catch (error) {
               console.error('Save secret room questions error:', error)
