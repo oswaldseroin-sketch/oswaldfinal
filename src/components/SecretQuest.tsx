@@ -106,8 +106,22 @@ export default function SecretQuest({ onUnlocked }: { onUnlocked: () => void }) 
   }, [])
 
   const updateAnswer = (id: string, value: string): void => {
-    setAnswers((current) => ({ ...current, [id]: value }))
-  }
+  setAnswers((current) => {
+    const next = { ...current, [id]: value }
+
+    const nowAllFilled = nominations.every(
+      (nomination) => Boolean(next[nomination.id]),
+    )
+
+    if (nowAllFilled) {
+      window.setTimeout(() => {
+        setShowEnterConfirm(true)
+      }, 100)
+    }
+
+    return next
+  })
+}
 
   const isCorrect = (): boolean =>
     nominations.every((nomination) => answers[nomination.id] === nomination.correct)
