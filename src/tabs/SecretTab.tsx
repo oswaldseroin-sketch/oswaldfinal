@@ -52,6 +52,7 @@ const [newRoomName, setNewRoomName] = useState('')
 
 const [editingQuestionIndex, setEditingQuestionIndex] = useState(0)
 const [saveQuestionsError, setSaveQuestionsError] = useState('')
+  const [answerDropdownOpen, setAnswerDropdownOpen] = useState(false)
 useEffect(() => {
   void Promise.all([
     api.getSecretAttempts(),
