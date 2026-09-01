@@ -134,13 +134,17 @@ const handleKeyClick = (): void => {
   if (!allFilled || phase !== 'idle') return
 
 
-  if (isCorrect()) {
-    setPhase('success')
-    setItem(questKey, true)
+ if (isCorrect()) {
+  setPhase('success')
+  setItem(questKey, true)
 
-    window.setTimeout(() => {
-      onUnlocked()
-    }, 3000)
+  if (currentUser?.name) {
+    void api.addSecretRoomEntry(currentUser.name)
+  }
+
+  window.setTimeout(() => {
+    onUnlocked()
+  }, 3000)
   } else {
     setPhase('breaking')
 void api.incrementSecretAttempts().then((data) => {
