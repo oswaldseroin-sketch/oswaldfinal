@@ -98,6 +98,10 @@ useEffect(() => {
   })
 }, [currentUser?.name, mainDoorOpen])
   const [insideUserRoom, setInsideUserRoom] = useState(false)
+  const [userRoomEntries, setUserRoomEntries] = useState<Array<{
+  id: number
+  full_name: string
+}>>([])
   const [shadowFade, setShadowFade] = useState(false)
   const [shadowDimmed, setShadowDimmed] = useState(false)
 
