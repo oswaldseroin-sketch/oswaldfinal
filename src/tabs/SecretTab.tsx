@@ -736,88 +736,75 @@ slotNumber === 1
         <div
   className={`pointer-events-none absolute inset-2 rounded-t-[44px] rounded-b-xl border opacity-35 ${doorTheme.border}`}
 />
-       <div className="relative z-10 text-center">
-  <div
-    className={`mx-auto flex h-9 w-9 items-center justify-center rounded-full border text-lg ${doorTheme.border} ${doorTheme.text}`}
-    style={{ boxShadow: doorTheme.glow }}
-  >
-    {doorTheme.icon}
-  </div>
+      <div
+  className={`absolute inset-2 rounded-t-[44px] rounded-b-xl border opacity-40 ${doorTheme.border}`}
+/>
 
-  <p
-    className={`mt-3 text-[11px] font-black uppercase leading-tight tracking-[0.1em] ${doorTheme.text}`}
-  >
-    {room.room_name}
-  </p>
-
-  {myRoom?.id === room.id && (
-    <div
-      role="button"
-      tabIndex={0}
-      onClick={async (e) => {
-        e.stopPropagation()
-
-        try {
-          const data = await api.getSecretUserRoomQuestionsOwner(
-            room.id,
-            currentUser.name,
-          )
-
-          setRoomMessage(data.roomMessage ?? '')
-
-          setEditingQuestions(
-            Array.from({ length: 5 }, (_, index) => {
-              const saved = data.questions.find(
-                (question) => question.slot_number === index + 1,
-              )
-
-              return {
-                title: saved?.title ?? '',
-                correctAnswer: saved?.correct_answer ?? '',
-              }
-            }),
-          )
-
-          setEditingQuestionIndex(0)
-          setAnswerDropdownOpen(false)
-          setSaveQuestionsError('')
-          setEditingRoomId(room.id)
-        } catch (error) {
-          console.error('Load room questions error:', error)
-        }
-      }}
-      className={`mt-3 cursor-pointer rounded-lg border px-2 py-2 text-[8px] font-black uppercase tracking-wider transition active:scale-95 ${doorTheme.border} ${doorTheme.bg} ${doorTheme.text}`}
-    >
-      НАСТРОИТЬ
-    </div>
-  )}
+<div
+  className={`relative z-10 flex h-9 w-9 items-center justify-center rounded-full border text-lg ${doorTheme.border} ${doorTheme.text}`}
+>
+  {doorTheme.icon}
 </div>
 
-        <div className="relative z-10 mt-4 grid grid-cols-2 gap-2">
-  <div
-    className={`rounded-xl border bg-black/45 px-2 py-2 text-center ${doorTheme.border}`}
-  >
-    <p className="text-[8px] font-black uppercase tracking-wider text-white/30">
-      Попытки
-    </p>
+<p
+  className={`relative z-10 mt-2 text-[9px] font-black uppercase leading-tight tracking-[0.08em] ${doorTheme.text}`}
+>
+  {room.room_name}
+</p>
 
-    <p className={`mt-1 text-xs font-black ${doorTheme.text}`}>
-      🗝️ {room.attempts}
-    </p>
-  </div>
+<div className="relative z-10 mt-2 flex items-center gap-2">
+  <span className="text-[8px] font-black text-white/30">
+    🗝️ {room.attempts}
+  </span>
 
-  <div
-    className={`rounded-xl border bg-black/45 px-2 py-2 text-center ${doorTheme.border}`}
-  >
-    <p className="text-[8px] font-black uppercase tracking-wider text-white/30">
-      Вошло
-    </p>
-
-    <p className={`mt-1 text-xs font-black ${doorTheme.text}`}>
-      🚪 {room.entered}
-    </p>
-  </div>
+  <span className="text-[8px] font-black text-white/30">
+    🚪 {room.entered}
+  </span>
 </div>
+
+{myRoom?.id === room.id && (
+  <div
+    role="button"
+    tabIndex={0}
+    onClick={async (e) => {
+      e.stopPropagation()
+
+      try {
+        const data = await api.getSecretUserRoomQuestionsOwner(
+          room.id,
+          currentUser.name,
+        )
+
+        setRoomMessage(data.roomMessage ?? '')
+
+        setEditingQuestions(
+          Array.from({ length: 5 }, (_, index) => {
+            const saved = data.questions.find(
+              (question) => question.slot_number === index + 1,
+            )
+
+            return {
+              title: saved?.title ?? '',
+              correctAnswer: saved?.correct_answer ?? '',
+            }
+          }),
+        )
+
+        setEditingQuestionIndex(0)
+        setAnswerDropdownOpen(false)
+        setSaveQuestionsError('')
+        setEditingRoomId(room.id)
+      } catch (error) {
+        console.error('Load room questions error:', error)
+      }
+    }}
+    className={`relative z-10 mt-2 cursor-pointer text-[6px] font-black uppercase tracking-wider ${doorTheme.text}`}
+  >
+    НАСТРОИТЬ
+  </div>
+)}
+
+<div className={`absolute bottom-0 left-0 right-0 h-px ${doorTheme.bg}`} />
          
         
       </button>
