@@ -43,6 +43,11 @@ export default function YesNoGame({ onBack, onProfileUpdate }: Props) {
       const data = await api.getGameState('yes_no', currentUser.id)
       setState(data)
       const today = (data?.today ?? null) as TodayState | null
+
+if (today?.selfQuestion) {
+  onProfileUpdate()
+}
+      const today = (data?.today ?? null) as TodayState | null
       if (today?.userVote) setSelected(today.userVote)
       const yesterday = (data?.yesterday ?? null) as YesterdayState | null
       if (yesterday?.reward?.result_rewarded) setResultsClaimed(true)
