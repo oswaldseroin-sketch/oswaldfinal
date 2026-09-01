@@ -42,6 +42,11 @@ useEffect(() => {
     setDoorEntries(entriesData.count)
   })
 }, [mainDoorOpen])
+  useEffect(() => {
+  void api.getSecretUserRooms().then((rooms) => {
+    setUserRooms(rooms)
+  })
+}, [mainDoorOpen])
   const [shadowFade, setShadowFade] = useState(false)
   const [shadowDimmed, setShadowDimmed] = useState(false)
 
