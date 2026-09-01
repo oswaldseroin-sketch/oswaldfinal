@@ -730,7 +730,31 @@ setEnteringRoom({
   )}
 </div>
 
-        <div className="mt-4 grid grid-cols-2 gap-2">
+        <div className="relative z-10 mt-4 grid grid-cols-2 gap-2">
+  <div
+    className={`rounded-xl border bg-black/45 px-2 py-2 text-center ${doorTheme.border}`}
+  >
+    <p className="text-[8px] font-black uppercase tracking-wider text-white/30">
+      Попытки
+    </p>
+
+    <p className={`mt-1 text-xs font-black ${doorTheme.text}`}>
+      🗝️ {room.attempts}
+    </p>
+  </div>
+
+  <div
+    className={`rounded-xl border bg-black/45 px-2 py-2 text-center ${doorTheme.border}`}
+  >
+    <p className="text-[8px] font-black uppercase tracking-wider text-white/30">
+      Вошло
+    </p>
+
+    <p className={`mt-1 text-xs font-black ${doorTheme.text}`}>
+      🚪 {room.entered}
+    </p>
+  </div>
+</div>
           <div className="rounded-xl bg-black/40 px-2 py-2 text-center">
             <p className="text-[9px] uppercase tracking-wider text-white/35">
               Попытки
