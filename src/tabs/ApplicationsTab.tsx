@@ -196,50 +196,77 @@ const handleUpdateDate = async (): Promise<void> => {
 
       {error && <p className="mb-3 text-xs text-error">{error}</p>}
 <div className="min-h-[120px]">
-     {loading ? null
-      ) : showEmpty ? (
-        <div className="flex flex-col items-center px-6 py-16">
-          <ShieldCheck size={34} color="#5a6172" />
-          <p className="mt-4 text-base font-bold text-ink">Ничего не найдено</p>
-          <p className="mt-2 text-center text-xs text-ink-muted">Попробуйте фамилию, организацию или госномер</p>
-        </div>
-      ) : showResults ? (
-        <div className="space-y-3 pb-4">
-          {filtered.map((employee) => {
-            const expired = isExpired(employee.access_date)
-            const isVehicle = employee.record_type === 'vehicle'
-            return (
-              <button
-                key={employee.id}
-                onClick={() => { setSelected(employee); setDeleteConfirm(false) }}
-                className={`w-full rounded-2xl border p-4 text-left transition-all ${
+  {loading ? null : showEmpty ? (
+    <div className="flex flex-col items-center px-6 py-16">
+      <ShieldCheck size={34} color="#5a6172" />
+      <p className="mt-4 text-base font-bold text-ink">Ничего не найдено</p>
+      <p className="mt-2 text-center text-xs text-ink-muted">
+        Попробуйте фамилию, организацию или госномер
+      </p>
+    </div>
+  ) : showResults ? (
+    <div className="space-y-3 pb-4">
+      {filtered.map((employee) => {
+        const expired = isExpired(employee.access_date)
+        const isVehicle = employee.record_type === 'vehicle'
+
+        return (
+          <button
+            key={employee.id}
+            onClick={() => {
+              setSelected(employee)
+              setDeleteConfirm(false)
+            }}
+            className={`w-full rounded-2xl border p-4 text-left transition-all ${
+              expired
+                ? 'border-error/60 bg-error/5 shadow-[0_0_18px_rgba(255,61,90,0.14)]'
+                : 'border-success/40 bg-success/5 shadow-[0_0_18px_rgba(34,255,136,0.1)]'
+            }`}
+          >
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <p className="break-words text-base font-extrabold text-ink">
+                  {employee.full_name}
+                </p>
+                <p className="mt-1 text-xs text-ink-muted">
+                  {employee.organization}
+                </p>
+
+                {isVehicle && employee.vehicle_type && (
+                  <p className="mt-0.5 text-xs text-ink-muted">
+                    {employee.vehicle_type}
+                  </p>
+                )}
+              </div>
+
+              <span
+                className={`shrink-0 rounded-full border px-2 py-1 text-[8px] font-extrabold tracking-wide ${
                   expired
-                    ? 'border-error/60 bg-error/5 shadow-[0_0_18px_rgba(255,61,90,0.14)]'
-                    : 'border-success/40 bg-success/5 shadow-[0_0_18px_rgba(34,255,136,0.1)]'
+                    ? 'border-error/50 text-error'
+                    : 'border-success/50 text-success'
                 }`}
               >
-                <div className="flex items-start justify-between gap-3">
-                  <div className="min-w-0">
-                    <p className="break-words text-base font-extrabold text-ink">{employee.full_name}</p>
-                    <p className="mt-1 text-xs text-ink-muted">{employee.organization}</p>
-                    {isVehicle && employee.vehicle_type && (
-                      <p className="mt-0.5 text-xs text-ink-muted">{employee.vehicle_type}</p>
-                    )}
-                  </div>
-                  <span className={`shrink-0 rounded-full border px-2 py-1 text-[8px] font-extrabold tracking-wide ${expired ? 'border-error/50 text-error' : 'border-success/50 text-success'}`}>
-                    {expired ? 'ПРОСРОЧЕН' : 'АКТИВЕН'}
-                  </span>
-                </div>
-                <div className="mt-4 border-t border-white/5 pt-3">
-                  <p className="text-[10px] tracking-wide text-ink-muted">
-                    СРОК ДОПУСКА: <span className={expired ? 'font-bold text-error' : 'font-bold text-success'}>{formatDate(employee.access_date)}</span>
-                  </p>
-                </div>
-              </button>
-            )
-          })}
-        </div>
-      ) : null}
+                {expired ? 'ПРОСРОЧЕН' : 'АКТИВЕН'}
+              </span>
+            </div>
+
+            <div className="mt-4 border-t border-white/5 pt-3">
+              <p className="text-[10px] tracking-wide text-ink-muted">
+                СРОК ДОПУСКА:{' '}
+                <span
+                  className={
+                    expired ? 'font-bold text-error' : 'font-bold text-success'
+                  }
+                >
+                  {formatDate(employee.access_date)}
+                </span>
+              </p>
+            </div>
+          </button>
+        )
+      })}
+    </div>
+  ) : null}
 </div>
       {/* Floating + button */}
      <button
