@@ -158,7 +158,11 @@ export default function BestDuoGame({ onBack, onProfileUpdate }: Props) {
         : 'border-red-500/30 bg-red-950/20'
   }`}
 >
-  {(isSelected || isChosen) && <Check size={13} />}
+  {isChosen ? (
+  <span className="text-[8px] font-black tracking-tight">ВЫ</span>
+) : isSelected ? (
+  <Check size={13} />
+) : null}
 </div>
       </div>
      <p
