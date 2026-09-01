@@ -54,6 +54,11 @@ export default function YesNoGame({ onBack, onProfileUpdate }: Props) {
   }, [currentUser])
 
   useEffect(() => { void loadState() }, [loadState])
+  useEffect(() => {
+  if (today?.selfQuestion) {
+    onProfileUpdate()
+  }
+}, [today?.selfQuestion, onProfileUpdate])
 
   const handleVote = async () => {
     if (!currentUser || !selected) return
