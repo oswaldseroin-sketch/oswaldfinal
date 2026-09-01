@@ -438,6 +438,7 @@ setUserRooms(freshRooms)
   : '🗝️ ПОПЫТАТЬСЯ ВОЙТИ'}
   </button>
 </div>
+      )}
       {roomAttemptResult === 'wrong' && (
   <div className="mt-5 rounded-2xl border border-red-500/40 bg-red-500/10 p-4 text-center">
     <p className="text-2xl">🔒</p>
