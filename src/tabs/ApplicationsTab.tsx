@@ -117,7 +117,23 @@ if (ok) {
   setTimeout(() => setAddSuccess(false), 2000)
 }
   }
+const handleUpdateDate = async (): Promise<void> => {
+  if (!selected) return
 
+  const date = parseDate(editDate)
+  if (!date) return
+
+  const ok = await updateEmployeeDate(selected.id, date)
+
+  if (ok) {
+    setSelected({
+      ...selected,
+      access_date: date,
+    })
+    setEditingDate(false)
+    setEditDate('')
+  }
+}
   const handleDelete = async (): Promise<void> => {
     if (!selected) return
     await deleteEmployee(selected.id)
