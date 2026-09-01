@@ -288,7 +288,10 @@ useEffect(() => {
   e.stopPropagation()
 
   try {
-    const data = await api.getSecretUserRoomQuestions(room.id)
+    const data = await api.getSecretUserRoomQuestionsOwner(
+      room.id,
+      currentUser.name,
+    )
 
     setEditingQuestions(
       Array.from({ length: 5 }, (_, index) => {
@@ -298,16 +301,17 @@ useEffect(() => {
 
         return {
           title: saved?.title ?? '',
-          correctAnswer: '',
+          correctAnswer: saved?.correct_answer ?? '',
         }
       }),
     )
 
     setEditingQuestionIndex(0)
+    setAnswerDropdownOpen(false)
+    setSaveQuestionsError('')
     setEditingRoomId(room.id)
   } catch (error) {
-    console.error('Load secret room questions error:', error)
-    setEditingRoomId(room.id)
+    console.error('Load room questions error:', error)
   }
 }}
     className="mt-3 cursor-pointer rounded-xl border border-accent/30 bg-accent/10 px-3 py-2 text-center text-[10px] font-black uppercase tracking-wider text-accent transition active:scale-95"
