@@ -673,52 +673,62 @@ setEnteringRoom({
         <div
   className={`pointer-events-none absolute inset-2 rounded-t-[44px] rounded-b-xl border opacity-35 ${doorTheme.border}`}
 />
-        <div className="text-center">
-          <div className="text-3xl">🚪</div>
-
-          <p className="mt-2 text-sm font-black text-white">
-            {room.room_name}
-          </p>
-          {myRoom?.id === room.id && (
+       <div className="relative z-10 text-center">
   <div
-    role="button"
-    tabIndex={0}
-    onClick={async (e) => {
-  e.stopPropagation()
-
-  try {
-    const data = await api.getSecretUserRoomQuestionsOwner(
-      room.id,
-      currentUser.name,
-    )
-setRoomMessage(data.roomMessage ?? '')
-    setEditingQuestions(
-      Array.from({ length: 5 }, (_, index) => {
-        const saved = data.questions.find(
-          (question) => question.slot_number === index + 1,
-        )
-
-        return {
-          title: saved?.title ?? '',
-          correctAnswer: saved?.correct_answer ?? '',
-        }
-      }),
-    )
-
-    setEditingQuestionIndex(0)
-    setAnswerDropdownOpen(false)
-    setSaveQuestionsError('')
-    setEditingRoomId(room.id)
-  } catch (error) {
-    console.error('Load room questions error:', error)
-  }
-}}
-    className="mt-3 cursor-pointer rounded-xl border border-accent/30 bg-accent/10 px-3 py-2 text-center text-[10px] font-black uppercase tracking-wider text-accent transition active:scale-95"
+    className={`mx-auto flex h-12 w-12 items-center justify-center rounded-full border text-2xl ${doorTheme.border} ${doorTheme.text}`}
+    style={{ boxShadow: doorTheme.glow }}
   >
-    НАСТРОИТЬ КОМНАТУ
+    {doorTheme.icon}
   </div>
-)}
-        </div>
+
+  <p
+    className={`mt-3 text-[11px] font-black uppercase leading-tight tracking-[0.1em] ${doorTheme.text}`}
+  >
+    {room.room_name}
+  </p>
+
+  {myRoom?.id === room.id && (
+    <div
+      role="button"
+      tabIndex={0}
+      onClick={async (e) => {
+        e.stopPropagation()
+
+        try {
+          const data = await api.getSecretUserRoomQuestionsOwner(
+            room.id,
+            currentUser.name,
+          )
+
+          setRoomMessage(data.roomMessage ?? '')
+
+          setEditingQuestions(
+            Array.from({ length: 5 }, (_, index) => {
+              const saved = data.questions.find(
+                (question) => question.slot_number === index + 1,
+              )
+
+              return {
+                title: saved?.title ?? '',
+                correctAnswer: saved?.correct_answer ?? '',
+              }
+            }),
+          )
+
+          setEditingQuestionIndex(0)
+          setAnswerDropdownOpen(false)
+          setSaveQuestionsError('')
+          setEditingRoomId(room.id)
+        } catch (error) {
+          console.error('Load room questions error:', error)
+        }
+      }}
+      className={`mt-3 cursor-pointer rounded-lg border px-2 py-2 text-[8px] font-black uppercase tracking-wider transition active:scale-95 ${doorTheme.border} ${doorTheme.bg} ${doorTheme.text}`}
+    >
+      НАСТРОИТЬ
+    </div>
+  )}
+</div>
 
         <div className="mt-4 grid grid-cols-2 gap-2">
           <div className="rounded-xl bg-black/40 px-2 py-2 text-center">
