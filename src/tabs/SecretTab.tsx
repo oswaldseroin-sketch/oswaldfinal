@@ -292,6 +292,24 @@ useEffect(() => {
       <button
         key={room.id}
         type="button"
+        onClick={async () => {
+  try {
+    const data = await api.getSecretUserRoomPublicQuestions(room.id)
+
+    setEnteringRoom({
+      id: room.id,
+      roomName: data.roomName,
+      questions: data.questions,
+    })
+
+    setRoomAnswers(Array.from({ length: 5 }, () => ''))
+    setRoomQuestionIndex(0)
+    setRoomAttemptResult(null)
+    setRoomAnswerDropdownOpen(false)
+  } catch (error) {
+    console.error('Open secret user room error:', error)
+  }
+}}
         className="rounded-2xl border border-accent/25 bg-black/55 p-4 text-left transition hover:border-accent/50"
       >
         <div className="text-center">
