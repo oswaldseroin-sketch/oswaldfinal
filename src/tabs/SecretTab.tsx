@@ -682,9 +682,9 @@ const doorTheme =
     slotNumber === 1
   ? 'left-1/2 top-[90px] -translate-x-1/2'
   : slotNumber === 2
-    ? '-left-[72px] top-[440px]'
-    : slotNumber === 3
-      ? '-right-[72px] top-[440px]'
+  ? '-left-[18px] top-[440px]'
+  : slotNumber === 3
+    ? '-right-[18px] top-[440px]'
       : 'left-1/2 top-[860px] -translate-x-1/2'
   }`}
   style={{
