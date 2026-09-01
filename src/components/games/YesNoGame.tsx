@@ -244,12 +244,33 @@ if (today?.selfQuestion) {
             </button>
           )}
 
-          {claimResult && claimResult.totalTitleXp! > 0 && (
-            <div className="mt-3 rounded-lg border border-neon/30 bg-neon/10 p-3 text-center">
-              <p className="text-xs font-bold text-neon">Награда получена!</p>
-              <p className="mt-1 text-sm font-extrabold text-neon" style={{ textShadow: '0 0 10px rgba(0,229,255,0.4)' }}>🥈 +{claimResult.totalTitleXp} XP звания +{claimResult.totalCoins}🪙</p>
-            </div>
-          )}
+         {claimResult && (
+  <div className="mt-3 rounded-xl border border-amber-300/30 bg-gradient-to-br from-amber-500/10 via-black/20 to-emerald-500/10 p-3 text-center">
+    <p className="text-[10px] font-black tracking-[0.18em] text-amber-300">
+      🏆 НАГРАДА ПОЛУЧЕНА
+    </p>
+
+    <div className="mt-2 flex items-center justify-center gap-3 text-sm font-black">
+      {claimResult.totalXp! > 0 && (
+        <span className="text-cyan-300">
+          +{claimResult.totalXp} XP
+        </span>
+      )}
+
+      {claimResult.totalTitleXp! > 0 && (
+        <span className="text-violet-300">
+          +{claimResult.totalTitleXp} XP звания
+        </span>
+      )}
+
+      {claimResult.totalCoins! > 0 && (
+        <span className="text-amber-300">
+          +{claimResult.totalCoins} 🪙
+        </span>
+      )}
+    </div>
+  </div>
+)}
         {resultsClaimed && yesterday.reward && (
   <div className="mt-3 rounded-lg border border-neon/20 bg-neon/5 p-2.5 text-center">
     <p className="text-[11px] font-bold text-neon/70">
