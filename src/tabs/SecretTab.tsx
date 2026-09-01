@@ -536,7 +536,7 @@ setUserRooms(freshRooms)
       }}
     >
       <DoorOpen
-        size={54}
+        size={46}
         className="text-accent transition-transform duration-300 group-hover:scale-110"
         style={{
           filter: 'drop-shadow(0 0 15px rgba(255,43,214,0.9))',
