@@ -22,6 +22,7 @@ const [questUnlocked, setQuestUnlocked] = useState(() =>
   getItem<boolean>(questKey, false)
 )
   const [innerView, setInnerView] = useState<InnerView>('main')
+  const [mainDoorOpen, setMainDoorOpen] = useState(false)
   const [shadowFade, setShadowFade] = useState(false)
   const [shadowDimmed, setShadowDimmed] = useState(false)
 
