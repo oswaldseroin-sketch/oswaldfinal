@@ -27,6 +27,7 @@ type AppContextValue = {
   unlock: (password: string) => boolean
   lock: () => void
   addEmployee: (data: Omit<Employee, 'id' | 'created_at'>) => Promise<boolean>
+  updateEmployeeDate: (id: string, access_date: string) => Promise<boolean>
   deleteEmployee: (id: string) => Promise<boolean>
   addWorker: (name: string, gender: Worker['gender']) => Promise<boolean>
   removeWorker: (name: string) => Promise<boolean>
