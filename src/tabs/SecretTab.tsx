@@ -125,8 +125,56 @@ const [questUnlocked, setQuestUnlocked] = useState(() =>
       </div>
 
       {!questUnlocked ? (
-        <SecretQuest onUnlocked={unlockQuest} />
-      ) : (
+  !mainDoorOpen ? (
+    <div className="mt-6 flex flex-col items-center">
+      <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-accent/70">
+        СЕКРЕТНЫЕ КОМНАТЫ
+      </p>
+
+      <h2
+        className="mt-2 text-center text-2xl font-black uppercase text-white"
+        style={{
+          textShadow:
+            '0 0 14px rgba(255,43,214,0.55), 0 0 28px rgba(255,43,214,0.2)',
+        }}
+      >
+        ГЛАВНАЯ ДВЕРЬ
+        <br />
+        АМАЛЬГАМЫ
+      </h2>
+
+      <button
+        type="button"
+        onClick={() => setMainDoorOpen(true)}
+        className="group relative mt-8 flex h-64 w-44 items-center justify-center overflow-hidden rounded-t-[80px] rounded-b-2xl border-2 border-accent/60 bg-black/80 transition-all duration-300 active:scale-95"
+        style={{
+          boxShadow:
+            '0 0 25px rgba(255,43,214,0.25), inset 0 0 35px rgba(255,43,214,0.12)',
+        }}
+      >
+        <div className="absolute inset-3 rounded-t-[68px] rounded-b-xl border border-accent/25" />
+
+        <DoorOpen
+          size={58}
+          className="relative z-10 text-accent transition-transform duration-300 group-hover:scale-110"
+          style={{
+            filter: 'drop-shadow(0 0 12px rgba(255,43,214,0.8))',
+          }}
+        />
+
+        <span className="absolute bottom-5 text-[10px] font-black uppercase tracking-[0.22em] text-accent/80">
+          ВОЙТИ
+        </span>
+      </button>
+
+      <p className="mt-5 max-w-[260px] text-center text-xs font-medium leading-relaxed text-ink-muted">
+        За дверью скрыто главное испытание Амальгамы
+      </p>
+    </div>
+  ) : (
+    <SecretQuest onUnlocked={unlockQuest} />
+  )
+) : (
         <>
           <div className="mb-4 flex flex-col items-center">
             <img
