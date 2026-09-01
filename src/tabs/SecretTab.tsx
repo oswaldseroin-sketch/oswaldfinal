@@ -104,6 +104,10 @@ useEffect(() => {
 const [adminPasswordOpen, setAdminPasswordOpen] = useState(false)
 const [adminPassword, setAdminPassword] = useState('')
 const [adminPasswordError, setAdminPasswordError] = useState('')
+  const [roomToDelete, setRoomToDelete] = useState<{
+  id: number
+  room_name: string
+} | null>(null)
   const [userRoomEntries, setUserRoomEntries] = useState<Array<{
   id: number
   full_name: string
