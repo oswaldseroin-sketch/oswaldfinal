@@ -556,7 +556,7 @@ setUserRooms(freshRooms)
 </p>
 
     <p
-      className="mt-2 text-center text-sm font-black uppercase tracking-[0.15em] text-white"
+      className="mt-1 text-center text-[12px] font-black uppercase leading-tight tracking-[0.08em] text-white"
       style={{
         textShadow: '0 0 14px rgba(255,43,214,0.6)',
       }}
