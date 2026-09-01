@@ -184,6 +184,49 @@ useEffect(() => {
       </>
     )
   }
+  if (insideUserRoom && enteringRoom) {
+  return (
+    <div className="mx-auto min-h-screen max-w-md px-4 pb-32 pt-6">
+      <button
+        type="button"
+        onClick={() => {
+          setInsideUserRoom(false)
+          setEnteringRoom(null)
+          setRoomAttemptResult(null)
+          setRoomAnswerDropdownOpen(false)
+        }}
+        className="mb-6 text-sm font-bold text-accent"
+      >
+        ← Покинуть комнату
+      </button>
+
+      <div className="mt-16 text-center">
+        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-accent/60">
+          ТЫ ВОШЁЛ
+        </p>
+
+        <h2
+          className="mt-3 text-3xl font-black text-white"
+          style={{
+            textShadow: '0 0 20px rgba(255,43,214,0.55)',
+          }}
+        >
+          {enteringRoom.roomName}
+        </h2>
+
+        <div className="mx-auto mt-8 flex h-24 w-24 items-center justify-center rounded-full border border-accent/30 bg-accent/10 text-5xl">
+          🚪
+        </div>
+
+        <p className="mt-7 text-sm font-bold leading-relaxed text-white/50">
+          Ты разгадал все 5 испытаний
+          <br />
+          и получил доступ в эту комнату.
+        </p>
+      </div>
+    </div>
+  )
+}
 if (enteringRoom) {
   const currentQuestion = enteringRoom.questions[roomQuestionIndex]
 
