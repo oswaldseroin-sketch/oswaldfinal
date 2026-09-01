@@ -670,6 +670,9 @@ setEnteringRoom({
         : 'left-1/2 top-[820px] -translate-x-1/2'
 }`}
       >
+        <div
+  className={`pointer-events-none absolute inset-2 rounded-t-[44px] rounded-b-xl border opacity-35 ${doorTheme.border}`}
+/>
         <div className="text-center">
           <div className="text-3xl">🚪</div>
 
