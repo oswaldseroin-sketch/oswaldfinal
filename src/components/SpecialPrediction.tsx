@@ -323,9 +323,10 @@ const personalizedText = useMemo(() => {
       : 'hover:scale-110 active:scale-90'
 }`}
                   style={{
-                    left: '50%',
+                   left: '50%',
 top: '50%',
-transform: `translate(-50%, -50%) rotate(${(SYMBOLS.indexOf(symbol) / SYMBOLS.length) * 360}deg) translateX(34%)`,
+['--start-angle' as string]: `${(SYMBOLS.indexOf(symbol) / SYMBOLS.length) * 360}deg`,
+animation: 'artifactOrbit 90s linear infinite',
                    width: '19%',
 aspectRatio: '1 / 1',
 minWidth: 48,
