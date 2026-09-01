@@ -308,6 +308,17 @@ getSecretUserRooms: () =>
     attempts: number
     entered: number
   }>>('/api/secret-user-rooms'),
+  deleteSecretUserRoom: (roomId: number) =>
+  apiFetch<{
+    ok: boolean
+    deletedRoom: {
+      id: number
+      slot_number: number
+      room_name: string
+    }
+  }>(`/api/secret-user-rooms/${roomId}`, {
+    method: 'DELETE',
+  }),
 getMySecretUserRoom: async (userId: string) => {
   const playerId = await resolvePlayerId(userId)
 
