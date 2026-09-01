@@ -308,7 +308,18 @@ getSecretUserRooms: () =>
     attempts: number
     entered: number
   }>>('/api/secret-user-rooms'),
+getMySecretUserRoom: async (userId: string) => {
+  const playerId = await resolvePlayerId(userId)
 
+  return apiFetch<{
+    hasRoom: boolean
+    room: {
+      id: number
+      slot_number: number
+      room_name: string
+    } | null
+  }>(`/api/secret-user-rooms/my/${playerId}`)
+},
 createSecretUserRoom: async (userId: string, roomName: string) => {
   const playerId = await resolvePlayerId(userId)
 
