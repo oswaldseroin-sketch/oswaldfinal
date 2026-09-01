@@ -368,7 +368,7 @@ export default function YesNoGame({ onBack, onProfileUpdate }: Props) {
     boxShadow: selected
       ? '0 0 20px rgba(226,232,240,0.12)'
       : 'none',
-            ))}
+            )}
 >
               {voting ? <Loader2 size={16} className="animate-spin" /> : <Check size={16} />}
               Ответить
