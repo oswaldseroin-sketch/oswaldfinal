@@ -1140,35 +1140,86 @@ if (ownRoom) {
         className="mt-5 h-14 w-full rounded-2xl border border-white/10 bg-black/50 px-4 text-base font-bold text-white outline-none placeholder:text-white/25 focus:border-accent/50"
       />
 
-    <div className="mt-3">
-  <select
-    value={editingQuestions[editingQuestionIndex].correctAnswer}
-    onChange={(e) => {
-      const value = e.target.value
-
-      setEditingQuestions((current) =>
-        current.map((question, index) =>
-          index === editingQuestionIndex
-            ? { ...question, correctAnswer: value }
-            : question,
-        ),
-      )
-    }}
-    className="h-14 w-full rounded-2xl border border-accent/50 bg-black px-4 text-sm font-bold text-white outline-none"
+   <div className="relative mt-3">
+  <button
+    type="button"
+    onClick={() => setAnswerDropdownOpen((open) => !open)}
+    className="flex h-14 w-full items-center justify-between rounded-2xl border border-accent/40 bg-black/60 px-4 text-left transition"
     style={{
       boxShadow: editingQuestions[editingQuestionIndex].correctAnswer
-        ? '0 0 14px rgba(255,43,214,0.20)'
+        ? '0 0 14px rgba(255,43,214,0.18)'
         : 'none',
     }}
   >
-    <option value="">Выбрать правильный ответ</option>
+    <span
+      className={`truncate text-sm font-bold ${
+        editingQuestions[editingQuestionIndex].correctAnswer
+          ? 'text-white'
+          : 'text-white/30'
+      }`}
+    >
+      {editingQuestions[editingQuestionIndex].correctAnswer ||
+        'Выбрать правильный ответ'}
+    </span>
 
-    {workers.map((worker) => (
-      <option key={worker.name} value={worker.name}>
-        {worker.name}
-      </option>
-    ))}
-  </select>
+    <ChevronDown
+      size={17}
+      className={`shrink-0 text-accent transition-transform duration-200 ${
+        answerDropdownOpen ? 'rotate-180' : ''
+      }`}
+    />
+  </button>
+
+  {answerDropdownOpen && (
+    <div
+      className="absolute left-0 right-0 top-[60px] z-[100] max-h-56 overflow-y-auto rounded-2xl border border-accent/50 bg-[#050507] py-1"
+      style={{
+        boxShadow:
+          '0 12px 35px rgba(0,0,0,0.8), 0 0 18px rgba(255,43,214,0.20)',
+        scrollbarWidth: 'thin',
+      }}
+    >
+      {workers.map((worker) => {
+        const selected =
+          editingQuestions[editingQuestionIndex].correctAnswer === worker.name
+
+        return (
+          <button
+            key={worker.name}
+            type="button"
+            onClick={() => {
+              setEditingQuestions((current) =>
+                current.map((question, index) =>
+                  index === editingQuestionIndex
+                    ? {
+                        ...question,
+                        correctAnswer: worker.name,
+                      }
+                    : question,
+                ),
+              )
+
+              setAnswerDropdownOpen(false)
+            }}
+            className={`flex w-full items-center justify-between px-4 py-3 text-left text-sm font-bold transition ${
+              selected
+                ? 'bg-accent/15 text-accent'
+                : 'text-white/75 hover:bg-white/5'
+            }`}
+          >
+            <span className="truncate">{worker.name}</span>
+
+            {selected && (
+              <Check
+                size={16}
+                className="shrink-0 text-accent"
+              />
+            )}
+          </button>
+        )
+      })}
+    </div>
+  )}
 </div>
 <div className="mt-6">
   <p className="mb-2 text-[10px] font-black uppercase tracking-[0.2em] text-accent/70">
