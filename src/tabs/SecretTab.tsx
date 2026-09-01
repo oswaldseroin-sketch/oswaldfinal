@@ -308,11 +308,29 @@ useEffect(() => {
         </button>
 
         <button
-          type="button"
-          className="h-12 rounded-2xl border border-accent/40 bg-accent/15 text-sm font-black text-accent"
-        >
-          СОЗДАТЬ
-        </button>
+  type="button"
+  onClick={async () => {
+    const roomName = newRoomName.trim()
+
+    if (!roomName || !currentUser?.name) return
+
+    try {
+      await api.createSecretUserRoom(currentUser.name, roomName)
+
+      const rooms = await api.getSecretUserRooms()
+      setUserRooms(rooms)
+
+      setNewRoomName('')
+      setShowCreateRoom(false)
+    } catch (error) {
+      console.error('Create secret room error:', error)
+    }
+  }}
+  disabled={!newRoomName.trim()}
+  className="h-12 rounded-2xl border border-accent/40 bg-accent/15 text-sm font-black text-accent disabled:cursor-not-allowed disabled:opacity-30"
+>
+  СОЗДАТЬ
+</button>
       </div>
     </div>
   </div>
