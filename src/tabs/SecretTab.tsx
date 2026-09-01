@@ -375,6 +375,21 @@ if (enteringRoom) {
         )
 
         setRoomAttemptResult(result.success ? 'success' : 'wrong')
+        if (result.success && currentUser?.name && enteringRoom) {
+  const messageData = await api.getSecretUserRoomMessage(
+    enteringRoom.id,
+    currentUser.name,
+  )
+
+  setEnteringRoom((current) =>
+    current
+      ? {
+          ...current,
+          roomMessage: messageData.roomMessage,
+        }
+      : current,
+  )
+}
       } catch (error) {
         console.error('Secret room attempt error:', error)
       } finally {
