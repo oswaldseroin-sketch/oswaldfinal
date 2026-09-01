@@ -685,7 +685,7 @@ const doorTheme =
     ? '-left-[72px] top-[440px]'
     : slotNumber === 3
       ? '-right-[72px] top-[440px]'
-      : 'left-1/2 top-[820px] -translate-x-1/2'
+      : 'left-1/2 top-[860px] -translate-x-1/2'
   }`}
   style={{
     boxShadow: doorTheme.glow,
