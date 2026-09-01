@@ -231,7 +231,7 @@ const updateEmployeeDate = async (id: string, access_date: string): Promise<bool
 
   const value = useMemo(
     () => ({ employees, workers, teamStats, memes, isAdmin, loading, error, currentUser, login, switchUser, logout, unlock, lock, addEmployee,updateEmployeeDate, deleteEmployee, addWorker, removeWorker, adjustTeamStats, adjustTitleXP, addMeme, refresh }),
-    [employees, workers, teamStats, memes, isAdmin, loading, error, currentUser, login, switchUser, logout, refresh],
+    [employees, workers, teamStats, memes, isAdmin, loading, error, currentUser, login, switchUser, logout, refresh, updateEmployeeDate],
   )
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>
