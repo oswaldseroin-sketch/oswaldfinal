@@ -338,6 +338,37 @@ getMySecretUserRoom: async (userId: string) => {
     `/api/secret-user-rooms/${roomId}/questions/owner/${playerId}`,
   )
 },
+ getSecretUserRoomPublicQuestions: (roomId: number) =>
+  apiFetch<{
+    roomId: number
+    roomName: string
+    questions: Array<{
+      slot_number: number
+      title: string
+    }>
+  }>(`/api/secret-user-rooms/${roomId}/questions/public`),
+
+attemptSecretUserRoom: async (
+  roomId: number,
+  userId: string,
+  answers: Array<{
+    slot_number: number
+    answer: string
+  }>,
+) => {
+  const playerId = await resolvePlayerId(userId)
+
+  return apiFetch<{
+    ok: boolean
+    success: boolean
+  }>(`/api/secret-user-rooms/${roomId}/attempt`, {
+    method: 'POST',
+    body: JSON.stringify({
+      playerId,
+      answers,
+    }),
+  })
+}, 
 createSecretUserRoom: async (userId: string, roomName: string) => {
   const playerId = await resolvePlayerId(userId)
 
