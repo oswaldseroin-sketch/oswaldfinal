@@ -154,8 +154,19 @@ export default function YesNoGame({ onBack, onProfileUpdate }: Props) {
 </button>
           {showYesterdayResults && (
   <>
-          <p className="mb-1 text-sm font-bold text-ink/90">{yesterday.question}</p>
-          <p className="mb-3 text-xs text-ink-muted">Игрок: <span className="font-bold text-ink">{yesterday.player_name}</span></p>
+         <p className="mb-2 text-sm font-bold text-ink/90">
+  {yesterday.question}
+</p>
+
+<div className="mb-3 rounded-xl border border-amber-400/25 bg-black/25 px-3 py-2.5 text-center">
+  <p className="text-[9px] font-black tracking-[0.18em] text-amber-400/60">
+    ВОПРОС БЫЛ ПРО
+  </p>
+
+  <p className="mt-0.5 text-sm font-black text-amber-100">
+    {yesterday.player_name}
+  </p>
+</div>
           <div className="space-y-2">
             <div className={`flex items-center justify-between rounded-lg border px-3 py-2 ${yesterday.winner === 'yes' ? 'border-amber-400/40 bg-amber-400/10' : 'border-line/50 bg-black/20'}`}>
               <div className="flex items-center gap-2"><span className="text-sm font-bold text-ink">ДА</span>{yesterday.winner === 'yes' && <span>🏆</span>}{yesterday.userVote === 'yes' && <Check size={13} className="text-amber-300" />}</div>
