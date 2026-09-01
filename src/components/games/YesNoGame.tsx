@@ -282,7 +282,27 @@ export default function YesNoGame({ onBack, onProfileUpdate }: Props) {
     {today.question}
   </h2>
 </div>
+{isSelfQuestion && (
+  <div className="mb-3 rounded-2xl border border-amber-300/35 bg-gradient-to-br from-amber-500/15 via-black/40 to-violet-500/10 px-4 py-4 text-center shadow-[0_0_24px_rgba(251,191,36,0.12)]">
+    <p className="text-[10px] font-black tracking-[0.22em] text-amber-300">
+      ВОПРОС ПРО ТЕБЯ
+    </p>
 
+    <p className="mt-2 text-sm font-bold text-white">
+      Сегодня ты не можешь голосовать в этом вопросе
+    </p>
+
+    <div className="mt-3 rounded-xl border border-amber-300/20 bg-black/30 px-3 py-2.5">
+      <p className="text-[9px] font-black tracking-[0.18em] text-amber-300/70">
+        УТЕШИТЕЛЬНЫЙ ПРИЗ
+      </p>
+
+      <p className="mt-1 text-sm font-black text-amber-100">
+        +10 XP · +10 XP ЗВАНИЯ · +10 🪙
+      </p>
+    </div>
+  </div>
+)}
           <div className="grid grid-cols-2 gap-2.5">
             {['yes', 'no'].map((option) => {
               const isSelected = selected === option
