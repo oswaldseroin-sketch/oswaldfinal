@@ -583,7 +583,7 @@ setUserRooms(freshRooms)
         '0 10px 30px rgba(255,43,214,0.18), inset 0 -10px 25px rgba(255,43,214,0.06)',
     }}
   >
-    <div className="flex w-[118px] flex-col items-center justify-center px-3 py-3">
+    <div className="flex w-[63px] flex-col items-center justify-center px-3 py-3">
       <span className="text-[8px] font-black uppercase tracking-[0.18em] text-white/35">
         Попытки
       </span>
