@@ -114,15 +114,22 @@ const [questUnlocked, setQuestUnlocked] = useState(() =>
     <div className="mx-auto min-h-screen max-w-md px-4 pb-32 pt-6 overflow-y-auto">
 
       <BackButton onBack={onBack} />
-      <div className="mb-7 flex items-start justify-between">
-        <div>
-          <p className="text-[10px] font-bold tracking-widest text-accent">АМАЛЬГАМА / 04</p>
-          <h1 className="mt-1 text-3xl font-extrabold text-ink">Секретная</h1>
-        </div>
-        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent/10">
-          <Flame size={22} color="#ff2bd6" />
-        </div>
-      </div>
+      {!mainDoorOpen && (
+  <div className="mb-7 flex items-start justify-between">
+    <div>
+      <p className="text-[10px] font-bold tracking-widest text-accent">
+        АМАЛЬГАМА / 04
+      </p>
+      <h1 className="mt-1 text-3xl font-extrabold text-ink">
+        Секретная
+      </h1>
+    </div>
+
+    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent/10">
+      <Flame size={22} color="#ff2bd6" />
+    </div>
+  </div>
+)}
 
       {!questUnlocked ? (
   !mainDoorOpen ? (
