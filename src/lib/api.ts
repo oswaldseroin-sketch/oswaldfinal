@@ -458,6 +458,7 @@ today.userVote =
       today.player_name = serverToday.player_name ?? ''
       today.players = serverToday.players ?? []
       today.userVote = serverToday.userVote ?? null
+     today.selfQuestion = serverToday.selfQuestion ?? false
       today.attemptCount = serverToday.attemptCount ?? 0
       today.eliminated = serverToday.eliminated ?? []
       today.foundMafia = serverToday.foundMafia ?? false
