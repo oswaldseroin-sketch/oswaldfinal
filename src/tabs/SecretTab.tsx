@@ -548,7 +548,7 @@ setUserRooms(freshRooms)
     </p>
   </div>
 </div>
-      <div className="mt-6 grid grid-cols-2 gap-3">
+      <div className="absolute inset-0 z-10">
   {[1, 2, 3, 4].map((slotNumber) => {
     const room = userRooms.find(
       (item) => item.slot_number === slotNumber,
