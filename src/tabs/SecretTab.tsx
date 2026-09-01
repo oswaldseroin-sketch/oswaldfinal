@@ -729,7 +729,7 @@ setEnteringRoom({
     console.error('Open secret user room error:', error)
   }
 }}
-       className={`absolute min-h-[180px] w-[132px] overflow-hidden rounded-t-[52px] rounded-b-2xl border bg-black/75 p-3 text-left transition active:scale-[0.98] ${doorTheme.border} ${doorTheme.bg} ${
+       className={`absolute min-h-[128px] w-[94px] overflow-hidden rounded-t-[52px] rounded-b-2xl border bg-black/75 p-3 text-left transition active:scale-[0.98] ${doorTheme.border} ${doorTheme.bg} ${
 slotNumber === 1
   ? 'left-1/2 top-[15px] -translate-x-1/2'
   : slotNumber === 2
