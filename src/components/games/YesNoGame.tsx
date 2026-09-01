@@ -167,16 +167,67 @@ export default function YesNoGame({ onBack, onProfileUpdate }: Props) {
     {yesterday.player_name}
   </p>
 </div>
-          <div className="space-y-2">
-            <div className={`flex items-center justify-between rounded-lg border px-3 py-2 ${yesterday.winner === 'yes' ? 'border-amber-400/40 bg-amber-400/10' : 'border-line/50 bg-black/20'}`}>
-              <div className="flex items-center gap-2"><span className="text-sm font-bold text-ink">ДА</span>{yesterday.winner === 'yes' && <span>🏆</span>}{yesterday.userVote === 'yes' && <Check size={13} className="text-amber-300" />}</div>
-              <span className="text-sm font-extrabold text-amber-200">{yesterday.yesVotes}</span>
-            </div>
-            <div className={`flex items-center justify-between rounded-lg border px-3 py-2 ${yesterday.winner === 'no' ? 'border-amber-400/40 bg-amber-400/10' : 'border-line/50 bg-black/20'}`}>
-              <div className="flex items-center gap-2"><span className="text-sm font-bold text-ink">НЕТ</span>{yesterday.winner === 'no' && <span>🏆</span>}{yesterday.userVote === 'no' && <Check size={13} className="text-amber-300" />}</div>
-              <span className="text-sm font-extrabold text-amber-200">{yesterday.noVotes}</span>
-            </div>
-          </div>
+         <div className="space-y-2">
+  <div
+    className={`rounded-xl border px-3 py-2.5 ${
+      yesterday.winner === 'yes'
+        ? 'border-amber-300/60 bg-amber-400/15 shadow-[0_0_18px_rgba(251,191,36,0.16)]'
+        : 'border-emerald-500/20 bg-emerald-950/15'
+    }`}
+  >
+    <div className="flex items-center justify-between">
+      <span className="text-sm font-black text-emerald-200">ДА</span>
+
+      <span className="text-[10px] font-black tracking-wide text-zinc-300">
+        ГОЛОСА: {yesterday.yesVotes}
+      </span>
+    </div>
+
+    <div className="mt-2 flex flex-wrap gap-1.5">
+      {yesterday.userVote === 'yes' && (
+        <span className="rounded-md border border-cyan-300/40 bg-cyan-400/10 px-2 py-1 text-[9px] font-black text-cyan-200">
+          ВАШ ГОЛОС
+        </span>
+      )}
+
+      {yesterday.winner === 'yes' && (
+        <span className="rounded-md border border-amber-300/50 bg-amber-400/15 px-2 py-1 text-[9px] font-black text-amber-200">
+          🏆 БОЛЬШИНСТВО
+        </span>
+      )}
+    </div>
+  </div>
+
+  <div
+    className={`rounded-xl border px-3 py-2.5 ${
+      yesterday.winner === 'no'
+        ? 'border-amber-300/60 bg-amber-400/15 shadow-[0_0_18px_rgba(251,191,36,0.16)]'
+        : 'border-red-500/20 bg-red-950/15'
+    }`}
+  >
+    <div className="flex items-center justify-between">
+      <span className="text-sm font-black text-red-200">НЕТ</span>
+
+      <span className="text-[10px] font-black tracking-wide text-zinc-300">
+        ГОЛОСА: {yesterday.noVotes}
+      </span>
+    </div>
+
+    <div className="mt-2 flex flex-wrap gap-1.5">
+      {yesterday.userVote === 'no' && (
+        <span className="rounded-md border border-cyan-300/40 bg-cyan-400/10 px-2 py-1 text-[9px] font-black text-cyan-200">
+          ВАШ ГОЛОС
+        </span>
+      )}
+
+      {yesterday.winner === 'no' && (
+        <span className="rounded-md border border-amber-300/50 bg-amber-400/15 px-2 py-1 text-[9px] font-black text-amber-200">
+          🏆 БОЛЬШИНСТВО
+        </span>
+      )}
+    </div>
+  </div>
+</div>
           {!yesterday.winner && <p className="mt-2 text-center text-xs text-ink-muted">Ничья — награда не выдаётся</p>}
 
           {yesterday.userVote && !resultsClaimed && yesterday.winner && (
