@@ -164,7 +164,7 @@ export default function BestDuoGame({ onBack, onProfileUpdate }: Props) {
 >
   {players[1]}
 </p>
-    {votes === undefined && (
+    
   <div
     className={`flex h-6 w-6 items-center justify-center rounded-full border transition-all duration-200 ${
       isSelected || isChosen
@@ -182,7 +182,7 @@ export default function BestDuoGame({ onBack, onProfileUpdate }: Props) {
       <Check size={13} />
     ) : null}
   </div>
-)}
+
     </button>
   )
 
