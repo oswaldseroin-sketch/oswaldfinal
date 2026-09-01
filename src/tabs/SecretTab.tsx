@@ -575,14 +575,14 @@ setUserRooms(freshRooms)
 
   <div className="absolute bottom-3 left-1/2 h-1 w-20 -translate-x-1/2 rounded-full bg-accent/30 blur-sm" />
 </button>
-<div className="pointer-events-none absolute bottom-3 left-1/2 z-20 -translate-x-1/2">
+<div className="relative z-20 mt-2 flex justify-center">
   <div
-    className="flex overflow-hidden rounded-lg border border-accent/25 bg-black/75 backdrop-blur-sm"
+    className="flex overflow-hidden rounded-lg border border-accent/25 bg-black/75"
     style={{
       boxShadow: '0 0 12px rgba(255,43,214,0.08)',
     }}
   >
-    <div className="flex w-[46px] flex-col items-center justify-center px-1 py-1">
+    <div className="flex w-[44px] flex-col items-center justify-center px-1 py-1">
       <span className="text-[5px] font-black uppercase tracking-wider text-white/25">
         Попытки
       </span>
@@ -597,7 +597,7 @@ setUserRooms(freshRooms)
 
     <div className="w-px bg-accent/20" />
 
-    <div className="flex w-[46px] flex-col items-center justify-center px-1 py-1">
+    <div className="flex w-[44px] flex-col items-center justify-center px-1 py-1">
       <span className="text-[5px] font-black uppercase tracking-wider text-white/25">
         Вошло
       </span>
