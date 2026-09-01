@@ -133,9 +133,6 @@ export default function SecretQuest({ onUnlocked }: { onUnlocked: () => void }) 
 const handleKeyClick = (): void => {
   if (!allFilled || phase !== 'idle') return
 
-  void api.incrementSecretAttempts().then((data) => {
-    if (data) setAttempts(data.attempts)
-  })
 
   if (isCorrect()) {
     setPhase('success')
@@ -146,7 +143,9 @@ const handleKeyClick = (): void => {
     }, 3000)
   } else {
     setPhase('breaking')
-
+void api.incrementSecretAttempts().then((data) => {
+    if (data) setAttempts(data.attempts)
+  })
     window.setTimeout(() => {
   setAnswers({})
   setPhase('idle')
