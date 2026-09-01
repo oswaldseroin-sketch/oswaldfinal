@@ -780,6 +780,66 @@ setRoomMessage(data.roomMessage ?? '')
     </div>
   </div>
 )}
+      {roomToDelete && (
+  <div
+    className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 px-4"
+    onClick={() => setRoomToDelete(null)}
+  >
+    <div
+      className="w-full max-w-xs rounded-3xl border border-red-500/35 bg-[#0b0b12] p-5 shadow-2xl"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <p className="text-center text-3xl">⚠️</p>
+
+      <h3 className="mt-3 text-center text-lg font-black uppercase text-white">
+        ТОЧНО ОЧИСТИТЬ?
+      </h3>
+
+      <p className="mt-3 text-center text-sm font-bold text-white/60">
+        {roomToDelete.room_name}
+      </p>
+
+      <p className="mt-3 text-center text-xs leading-relaxed text-white/35">
+        Будут удалены испытания, послание, попытки и список вошедших.
+      </p>
+
+      <div className="mt-5 grid grid-cols-2 gap-3">
+        <button
+          type="button"
+          onClick={() => setRoomToDelete(null)}
+          className="h-12 rounded-2xl border border-white/10 bg-white/5 text-xs font-black uppercase text-white/60"
+        >
+          ОТМЕНА
+        </button>
+
+        <button
+          type="button"
+          onClick={async () => {
+            try {
+              const deletedRoomId = roomToDelete.id
+
+              await api.deleteSecretUserRoom(deletedRoomId)
+
+              const rooms = await api.getSecretUserRooms()
+              setUserRooms(rooms)
+
+              if (myRoom?.id === deletedRoomId) {
+                setMyRoom(null)
+              }
+
+              setRoomToDelete(null)
+            } catch (error) {
+              console.error('Delete secret room error:', error)
+            }
+          }}
+          className="h-12 rounded-2xl border border-red-500/40 bg-red-500/15 text-xs font-black uppercase text-red-300"
+        >
+          ОЧИСТИТЬ
+        </button>
+      </div>
+    </div>
+  </div>
+)}
       {showCreateRoom && (
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4">
     <div className="w-full max-w-sm rounded-3xl border border-accent/30 bg-[#0b0b12] p-5 shadow-2xl">
