@@ -320,6 +320,24 @@ getMySecretUserRoom: async (userId: string) => {
     } | null
   }>(`/api/secret-user-rooms/my/${playerId}`)
 },
+  getSecretUserRoomQuestionsOwner: async (
+  roomId: number,
+  userId: string,
+) => {
+  const playerId = await resolvePlayerId(userId)
+
+  return apiFetch<{
+    roomId: number
+    roomName: string
+    questions: Array<{
+      slot_number: number
+      title: string
+      correct_answer: string
+    }>
+  }>(
+    `/api/secret-user-rooms/${roomId}/questions/owner/${playerId}`,
+  )
+},
 createSecretUserRoom: async (userId: string, roomName: string) => {
   const playerId = await resolvePlayerId(userId)
 
