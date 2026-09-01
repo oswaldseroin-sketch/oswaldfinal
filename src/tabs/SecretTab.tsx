@@ -477,7 +477,7 @@ setUserRooms(freshRooms)
 
       {!questUnlocked ? (
   !mainDoorOpen ? (
-    <div className="relative mt-6 flex min-h-[860px] flex-col items-center">
+    <div className="relative mt-6 flex min-h-[1040px] flex-col items-center">
       <button
   type="button"
   onClick={() => {
