@@ -23,6 +23,7 @@ type YesterdayState = {
   correct_index: number
   correctCount: number
   totalCount: number
+  voteCounts: number[]
   userVote: { selected_index: number; is_correct: boolean } | null
 }
 
