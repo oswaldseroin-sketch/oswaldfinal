@@ -497,9 +497,7 @@ setUserRooms(freshRooms)
 >
   🔒
 </button>
-      <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-accent/70">
-        СЕКРЕТНЫЕ КОМНАТЫ
-      </p>
+      
 
      
 
