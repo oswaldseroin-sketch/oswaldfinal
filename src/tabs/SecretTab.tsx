@@ -601,7 +601,15 @@ setEnteringRoom({
     console.error('Open secret user room error:', error)
   }
 }}
-        className="rounded-2xl border border-accent/25 bg-black/55 p-4 text-left transition hover:border-accent/50"
+        className={`absolute min-h-[145px] w-[118px] rounded-2xl border border-accent/25 bg-black/60 p-3 text-left transition hover:border-accent/50 ${
+  slotNumber === 1
+    ? 'left-1/2 top-[105px] -translate-x-1/2'
+    : slotNumber === 2
+      ? 'left-0 top-[405px]'
+      : slotNumber === 3
+        ? 'right-0 top-[405px]'
+        : 'left-1/2 top-[700px] -translate-x-1/2'
+}`}
       >
         <div className="text-center">
           <div className="text-3xl">🚪</div>
