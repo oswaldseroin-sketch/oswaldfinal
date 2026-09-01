@@ -348,7 +348,7 @@ export default function ArticlesTab({ onBack }: { onBack: () => void }) {
                 onClick={() => setOpenId(isOpen ? null : article.id)}
                className="flex w-full items-center justify-between px-4 py-3 text-left"
               >
-                <span className="text-xl font-black uppercase tracking-wide text-neon">
+                <span className="text-base font-black uppercase tracking-wide text-neon">
                   {article.title}
                 </span>
                 {isOpen ? (
