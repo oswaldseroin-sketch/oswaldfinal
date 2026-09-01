@@ -245,6 +245,11 @@ export const api = {
   getEmployees: () => apiFetch<Employee[]>('/api/employees'),
   addEmployee: (data: Omit<Employee, 'id' | 'created_at'>) =>
     apiFetch<Employee>('/api/employees', { method: 'POST', body: JSON.stringify(data) }),
+  updateEmployeeDate: (id: string, access_date: string) =>
+  apiFetch<Employee>(`/api/employees/${id}/date`, {
+    method: 'PATCH',
+    body: JSON.stringify({ access_date }),
+  }),
   deleteEmployee: (id: string) =>
     apiFetch<void>(`/api/employees/${id}`, { method: 'DELETE' }),
 
