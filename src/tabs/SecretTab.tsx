@@ -744,7 +744,7 @@ slotNumber === 1
 />
        <div className="relative z-10 text-center">
   <div
-    className={`mx-auto flex h-9 w-9 items-center justify-center rounded-full border text-2xl ${doorTheme.border} ${doorTheme.text}`}
+    className={`mx-auto flex h-9 w-9 items-center justify-center rounded-full border text-lg ${doorTheme.border} ${doorTheme.text}`}
     style={{ boxShadow: doorTheme.glow }}
   >
     {doorTheme.icon}
