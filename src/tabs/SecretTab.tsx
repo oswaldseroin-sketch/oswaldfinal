@@ -228,6 +228,7 @@ useEffect(() => {
         <button
           key={slotNumber}
           type="button"
+          onClick={() => setShowCreateRoom(true)}
           className="flex min-h-[120px] flex-col items-center justify-center rounded-2xl border border-dashed border-white/15 bg-black/30 px-3 text-center text-white/35"
         >
           <span className="text-3xl">🚪</span>
