@@ -541,11 +541,12 @@ if (enteringRoom) {
   try {
     const data = await api.getSecretUserRoomPublicQuestions(room.id)
 
-    setEnteringRoom({
-      id: room.id,
-      roomName: data.roomName,
-      questions: data.questions,
-    })
+setEnteringRoom({
+  id: room.id,
+  roomName: data.roomName,
+  roomMessage: data.roomMessage,
+  questions: data.questions,
+})
 
     setRoomAnswers(Array.from({ length: 5 }, () => ''))
     setRoomQuestionIndex(0)
