@@ -736,12 +736,12 @@ setEnteringRoom({
 }}
        className={`absolute min-h-[128px] w-[94px] overflow-hidden rounded-t-[52px] rounded-b-2xl border bg-black/75 p-3 text-left transition active:scale-[0.98] ${doorTheme.border} ${doorTheme.bg} ${
 slotNumber === 1
-  ? 'left-[55px] top-[430px]'
+  ? 'left-[55px] top-[330px]'
   : slotNumber === 2
-    ? 'right-[55px] top-[430px]'
+    ? 'right-[55px] top-[330px]'
     : slotNumber === 3
-      ? 'left-[55px] top-[590px]'
-      : 'right-[55px] top-[590px]'
+      ? 'left-[55px] top-[480px]'
+      : 'right-[55px] top-[480px]'
 }`}
       >
         <div
