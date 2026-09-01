@@ -158,9 +158,12 @@ export default function PastLifeGame({ onBack, onProfileUpdate }: Props) {
                   }`}
                 >
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-bold text-ink">
-                      {player}
-                    </span>
+                   <span className="text-sm font-bold text-ink">
+  {player}
+  <span className="ml-2 text-[10px] font-bold text-amber-300/70">
+    {yesterday.voteCounts?.[i] ?? 0} гол.
+  </span>
+</span>
 
                     {isCorrect && <span>🏆</span>}
 
