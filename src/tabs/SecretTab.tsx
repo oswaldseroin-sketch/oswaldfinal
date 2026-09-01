@@ -1138,15 +1138,27 @@ if (ownRoom) {
   <NameDropdown
     value={editingQuestions[editingQuestionIndex].correctAnswer}
     onChange={(value) => {
-      setEditingQuestions((current) =>
-        current.map((question, index) =>
-          index === editingQuestionIndex
-            ? { ...question, correctAnswer: value }
-            : question,
-        ),
-      )
-      setAnswerDropdownOpen(false)
-    }}
+  setRoomAnswers((current) => {
+    const updated = current.map((answer, index) =>
+      index === roomQuestionIndex ? value : answer,
+    )
+
+    const nextEmptyIndex = updated.findIndex(
+      (answer, index) =>
+        index > roomQuestionIndex && !answer.trim(),
+    )
+
+    if (nextEmptyIndex !== -1) {
+      setTimeout(() => {
+        setRoomQuestionIndex(nextEmptyIndex)
+      }, 120)
+    }
+
+    return updated
+  })
+
+  setRoomAnswerDropdownOpen(false)
+}}
     workers={workers}
     color={{
       border: 'rgba(255,43,214,0.7)',
