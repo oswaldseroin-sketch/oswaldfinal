@@ -315,9 +315,9 @@ const personalizedText = useMemo(() => {
                     left: `${symbol.pos.x}%`,
                     top: `${symbol.pos.y}%`,
                     transform: 'translate(-50%, -50%)',
-                    width: '15%',
-                    aspectRatio: '1 / 1',
-                    minWidth: 38,
+                   width: '19%',
+aspectRatio: '1 / 1',
+minWidth: 48,
                   }}
                   aria-label={symbol.label}
                 >
