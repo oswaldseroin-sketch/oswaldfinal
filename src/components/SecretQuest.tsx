@@ -260,37 +260,7 @@ const handleKeyClick = (): void => {
           </button>
         </div>
       </div>
-
-      {/* Compact category cards */}
-      <div className="grid grid-cols-2 gap-2">
-        {nominations.map((nomination, index) => {
-          const color = neonColors[index]
-          return (
-            <label
-              key={nomination.id}
-              className="min-w-0 rounded-lg border-2 bg-black/50 p-2 backdrop-blur-md transition-all duration-200"
-              style={{
-                borderColor: color.border,
-                boxShadow: `0 0 12px ${color.glow}, inset 0 0 6px rgba(0,0,0,0.4)`,
-              }}
-            >
-              <span className="mb-1 block text-[12px] font-extrabold uppercase leading-tight tracking-[-0.02em] text-white" style={{ textShadow: `0 0 6px ${color.glow}` }}>
-                <span className="mr-1" style={{ color: color.text }}>{String(index + 1).padStart(2, '0')}</span>{nomination.label}
-              </span>
-              <NameDropdown
-                value={answers[nomination.id] ?? ''}
-                onChange={(val) => updateAnswer(nomination.id, val)}
-                workers={workers}
-                color={color}
-                open={openDropdown === nomination.id}
-                onOpenChange={(o) => setOpenDropdown(o ? nomination.id : null)}
-              />
-            </label>
-          )
-        })}
-      </div>
-
-      {/* ─── Hints panel ─── */}
+ {/* ─── Hints panel ─── */}
       <div className="mt-4 mb-2 flex items-center justify-center gap-2">
   <div className="h-px flex-1 bg-gradient-to-r from-transparent to-purple-500/60" />
 
@@ -493,6 +463,36 @@ const handleKeyClick = (): void => {
           </div>
         )}
       </div>
+      {/* Compact category cards */}
+      <div className="grid grid-cols-2 gap-2">
+        {nominations.map((nomination, index) => {
+          const color = neonColors[index]
+          return (
+            <label
+              key={nomination.id}
+              className="min-w-0 rounded-lg border-2 bg-black/50 p-2 backdrop-blur-md transition-all duration-200"
+              style={{
+                borderColor: color.border,
+                boxShadow: `0 0 12px ${color.glow}, inset 0 0 6px rgba(0,0,0,0.4)`,
+              }}
+            >
+              <span className="mb-1 block text-[12px] font-extrabold uppercase leading-tight tracking-[-0.02em] text-white" style={{ textShadow: `0 0 6px ${color.glow}` }}>
+                <span className="mr-1" style={{ color: color.text }}>{String(index + 1).padStart(2, '0')}</span>{nomination.label}
+              </span>
+              <NameDropdown
+                value={answers[nomination.id] ?? ''}
+                onChange={(val) => updateAnswer(nomination.id, val)}
+                workers={workers}
+                color={color}
+                open={openDropdown === nomination.id}
+                onOpenChange={(o) => setOpenDropdown(o ? nomination.id : null)}
+              />
+            </label>
+          )
+        })}
+      </div>
+
+     
 
  {/* Final key check */}
 <div className="mt-5 flex flex-col items-center">
