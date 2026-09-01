@@ -675,12 +675,12 @@ const doorTheme =
   onClick={() => setShowCreateRoom(true)}
   className={`absolute flex min-h-[128px] w-[94px] flex-col items-center justify-center overflow-hidden rounded-t-[52px] rounded-b-2xl border bg-black/70 px-3 text-center transition active:scale-95 ${doorTheme.border} ${doorTheme.bg} ${
  slotNumber === 1
-  ? 'left-[55px] top-[430px]'
+  ? 'left-[55px] top-[330px]'
   : slotNumber === 2
-    ? 'right-[55px] top-[430px]'
+    ? 'right-[55px] top-[330px]'
     : slotNumber === 3
-      ? 'left-[55px] top-[590px]'
-      : 'right-[55px] top-[590px]'
+      ? 'left-[55px] top-[480px]'
+      : 'right-[55px] top-[480px]'
   }`}
   style={{
     boxShadow: doorTheme.glow,
