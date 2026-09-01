@@ -368,7 +368,15 @@ if (enteringRoom) {
     </p>
     <button
   type="button"
-      onClick={() => setInsideUserRoom(true)}
+      onClick={async () => {
+  try {
+    const entries = await api.getSecretUserRoomEntries(enteringRoom.id)
+    setUserRoomEntries(entries)
+    setInsideUserRoom(true)
+  } catch (error) {
+    console.error('Load room entries error:', error)
+  }
+}}
   className="mt-4 w-full rounded-xl border border-emerald-400/50 bg-emerald-400/15 px-4 py-3 text-xs font-black uppercase tracking-wider text-emerald-300 transition active:scale-[0.98]"
 >
   🚪 ВОЙТИ В КОМНАТУ
