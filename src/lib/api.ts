@@ -329,6 +329,7 @@ getMySecretUserRoom: async (userId: string) => {
   return apiFetch<{
     roomId: number
     roomName: string
+    roomMessage: string
     questions: Array<{
       slot_number: number
       title: string
