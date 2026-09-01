@@ -164,7 +164,13 @@ console.log('WOULD HE DO IT TODAY:', today)
               <span className="text-sm font-extrabold text-amber-200">{yesterday.yesVotes}</span>
             </div>
             <div className={`flex items-center justify-between rounded-lg border px-3 py-2 ${yesterday.winner === 'no' ? 'border-amber-400/40 bg-amber-400/10' : 'border-line/50 bg-black/20'}`}>
-              <div className="flex items-center gap-2"><span className="text-sm font-bold text-ink">НЕТ</span>{yesterday.winner === 'no' && <span>🏆</span>}{yesterday.userVote === 'no' && <Check size={13} className="text-amber-300" />}</div>
+              <div className="flex items-center gap-2"><span className="text-sm font-bold text-ink">НЕТ</span>{yesterday.winner === 'no' && <span>🏆</span>}
+          {yesterday.userVote === 'no' && (
+  <span className="rounded-md border border-amber-400/30 bg-amber-400/10 px-1.5 py-0.5 text-[8px] font-black tracking-wide text-amber-300">
+    ВАШ ГОЛОС
+  </span>
+)}
+              </div>
               <span className="text-sm font-extrabold text-amber-200">{yesterday.noVotes}</span>
             </div>
           </div>
