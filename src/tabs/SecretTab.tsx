@@ -100,6 +100,10 @@ useEffect(() => {
   })
 }, [currentUser?.name, mainDoorOpen])
   const [insideUserRoom, setInsideUserRoom] = useState(false)
+  const [adminOpen, setAdminOpen] = useState(false)
+const [adminPasswordOpen, setAdminPasswordOpen] = useState(false)
+const [adminPassword, setAdminPassword] = useState('')
+const [adminPasswordError, setAdminPasswordError] = useState('')
   const [userRoomEntries, setUserRoomEntries] = useState<Array<{
   id: number
   full_name: string
