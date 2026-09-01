@@ -54,6 +54,16 @@ useEffect(() => {
     setUserRooms(rooms)
   })
 }, [mainDoorOpen])
+  useEffect(() => {
+  if (!currentUser?.name) {
+    setMyRoom(null)
+    return
+  }
+
+  void api.getMySecretUserRoom(currentUser.name).then((data) => {
+    setMyRoom(data.room)
+  })
+}, [currentUser?.name, mainDoorOpen])
   const [shadowFade, setShadowFade] = useState(false)
   const [shadowDimmed, setShadowDimmed] = useState(false)
 
