@@ -41,6 +41,15 @@ const [newRoomName, setNewRoomName] = useState('')
   room_name: string
 } | null>(null)
   const [editingRoomId, setEditingRoomId] = useState<number | null>(null)
+  const [editingQuestions, setEditingQuestions] = useState(
+  Array.from({ length: 5 }, () => ({
+    title: '',
+    correctAnswer: '',
+  })),
+)
+
+const [editingQuestionIndex, setEditingQuestionIndex] = useState(0)
+const [saveQuestionsError, setSaveQuestionsError] = useState('')
 useEffect(() => {
   void Promise.all([
     api.getSecretAttempts(),
