@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { DoorOpen, Flame, Plus, X } from 'lucide-react'
+import { DoorOpen, Flame, Plus, X, ChevronDown, Check } from 'lucide-react'
 import { useApp } from '../context/AppContext'
 import BackButton from '../components/BackButton'
 import SecretQuest from '../components/SecretQuest'
