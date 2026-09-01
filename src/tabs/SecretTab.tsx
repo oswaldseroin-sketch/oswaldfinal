@@ -595,25 +595,45 @@ const doorTheme =
           }
     if (!room) {
       return (
-        <button
-          key={slotNumber}
-          type="button"
-          onClick={() => setShowCreateRoom(true)}
-          className={`absolute flex min-h-[145px] w-[118px] flex-col items-center justify-center rounded-2xl border border-dashed border-white/15 bg-black/40 px-2 text-center text-white/35 ${
-  slotNumber === 1
-  ? 'left-1/2 top-[90px] -translate-x-1/2'
-  : slotNumber === 2
-    ? '-left-2 top-[440px]'
-    : slotNumber === 3
-      ? '-right-2 top-[440px]'
-      : 'left-1/2 top-[820px] -translate-x-1/2'
-}`}
-        >
-          <span className="text-3xl">🚪</span>
-          <span className="mt-2 text-xs font-black uppercase tracking-wider">
-            Свободное место
-          </span>
-        </button>
+       <button
+  key={slotNumber}
+  type="button"
+  onClick={() => setShowCreateRoom(true)}
+  className={`absolute flex min-h-[165px] w-[128px] flex-col items-center justify-center overflow-hidden rounded-t-[52px] rounded-b-2xl border bg-black/70 px-3 text-center transition active:scale-95 ${doorTheme.border} ${doorTheme.bg} ${
+    slotNumber === 1
+      ? 'left-1/2 top-[90px] -translate-x-1/2'
+      : slotNumber === 2
+        ? '-left-2 top-[440px]'
+        : slotNumber === 3
+          ? '-right-2 top-[440px]'
+          : 'left-1/2 top-[820px] -translate-x-1/2'
+  }`}
+  style={{
+    boxShadow: doorTheme.glow,
+  }}
+>
+  <div
+    className={`absolute inset-2 rounded-t-[44px] rounded-b-xl border opacity-40 ${doorTheme.border}`}
+  />
+
+  <div
+    className={`relative z-10 flex h-12 w-12 items-center justify-center rounded-full border text-2xl ${doorTheme.border} ${doorTheme.text}`}
+  >
+    {doorTheme.icon}
+  </div>
+
+  <p
+    className={`relative z-10 mt-4 text-[10px] font-black uppercase leading-tight tracking-[0.12em] ${doorTheme.text}`}
+  >
+    {doorTheme.title}
+  </p>
+
+  <p className="relative z-10 mt-2 text-[8px] font-bold uppercase leading-tight tracking-wider text-white/25">
+    {doorTheme.subtitle}
+  </p>
+
+  <div className={`absolute bottom-0 left-0 right-0 h-px ${doorTheme.bg}`} />
+</button>
       )
     }
 
