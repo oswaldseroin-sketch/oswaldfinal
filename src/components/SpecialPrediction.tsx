@@ -304,15 +304,13 @@ const personalizedText = useMemo(() => {
                   key={symbol.id}
                   onClick={() => destroySymbol(symbol)}
                   disabled={isDisabled}
-                  className={`group absolute z-20 flex items-center justify-center rounded-full transition-all duration-200 ${
-                    isBurning
-                      ? 'animate-symbolBurn'
-                      : isDisabled
-                        ? 'opacity-40'
-                        : isLast
-                          ? 'animate-pulseGlow'
-                          : 'hover:scale-110 active:scale-90'
-                  }`}
+                 className={`group absolute z-20 flex items-center justify-center rounded-full transition-all duration-200 ${
+  isBurning
+    ? 'animate-symbolBurn'
+    : isLast
+      ? 'animate-pulseGlow'
+      : 'hover:scale-110 active:scale-90'
+}`}
                   style={{
                     left: `${symbol.pos.x}%`,
                     top: `${symbol.pos.y}%`,
