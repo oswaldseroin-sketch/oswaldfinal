@@ -69,6 +69,7 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
   setVotedChoice(null)
 }
       const yesterday = (data?.yesterday ?? null) as YesterdayState | null
+      console.log('WHO YESTERDAY RAW:', yesterday)
       if (yesterday?.reward?.result_rewarded) setResultsClaimed(true)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Ошибка загрузки')
