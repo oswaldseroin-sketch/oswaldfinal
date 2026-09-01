@@ -164,11 +164,10 @@ export default function PastLifeGame({ onBack, onProfileUpdate }: Props) {
                     {isCorrect && <span>🏆</span>}
 
                     {isSelected && (
-                      <Check
-                        size={13}
-                        className={isCorrect ? 'text-amber-300' : 'text-error'}
-                      />
-                    )}
+  <span className="rounded-md border border-amber-400/30 bg-amber-400/10 px-1.5 py-0.5 text-[8px] font-black tracking-wide text-amber-300">
+    ВАШ ГОЛОС
+  </span>
+)}
                   </div>
 
                   {isCorrect && (
