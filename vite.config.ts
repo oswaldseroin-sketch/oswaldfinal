@@ -9,33 +9,41 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
 
-      manifest: {
-        name: 'Амальгама',
-        short_name: 'Амальгама',
-        description: 'Амальгама',
-        start_url: '/',
-        display: 'standalone',
-        background_color: '#05080d',
-        theme_color: '#05080d',
-        orientation: 'portrait',
-      },
-
-      workbox: {
-        cleanupOutdatedCaches: true,
-        clientsClaim: true,
-        skipWaiting: true,
-
-        globPatterns: [
-          '**/*.{js,css,html,png,jpg,jpeg,webp,svg,gif,ico,woff,woff2}',
-        ],
-
-        navigateFallback: '/index.html',
-      },
-    }),
+     manifest: {
+  name: 'Амальгама',
+  short_name: 'Амальгама',
+  description: 'Контроль допусков сотрудников',
+  start_url: '/',
+  scope: '/',
+  display: 'standalone',
+  orientation: 'portrait',
+  background_color: '#0d0e12',
+  theme_color: '#0d0e12',
+  lang: 'ru',
+  icons: [
+    {
+      src: '/icon-192.png',
+      sizes: '192x192',
+      type: 'image/png',
+      purpose: 'any',
+    },
+    {
+      src: '/icon-512.png',
+      sizes: '512x512',
+      type: 'image/png',
+      purpose: 'any',
+    },
+    {
+      src: '/icon-maskable-192.png',
+      sizes: '192x192',
+      type: 'image/png',
+      purpose: 'maskable',
+    },
+    {
+      src: '/icon-maskable-512.png',
+      sizes: '512x512',
+      type: 'image/png',
+      purpose: 'maskable',
+    },
   ],
-
-  server: {
-    host: true,
-    port: 5173,
-  },
-})
+},
