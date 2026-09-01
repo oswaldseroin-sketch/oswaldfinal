@@ -287,7 +287,18 @@ export const api = {
   getSecretAttempts: () => apiFetch<{ attempts: number }>('/api/secret-attempts'),
   incrementSecretAttempts: () =>
     apiFetch<{ attempts: number }>('/api/secret-attempts/increment', { method: 'POST' }),
+  // Secret room successful entries
+  getSecretRoomEntries: () =>
+    apiFetch<{ count: number }>('/api/secret-room/entries'),
 
+  addSecretRoomEntry: async (userId: string) => {
+    const playerId = await resolvePlayerId(userId)
+
+    return apiFetch<{ ok: boolean; count: number }>('/api/secret-room/entries', {
+      method: 'POST',
+      body: JSON.stringify({ playerId }),
+    })
+  },
   // Chat
   getMyNick: (deviceId: string, day: string) =>
     apiFetch<{ nickname: string | null }>(`/api/chat/nicks/${deviceId}?day=${day}`),
