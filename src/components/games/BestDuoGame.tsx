@@ -131,7 +131,11 @@ export default function BestDuoGame({ onBack, onProfileUpdate }: Props) {
       : teamNum === 1
         ? 'border-cyan-500/25 bg-cyan-950/20 hover:border-cyan-400/50 hover:bg-cyan-500/10 active:scale-95'
         : 'border-red-500/25 bg-red-950/20 hover:border-red-400/50 hover:bg-red-500/10 active:scale-95'
-} ${isWinner ? 'ring-2 ring-amber-400/50' : ''}`}
+} ${
+  isWinner
+    ? 'ring-2 ring-amber-300 border-amber-300/80 bg-amber-400/15 shadow-[0_0_28px_rgba(251,191,36,0.35)]'
+    : ''
+}`}
     >
       <div className="mb-1.5 flex items-center justify-between">
        <span
