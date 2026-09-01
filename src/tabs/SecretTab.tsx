@@ -1111,7 +1111,10 @@ if (ownRoom) {
           <button
             key={index}
             type="button"
-            onClick={() => setEditingQuestionIndex(index)}
+           onClick={() => {
+  setEditingQuestionIndex(index)
+  setAnswerDropdownOpen(false)
+}}
             className={`h-10 rounded-xl text-xs font-black transition ${
               editingQuestionIndex === index
                 ? 'border border-accent/50 bg-accent/20 text-accent'
