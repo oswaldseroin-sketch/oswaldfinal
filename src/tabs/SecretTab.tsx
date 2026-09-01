@@ -485,27 +485,75 @@ setUserRooms(freshRooms)
 
       <BackButton onBack={onBack} />
       {!mainDoorOpen && (
-  <div className="mb-7 flex items-start justify-between">
-    <div>
-      <p className="text-[10px] font-bold tracking-widest text-accent">
+  <div className="relative mb-7 overflow-hidden rounded-3xl border border-accent/25 bg-black/50 px-5 py-5">
+  {/* внутреннее свечение */}
+  <div
+    className="pointer-events-none absolute -right-12 -top-16 h-36 w-36 rounded-full bg-accent/10 blur-3xl"
+  />
+
+  {/* верхняя строка */}
+  <div className="relative z-10 flex items-center justify-between">
+    <div className="flex items-center gap-2">
+      <span className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_10px_rgba(255,43,214,0.9)]" />
+
+      <p className="text-[9px] font-black uppercase tracking-[0.28em] text-accent/60">
         АМАЛЬГАМА / 04
       </p>
-     <h1
-  className="mt-2 text-xl font-black uppercase tracking-[0.08em] text-white"
-  style={{
-    textShadow: '0 0 18px rgba(255,43,214,0.45)',
-  }}
->
-  ЗАЛ ЗАПРЕТНЫХ
-  <br />
-  КОМНАТ
-</h1>
     </div>
 
-    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent/10">
-      <Flame size={22} color="#ff2bd6" />
+    <div className="flex items-center gap-1.5">
+      <span className="h-px w-5 bg-accent/30" />
+      <span className="text-[9px] font-black tracking-[0.2em] text-accent/50">
+        04
+      </span>
     </div>
   </div>
+
+  {/* название */}
+  <div className="relative z-10 mt-5 flex items-center gap-4">
+    <div
+      className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-accent/40 bg-accent/10"
+      style={{
+        boxShadow:
+          '0 0 22px rgba(255,43,214,0.18), inset 0 0 18px rgba(255,43,214,0.08)',
+      }}
+    >
+      <DoorOpen
+        size={27}
+        className="text-accent"
+        style={{
+          filter: 'drop-shadow(0 0 8px rgba(255,43,214,0.7))',
+        }}
+      />
+    </div>
+
+    <div>
+      <p className="text-[8px] font-black uppercase tracking-[0.25em] text-white/25">
+        СЕКТОР СЕКРЕТНЫХ ИСПЫТАНИЙ
+      </p>
+
+      <h1
+        className="mt-1 text-[21px] font-black uppercase leading-[0.95] tracking-[0.04em] text-white"
+        style={{
+          textShadow: '0 0 20px rgba(255,43,214,0.35)',
+        }}
+      >
+        ЗАЛ ЗАПРЕТНЫХ
+        <br />
+        КОМНАТ
+      </h1>
+    </div>
+  </div>
+
+  {/* нижняя линия */}
+  <div className="relative z-10 mt-5 flex items-center gap-2">
+    <div className="h-px flex-1 bg-gradient-to-r from-accent/50 to-transparent" />
+
+    <span className="text-[7px] font-black uppercase tracking-[0.25em] text-white/20">
+      ДОСТУП ОГРАНИЧЕН
+    </span>
+  </div>
+</div>
 )}
 
       {!questUnlocked ? (
