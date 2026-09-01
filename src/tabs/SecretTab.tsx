@@ -711,6 +711,58 @@ setRoomMessage(data.roomMessage ?? '')
     </div>
   </div>
 )}
+      {adminOpen && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 px-4">
+    <div className="w-full max-w-sm rounded-3xl border border-red-500/30 bg-[#0b0b12] p-5 shadow-2xl">
+
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="text-[9px] font-black uppercase tracking-[0.25em] text-red-400/60">
+            АМАЛЬГАМА
+          </p>
+          <h3 className="mt-1 text-lg font-black uppercase text-white">
+            Управление комнатами
+          </h3>
+        </div>
+
+        <button
+          type="button"
+          onClick={() => setAdminOpen(false)}
+          className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white/50"
+        >
+          ✕
+        </button>
+      </div>
+
+      <div className="mt-5 space-y-3">
+        {userRooms.length > 0 ? (
+          userRooms.map((room) => (
+            <div
+              key={room.id}
+              className="rounded-2xl border border-white/10 bg-black/50 p-4"
+            >
+              <p className="text-[9px] font-bold uppercase tracking-wider text-white/30">
+                СЛОТ {room.slot_number}
+              </p>
+
+              <p className="mt-1 text-sm font-black text-white">
+                {room.room_name}
+              </p>
+
+              <p className="mt-2 text-[10px] font-bold text-white/35">
+                🗝️ {room.attempts} · 🚪 {room.entered}
+              </p>
+            </div>
+          ))
+        ) : (
+          <p className="py-8 text-center text-xs font-bold text-white/30">
+            Созданных комнат нет
+          </p>
+        )}
+      </div>
+    </div>
+  </div>
+)}
       {showCreateRoom && (
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4">
     <div className="w-full max-w-sm rounded-3xl border border-accent/30 bg-[#0b0b12] p-5 shadow-2xl">
