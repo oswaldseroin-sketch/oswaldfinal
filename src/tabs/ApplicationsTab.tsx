@@ -532,7 +532,10 @@ const handleUpdateDate = async (): Promise<void> => {
 )}
                 <button onClick={closeDetail} className="h-11 w-full rounded-xl border border-line text-sm font-bold text-ink transition-transform active:scale-95">ЗАКРЫТЬ</button>
                 <button
-                  onClick={() => setDeleteConfirm(true)}
+                 onClick={(e) => {
+  e.stopPropagation()
+  setDeleteConfirm(true)
+}}
                   className="flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-error/40 bg-error/10 text-sm font-extrabold text-error transition-transform active:scale-95"
                 >
                   <Trash2 size={16} /> УДАЛИТЬ ИЗ БАЗЫ
