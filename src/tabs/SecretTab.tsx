@@ -331,7 +331,7 @@ if (enteringRoom) {
               : 'border-white/10 bg-black/40 text-white/30'
         }`}
       >
-        {index + 1}
+        {isFilled && !isCurrent ? '✓' : index + 1}
       </button>
     )
   })}
