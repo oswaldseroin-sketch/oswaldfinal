@@ -602,7 +602,58 @@ const handleKeyClick = (): void => {
   )}
 
 </div>
+{showEnterConfirm && phase === 'idle' && (
+  <div
+    className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 px-5 backdrop-blur-sm"
+    onClick={() => setShowEnterConfirm(false)}
+  >
+    <div
+      className="w-full max-w-sm rounded-2xl border border-purple-400/60 bg-black/95 p-6 text-center"
+      style={{
+        boxShadow:
+          '0 0 35px rgba(168,85,247,0.45), inset 0 0 20px rgba(168,85,247,0.1)',
+      }}
+      onClick={(e) => e.stopPropagation()}
+    >
+      <div className="text-4xl">🔑</div>
 
+      <h2
+        className="mt-3 text-2xl font-black tracking-wide text-white"
+        style={{
+          textShadow: '0 0 14px rgba(168,85,247,0.8)',
+        }}
+      >
+        ВХОДИМ?
+      </h2>
+
+      <p className="mt-2 text-xs font-bold text-white/40">
+        После входа ответы будут проверены
+      </p>
+
+      <button
+        type="button"
+        onClick={() => {
+          setShowEnterConfirm(false)
+          handleKeyClick()
+        }}
+        className="mt-6 w-full rounded-xl border border-purple-400/70 bg-purple-500/25 py-3.5 text-sm font-black tracking-wider text-white transition-all active:scale-95"
+        style={{
+          boxShadow: '0 0 16px rgba(168,85,247,0.4)',
+        }}
+      >
+        ВОЙТИ
+      </button>
+
+      <button
+        type="button"
+        onClick={() => setShowEnterConfirm(false)}
+        className="mt-2 w-full rounded-xl border border-white/10 bg-white/5 py-3 text-xs font-bold text-white/50 transition-all active:scale-95"
+      >
+        ОТМЕНА
+      </button>
+    </div>
+  </div>
+)}
       {showAdmin && (
         <SecretAdminPanel
           onClose={() => setShowAdmin(false)}
