@@ -668,7 +668,7 @@ const doorTheme =
   key={slotNumber}
   type="button"
   onClick={() => setShowCreateRoom(true)}
-  className={`absolute flex min-h-[165px] w-[128px] flex-col items-center justify-center overflow-hidden rounded-t-[52px] rounded-b-2xl border bg-black/70 px-3 text-center transition active:scale-95 ${doorTheme.border} ${doorTheme.bg} ${
+  className={`absolute flex min-h-[128px] w-[94px] flex-col items-center justify-center overflow-hidden rounded-t-[52px] rounded-b-2xl border bg-black/70 px-3 text-center transition active:scale-95 ${doorTheme.border} ${doorTheme.bg} ${
    slotNumber === 1
   ? 'left-1/2 top-[15px] -translate-x-1/2'
   : slotNumber === 2
