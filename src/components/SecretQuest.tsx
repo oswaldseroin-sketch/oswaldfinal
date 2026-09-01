@@ -633,9 +633,8 @@ const handleKeyClick = (): void => {
       <button
         type="button"
         onClick={() => {
-          setShowEnterConfirm(false)
-          handleKeyClick()
-        }}
+  handleKeyClick()
+}}
         className="mt-6 w-full rounded-xl border border-purple-400/70 bg-purple-500/25 py-3.5 text-sm font-black tracking-wider text-white transition-all active:scale-95"
         style={{
           boxShadow: '0 0 16px rgba(168,85,247,0.4)',
