@@ -295,7 +295,11 @@ useEffect(() => {
         placeholder="Название комнаты"
         className="mt-5 h-14 w-full rounded-2xl border border-white/10 bg-black/50 px-4 text-base font-bold text-white outline-none placeholder:text-white/25 focus:border-accent/50"
       />
-
+{createRoomError && (
+  <p className="mt-3 rounded-xl border border-red-500/30 bg-red-500/10 px-3 py-2 text-center text-xs font-bold text-red-400">
+    {createRoomError}
+  </p>
+)}
       <div className="mt-5 grid grid-cols-2 gap-3">
         <button
           type="button"
