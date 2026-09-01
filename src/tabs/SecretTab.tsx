@@ -284,6 +284,13 @@ const [adminPasswordError, setAdminPasswordError] = useState('')
 }
 if (enteringRoom) {
   const currentQuestion = enteringRoom.questions[roomQuestionIndex]
+  const questionGlow = [
+  'rgba(255,43,214,0.22)',
+  'rgba(56,189,248,0.22)',
+  'rgba(52,211,153,0.22)',
+  'rgba(251,191,36,0.22)',
+  'rgba(244,63,94,0.22)',
+][roomQuestionIndex]
 
   return (
     <div className="mx-auto min-h-screen max-w-md px-4 pb-32 pt-6">
