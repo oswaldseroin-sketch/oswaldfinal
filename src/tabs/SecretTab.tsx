@@ -311,6 +311,32 @@ if (enteringRoom) {
           Испытание {roomQuestionIndex + 1} из 5
         </p>
         <div className="mt-4 flex justify-center gap-2">
+  {enteringRoom.questions.map((question, index) => {
+    const isCurrent = roomQuestionIndex === index
+    const isFilled = Boolean(roomAnswers[index]?.trim())
+
+    return (
+      <button
+        key={question.slot_number}
+        type="button"
+        onClick={() => {
+          setRoomQuestionIndex(index)
+          setRoomAnswerDropdownOpen(false)
+        }}
+        className={`flex h-9 w-9 items-center justify-center rounded-xl border text-xs font-black transition ${
+          isCurrent
+            ? 'border-accent bg-accent/20 text-accent'
+            : isFilled
+              ? 'border-emerald-400/40 bg-emerald-400/10 text-emerald-300'
+              : 'border-white/10 bg-black/40 text-white/30'
+        }`}
+      >
+        {index + 1}
+      </button>
+    )
+  })}
+</div>
+        <div className="mt-4 flex justify-center gap-2">
   {enteringRoom.questions.map((question, index) => (
     <button
       key={question.slot_number}
