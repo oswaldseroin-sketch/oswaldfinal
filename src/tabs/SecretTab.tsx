@@ -686,7 +686,7 @@ const doorTheme =
   />
 
   <div
-    className={`relative z-10 flex h-12 w-12 items-center justify-center rounded-full border text-2xl ${doorTheme.border} ${doorTheme.text}`}
+    className={`relative z-10 flex h-9 w-9 items-center justify-center rounded-full border text-2xl ${doorTheme.border} ${doorTheme.text}`}
   >
     {doorTheme.icon}
   </div>
