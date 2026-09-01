@@ -183,7 +183,44 @@ useEffect(() => {
       </>
     )
   }
+if (enteringRoom) {
+  const currentQuestion = enteringRoom.questions[roomQuestionIndex]
 
+  return (
+    <div className="mx-auto min-h-screen max-w-md px-4 pb-32 pt-6">
+      <button
+        type="button"
+        onClick={() => {
+          setEnteringRoom(null)
+          setRoomAnswerDropdownOpen(false)
+        }}
+        className="mb-6 text-sm font-bold text-accent"
+      >
+        ← Назад к дверям
+      </button>
+
+      <div className="text-center">
+        <p className="text-[10px] font-black uppercase tracking-[0.28em] text-accent/60">
+          СЕКРЕТНАЯ КОМНАТА
+        </p>
+
+        <h2 className="mt-2 text-2xl font-black text-white">
+          {enteringRoom.roomName}
+        </h2>
+
+        <p className="mt-2 text-xs text-white/40">
+          Испытание {roomQuestionIndex + 1} из 5
+        </p>
+      </div>
+
+      <div className="mt-8 rounded-3xl border border-accent/30 bg-black/60 p-5">
+        <p className="text-center text-lg font-black text-white">
+          {currentQuestion?.title}
+        </p>
+      </div>
+    </div>
+  )
+}
   return (
     <div className="mx-auto min-h-screen max-w-md px-4 pb-32 pt-6 overflow-y-auto">
 
