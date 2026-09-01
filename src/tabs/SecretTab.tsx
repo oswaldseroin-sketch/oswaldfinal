@@ -591,7 +591,7 @@ setUserRooms(freshRooms)
       <div className="mt-1 flex items-center gap-1.5">
         <span className="text-sm">🗝️</span>
         <span
-          className="text-lg font-black text-accent"
+          className="text-base font-black text-accent"
           style={{
             textShadow: '0 0 10px rgba(255,43,214,0.7)',
           }}
