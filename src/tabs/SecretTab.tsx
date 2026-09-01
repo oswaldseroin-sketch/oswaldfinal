@@ -604,7 +604,7 @@ setUserRooms(freshRooms)
     <div className="w-px bg-gradient-to-b from-transparent via-accent/50 to-transparent" />
 
     <div className="flex w-[63px] flex-col items-center justify-center px-3 py-3">
-      <span className="text-[8px] font-black uppercase tracking-[0.18em] text-white/35">
+      <span className="text-[7px] font-black uppercase tracking-[0.18em] text-white/35">
         Вошло
       </span>
 
