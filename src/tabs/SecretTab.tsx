@@ -267,6 +267,11 @@ useEffect(() => {
           <p className="mt-2 text-sm font-black text-white">
             {room.room_name}
           </p>
+          {myRoom?.id === room.id && (
+  <div className="mt-3 rounded-xl border border-accent/30 bg-accent/10 px-3 py-2 text-center text-[10px] font-black uppercase tracking-wider text-accent">
+    НАСТРОИТЬ КОМНАТУ
+  </div>
+)}
         </div>
 
         <div className="mt-4 grid grid-cols-2 gap-2">
