@@ -447,11 +447,11 @@ useEffect(() => {
 >
   <option value="">Выбери правильное ФИО</option>
 
-  {nominations[0].options.map((name) => (
-    <option key={name} value={name}>
-      {name}
-    </option>
-  ))}
+  {Array.from(new Set(nominations.map((item) => item.correct))).map((name) => (
+  <option key={name} value={name}>
+    {name}
+  </option>
+))}
 </select>
 
       {saveQuestionsError && (
