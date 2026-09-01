@@ -269,7 +269,17 @@ const personalizedText = useMemo(() => {
           </div>
 
           {/* Ritual image as the scene base */}
-          <div className="relative w-full" style={{ aspectRatio: '1 / 1' }}>
+         <div className="relative w-full" style={{ aspectRatio: '1 / 1' }}>
+  <style>{`
+    @keyframes artifactOrbit {
+      from {
+        transform: translate(-50%, -50%) rotate(var(--start-angle)) translateX(125px);
+      }
+      to {
+        transform: translate(-50%, -50%) rotate(calc(var(--start-angle) + 360deg)) translateX(125px);
+      }
+    }
+  `}</style>
             <img
               src={RITUAL_IMAGE}
               alt="Ритуал пробуждения Фрасимаха"
