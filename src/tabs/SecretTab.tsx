@@ -358,7 +358,7 @@ if (enteringRoom) {
     Выбери правильного человека
   </p>
 </div>
-      <div className="mt-5">
+      <div className="mt-4 rounded-2xl border border-white/5 bg-black/25 p-2">
   <NameDropdown
     value={roomAnswers[roomQuestionIndex]}
     onChange={(value) => {
