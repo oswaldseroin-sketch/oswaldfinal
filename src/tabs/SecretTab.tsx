@@ -746,7 +746,19 @@ open={answerDropdownOpen}
 onOpenChange={setAnswerDropdownOpen}
   />
 </div>
+<div className="mt-6">
+  <p className="mb-2 text-[10px] font-black uppercase tracking-[0.2em] text-accent/70">
+    ТАЙНОЕ ПОСЛАНИЕ
+  </p>
 
+  <textarea
+    value={roomMessage}
+    onChange={(e) => setRoomMessage(e.target.value)}
+    placeholder="Напиши послание тем, кто сможет войти..."
+    rows={5}
+    className="w-full resize-none rounded-2xl border border-white/10 bg-black/50 px-4 py-3 text-sm font-bold text-white outline-none placeholder:text-white/25 focus:border-accent/50"
+  />
+</div>
       {saveQuestionsError && (
         <p className="mt-3 rounded-xl border border-red-500/30 bg-red-500/10 px-3 py-2 text-center text-xs font-bold text-red-400">
           {saveQuestionsError}
