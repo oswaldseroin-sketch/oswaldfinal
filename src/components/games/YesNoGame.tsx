@@ -331,36 +331,7 @@ if (today?.selfQuestion) {
 )}
          
 )}
-          {isSelfQuestion && (
-  <div className="mb-3 rounded-2xl border border-amber-300/30 bg-gradient-to-br from-amber-500/10 via-black/30 to-violet-500/10 p-4 text-center shadow-[0_0_24px_rgba(251,191,36,0.12)]">
-    <p className="text-[10px] font-black tracking-[0.22em] text-amber-300">
-      🏆 НАГРАДА
-    </p>
-
-    <div className="mt-3 grid grid-cols-3 gap-2">
-      <div className="rounded-xl border border-cyan-300/20 bg-cyan-400/10 px-2 py-2">
-        <p className="text-sm font-black text-cyan-300">+10</p>
-        <p className="text-[8px] font-bold text-cyan-300/60">XP</p>
-      </div>
-
-      <div className="rounded-xl border border-violet-300/20 bg-violet-400/10 px-2 py-2">
-        <p className="text-sm font-black text-violet-300">+10</p>
-        <p className="text-[8px] font-bold text-violet-300/60">XP ЗВАНИЯ</p>
-      </div>
-
-      <div className="rounded-xl border border-amber-300/20 bg-amber-400/10 px-2 py-2">
-        <p className="text-sm font-black text-amber-300">+10</p>
-        <p className="text-[8px] font-bold text-amber-300/60">МОНЕТ</p>
-      </div>
-    </div>
-
-    <p className="mt-3 text-[10px] leading-relaxed text-zinc-500">
-      Вопрос оказался про тебя.
-      <br />
-      Голосовать нельзя — награда уже получена.
-    </p>
-  </div>
-)}
+        
          <div className={`grid grid-cols-2 gap-2.5 ${isSelfQuestion ? 'hidden' : ''}`}>
             {['yes', 'no'].map((option) => {
               const isSelected = selected === option
