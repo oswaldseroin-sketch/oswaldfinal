@@ -450,8 +450,8 @@ useEffect(() => {
       glow: 'rgba(255,43,214,0.45)',
       text: '#ff2bd6',
     }}
-    open={true}
-    onOpenChange={() => {}}
+open={answerDropdownOpen}
+onOpenChange={setAnswerDropdownOpen}
   />
 </div>
 
