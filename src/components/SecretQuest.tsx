@@ -519,18 +519,7 @@ const handleKeyClick = (): void => {
     </p>
   )}
 
-  {allFilled && phase === 'idle' && (
-    <button
-      onClick={handleKeyClick}
-      className="w-full rounded-xl border border-purple-400/70 bg-purple-500/20 px-4 py-3 text-[14px] font-extrabold tracking-wide text-white transition-all hover:bg-purple-500/30 active:scale-95"
-      style={{
-        boxShadow:
-          '0 0 14px rgba(168,85,247,0.45), inset 0 0 10px rgba(168,85,247,0.12)',
-      }}
-    >
-      🔑 ВХОДИМ?
-    </button>
-  )}
+  
 
   {phase === 'success' && (
     <div
