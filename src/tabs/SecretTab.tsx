@@ -32,7 +32,8 @@ const [doorEntries, setDoorEntries] = useState(0)
   attempts: number
   entered: number
 }>>([])
-
+const [showCreateRoom, setShowCreateRoom] = useState(false)
+const [newRoomName, setNewRoomName] = useState('')
 useEffect(() => {
   void Promise.all([
     api.getSecretAttempts(),
