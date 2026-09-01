@@ -506,29 +506,80 @@ setUserRooms(freshRooms)
         АМАЛЬГАМЫ
       </h2>
 
-      <button
-        type="button"
-        onClick={() => setMainDoorOpen(true)}
-       className="group relative z-20 mt-[250px] flex h-80 w-56 items-center justify-center overflow-hidden rounded-t-[110px] rounded-b-3xl border-2 border-accent/70 bg-black/90 transition-all duration-300 active:scale-95"
+     <button
+  type="button"
+  onClick={() => setMainDoorOpen(true)}
+  className="group relative z-20 mt-[250px] flex h-[340px] w-[240px] items-center justify-center overflow-hidden rounded-t-[120px] rounded-b-[28px] border-2 border-accent/80 bg-black/95 transition-all duration-300 active:scale-[0.97]"
+  style={{
+    boxShadow:
+      '0 0 35px rgba(255,43,214,0.35), 0 0 80px rgba(255,43,214,0.12), inset 0 0 55px rgba(255,43,214,0.15)',
+  }}
+>
+  <div
+    className="absolute inset-2 rounded-t-[112px] rounded-b-[22px] border border-accent/20"
+  />
+
+  <div
+    className="absolute inset-5 rounded-t-[95px] rounded-b-2xl border border-accent/30"
+    style={{
+      boxShadow: 'inset 0 0 30px rgba(255,43,214,0.10)',
+    }}
+  />
+
+  <div
+    className="absolute left-1/2 top-20 h-36 w-36 -translate-x-1/2 rounded-full border border-accent/20"
+    style={{
+      boxShadow:
+        '0 0 25px rgba(255,43,214,0.18), inset 0 0 25px rgba(255,43,214,0.12)',
+    }}
+  />
+
+  <div className="absolute left-5 top-1/2 h-px w-10 bg-accent/25" />
+  <div className="absolute right-5 top-1/2 h-px w-10 bg-accent/25" />
+
+  <div className="relative z-10 flex flex-col items-center">
+    <div
+      className="flex h-24 w-24 items-center justify-center rounded-full border border-accent/50 bg-accent/10"
+      style={{
+        boxShadow:
+          '0 0 30px rgba(255,43,214,0.35), inset 0 0 25px rgba(255,43,214,0.10)',
+      }}
+    >
+      <DoorOpen
+        size={54}
+        className="text-accent transition-transform duration-300 group-hover:scale-110"
         style={{
-          boxShadow:
-            '0 0 25px rgba(255,43,214,0.25), inset 0 0 35px rgba(255,43,214,0.12)',
+          filter: 'drop-shadow(0 0 15px rgba(255,43,214,0.9))',
         }}
-      >
-        <div className="absolute inset-3 rounded-t-[68px] rounded-b-xl border border-accent/25" />
+      />
+    </div>
 
-        <DoorOpen
-          size={58}
-          className="relative z-10 text-accent transition-transform duration-300 group-hover:scale-110"
-          style={{
-            filter: 'drop-shadow(0 0 12px rgba(255,43,214,0.8))',
-          }}
-        />
+    <p
+      className="mt-7 text-[9px] font-black uppercase tracking-[0.32em] text-accent/45"
+    >
+      ГЛАВНОЕ ИСПЫТАНИЕ
+    </p>
 
-        <span className="absolute bottom-5 text-[10px] font-black uppercase tracking-[0.22em] text-accent/80">
-          ВОЙТИ
-        </span>
-      </button>
+    <p
+      className="mt-2 text-center text-sm font-black uppercase tracking-[0.15em] text-white"
+      style={{
+        textShadow: '0 0 14px rgba(255,43,214,0.6)',
+      }}
+    >
+      ДВЕРЬ
+      <br />
+      АМАЛЬГАМЫ
+    </p>
+
+    <div className="mt-6 rounded-full border border-accent/50 bg-accent/10 px-7 py-2">
+      <span className="text-[10px] font-black uppercase tracking-[0.25em] text-accent">
+        ВОЙТИ
+      </span>
+    </div>
+  </div>
+
+  <div className="absolute bottom-3 left-1/2 h-1 w-20 -translate-x-1/2 rounded-full bg-accent/30 blur-sm" />
+</button>
 <div className="mt-5 flex items-center justify-center gap-3">
   <div className="rounded-xl border border-accent/25 bg-black/50 px-3 py-2 text-center">
     <p className="text-[9px] font-bold uppercase tracking-wider text-white/40">
