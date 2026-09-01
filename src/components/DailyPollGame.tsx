@@ -193,9 +193,11 @@ export default function DailyPollGame({ onBack, onProfileUpdate }: Props) {
                             {r.candidate}
                           </span>
 
-                          {isSelectedByUser && (
-                            <Check size={13} className="text-amber-300" />
-                          )}
+                         {isSelectedByUser && (
+  <span className="rounded-md border border-amber-400/30 bg-amber-400/10 px-1.5 py-0.5 text-[8px] font-black tracking-wide text-amber-300">
+    ВАШ ГОЛОС
+  </span>
+)}
                         </div>
 
                         <span className="text-sm font-extrabold text-amber-200">
