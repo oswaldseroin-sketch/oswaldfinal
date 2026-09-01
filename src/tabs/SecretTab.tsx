@@ -228,6 +228,23 @@ useEffect(() => {
           <br />
           и получил доступ в эту комнату.
         </p>
+        <div
+  className="mt-8 rounded-2xl border border-accent/30 bg-black/60 p-5"
+  style={{
+    boxShadow:
+      '0 0 25px rgba(255,43,214,0.12), inset 0 0 25px rgba(255,43,214,0.05)',
+  }}
+>
+  <p className="text-center text-[10px] font-black uppercase tracking-[0.28em] text-accent/70">
+    ТАЙНОЕ ПОСЛАНИЕ
+  </p>
+
+  <div className="mt-4 rounded-xl border border-white/10 bg-white/5 px-4 py-4">
+    <p className="text-center text-sm font-bold leading-relaxed text-white/85 whitespace-pre-wrap">
+      {enteringRoom.roomMessage || 'Владелец комнаты ничего не оставил...'}
+    </p>
+  </div>
+</div>
         <div className="mt-8 rounded-2xl border border-accent/25 bg-black/50 p-4">
   <p className="text-center text-[10px] font-black uppercase tracking-[0.22em] text-accent/70">
     КТО СЮДА ПОПАЛ
