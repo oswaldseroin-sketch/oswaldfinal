@@ -1033,10 +1033,21 @@ slotNumber === 1
    try {
   setCreateRoomError('')
 
-  await api.createSecretUserRoom(currentUser.name, roomName)
+ const createdRoom = await api.createSecretUserRoom(
+  currentUser.name,
+  roomName,
+)
 
-  const rooms = await api.getSecretUserRooms()
-  setUserRooms(rooms)
+const rooms = await api.getSecretUserRooms()
+setUserRooms(rooms)
+
+const ownRoom = rooms.find(
+  (room) => room.id === createdRoom.room?.id,
+)
+
+if (ownRoom) {
+  setMyRoom(ownRoom)
+}
 
   setNewRoomName('')
   setCreateRoomError('')
