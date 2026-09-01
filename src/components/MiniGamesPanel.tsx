@@ -378,7 +378,7 @@ if (selectedGame === 10) {
 </div>
                 </div>
                 <p className="mt-0.5 text-xs font-bold tracking-wide text-accent" style={{ textShadow: '0 0 8px rgba(255,43,214,0.4)' }}>
-                  {titleInfo.title}
+                  {profile.title}
                 </p>
               </div>
               <div
