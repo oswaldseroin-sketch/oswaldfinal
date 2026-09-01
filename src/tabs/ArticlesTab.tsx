@@ -334,7 +334,7 @@ export default function ArticlesTab({ onBack }: { onBack: () => void }) {
         <h1 className="mt-1 text-3xl font-extrabold text-ink">📄 РАБОЧИЕ ИНСТРУКЦИИ И СТАТЬИ</h1>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-2">
         {articles.map((article) => {
           const isOpen = openId === article.id
           return (
