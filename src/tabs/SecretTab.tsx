@@ -553,7 +553,46 @@ setUserRooms(freshRooms)
     const room = userRooms.find(
       (item) => item.slot_number === slotNumber,
     )
-
+const doorTheme =
+  slotNumber === 1
+    ? {
+        border: 'border-emerald-400/40',
+        bg: 'bg-emerald-500/5',
+        text: 'text-emerald-300',
+        glow: '0 0 28px rgba(52,211,153,0.16)',
+        icon: 'ᚱ',
+        title: 'ДВЕРЬ ЖДЁТ ХОЗЯИНА',
+        subtitle: 'РУНЫ ЕЩЁ МОЛЧАТ',
+      }
+    : slotNumber === 2
+      ? {
+          border: 'border-sky-400/40',
+          bg: 'bg-sky-500/5',
+          text: 'text-sky-300',
+          glow: '0 0 28px rgba(56,189,248,0.16)',
+          icon: '❄',
+          title: 'ПЕЧАТЬ НЕ НАРУШЕНА',
+          subtitle: 'ХОЛОД ХРАНИТ ТАЙНУ',
+        }
+      : slotNumber === 3
+        ? {
+            border: 'border-amber-400/40',
+            bg: 'bg-amber-500/5',
+            text: 'text-amber-300',
+            glow: '0 0 28px rgba(251,191,36,0.16)',
+            icon: '⌛',
+            title: 'ВРЕМЯ ЖДЁТ',
+            subtitle: 'КОМНАТА ЕЩЁ НЕ ПРОБУЖДЕНА',
+          }
+        : {
+            border: 'border-rose-500/40',
+            bg: 'bg-rose-500/5',
+            text: 'text-rose-300',
+            glow: '0 0 28px rgba(244,63,94,0.16)',
+            icon: '◉',
+            title: 'БЕЗДНА ПУСТА',
+            subtitle: 'КТО-ТО ДОЛЖЕН ЕЁ ОТКРЫТЬ',
+          }
     if (!room) {
       return (
         <button
