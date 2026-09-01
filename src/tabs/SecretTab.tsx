@@ -557,7 +557,7 @@ if (enteringRoom) {
       room.id,
       currentUser.name,
     )
-
+setRoomMessage(data.roomMessage ?? '')
     setEditingQuestions(
       Array.from({ length: 5 }, (_, index) => {
         const saved = data.questions.find(
