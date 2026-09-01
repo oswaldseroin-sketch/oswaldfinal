@@ -25,6 +25,13 @@ const [questUnlocked, setQuestUnlocked] = useState(() =>
   const [mainDoorOpen, setMainDoorOpen] = useState(false)
   const [doorAttempts, setDoorAttempts] = useState(0)
 const [doorEntries, setDoorEntries] = useState(0)
+  const [userRooms, setUserRooms] = useState<Array<{
+  id: number
+  slot_number: number
+  room_name: string
+  attempts: number
+  entered: number
+}>>([])
 
 useEffect(() => {
   void Promise.all([
