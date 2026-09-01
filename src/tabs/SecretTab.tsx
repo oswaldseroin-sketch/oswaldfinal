@@ -529,7 +529,7 @@ setUserRooms(freshRooms)
 
   <div className="relative z-10 flex flex-col items-center">
     <div
-      className="flex h-20 w-20 items-center justify-center rounded-full border border-accent/50 bg-accent/10"
+      className="flex h-12 w-12 items-center justify-center rounded-full border border-accent/50 bg-accent/10"
       style={{
         boxShadow:
           '0 0 30px rgba(255,43,214,0.35), inset 0 0 25px rgba(255,43,214,0.10)',
