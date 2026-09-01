@@ -358,6 +358,17 @@ getMySecretUserRoom: async (userId: string) => {
     }),
   })
 },
+  getSecretUserRoomMessage: async (
+  roomId: number,
+  userId: string,
+) => {
+  const playerId = await resolvePlayerId(userId)
+
+  return apiFetch<{
+    roomId: number
+    roomMessage: string
+  }>(`/api/secret-user-rooms/${roomId}/message/${playerId}`)
+},
  getSecretUserRoomPublicQuestions: (roomId: number) =>
   apiFetch<{
     roomId: number
