@@ -318,6 +318,12 @@ if (enteringRoom) {
     <p className="mt-1 text-xs text-white/45">
       Все 5 испытаний пройдены
     </p>
+    <button
+  type="button"
+  className="mt-4 w-full rounded-xl border border-emerald-400/50 bg-emerald-400/15 px-4 py-3 text-xs font-black uppercase tracking-wider text-emerald-300 transition active:scale-[0.98]"
+>
+  🚪 ВОЙТИ В КОМНАТУ
+</button>
   </div>
 )}
     </div>
