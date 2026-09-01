@@ -335,45 +335,53 @@ export default function YesNoGame({ onBack, onProfileUpdate }: Props) {
             })}
           </div>
 
-         {!isSelfQuestion && (hasVoted ? (
-  <div className="mt-4 rounded-xl border border-slate-400/15 bg-white/[0.03] p-3 text-center">
-    <p className="text-[9px] font-black tracking-[0.2em] text-slate-500">
-      РЕШЕНИЕ ЗАФИКСИРОВАНО
-    </p>
+       {!isSelfQuestion && (
+  hasVoted ? (
+    <div className="mt-4 rounded-xl border border-slate-400/15 bg-white/[0.03] p-3 text-center">
+      <p className="text-[9px] font-black tracking-[0.2em] text-slate-500">
+        РЕШЕНИЕ ЗАФИКСИРОВАНО
+      </p>
 
-    <div className="mt-2 flex items-center justify-center gap-2">
-      <Check size={15} className="text-slate-300" />
-      <p className="text-sm font-black text-zinc-100">
-        ТВОЙ ВЫБОР:
-        <span className={`ml-1 ${
-          today.userVote === 'yes'
-            ? 'text-emerald-300'
-            : 'text-red-300'
-        }`}>
-          {today.userVote === 'yes' ? 'ДА' : 'НЕТ'}
-        </span>
+      <div className="mt-2 flex items-center justify-center gap-2">
+        <Check size={15} className="text-slate-300" />
+        <p className="text-sm font-black text-zinc-100">
+          ТВОЙ ВЫБОР:
+          <span
+            className={`ml-1 ${
+              today.userVote === 'yes'
+                ? 'text-emerald-300'
+                : 'text-red-300'
+            }`}
+          >
+            {today.userVote === 'yes' ? 'ДА' : 'НЕТ'}
+          </span>
+        </p>
+      </div>
+
+      <p className="mt-1.5 text-[10px] text-zinc-500">
+        Результат откроется завтра в 08:00
       </p>
     </div>
-
-    <p className="mt-1.5 text-[10px] text-zinc-500">
-      Результат откроется завтра в 08:00
-    </p>
-  </div>
-) : (
-            <button
-  onClick={handleVote}
-  disabled={!selected || voting}
-  className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 bg-gradient-to-r from-slate-200 via-zinc-100 to-slate-200 py-3 text-sm font-black tracking-wide text-black transition-all active:scale-95 disabled:opacity-30"
-  style={{
-    boxShadow: selected
-      ? '0 0 20px rgba(226,232,240,0.12)'
-      : 'none',
-            )}
->
-              {voting ? <Loader2 size={16} className="animate-spin" /> : <Check size={16} />}
-              Ответить
-            </button>
-                    )}
+  ) : (
+    <button
+      onClick={handleVote}
+      disabled={!selected || voting}
+      className="mt-4 flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 bg-gradient-to-r from-slate-200 via-zinc-100 to-slate-200 py-3 text-sm font-black tracking-wide text-black transition-all active:scale-95 disabled:opacity-30"
+      style={{
+        boxShadow: selected
+          ? '0 0 20px rgba(226,232,240,0.12)'
+          : 'none',
+      }}
+    >
+      {voting ? (
+        <Loader2 size={16} className="animate-spin" />
+      ) : (
+        <Check size={16} />
+      )}
+      Ответить
+    </button>
+  )
+)}
         </div>
                )}
     </div>
