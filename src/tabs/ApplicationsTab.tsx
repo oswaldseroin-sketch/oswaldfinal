@@ -196,8 +196,7 @@ const handleUpdateDate = async (): Promise<void> => {
 
       {error && <p className="mb-3 text-xs text-error">{error}</p>}
 <div className="min-h-[120px]">
-      {loading ? (
-        <p className="py-10 text-center text-sm text-ink-muted">Загрузка базы сотрудников и машин...</p>
+     {loading ? null
       ) : showEmpty ? (
         <div className="flex flex-col items-center px-6 py-16">
           <ShieldCheck size={34} color="#5a6172" />
