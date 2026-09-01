@@ -690,6 +690,9 @@ const handleKeyClick = (): void => {
     </p>
   </>
 )}
+          </div>
+  </div>
+)}
       {showAdmin && (
         <SecretAdminPanel
           onClose={() => setShowAdmin(false)}
