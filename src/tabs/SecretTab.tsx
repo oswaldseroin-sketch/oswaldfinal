@@ -752,6 +752,32 @@ setRoomMessage(data.roomMessage ?? '')
               <p className="mt-2 text-[10px] font-bold text-white/35">
                 🗝️ {room.attempts} · 🚪 {room.entered}
               </p>
+              <button
+  type="button"
+  onClick={async () => {
+    const confirmed = window.confirm(
+      `Очистить комнату "${room.room_name}"?`,
+    )
+
+    if (!confirmed) return
+
+    try {
+      await api.deleteSecretUserRoom(room.id)
+
+      const rooms = await api.getSecretUserRooms()
+      setUserRooms(rooms)
+
+      if (myRoom?.id === room.id) {
+        setMyRoom(null)
+      }
+    } catch (error) {
+      console.error('Delete secret room error:', error)
+    }
+  }}
+  className="mt-4 w-full rounded-xl border border-red-500/40 bg-red-500/10 px-3 py-3 text-[10px] font-black uppercase tracking-[0.18em] text-red-300 transition active:scale-[0.98]"
+>
+  ОЧИСТИТЬ КОМНАТУ
+</button>
             </div>
           ))
         ) : (
