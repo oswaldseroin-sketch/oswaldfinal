@@ -166,7 +166,7 @@ export default function BestDuoGame({ onBack, onProfileUpdate }: Props) {
 </p>
     
   <div
-    className={`flex h-6 w-6 items-center justify-center rounded-full border transition-all duration-200 ${
+   className={`${votes !== undefined ? 'hidden' : 'flex'} h-6 w-6 items-center justify-center rounded-full border transition-all duration-200 ${
       isSelected || isChosen
         ? teamNum === 1
           ? 'border-cyan-300 bg-cyan-400 text-black shadow-[0_0_14px_rgba(34,211,238,0.60)]'
