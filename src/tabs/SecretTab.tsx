@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { DoorOpen, Flame, Plus, X } from 'lucide-react'
 import { useApp } from '../context/AppContext'
 import BackButton from '../components/BackButton'
