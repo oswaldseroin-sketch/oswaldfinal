@@ -260,6 +260,43 @@ if (enteringRoom) {
     onOpenChange={setRoomAnswerDropdownOpen}
   />
 </div>
+      <div className="mt-7">
+  <button
+    type="button"
+    disabled={
+      roomAttemptLoading ||
+      roomAnswers.some((answer) => !answer.trim())
+    }
+    onClick={async () => {
+      if (!currentUser?.name) return
+
+      setRoomAttemptLoading(true)
+      setRoomAttemptResult(null)
+
+      try {
+        const result = await api.attemptSecretUserRoom(
+          enteringRoom.id,
+          currentUser.name,
+          enteringRoom.questions.map((question, index) => ({
+            slot_number: question.slot_number,
+            answer: roomAnswers[index],
+          })),
+        )
+
+        setRoomAttemptResult(result.success ? 'success' : 'wrong')
+      } catch (error) {
+        console.error('Secret room attempt error:', error)
+      } finally {
+        setRoomAttemptLoading(false)
+      }
+    }}
+    className="w-full rounded-2xl border border-accent/50 bg-accent/15 px-4 py-4 text-sm font-black uppercase tracking-wider text-accent transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-30"
+  >
+    {roomAttemptLoading
+      ? 'ПРОВЕРКА...'
+      : '🗝️ ПОПЫТАТЬСЯ ВОЙТИ'}
+  </button>
+</div>
     </div>
   )
 }
