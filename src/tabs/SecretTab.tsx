@@ -659,6 +659,58 @@ setRoomMessage(data.roomMessage ?? '')
     )
   })}
 </div>
+      {adminPasswordOpen && (
+  <div
+    className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 px-4"
+    onClick={() => setAdminPasswordOpen(false)}
+  >
+    <div
+      className="w-full max-w-xs rounded-3xl border border-accent/30 bg-[#0b0b12] p-5 shadow-2xl"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <p className="text-center text-3xl">🔒</p>
+
+      <h3 className="mt-3 text-center text-lg font-black uppercase text-white">
+        АДМИНКА
+      </h3>
+
+      <input
+        type="password"
+        inputMode="numeric"
+        value={adminPassword}
+        onChange={(e) => {
+          setAdminPassword(e.target.value)
+          setAdminPasswordError('')
+        }}
+        placeholder="Пароль"
+        className="mt-5 h-14 w-full rounded-2xl border border-white/10 bg-black/50 px-4 text-center text-xl font-black tracking-[0.35em] text-white outline-none placeholder:tracking-normal placeholder:text-white/25 focus:border-accent/50"
+      />
+
+      {adminPasswordError && (
+        <p className="mt-3 text-center text-xs font-bold text-red-400">
+          {adminPasswordError}
+        </p>
+      )}
+
+      <button
+        type="button"
+        onClick={() => {
+          if (adminPassword === '3010') {
+            setAdminPasswordOpen(false)
+            setAdminPassword('')
+            setAdminPasswordError('')
+            setAdminOpen(true)
+          } else {
+            setAdminPasswordError('НЕВЕРНЫЙ ПАРОЛЬ')
+          }
+        }}
+        className="mt-4 h-12 w-full rounded-2xl border border-accent/40 bg-accent/15 text-sm font-black uppercase tracking-wider text-accent"
+      >
+        ВОЙТИ
+      </button>
+    </div>
+  </div>
+)}
       {showCreateRoom && (
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4">
     <div className="w-full max-w-sm rounded-3xl border border-accent/30 bg-[#0b0b12] p-5 shadow-2xl">
