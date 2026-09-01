@@ -153,7 +153,28 @@ console.log('MAFIA PLAYERS:', dailyPlayers)
 </button>
           {showYesterdayResults && (
   <>
-          <p className="mb-3 text-sm text-ink-muted">Мафия: <span className="font-bold text-ink">{yesterday.mafia}</span></p>
+          <div className="mb-3 overflow-hidden rounded-xl border border-red-500/30 bg-gradient-to-r from-red-950/35 via-black/40 to-amber-950/20 shadow-[0_0_20px_rgba(239,68,68,0.10)]">
+  <div className="border-b border-red-500/15 bg-red-500/5 px-3 py-1.5">
+    <p className="text-[8px] font-black tracking-[0.22em] text-red-400/70">
+      ЛИЧНОСТЬ РАСКРЫТА
+    </p>
+  </div>
+
+  <div className="flex items-center gap-3 px-3 py-3">
+    <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-red-400/30 bg-red-500/10 text-lg">
+      🕵️
+    </div>
+
+    <div>
+      <p className="text-[9px] font-black tracking-[0.18em] text-red-400/60">
+        МАФИЯ
+      </p>
+      <p className="text-base font-black tracking-wide text-amber-200">
+        {yesterday.mafia}
+      </p>
+    </div>
+  </div>
+</div>
           <div className="space-y-1.5">
             <div className="flex justify-between rounded-lg border border-success/20 bg-success/10 px-3 py-1.5">
               <span className="text-xs font-bold text-success">Угадали с 1-й попытки</span>
