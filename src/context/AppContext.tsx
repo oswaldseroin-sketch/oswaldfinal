@@ -136,7 +136,22 @@ export function AppProvider({ children }: { children: ReactNode }) {
       return false
     }
   }
+const updateEmployeeDate = async (id: string, access_date: string): Promise<boolean> => {
+  try {
+    const updated = await api.updateEmployeeDate(id, access_date)
 
+    setEmployees((prev) =>
+      prev.map((employee) =>
+        employee.id === id ? updated : employee
+      )
+    )
+
+    return true
+  } catch (err) {
+    console.error('Update employee date error:', err)
+    return false
+  }
+}
   const deleteEmployee = async (id: string): Promise<boolean> => {
     try {
       await api.deleteEmployee(id)
