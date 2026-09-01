@@ -28,7 +28,7 @@ type AddType = 'person' | 'vehicle' | null
 type PanelMode = 'add' | 'delete' | null
 
 export default function ApplicationsTab({ onBack }: { onBack: () => void }) {
-  const { employees, addEmployee, deleteEmployee, loading, error } = useApp()
+  const { employees, addEmployee, updateEmployeeDate, deleteEmployee, loading, error } = useApp()
   const [search, setSearch] = useState('')
   const [panelMode, setPanelMode] = useState<PanelMode>(null)
   const [addType, setAddType] = useState<AddType>(null)
