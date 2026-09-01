@@ -347,7 +347,11 @@ getMySecretUserRoom: async (userId: string) => {
       title: string
     }>
   }>(`/api/secret-user-rooms/${roomId}/questions/public`),
-
+getSecretUserRoomEntries: (roomId: number) =>
+  apiFetch<Array<{
+    id: number
+    full_name: string
+  }>>(`/api/secret-user-rooms/${roomId}/entries`),
 attemptSecretUserRoom: async (
   roomId: number,
   userId: string,
