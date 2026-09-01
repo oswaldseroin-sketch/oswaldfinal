@@ -443,6 +443,7 @@ useEffect(() => {
             : question,
         ),
       )
+      setAnswerDropdownOpen(false)
     }}
     workers={workers}
     color={{
