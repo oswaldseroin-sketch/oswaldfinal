@@ -255,7 +255,7 @@ const handleUpdateDate = async (): Promise<void> => {
       {/* ===== Add panel ===== */}
       {panelMode === 'add' && (
         <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/70 animate-fadeIn" onClick={closePanel}>
-          <div className="w-full max-w-[460px] rounded-t-3xl border-t border-neon/25 bg-card p-5 pb-8 animate-slideUp" onClick={(e) => e.stopPropagation()}>
+          <div className="w-full max-w-2xl rounded-t-[28px] border-t border-neon/25 bg-card px-5 pb-8 pt-6 sm:px-8 animate-slideUp" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between">
               <h2 className="text-lg font-extrabold text-ink">Новая заявка</h2>
               <button onClick={closePanel} className="text-ink-muted" aria-label="Закрыть"><X size={19} /></button>
