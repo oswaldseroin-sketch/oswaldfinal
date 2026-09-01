@@ -195,7 +195,7 @@ const handleUpdateDate = async (): Promise<void> => {
       </div>
 
       {error && <p className="mb-3 text-xs text-error">{error}</p>}
-
+<div className="min-h-[120px]">
       {loading ? (
         <p className="py-10 text-center text-sm text-ink-muted">Загрузка базы сотрудников и машин...</p>
       ) : showEmpty ? (
