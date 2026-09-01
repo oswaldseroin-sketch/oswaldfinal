@@ -461,6 +461,45 @@ const handleUpdateDate = async (): Promise<void> => {
               </div>
             ) : (
               <div className="mt-5 space-y-2">
+                {!editingDate ? (
+  <button
+    onClick={() => {
+      setEditDate(formatDate(selected.access_date))
+      setEditingDate(true)
+    }}
+    className="h-12 w-full rounded-xl border border-neon/30 bg-neon/10 font-semibold text-neon transition active:scale-[0.98]"
+  >
+    ИЗМЕНИТЬ ДАТУ
+  </button>
+) : (
+  <div className="space-y-3 rounded-2xl border border-neon/20 bg-black/20 p-4">
+    <input
+      value={editDate}
+      onChange={(e) => setEditDate(e.target.value)}
+      placeholder="ДД.ММ.ГГГГ"
+      className="h-12 w-full rounded-xl border border-white/10 bg-black/30 px-4 text-center text-base text-white outline-none focus:border-neon/50"
+    />
+
+    <div className="grid grid-cols-2 gap-3">
+      <button
+        onClick={() => {
+          setEditingDate(false)
+          setEditDate('')
+        }}
+        className="h-11 rounded-xl border border-white/10 bg-white/5 text-sm font-semibold text-white/70"
+      >
+        ОТМЕНА
+      </button>
+
+      <button
+        onClick={() => void handleUpdateDate()}
+        className="h-11 rounded-xl bg-neon text-sm font-bold text-bg"
+      >
+        СОХРАНИТЬ
+      </button>
+    </div>
+  </div>
+)}
                 <button onClick={closeDetail} className="h-11 w-full rounded-xl border border-line text-sm font-bold text-ink transition-transform active:scale-95">ЗАКРЫТЬ</button>
                 <button
                   onClick={() => setDeleteConfirm(true)}
