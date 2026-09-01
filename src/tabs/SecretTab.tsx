@@ -227,6 +227,30 @@ useEffect(() => {
           <br />
           и получил доступ в эту комнату.
         </p>
+        <div className="mt-8 rounded-2xl border border-accent/25 bg-black/50 p-4">
+  <p className="text-center text-[10px] font-black uppercase tracking-[0.22em] text-accent/70">
+    КТО СЮДА ПОПАЛ
+  </p>
+
+  <div className="mt-4 space-y-2">
+    {userRoomEntries.length > 0 ? (
+      userRoomEntries.map((player) => (
+        <div
+          key={player.id}
+          className="rounded-xl border border-white/10 bg-white/5 px-3 py-3 text-center"
+        >
+          <span className="text-sm font-bold text-white">
+            {player.full_name}
+          </span>
+        </div>
+      ))
+    ) : (
+      <p className="text-center text-xs text-white/35">
+        Пока никто не вошёл
+      </p>
+    )}
+  </div>
+</div>
       </div>
     </div>
   )
