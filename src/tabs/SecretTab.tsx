@@ -370,6 +370,19 @@ if (enteringRoom) {
     onOpenChange={setRoomAnswerDropdownOpen}
   />
 </div>
+      {roomQuestionIndex < enteringRoom.questions.length - 1 && (
+  <button
+    type="button"
+    disabled={!roomAnswers[roomQuestionIndex]?.trim()}
+    onClick={() => {
+      setRoomQuestionIndex((current) => current + 1)
+      setRoomAnswerDropdownOpen(false)
+    }}
+    className="mt-4 w-full rounded-2xl border border-accent/40 bg-accent/10 px-4 py-4 text-sm font-black uppercase tracking-[0.15em] text-accent transition active:scale-[0.98] disabled:cursor-not-allowed disabled:border-white/10 disabled:bg-white/5 disabled:text-white/20"
+  >
+    ДАЛЕЕ →
+  </button>
+)}
       <div className="mt-7">
   <button
     type="button"
