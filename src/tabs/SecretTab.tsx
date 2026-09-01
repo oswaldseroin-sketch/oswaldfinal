@@ -8,6 +8,7 @@ import GamePanel from '../components/GamePanel'
 import SwipeBack from '../components/SwipeBack'
 import { getItem, removeItem } from '../lib/storage'
 import { api } from '../lib/api'
+import { nominations } from '../lib/nominations'
 type SecretTabProps = { onBack: () => void }
 type InnerView = 'main' | 'teamLife' | 'shadowRealm'
 
