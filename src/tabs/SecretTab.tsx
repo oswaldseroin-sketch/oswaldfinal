@@ -550,10 +550,10 @@ setUserRooms(freshRooms)
     </div>
 
     <p
-      className="mt-7 text-[9px] font-black uppercase tracking-[0.32em] text-accent/45"
-    >
-      ГЛАВНОЕ ИСПЫТАНИЕ
-    </p>
+  className="mt-2 text-[7px] font-black uppercase tracking-[0.18em] text-accent/50"
+>
+  ГЛАВНОЕ ИСПЫТАНИЕ
+</p>
 
     <p
       className="mt-2 text-center text-sm font-black uppercase tracking-[0.15em] text-white"
