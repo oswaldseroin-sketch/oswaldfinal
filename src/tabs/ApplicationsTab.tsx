@@ -150,7 +150,7 @@ const handleUpdateDate = async (): Promise<void> => {
   const showEmpty = query && filtered.length === 0
 
   return (
-    <div className="mx-auto max-w-md px-6 pb-10 pt-10">
+<div className="mx-auto w-full max-w-3xl px-4 pb-28 pt-6 sm:px-6 sm:pt-8">
 
       <BackButton onBack={onBack} />
       <div className="mb-6 flex items-start justify-between">
