@@ -269,7 +269,15 @@ useEffect(() => {
             {room.room_name}
           </p>
           {myRoom?.id === room.id && (
-  <div className="mt-3 rounded-xl border border-accent/30 bg-accent/10 px-3 py-2 text-center text-[10px] font-black uppercase tracking-wider text-accent">
+  <div
+    role="button"
+    tabIndex={0}
+    onClick={(e) => {
+      e.stopPropagation()
+      setEditingRoomId(room.id)
+    }}
+    className="mt-3 cursor-pointer rounded-xl border border-accent/30 bg-accent/10 px-3 py-2 text-center text-[10px] font-black uppercase tracking-wider text-accent transition active:scale-95"
+  >
     НАСТРОИТЬ КОМНАТУ
   </div>
 )}
