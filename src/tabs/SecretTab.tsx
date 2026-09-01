@@ -323,13 +323,13 @@ if (enteringRoom) {
           setRoomQuestionIndex(index)
           setRoomAnswerDropdownOpen(false)
         }}
-        className={`flex h-9 w-9 items-center justify-center rounded-xl border text-xs font-black transition ${
-          isCurrent
-            ? 'border-accent bg-accent/20 text-accent'
-            : isFilled
-              ? 'border-emerald-400/40 bg-emerald-400/10 text-emerald-300'
-              : 'border-white/10 bg-black/40 text-white/30'
-        }`}
+       className={`flex h-9 w-9 items-center justify-center rounded-xl border text-xs font-black transition-all duration-200 ${
+  isCurrent
+    ? 'scale-110 border-accent bg-accent/25 text-accent shadow-[0_0_18px_rgba(255,43,214,0.35)]'
+    : isFilled
+      ? 'border-emerald-400/30 bg-emerald-400/10 text-emerald-300'
+      : 'border-white/10 bg-black/40 text-white/25'
+}`}
       >
         {isFilled && !isCurrent ? '✓' : index + 1}
       </button>
