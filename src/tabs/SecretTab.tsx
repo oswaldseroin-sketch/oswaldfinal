@@ -315,15 +315,26 @@ useEffect(() => {
 
     if (!roomName || !currentUser?.name) return
 
-    try {
-      await api.createSecretUserRoom(currentUser.name, roomName)
+   try {
+  setCreateRoomError('')
 
-      const rooms = await api.getSecretUserRooms()
-      setUserRooms(rooms)
+  await api.createSecretUserRoom(currentUser.name, roomName)
 
-      setNewRoomName('')
-      setShowCreateRoom(false)
-    } catch (error) {
+  const rooms = await api.getSecretUserRooms()
+  setUserRooms(rooms)
+
+  setNewRoomName('')
+  setCreateRoomError('')
+  setShowCreateRoom(false)
+} catch (error) {
+  console.error('Create secret room error:', error)
+
+  setCreateRoomError(
+    error instanceof Error
+      ? error.message
+      : 'Не удалось создать комнату',
+  )
+}
       console.error('Create secret room error:', error)
     }
   }}
