@@ -7,7 +7,7 @@ import TeamLifePanel from '../components/TeamLifePanel'
 import GamePanel from '../components/GamePanel'
 import SwipeBack from '../components/SwipeBack'
 import { getItem, removeItem } from '../lib/storage'
-
+import { api } from '../lib/api'
 type SecretTabProps = { onBack: () => void }
 type InnerView = 'main' | 'teamLife' | 'shadowRealm'
 
