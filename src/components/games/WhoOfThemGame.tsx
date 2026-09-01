@@ -201,7 +201,11 @@ export default function WhoOfThemGame({ onBack, onProfileUpdate }: Props) {
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-bold text-ink">{player}</span>
                     {isWinner && <span>🏆</span>}
-                    {isSelected && <Check size={13} className="text-amber-300" />}
+                    {isSelected && (
+  <span className="rounded-md border border-amber-400/30 bg-amber-400/10 px-1.5 py-0.5 text-[8px] font-black tracking-wide text-amber-300">
+    ВАШ ГОЛОС
+  </span>
+)}
                   </div>
                   <span className="text-sm font-extrabold text-amber-200">{votes}</span>
                 </div>
