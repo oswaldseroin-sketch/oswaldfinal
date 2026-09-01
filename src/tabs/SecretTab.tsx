@@ -494,17 +494,7 @@ setUserRooms(freshRooms)
         СЕКРЕТНЫЕ КОМНАТЫ
       </p>
 
-      <h2
-        className="mt-2 text-center text-2xl font-black uppercase text-white"
-        style={{
-          textShadow:
-            '0 0 14px rgba(255,43,214,0.55), 0 0 28px rgba(255,43,214,0.2)',
-        }}
-      >
-        ГЛАВНАЯ ДВЕРЬ
-        <br />
-        АМАЛЬГАМЫ
-      </h2>
+     
 
      <button
   type="button"
