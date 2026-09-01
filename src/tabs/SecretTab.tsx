@@ -517,7 +517,7 @@ setUserRooms(freshRooms)
   />
 
   <div
-    className="absolute left-1/2 top-20 h-36 w-36 -translate-x-1/2 rounded-full border border-accent/20"
+    className="absolute left-1/2 top-20 h-28 w-28 -translate-x-1/2 rounded-full border border-accent/20"
     style={{
       boxShadow:
         '0 0 25px rgba(255,43,214,0.18), inset 0 0 25px rgba(255,43,214,0.12)',
