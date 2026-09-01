@@ -218,6 +218,27 @@ if (enteringRoom) {
           {currentQuestion?.title}
         </p>
       </div>
+      <div className="mt-5">
+  <NameDropdown
+    value={roomAnswers[roomQuestionIndex]}
+    onChange={(value) => {
+      setRoomAnswers((current) =>
+        current.map((answer, index) =>
+          index === roomQuestionIndex ? value : answer,
+        ),
+      )
+      setRoomAnswerDropdownOpen(false)
+    }}
+    workers={workers}
+    color={{
+      border: 'rgba(255,43,214,0.7)',
+      glow: 'rgba(255,43,214,0.45)',
+      text: '#ff2bd6',
+    }}
+    open={roomAnswerDropdownOpen}
+    onOpenChange={setRoomAnswerDropdownOpen}
+  />
+</div>
     </div>
   )
 }
