@@ -248,8 +248,8 @@ const handleUpdateDate = async (): Promise<void> => {
     setPanelMode('add')
     setAddType(null)
   }}
-  className="mt-5 flex h-16 w-full items-center justify-center gap-3 rounded-2xl border border-neon/40 bg-neon/10 text-base font-extrabold text-neon transition-all active:scale-[0.98]"
-  style={{ boxShadow: '0 0 24px rgba(0,229,255,0.12)' }}
+  className="mt-5 flex h-16 w-full items-center justify-center gap-3 rounded-2xl border border-neon/40 bg-neon/10 text-base font-extrabold text-neon"
+  
 >
   <Plus size={24} strokeWidth={2.8} />
   ДОБАВИТЬ ЗАЯВКУ
