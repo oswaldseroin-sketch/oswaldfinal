@@ -339,11 +339,25 @@ if (enteringRoom) {
        
       </div>
 
-      <div className="mt-8 rounded-3xl border border-accent/30 bg-black/60 p-5">
-        <p className="text-center text-lg font-black text-white">
-          {currentQuestion?.title}
-        </p>
-      </div>
+      <div
+  className="mt-6 rounded-3xl border border-accent/30 bg-black/70 p-5 text-center"
+  style={{
+    boxShadow:
+      '0 0 30px rgba(255,43,214,0.10), inset 0 0 25px rgba(255,43,214,0.04)',
+  }}
+>
+  <p className="text-[9px] font-black uppercase tracking-[0.25em] text-accent/55">
+    ИСПЫТАНИЕ {roomQuestionIndex + 1}
+  </p>
+
+  <p className="mt-3 text-lg font-black leading-snug text-white">
+    {currentQuestion?.title}
+  </p>
+
+  <p className="mt-3 text-[10px] font-bold uppercase tracking-wider text-white/25">
+    Выбери правильного человека
+  </p>
+</div>
       <div className="mt-5">
   <NameDropdown
     value={roomAnswers[roomQuestionIndex]}
