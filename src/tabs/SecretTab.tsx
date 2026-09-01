@@ -23,6 +23,18 @@ const [questUnlocked, setQuestUnlocked] = useState(() =>
 )
   const [innerView, setInnerView] = useState<InnerView>('main')
   const [mainDoorOpen, setMainDoorOpen] = useState(false)
+  const [doorAttempts, setDoorAttempts] = useState(0)
+const [doorEntries, setDoorEntries] = useState(0)
+
+useEffect(() => {
+  void Promise.all([
+    api.getSecretAttempts(),
+    api.getSecretRoomEntries(),
+  ]).then(([attemptsData, entriesData]) => {
+    setDoorAttempts(attemptsData.attempts)
+    setDoorEntries(entriesData.count)
+  })
+}, [mainDoorOpen])
   const [shadowFade, setShadowFade] = useState(false)
   const [shadowDimmed, setShadowDimmed] = useState(false)
 
