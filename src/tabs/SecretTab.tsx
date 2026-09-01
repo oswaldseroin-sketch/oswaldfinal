@@ -566,7 +566,7 @@ setUserRooms(freshRooms)
       АМАЛЬГАМЫ
     </p>
 
-    <div className="mt-6 rounded-full border border-accent/50 bg-accent/10 px-7 py-2">
+    <div className="mt-3 rounded-full border border-accent/50 bg-accent/10 px-5 py-1.5">
       <span className="text-[10px] font-black uppercase tracking-[0.25em] text-accent">
         ВОЙТИ
       </span>
