@@ -276,6 +276,47 @@ useEffect(() => {
     )
   })}
 </div>
+      {showCreateRoom && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 px-4">
+    <div className="w-full max-w-sm rounded-3xl border border-accent/30 bg-[#0b0b12] p-5 shadow-2xl">
+      <h3 className="text-center text-lg font-black uppercase text-white">
+        Создай свою комнату
+      </h3>
+
+      <p className="mt-2 text-center text-xs text-white/50">
+        Придумай название секретной двери
+      </p>
+
+      <input
+        value={newRoomName}
+        onChange={(e) => setNewRoomName(e.target.value)}
+        maxLength={50}
+        placeholder="Название комнаты"
+        className="mt-5 h-14 w-full rounded-2xl border border-white/10 bg-black/50 px-4 text-base font-bold text-white outline-none placeholder:text-white/25 focus:border-accent/50"
+      />
+
+      <div className="mt-5 grid grid-cols-2 gap-3">
+        <button
+          type="button"
+          onClick={() => {
+            setShowCreateRoom(false)
+            setNewRoomName('')
+          }}
+          className="h-12 rounded-2xl border border-white/10 bg-white/5 text-sm font-black text-white/60"
+        >
+          ОТМЕНА
+        </button>
+
+        <button
+          type="button"
+          className="h-12 rounded-2xl border border-accent/40 bg-accent/15 text-sm font-black text-accent"
+        >
+          СОЗДАТЬ
+        </button>
+      </div>
+    </div>
+  </div>
+)}
       <p className="mt-5 max-w-[260px] text-center text-xs font-medium leading-relaxed text-ink-muted">
         За дверью скрыто главное испытание Амальгамы
       </p>
