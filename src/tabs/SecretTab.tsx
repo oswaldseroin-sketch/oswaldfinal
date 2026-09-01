@@ -52,6 +52,7 @@ const [newRoomName, setNewRoomName] = useState('')
 
 const [editingQuestionIndex, setEditingQuestionIndex] = useState(0)
 const [saveQuestionsError, setSaveQuestionsError] = useState('')
+  const [roomMessage, setRoomMessage] = useState('')
   const [answerDropdownOpen, setAnswerDropdownOpen] = useState(false)
   const [enteringRoom, setEnteringRoom] = useState<{
   id: number
