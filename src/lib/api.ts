@@ -531,8 +531,17 @@ today.userVote =
         [player2?.fullName ?? '']: player2?.votes ?? 0,
       },
       winner,
-      userVote: null,
-      reward: null,
+     userVote:
+  typeof yesterdayResult.userVote === 'string'
+    ? yesterdayResult.userVote
+    : null,
+
+reward:
+  (yesterdayResult.reward as GameState['yesterday'] extends infer Y
+    ? Y extends { reward: infer R }
+      ? R
+      : never
+    : never) ?? null,
     }
   }
 
