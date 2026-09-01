@@ -182,7 +182,7 @@ export default function BestDuoGame({ onBack, onProfileUpdate }: Props) {
       <Check size={13} />
     ) : null}
   </div>
-)}
+
     </button>
   )
 
