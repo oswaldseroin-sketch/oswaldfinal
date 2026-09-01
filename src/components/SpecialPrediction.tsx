@@ -107,7 +107,7 @@ export default function SpecialPrediction({ onBack }: { onBack: () => void }) {
   const [burningId, setBurningId] = useState<SymbolId | null>(null)
   const [sparks, setSparks] = useState<Spark[]>([])
   const [awakening, setAwakening] = useState(false)
-  const [orbitAngle, setOrbitAngle] = useState(0)
+
 
   useEffect(() => {
     setState(getRitualState(userId))
@@ -313,9 +313,15 @@ const personalizedText = useMemo(() => {
       : 'hover:scale-110 active:scale-90'
 }`}
                   style={{
-                    left: `${symbol.pos.x}%`,
-                    top: `${symbol.pos.y}%`,
-                    transform: 'translate(-50%, -50%)',
+                    left: `${50 + Math.cos(
+  orbitAngle + (SYMBOLS.indexOf(symbol) / SYMBOLS.length) * Math.PI * 2
+) * 34}%`,
+
+top: `${50 + Math.sin(
+  orbitAngle + (SYMBOLS.indexOf(symbol) / SYMBOLS.length) * Math.PI * 2
+) * 34}%`,
+
+transform: 'translate(-50%, -50%)',
                    width: '19%',
 aspectRatio: '1 / 1',
 minWidth: 48,
