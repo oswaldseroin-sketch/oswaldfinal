@@ -383,6 +383,7 @@ if (enteringRoom) {
     ДАЛЕЕ →
   </button>
 )}
+      {roomQuestionIndex === enteringRoom.questions.length - 1 && (
       <div className="mt-7">
   <button
     type="button"
