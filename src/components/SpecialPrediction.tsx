@@ -313,15 +313,9 @@ const personalizedText = useMemo(() => {
       : 'hover:scale-110 active:scale-90'
 }`}
                   style={{
-                    left: `${50 + Math.cos(
-  orbitAngle + (SYMBOLS.indexOf(symbol) / SYMBOLS.length) * Math.PI * 2
-) * 34}%`,
-
-top: `${50 + Math.sin(
-  orbitAngle + (SYMBOLS.indexOf(symbol) / SYMBOLS.length) * Math.PI * 2
-) * 34}%`,
-
-transform: 'translate(-50%, -50%)',
+                    left: '50%',
+top: '50%',
+transform: `translate(-50%, -50%) rotate(${(SYMBOLS.indexOf(symbol) / SYMBOLS.length) * 360}deg) translateX(34%)`,
                    width: '19%',
 aspectRatio: '1 / 1',
 minWidth: 48,
