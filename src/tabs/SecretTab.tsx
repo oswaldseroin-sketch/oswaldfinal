@@ -464,9 +464,16 @@ setUserRooms(freshRooms)
       <p className="text-[10px] font-bold tracking-widest text-accent">
         АМАЛЬГАМА / 04
       </p>
-      <h1 className="mt-1 text-3xl font-extrabold text-ink">
-        Секретная
-      </h1>
+     <h1
+  className="mt-2 text-xl font-black uppercase tracking-[0.08em] text-white"
+  style={{
+    textShadow: '0 0 18px rgba(255,43,214,0.45)',
+  }}
+>
+  ЗАЛ ЗАПРЕТНЫХ
+  <br />
+  КОМНАТ
+</h1>
     </div>
 
     <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent/10">
