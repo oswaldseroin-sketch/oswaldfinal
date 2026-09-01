@@ -383,6 +383,8 @@ if (enteringRoom) {
         )
 
         setRoomAttemptResult(result.success ? 'success' : 'wrong')
+        const freshRooms = await api.getSecretUserRooms()
+setUserRooms(freshRooms)
         if (result.success && currentUser?.name && enteringRoom) {
   const messageData = await api.getSecretUserRoomMessage(
     enteringRoom.id,
