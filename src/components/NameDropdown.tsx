@@ -113,10 +113,13 @@ setPanelStyle({
                     key={worker.name}
                     type="button"
                     disabled={isDisabled}
-                    onClick={() => {
-                      onChange(worker.name)
-                      onOpenChange(false)
-                    }}
+                   onMouseDown={(e) => {
+  e.preventDefault()
+  e.stopPropagation()
+
+  onChange(worker.name)
+  onOpenChange(false)
+}}
                     className={`flex w-full items-center justify-between gap-2 px-3 py-2 text-left transition-colors ${
                       isSelected
                         ? 'bg-white/10'
