@@ -575,47 +575,36 @@ setUserRooms(freshRooms)
 
   <div className="absolute bottom-3 left-1/2 h-1 w-20 -translate-x-1/2 rounded-full bg-accent/30 blur-sm" />
 </button>
-<div className="relative z-20 -mt-1 flex items-stretch justify-center">
+<div className="relative z-20 -mt-1 flex justify-center">
   <div
-    className="flex overflow-hidden rounded-b-2xl border border-t-0 border-accent/40 bg-black/90"
+    className="flex overflow-hidden rounded-b-xl border border-t-0 border-accent/35 bg-black/90"
     style={{
-      boxShadow:
-        '0 10px 30px rgba(255,43,214,0.18), inset 0 -10px 25px rgba(255,43,214,0.06)',
+      boxShadow: '0 6px 18px rgba(255,43,214,0.12)',
     }}
   >
-    <div className="flex w-[63px] flex-col items-center justify-center px-3 py-3">
-      <span className="text-[7px] font-black uppercase tracking-[0.18em] text-white/35">
+    <div className="flex w-[62px] flex-col items-center justify-center px-1 py-1.5">
+      <span className="text-[6px] font-black uppercase tracking-wider text-white/30">
         Попытки
       </span>
 
-      <div className="mt-1 flex items-center gap-1.5">
-        <span className="text-sm">🗝️</span>
-        <span
-          className="text-base font-black text-accent"
-          style={{
-            textShadow: '0 0 10px rgba(255,43,214,0.7)',
-          }}
-        >
+      <div className="mt-0.5 flex items-center gap-1">
+        <span className="text-[10px]">🗝️</span>
+        <span className="text-xs font-black text-accent">
           {doorAttempts}
         </span>
       </div>
     </div>
 
-    <div className="w-px bg-gradient-to-b from-transparent via-accent/50 to-transparent" />
+    <div className="w-px bg-accent/25" />
 
-    <div className="flex w-[63px] flex-col items-center justify-center px-3 py-3">
-      <span className="text-[7px] font-black uppercase tracking-[0.18em] text-white/35">
+    <div className="flex w-[62px] flex-col items-center justify-center px-1 py-1.5">
+      <span className="text-[6px] font-black uppercase tracking-wider text-white/30">
         Вошло
       </span>
 
-      <div className="mt-1 flex items-center gap-1.5">
-        <span className="text-sm">🚪</span>
-        <span
-          className="text-base font-black text-accent"
-          style={{
-            textShadow: '0 0 10px rgba(255,43,214,0.7)',
-          }}
-        >
+      <div className="mt-0.5 flex items-center gap-1">
+        <span className="text-[10px]">🚪</span>
+        <span className="text-xs font-black text-accent">
           {doorEntries}
         </span>
       </div>
