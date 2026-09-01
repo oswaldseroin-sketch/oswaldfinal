@@ -317,31 +317,16 @@ if (enteringRoom) {
         <p className="mt-2 text-xs text-white/40">
           Испытание {roomQuestionIndex + 1} из 5
         </p>
-        <div className="mt-4 flex justify-center gap-2">
-  {enteringRoom.questions.map((question, index) => {
-    const isCurrent = roomQuestionIndex === index
-    const isFilled = Boolean(roomAnswers[index]?.trim())
+        <div className="mt-4 flex justify-center">
+  <div className="rounded-full border border-accent/25 bg-accent/10 px-4 py-2">
+    <span className="text-[10px] font-black uppercase tracking-[0.15em] text-accent/70">
+      Осталось заполнить:{' '}
+    </span>
 
-    return (
-      <button
-        key={question.slot_number}
-        type="button"
-        onClick={() => {
-          setRoomQuestionIndex(index)
-          setRoomAnswerDropdownOpen(false)
-        }}
-       className={`flex h-9 w-9 items-center justify-center rounded-xl border text-xs font-black transition-all duration-200 ${
-  isCurrent
-    ? 'scale-110 border-accent bg-accent/25 text-accent shadow-[0_0_18px_rgba(255,43,214,0.35)]'
-    : isFilled
-      ? 'border-emerald-400/30 bg-emerald-400/10 text-emerald-300'
-      : 'border-white/10 bg-black/40 text-white/25'
-}`}
-      >
-        {isFilled && !isCurrent ? '✓' : index + 1}
-      </button>
-    )
-  })}
+    <span className="text-xs font-black text-accent">
+      {roomAnswers.filter((answer) => !answer.trim()).length}
+    </span>
+  </div>
 </div>
        
       </div>
