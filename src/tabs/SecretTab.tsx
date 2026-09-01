@@ -755,11 +755,7 @@ setRoomMessage(data.roomMessage ?? '')
               <button
   type="button"
   onClick={async () => {
-    const confirmed = window.confirm(
-      `Очистить комнату "${room.room_name}"?`,
-    )
-
-    if (!confirmed) return
+    
 
     try {
       await api.deleteSecretUserRoom(room.id)
