@@ -303,7 +303,7 @@ export default function YesNoGame({ onBack, onProfileUpdate }: Props) {
     </div>
   </div>
 )}
-          <div className="grid grid-cols-2 gap-2.5">
+         <div className={`grid grid-cols-2 gap-2.5 ${isSelfQuestion ? 'hidden' : ''}`}>
             {['yes', 'no'].map((option) => {
               const isSelected = selected === option
               const wasChosen = today.userVote === option
