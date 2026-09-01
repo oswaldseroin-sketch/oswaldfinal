@@ -580,23 +580,51 @@ setUserRooms(freshRooms)
 
   <div className="absolute bottom-3 left-1/2 h-1 w-20 -translate-x-1/2 rounded-full bg-accent/30 blur-sm" />
 </button>
-<div className="mt-5 flex items-center justify-center gap-3">
-  <div className="rounded-xl border border-accent/25 bg-black/50 px-3 py-2 text-center">
-    <p className="text-[9px] font-bold uppercase tracking-wider text-white/40">
-      Попытки входа
-    </p>
-    <p className="mt-1 text-sm font-black text-accent">
-      🗝️ {doorAttempts}
-    </p>
-  </div>
+<div className="relative z-20 -mt-1 flex items-stretch justify-center">
+  <div
+    className="flex overflow-hidden rounded-b-2xl border border-t-0 border-accent/40 bg-black/90"
+    style={{
+      boxShadow:
+        '0 10px 30px rgba(255,43,214,0.18), inset 0 -10px 25px rgba(255,43,214,0.06)',
+    }}
+  >
+    <div className="flex w-[118px] flex-col items-center justify-center px-3 py-3">
+      <span className="text-[8px] font-black uppercase tracking-[0.18em] text-white/35">
+        Попытки
+      </span>
 
-  <div className="rounded-xl border border-accent/25 bg-black/50 px-3 py-2 text-center">
-    <p className="text-[9px] font-bold uppercase tracking-wider text-white/40">
-      Вошло
-    </p>
-    <p className="mt-1 text-sm font-black text-accent">
-      🚪 {doorEntries}
-    </p>
+      <div className="mt-1 flex items-center gap-1.5">
+        <span className="text-sm">🗝️</span>
+        <span
+          className="text-lg font-black text-accent"
+          style={{
+            textShadow: '0 0 10px rgba(255,43,214,0.7)',
+          }}
+        >
+          {doorAttempts}
+        </span>
+      </div>
+    </div>
+
+    <div className="w-px bg-gradient-to-b from-transparent via-accent/50 to-transparent" />
+
+    <div className="flex w-[118px] flex-col items-center justify-center px-3 py-3">
+      <span className="text-[8px] font-black uppercase tracking-[0.18em] text-white/35">
+        Вошло
+      </span>
+
+      <div className="mt-1 flex items-center gap-1.5">
+        <span className="text-sm">🚪</span>
+        <span
+          className="text-lg font-black text-accent"
+          style={{
+            textShadow: '0 0 10px rgba(255,43,214,0.7)',
+          }}
+        >
+          {doorEntries}
+        </span>
+      </div>
+    </div>
   </div>
 </div>
       <div className="absolute inset-0 z-10">
