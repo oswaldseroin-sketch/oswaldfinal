@@ -80,6 +80,7 @@ export default function MiniGamesPanel({ onBack }: Props) {
         return data.profile
       })
       setProgress(data.progress)
+      console.log('SERVER PROGRESS:', data.progress)
     } catch {
       // Profile unavailable — games still work without it
     } finally {
