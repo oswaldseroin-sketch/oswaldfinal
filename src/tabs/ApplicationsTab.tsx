@@ -282,7 +282,7 @@ const handleUpdateDate = async (): Promise<void> => {
                     {pName && <button onClick={() => setPName('')} className="mt-0.5 text-[10px] font-bold text-ink-muted active:scale-95">× Очистить</button>}
                   </div>
                   <div>
-                    <input value={pOrg} onChange={(e) => setPOrg(e.target.value)} placeholder="Организация" className="h-10 w-full rounded-lg border border-line bg-input px-3 py-2 text-sm text-ink outline-none focus:border-neon/50 placeholder:text-ink-faint" />
+                    <input value={pOrg} onChange={(e) => setPOrg(e.target.value)} placeholder="Организация" className="h-14 w-full rounded-xl border border-line bg-input px-4 text-base text-ink outline-none focus:border-neon/50 placeholder:text-ink-faint" />
                     {pOrg && <button onClick={() => setPOrg('')} className="mt-0.5 text-[10px] font-bold text-ink-muted active:scale-95">× Очистить</button>}
                   </div>
                   <div>
