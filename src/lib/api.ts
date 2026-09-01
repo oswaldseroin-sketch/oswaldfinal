@@ -339,6 +339,25 @@ getMySecretUserRoom: async (userId: string) => {
     `/api/secret-user-rooms/${roomId}/questions/owner/${playerId}`,
   )
 },
+  updateSecretUserRoomMessage: async (
+  roomId: number,
+  userId: string,
+  roomMessage: string,
+) => {
+  const playerId = await resolvePlayerId(userId)
+
+  return apiFetch<{
+    ok: boolean
+    roomId: number
+    roomMessage: string
+  }>(`/api/secret-user-rooms/${roomId}/message`, {
+    method: 'PATCH',
+    body: JSON.stringify({
+      playerId,
+      roomMessage,
+    }),
+  })
+},
  getSecretUserRoomPublicQuestions: (roomId: number) =>
   apiFetch<{
     roomId: number
