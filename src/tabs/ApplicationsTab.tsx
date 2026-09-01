@@ -47,6 +47,8 @@ export default function ApplicationsTab({ onBack }: { onBack: () => void }) {
 
   const [deleteSearch, setDeleteSearch] = useState('')
   const [deleteTarget, setDeleteTarget] = useState<Employee | null>(null)
+  const [editDate, setEditDate] = useState('')
+const [editingDate, setEditingDate] = useState(false)
 
   const activeEmployees = useMemo(() => employees.filter((e) => !isExpired(e.access_date)), [employees])
   const expiredCount = employees.length - activeEmployees.length
