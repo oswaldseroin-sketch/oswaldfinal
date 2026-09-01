@@ -216,6 +216,64 @@ useEffect(() => {
     </p>
   </div>
 </div>
+      <div className="mt-6 grid grid-cols-2 gap-3">
+  {[1, 2, 3, 4].map((slotNumber) => {
+    const room = userRooms.find(
+      (item) => item.slot_number === slotNumber,
+    )
+
+    if (!room) {
+      return (
+        <button
+          key={slotNumber}
+          type="button"
+          className="flex min-h-[120px] flex-col items-center justify-center rounded-2xl border border-dashed border-white/15 bg-black/30 px-3 text-center text-white/35"
+        >
+          <span className="text-3xl">🚪</span>
+          <span className="mt-2 text-xs font-black uppercase tracking-wider">
+            Свободное место
+          </span>
+        </button>
+      )
+    }
+
+    return (
+      <button
+        key={room.id}
+        type="button"
+        className="rounded-2xl border border-accent/25 bg-black/55 p-4 text-left transition hover:border-accent/50"
+      >
+        <div className="text-center">
+          <div className="text-3xl">🚪</div>
+
+          <p className="mt-2 text-sm font-black text-white">
+            {room.room_name}
+          </p>
+        </div>
+
+        <div className="mt-4 grid grid-cols-2 gap-2">
+          <div className="rounded-xl bg-black/40 px-2 py-2 text-center">
+            <p className="text-[9px] uppercase tracking-wider text-white/35">
+              Попытки
+            </p>
+            <p className="mt-1 text-xs font-black text-accent">
+              🗝️ {room.attempts}
+            </p>
+          </div>
+
+          <div className="rounded-xl bg-black/40 px-2 py-2 text-center">
+            <p className="text-[9px] uppercase tracking-wider text-white/35">
+              Вошло
+            </p>
+            <p className="mt-1 text-xs font-black text-accent">
+              🚪 {room.entered}
+            </p>
+          </div>
+        </div>
+      </button>
+    )
+  })}
+</div>
       <p className="mt-5 max-w-[260px] text-center text-xs font-medium leading-relaxed text-ink-muted">
         За дверью скрыто главное испытание Амальгамы
       </p>
