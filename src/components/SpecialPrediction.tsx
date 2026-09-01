@@ -339,7 +339,7 @@ minWidth: 48,
                   />
                   {/* Symbol icon — per-artifact color */}
                   <Icon
-                    size={26}
+                    size={34}
                     className={`relative z-10 transition-all duration-200 ${
                       isBurning
                         ? ''
