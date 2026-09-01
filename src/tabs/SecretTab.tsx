@@ -1063,9 +1063,7 @@ await api.updateSecretUserRoomMessage(
     </div>
   </div>
 )}
-      <p className="mt-5 max-w-[260px] text-center text-xs font-medium leading-relaxed text-ink-muted">
-        За дверью скрыто главное испытание Амальгамы
-      </p>
+      
     </div>
   ) : (
     <SecretQuest onUnlocked={unlockQuest} />
