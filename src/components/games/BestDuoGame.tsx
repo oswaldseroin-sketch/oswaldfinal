@@ -176,8 +176,25 @@ export default function BestDuoGame({ onBack, onProfileUpdate }: Props) {
 >
   {players[1]}
 </p>
-      {votes !== undefined && <p className="mt-1.5 text-lg font-extrabold text-amber-200">{votes}</p>}
-      {isWinner && <span className="mt-1 inline-block text-xs">🏆</span>}
+     <div className="mt-2 flex flex-wrap items-center gap-1.5">
+  {votes !== undefined && (
+    <span className="rounded-md border border-white/10 bg-black/30 px-2 py-1 text-[10px] font-black tracking-wide text-white/80">
+      ГОЛОСА: {votes}
+    </span>
+  )}
+
+  {isChosen && (
+    <span className="rounded-md border border-cyan-300/40 bg-cyan-400/10 px-2 py-1 text-[10px] font-black tracking-wide text-cyan-200">
+      ВАШ ГОЛОС
+    </span>
+  )}
+
+  {isWinner && (
+    <span className="rounded-md border border-amber-300/50 bg-amber-400/15 px-2 py-1 text-[10px] font-black tracking-wide text-amber-200">
+      🏆 ПОБЕДИТЕЛИ
+    </span>
+  )}
+</div> 
     </button>
   )
 
