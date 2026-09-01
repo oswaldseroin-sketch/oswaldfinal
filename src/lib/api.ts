@@ -299,6 +299,87 @@ export const api = {
       body: JSON.stringify({ playerId }),
     })
   },
+  // User secret rooms
+getSecretUserRooms: () =>
+  apiFetch<Array<{
+    id: number
+    slot_number: number
+    room_name: string
+    attempts: number
+    entered: number
+  }>>('/api/secret-user-rooms'),
+
+createSecretUserRoom: async (userId: string, roomName: string) => {
+  const playerId = await resolvePlayerId(userId)
+
+  return apiFetch<{
+    id: number
+    slot_number: number
+    room_name: string
+    attempts: number
+    entered: number
+  }>('/api/secret-user-rooms', {
+    method: 'POST',
+    body: JSON.stringify({
+      playerId,
+      roomName,
+    }),
+  })
+},
+
+saveSecretUserRoomQuestions: async (
+  roomId: number,
+  userId: string,
+  questions: Array<{
+    title: string
+    correctAnswer: string
+  }>,
+) => {
+  const playerId = await resolvePlayerId(userId)
+
+  return apiFetch<{
+    ok: boolean
+    roomId: number
+    saved: number
+  }>(`/api/secret-user-rooms/${roomId}/questions`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      playerId,
+      questions,
+    }),
+  })
+},
+
+getSecretUserRoomQuestions: (roomId: number) =>
+  apiFetch<{
+    roomId: number
+    roomName: string
+    questions: Array<{
+      slot_number: number
+      title: string
+    }>
+  }>(`/api/secret-user-rooms/${roomId}/questions`),
+
+enterSecretUserRoom: async (
+  roomId: number,
+  userId: string,
+  answers: string[],
+) => {
+  const playerId = await resolvePlayerId(userId)
+
+  return apiFetch<{
+    ok: boolean
+    entered: boolean
+    attempts: number
+    enteredCount?: number
+  }>(`/api/secret-user-rooms/${roomId}/enter`, {
+    method: 'POST',
+    body: JSON.stringify({
+      playerId,
+      answers,
+    }),
+  })
+},
   // Chat
   getMyNick: (deviceId: string, day: string) =>
     apiFetch<{ nickname: string | null }>(`/api/chat/nicks/${deviceId}?day=${day}`),
