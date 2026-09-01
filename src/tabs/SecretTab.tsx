@@ -426,7 +426,7 @@ setUserRooms(freshRooms)
         setRoomAttemptLoading(false)
       }
     }}
-    className="w-full rounded-2xl border border-accent/50 bg-accent/15 px-4 py-4 text-sm font-black uppercase tracking-wider text-accent transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-30"
+    className="w-full rounded-2xl border border-accent/50 bg-accent/15 px-4 py-4 text-sm font-black uppercase tracking-wider text-accent transition active:scale-[0.98] disabled:cursor-not-allowed disabled:border-white/10 disabled:bg-white/5 disabled:text-white/25 disabled:opacity-100"
   >
    {roomAttemptLoading
   ? 'ПРОВЕРКА...'
