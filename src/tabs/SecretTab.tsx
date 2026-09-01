@@ -509,7 +509,7 @@ setUserRooms(freshRooms)
       <button
         type="button"
         onClick={() => setMainDoorOpen(true)}
-        className="group relative mt-8 flex h-64 w-44 items-center justify-center overflow-hidden rounded-t-[80px] rounded-b-2xl border-2 border-accent/60 bg-black/80 transition-all duration-300 active:scale-95"
+       className="group relative z-20 mt-[250px] flex h-80 w-56 items-center justify-center overflow-hidden rounded-t-[110px] rounded-b-3xl border-2 border-accent/70 bg-black/90 transition-all duration-300 active:scale-95"
         style={{
           boxShadow:
             '0 0 25px rgba(255,43,214,0.25), inset 0 0 35px rgba(255,43,214,0.12)',
