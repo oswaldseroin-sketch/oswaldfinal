@@ -329,32 +329,7 @@ if (today?.selfQuestion) {
     </div>
   </div>
 )}
-          {isSelfQuestion && (
-  <div className="mb-3 rounded-2xl border border-amber-300/30 bg-gradient-to-br from-amber-500/10 via-black/30 to-violet-500/10 px-4 py-4 text-center shadow-[0_0_28px_rgba(251,191,36,0.12)]">
-    <p className="text-[10px] font-black tracking-[0.22em] text-amber-300">
-      🏆 НАГРАДА ПОЛУЧЕНА
-    </p>
-
-    <div className="mt-3 flex items-center justify-center gap-3">
-      <span className="rounded-lg border border-cyan-300/20 bg-cyan-400/10 px-2.5 py-1.5 text-xs font-black text-cyan-300">
-        +10 XP
-      </span>
-
-      <span className="rounded-lg border border-violet-300/20 bg-violet-400/10 px-2.5 py-1.5 text-xs font-black text-violet-300">
-        +10 XP звания
-      </span>
-
-      <span className="rounded-lg border border-amber-300/20 bg-amber-400/10 px-2.5 py-1.5 text-xs font-black text-amber-300">
-        +10 🪙
-      </span>
-    </div>
-
-    <p className="mt-3 text-[10px] leading-relaxed text-zinc-500">
-      Этот вопрос оказался про тебя.
-      <br />
-      Голосовать нельзя — но награда твоя.
-    </p>
-  </div>
+         
 )}
           {isSelfQuestion && (
   <div className="mb-3 rounded-2xl border border-amber-300/30 bg-gradient-to-br from-amber-500/10 via-black/30 to-violet-500/10 p-4 text-center shadow-[0_0_24px_rgba(251,191,36,0.12)]">
