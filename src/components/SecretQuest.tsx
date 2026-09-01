@@ -602,7 +602,7 @@ const handleKeyClick = (): void => {
   )}
 
 </div>
-{showEnterConfirm && phase === 'idle' && (
+{showEnterConfirm && (
   <div
     className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 px-5 backdrop-blur-sm"
     onClick={() => setShowEnterConfirm(false)}
