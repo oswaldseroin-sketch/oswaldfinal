@@ -185,7 +185,25 @@ useEffect(() => {
           ВОЙТИ
         </span>
       </button>
+<div className="mt-5 flex items-center justify-center gap-3">
+  <div className="rounded-xl border border-accent/25 bg-black/50 px-3 py-2 text-center">
+    <p className="text-[9px] font-bold uppercase tracking-wider text-white/40">
+      Попытки входа
+    </p>
+    <p className="mt-1 text-sm font-black text-accent">
+      🗝️ {doorAttempts}
+    </p>
+  </div>
 
+  <div className="rounded-xl border border-accent/25 bg-black/50 px-3 py-2 text-center">
+    <p className="text-[9px] font-bold uppercase tracking-wider text-white/40">
+      Вошло
+    </p>
+    <p className="mt-1 text-sm font-black text-accent">
+      🚪 {doorEntries}
+    </p>
+  </div>
+</div>
       <p className="mt-5 max-w-[260px] text-center text-xs font-medium leading-relaxed text-ink-muted">
         За дверью скрыто главное испытание Амальгамы
       </p>
