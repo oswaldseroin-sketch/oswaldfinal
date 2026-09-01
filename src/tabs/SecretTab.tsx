@@ -57,6 +57,7 @@ const [saveQuestionsError, setSaveQuestionsError] = useState('')
   const [enteringRoom, setEnteringRoom] = useState<{
   id: number
   roomName: string
+    roomMessage: string
   questions: Array<{
     slot_number: number
     title: string
