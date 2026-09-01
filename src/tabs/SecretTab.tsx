@@ -471,7 +471,7 @@ if (enteringRoom) {
 
       {!questUnlocked ? (
   !mainDoorOpen ? (
-    <div className="mt-6 flex flex-col items-center">
+    <div className="relative mt-6 flex flex-col items-center">
       <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-accent/70">
         СЕКРЕТНЫЕ КОМНАТЫ
       </p>
