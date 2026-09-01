@@ -772,7 +772,7 @@ setEnteringRoom({
               🚪 {room.entered}
             </p>
           </div>
-        </div>
+        
       </button>
     )
   })}
