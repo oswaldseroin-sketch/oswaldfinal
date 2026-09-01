@@ -147,23 +147,7 @@ export default function BestDuoGame({ onBack, onProfileUpdate }: Props) {
 >
   {team}
 </span>
-        <div
-  className={`flex h-6 w-6 items-center justify-center rounded-full border transition-all duration-200 ${
-    isSelected || isChosen
-      ? teamNum === 1
-        ? 'border-cyan-300 bg-cyan-400 text-black shadow-[0_0_14px_rgba(34,211,238,0.60)]'
-        : 'border-red-300 bg-red-400 text-black shadow-[0_0_14px_rgba(248,113,113,0.60)]'
-      : teamNum === 1
-        ? 'border-cyan-500/30 bg-cyan-950/20'
-        : 'border-red-500/30 bg-red-950/20'
-  }`}
->
-  {isChosen ? (
-  <span className="text-[8px] font-black tracking-tight">ВЫ</span>
-) : isSelected ? (
-  <Check size={13} />
-) : null}
-</div>
+       
       </div>
      <p
   className={`text-sm font-extrabold ${
@@ -180,25 +164,25 @@ export default function BestDuoGame({ onBack, onProfileUpdate }: Props) {
 >
   {players[1]}
 </p>
-     <div className="mt-2 flex flex-wrap items-center gap-1.5">
-  {votes !== undefined && (
-    <span className="rounded-md border border-white/10 bg-black/30 px-2 py-1 text-[10px] font-black tracking-wide text-white/80">
-      ГОЛОСА: {votes}
-    </span>
-  )}
-
-  {isChosen && (
-    <span className="rounded-md border border-cyan-300/40 bg-cyan-400/10 px-2 py-1 text-[10px] font-black tracking-wide text-cyan-200">
-      ВАШ ГОЛОС
-    </span>
-  )}
-
-  {isWinner && (
-    <span className="rounded-md border border-amber-300/50 bg-amber-400/15 px-2 py-1 text-[10px] font-black tracking-wide text-amber-200">
-      🏆 ПОБЕДИТЕЛИ
-    </span>
-  )}
-</div> 
+    {votes === undefined && (
+  <div
+    className={`flex h-6 w-6 items-center justify-center rounded-full border transition-all duration-200 ${
+      isSelected || isChosen
+        ? teamNum === 1
+          ? 'border-cyan-300 bg-cyan-400 text-black shadow-[0_0_14px_rgba(34,211,238,0.60)]'
+          : 'border-red-300 bg-red-400 text-black shadow-[0_0_14px_rgba(248,113,113,0.60)]'
+        : teamNum === 1
+          ? 'border-cyan-500/30 bg-cyan-950/20'
+          : 'border-red-500/30 bg-red-950/20'
+    }`}
+  >
+    {isChosen ? (
+      <span className="text-[8px] font-black tracking-tight">ВЫ</span>
+    ) : isSelected ? (
+      <Check size={13} />
+    ) : null}
+  </div>
+)}
     </button>
   )
 
