@@ -487,9 +487,9 @@ today.userVote =
       today.isCorrect = result.isCorrect ?? null
     }
     if (gameKey === 'who_of_them') {
-  const yesterdayResult = await apiFetch<Record<string, unknown>>(
-    `/api/games/who-of-them/yesterday-results`
-  )
+ const yesterdayResult = await apiFetch<Record<string, unknown>>(
+  `/api/games/who-of-them/yesterday-results?playerId=${encodeURIComponent(numericId)}`
+)
 
   let yesterday: GameState['yesterday'] = null
 
