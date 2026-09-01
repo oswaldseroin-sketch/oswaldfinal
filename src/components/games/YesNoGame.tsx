@@ -373,7 +373,7 @@ export default function YesNoGame({ onBack, onProfileUpdate }: Props) {
               {voting ? <Loader2 size={16} className="animate-spin" /> : <Check size={16} />}
               Ответить
             </button>
-                    ))}
+                    )}
         </div>
       )}
     </div>
