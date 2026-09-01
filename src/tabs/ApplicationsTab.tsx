@@ -9,7 +9,8 @@ function isExpired(date: string): boolean {
 }
 
 function formatDate(date: string): string {
-  const [year, month, day] = date.split('-')
+  const cleanDate = date.split('T')[0]
+  const [year, month, day] = cleanDate.split('-')
   return year && month && day ? `${day}.${month}.${year}` : date
 }
 
