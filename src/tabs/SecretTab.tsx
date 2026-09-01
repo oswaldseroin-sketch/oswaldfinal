@@ -349,9 +349,8 @@ if (enteringRoom) {
       <div
   className="mt-6 rounded-3xl border border-accent/30 bg-black/70 p-5 text-center"
   style={{
-    boxShadow:
-      '0 0 30px rgba(255,43,214,0.10), inset 0 0 25px rgba(255,43,214,0.04)',
-  }}
+  boxShadow: `0 0 30px ${questionGlow}, inset 0 0 25px ${questionGlow}`,
+}}
 >
   <p className="text-[9px] font-black uppercase tracking-[0.25em] text-accent/55">
     ИСПЫТАНИЕ {roomQuestionIndex + 1}
