@@ -12,6 +12,7 @@ type TodayState = {
   question: string
   player_name: string
   userVote: string | null
+  selfQuestion: boolean
 }
 
 type YesterdayState = {
