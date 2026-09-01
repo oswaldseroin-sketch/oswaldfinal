@@ -53,6 +53,26 @@ const [newRoomName, setNewRoomName] = useState('')
 const [editingQuestionIndex, setEditingQuestionIndex] = useState(0)
 const [saveQuestionsError, setSaveQuestionsError] = useState('')
   const [answerDropdownOpen, setAnswerDropdownOpen] = useState(false)
+  const [enteringRoom, setEnteringRoom] = useState<{
+  id: number
+  roomName: string
+  questions: Array<{
+    slot_number: number
+    title: string
+  }>
+} | null>(null)
+
+const [roomAnswers, setRoomAnswers] = useState(
+  Array.from({ length: 5 }, () => ''),
+)
+
+const [roomQuestionIndex, setRoomQuestionIndex] = useState(0)
+const [roomAttemptLoading, setRoomAttemptLoading] = useState(false)
+const [roomAttemptResult, setRoomAttemptResult] = useState<
+  'success' | 'wrong' | null
+>(null)
+
+const [roomAnswerDropdownOpen, setRoomAnswerDropdownOpen] = useState(false)
 useEffect(() => {
   void Promise.all([
     api.getSecretAttempts(),
