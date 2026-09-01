@@ -428,9 +428,13 @@ setUserRooms(freshRooms)
     }}
     className="w-full rounded-2xl border border-accent/50 bg-accent/15 px-4 py-4 text-sm font-black uppercase tracking-wider text-accent transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-30"
   >
-    {roomAttemptLoading
-      ? 'ПРОВЕРКА...'
-      : '🗝️ ПОПЫТАТЬСЯ ВОЙТИ'}
+   {roomAttemptLoading
+  ? 'ПРОВЕРКА...'
+  : roomAnswers.some((answer) => !answer.trim())
+    ? `ОСТАЛОСЬ ЗАПОЛНИТЬ ${
+        roomAnswers.filter((answer) => !answer.trim()).length
+      }`
+    : '🗝️ ПОПЫТАТЬСЯ ВОЙТИ'}
   </button>
 </div>
       {roomAttemptResult === 'wrong' && (
