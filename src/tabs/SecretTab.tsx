@@ -730,13 +730,13 @@ setEnteringRoom({
   }
 }}
        className={`absolute min-h-[180px] w-[132px] overflow-hidden rounded-t-[52px] rounded-b-2xl border bg-black/75 p-3 text-left transition active:scale-[0.98] ${doorTheme.border} ${doorTheme.bg} ${
- slotNumber === 1
-  ? 'left-1/2 top-[90px] -translate-x-1/2'
+slotNumber === 1
+  ? 'left-1/2 top-[35px] -translate-x-1/2'
   : slotNumber === 2
-    ? '-left-[72px] top-[440px]'
+    ? 'left-[6px] top-[365px]'
     : slotNumber === 3
-      ? '-right-[72px] top-[440px]'
-      : 'left-1/2 top-[860px] -translate-x-1/2'
+      ? 'right-[6px] top-[365px]'
+      : 'left-1/2 top-[755px] -translate-x-1/2'
 }`}
       >
         <div
