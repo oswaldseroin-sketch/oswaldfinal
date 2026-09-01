@@ -431,29 +431,28 @@ useEffect(() => {
         className="mt-5 h-14 w-full rounded-2xl border border-white/10 bg-black/50 px-4 text-base font-bold text-white outline-none placeholder:text-white/25 focus:border-accent/50"
       />
 
-      <select
-  value={editingQuestions[editingQuestionIndex].correctAnswer}
-  onChange={(e) => {
-    const value = e.target.value
-
-    setEditingQuestions((current) =>
-      current.map((question, index) =>
-        index === editingQuestionIndex
-          ? { ...question, correctAnswer: value }
-          : question,
-      ),
-    )
-  }}
-  className="mt-3 h-14 w-full rounded-2xl border border-white/10 bg-black/50 px-4 text-base font-bold text-white outline-none focus:border-accent/50"
->
-  <option value="">Выбери правильное ФИО</option>
-
-  {Array.from(new Set(nominations.map((item) => item.correct))).map((name) => (
-  <option key={name} value={name}>
-    {name}
-  </option>
-))}
-</select>
+     <div className="mt-3">
+  <NameDropdown
+    value={editingQuestions[editingQuestionIndex].correctAnswer}
+    onChange={(value) => {
+      setEditingQuestions((current) =>
+        current.map((question, index) =>
+          index === editingQuestionIndex
+            ? { ...question, correctAnswer: value }
+            : question,
+        ),
+      )
+    }}
+    workers={workers}
+    color={{
+      border: 'rgba(255,43,214,0.7)',
+      glow: 'rgba(255,43,214,0.45)',
+      text: '#ff2bd6',
+    }}
+    open={true}
+    onOpenChange={() => {}}
+  />
+</div>
 
       {saveQuestionsError && (
         <p className="mt-3 rounded-xl border border-red-500/30 bg-red-500/10 px-3 py-2 text-center text-xs font-bold text-red-400">
