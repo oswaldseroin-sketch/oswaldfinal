@@ -755,23 +755,7 @@ setEnteringRoom({
     </p>
   </div>
 </div>
-          <div className="rounded-xl bg-black/40 px-2 py-2 text-center">
-            <p className="text-[9px] uppercase tracking-wider text-white/35">
-              Попытки
-            </p>
-            <p className="mt-1 text-xs font-black text-accent">
-              🗝️ {room.attempts}
-            </p>
-          </div>
-
-          <div className="rounded-xl bg-black/40 px-2 py-2 text-center">
-            <p className="text-[9px] uppercase tracking-wider text-white/35">
-              Вошло
-            </p>
-            <p className="mt-1 text-xs font-black text-accent">
-              🚪 {room.entered}
-            </p>
-          </div>
+         
         
       </button>
     )
