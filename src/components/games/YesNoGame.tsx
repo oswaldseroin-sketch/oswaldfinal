@@ -335,7 +335,7 @@ export default function YesNoGame({ onBack, onProfileUpdate }: Props) {
             })}
           </div>
 
-         {hasVoted ? (
+         {!isSelfQuestion && (hasVoted ? (
   <div className="mt-4 rounded-xl border border-slate-400/15 bg-white/[0.03] p-3 text-center">
     <p className="text-[9px] font-black tracking-[0.2em] text-slate-500">
       РЕШЕНИЕ ЗАФИКСИРОВАНО
