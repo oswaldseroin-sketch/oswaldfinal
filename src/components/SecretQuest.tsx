@@ -148,9 +148,10 @@ const handleKeyClick = (): void => {
     setPhase('breaking')
 
     window.setTimeout(() => {
-      setAnswers({})
-      setPhase('idle')
-    }, 3000)
+  setAnswers({})
+  setPhase('idle')
+  setShowEnterConfirm(false)
+}, 3000)
   }
 }
 
