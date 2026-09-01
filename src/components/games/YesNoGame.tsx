@@ -330,7 +330,6 @@ if (today?.selfQuestion) {
   </div>
 )}
          
-)}
         
          <div className={`grid grid-cols-2 gap-2.5 ${isSelfQuestion ? 'hidden' : ''}`}>
             {['yes', 'no'].map((option) => {
