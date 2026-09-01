@@ -241,7 +241,7 @@ const handleUpdateDate = async (): Promise<void> => {
           })}
         </div>
       ) : null}
-
+</div>
       {/* Floating + button */}
      <button
   onClick={() => {
