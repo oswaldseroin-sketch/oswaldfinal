@@ -107,6 +107,7 @@ export default function SpecialPrediction({ onBack }: { onBack: () => void }) {
   const [burningId, setBurningId] = useState<SymbolId | null>(null)
   const [sparks, setSparks] = useState<Spark[]>([])
   const [awakening, setAwakening] = useState(false)
+  const [orbitAngle, setOrbitAngle] = useState(0)
 
   useEffect(() => {
     setState(getRitualState(userId))
