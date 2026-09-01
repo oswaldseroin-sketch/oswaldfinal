@@ -1140,40 +1140,35 @@ if (ownRoom) {
         className="mt-5 h-14 w-full rounded-2xl border border-white/10 bg-black/50 px-4 text-base font-bold text-white outline-none placeholder:text-white/25 focus:border-accent/50"
       />
 
-     <div className="mt-3">
-  <NameDropdown
+    <div className="mt-3">
+  <select
     value={editingQuestions[editingQuestionIndex].correctAnswer}
-    onChange={(value) => {
-  setRoomAnswers((current) => {
-    const updated = current.map((answer, index) =>
-      index === roomQuestionIndex ? value : answer,
-    )
+    onChange={(e) => {
+      const value = e.target.value
 
-    const nextEmptyIndex = updated.findIndex(
-      (answer, index) =>
-        index > roomQuestionIndex && !answer.trim(),
-    )
-
-    if (nextEmptyIndex !== -1) {
-      setTimeout(() => {
-        setRoomQuestionIndex(nextEmptyIndex)
-      }, 120)
-    }
-
-    return updated
-  })
-
-  setRoomAnswerDropdownOpen(false)
-}}
-    workers={workers}
-    color={{
-      border: 'rgba(255,43,214,0.7)',
-      glow: 'rgba(255,43,214,0.45)',
-      text: '#ff2bd6',
+      setEditingQuestions((current) =>
+        current.map((question, index) =>
+          index === editingQuestionIndex
+            ? { ...question, correctAnswer: value }
+            : question,
+        ),
+      )
     }}
-open={answerDropdownOpen}
-onOpenChange={setAnswerDropdownOpen}
-  />
+    className="h-14 w-full rounded-2xl border border-accent/50 bg-black px-4 text-sm font-bold text-white outline-none"
+    style={{
+      boxShadow: editingQuestions[editingQuestionIndex].correctAnswer
+        ? '0 0 14px rgba(255,43,214,0.20)'
+        : 'none',
+    }}
+  >
+    <option value="">Выбрать правильный ответ</option>
+
+    {workers.map((worker) => (
+      <option key={worker.name} value={worker.name}>
+        {worker.name}
+      </option>
+    ))}
+  </select>
 </div>
 <div className="mt-6">
   <p className="mb-2 text-[10px] font-black uppercase tracking-[0.2em] text-accent/70">
