@@ -375,7 +375,7 @@ export default function YesNoGame({ onBack, onProfileUpdate }: Props) {
             </button>
                     )}
         </div>
-      )}
+               ))}
     </div>
   )
 }
