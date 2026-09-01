@@ -339,8 +339,7 @@ useEffect(() => {
       : 'Не удалось создать комнату',
   )
 }
-      console.error('Create secret room error:', error)
-    }
+
   }}
   disabled={!newRoomName.trim()}
   className="h-12 rounded-2xl border border-accent/40 bg-accent/15 text-sm font-black text-accent disabled:cursor-not-allowed disabled:opacity-30"
