@@ -472,6 +472,18 @@ if (enteringRoom) {
       {!questUnlocked ? (
   !mainDoorOpen ? (
     <div className="relative mt-6 flex flex-col items-center">
+      <button
+  type="button"
+  onClick={() => {
+    setAdminPassword('')
+    setAdminPasswordError('')
+    setAdminPasswordOpen(true)
+  }}
+  className="absolute right-0 top-0 z-30 flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-black/40 text-sm text-white/40 backdrop-blur transition active:scale-95"
+  title="Админка"
+>
+  🔒
+</button>
       <p className="text-[10px] font-bold uppercase tracking-[0.28em] text-accent/70">
         СЕКРЕТНЫЕ КОМНАТЫ
       </p>
