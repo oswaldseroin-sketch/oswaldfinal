@@ -297,6 +297,29 @@ if (enteringRoom) {
       : '🗝️ ПОПЫТАТЬСЯ ВОЙТИ'}
   </button>
 </div>
+      {roomAttemptResult === 'wrong' && (
+  <div className="mt-5 rounded-2xl border border-red-500/40 bg-red-500/10 p-4 text-center">
+    <p className="text-2xl">🔒</p>
+    <p className="mt-2 text-sm font-black uppercase tracking-wider text-red-400">
+      ДВЕРЬ НЕ ОТКРЫЛАСЬ
+    </p>
+    <p className="mt-1 text-xs text-white/45">
+      Один или несколько ответов неверны
+    </p>
+  </div>
+)}
+
+{roomAttemptResult === 'success' && (
+  <div className="mt-5 rounded-2xl border border-emerald-400/40 bg-emerald-400/10 p-4 text-center">
+    <p className="text-2xl">🚪</p>
+    <p className="mt-2 text-sm font-black uppercase tracking-wider text-emerald-300">
+      ДВЕРЬ ОТКРЫТА
+    </p>
+    <p className="mt-1 text-xs text-white/45">
+      Все 5 испытаний пройдены
+    </p>
+  </div>
+)}
     </div>
   )
 }
