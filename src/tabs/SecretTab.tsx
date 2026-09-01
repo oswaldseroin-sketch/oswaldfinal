@@ -211,6 +211,27 @@ if (enteringRoom) {
         <p className="mt-2 text-xs text-white/40">
           Испытание {roomQuestionIndex + 1} из 5
         </p>
+        <div className="mt-4 flex justify-center gap-2">
+  {enteringRoom.questions.map((question, index) => (
+    <button
+      key={question.slot_number}
+      type="button"
+      onClick={() => {
+        setRoomQuestionIndex(index)
+        setRoomAnswerDropdownOpen(false)
+      }}
+      className={`flex h-9 w-9 items-center justify-center rounded-xl border text-xs font-black transition ${
+        roomQuestionIndex === index
+          ? 'border-accent bg-accent/20 text-accent'
+          : roomAnswers[index]
+            ? 'border-emerald-400/40 bg-emerald-400/10 text-emerald-300'
+            : 'border-white/10 bg-black/40 text-white/40'
+      }`}
+    >
+      {index + 1}
+    </button>
+  ))}
+</div>
       </div>
 
       <div className="mt-8 rounded-3xl border border-accent/30 bg-black/60 p-5">
