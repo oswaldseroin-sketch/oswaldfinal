@@ -40,6 +40,7 @@ const [newRoomName, setNewRoomName] = useState('')
   slot_number: number
   room_name: string
 } | null>(null)
+  const [editingRoomId, setEditingRoomId] = useState<number | null>(null)
 useEffect(() => {
   void Promise.all([
     api.getSecretAttempts(),
