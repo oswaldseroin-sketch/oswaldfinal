@@ -53,8 +53,9 @@ export default defineConfig({
         clientsClaim: true,
         skipWaiting: true,
         globPatterns: [
-          '**/*.{js,css,html,png,jpg,jpeg,webp,svg,gif,ico,woff,woff2}',
-        ],
+          globPatterns: [
+  '**/*.{js,css,html,woff,woff2}',
+],
         navigateFallback: '/index.html',
       },
     }),
