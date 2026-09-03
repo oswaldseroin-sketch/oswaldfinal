@@ -438,7 +438,7 @@ if (selectedGame === 10) {
                   {isMaxTitle(titleInfo.level) ? 'MAX' : `${titleInfo.currentXp} / ${titleInfo.neededXp}`}
                 </span>
               </div>
-             <div className="relative h-2.5 w-full overflow-hidden rounded-full border border-fuchsia-400/10 bg-black/60">
+             <div className="relative h-2 w-full overflow-hidden rounded-full border border-fuchsia-400/10 bg-black/60">
   <div
     className="relative h-full rounded-full transition-all duration-700"
     style={{
