@@ -540,41 +540,103 @@ export default function TestsPanelTab({ onBack }: Props) {
           <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-2xl border border-neon/40 bg-neon/10" style={{ boxShadow: '0 0 12px rgba(0,229,255,0.25)' }}>
             <Award size={32} color="#00e5ff" />
           </div>
-          <h2 className="text-lg font-extrabold text-ink">Тест завершён</h2>
-          {activeBlock && <p className="mt-1 text-xs text-ink/50">{activeBlock.label}</p>}
-          <div className="mt-5 grid w-full grid-cols-2 gap-3">
-            <div className="flex flex-col items-center rounded-xl border border-success/30 bg-success/10 p-3">
-              <span className="text-2xl font-extrabold text-success">{correct}</span>
-              <span className="mt-0.5 text-xs text-ink/50">Правильных</span>
-            </div>
-            <div className="flex flex-col items-center rounded-xl border border-error/30 bg-error/10 p-3">
-              <span className="text-2xl font-extrabold text-error">{wrong}</span>
-              <span className="mt-0.5 text-xs text-ink/50">Ошибок</span>
-            </div>
-          </div>
-          <p className="mt-3 text-sm text-ink/70">Процент правильных ответов: <span className="font-extrabold text-neon">{percentage}%</span></p>
-          <div className="mt-3 w-full">
-            <div className="h-2 w-full overflow-hidden rounded-full bg-bg/60">
-              <div className="h-full rounded-full bg-neon transition-all duration-700" style={{ width: `${percentage}%`, boxShadow: '0 0 8px rgba(0,229,255,0.5)' }} />
-            </div>
-          </div>
+        <h2 className="text-xl font-black text-white">Тест завершён</h2>
 
-          {wrong > 0 ? (
-            <button onClick={startReview} className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl border border-error/50 bg-error/15 px-4 py-4 font-extrabold text-error transition hover:bg-error/25 active:scale-[0.97]">
-              <AlertTriangle size={20} /> РАБОТА НАД ОШИБКАМИ ({wrong})
-            </button>
-          ) : (
-            <div className="mt-5 w-full rounded-xl border border-success/30 bg-success/10 px-4 py-4 text-center">
-              <p className="text-sm font-bold text-success">Ошибок нет — работа над ошибками не требуется</p>
-            </div>
-          )}
+{activeBlock && (
+  <p className="mt-1 text-xs font-bold uppercase tracking-[0.14em] text-ink/35">
+    {activeBlock.label}
+  </p>
+)}
 
-          <div className="mt-3 flex w-full gap-3">
-            <button onClick={() => activeBlock && startBlock(activeBlock)} className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-neon/50 bg-neon/15 px-4 py-3 font-bold text-neon transition hover:bg-neon/25 active:scale-[0.97]">
-              <RotateCcw size={18} /> Заново
-            </button>
-            <button onClick={backToMenu} className="flex-1 rounded-xl border border-neon/30 bg-card/60 px-4 py-3 font-bold text-ink/70 transition hover:bg-card/80 active:scale-[0.97]">К блокам</button>
-          </div>
+<div className="mt-4 flex flex-col items-center">
+  <div
+    className="flex h-28 w-28 flex-col items-center justify-center rounded-full border border-cyan-400/30 bg-cyan-400/[0.06]"
+    style={{
+      boxShadow:
+        '0 0 28px rgba(0,229,255,0.12), inset 0 0 20px rgba(0,229,255,0.05)',
+    }}
+  >
+    <span className="text-3xl font-black text-cyan-300">
+      {percentage}%
+    </span>
+    <span className="mt-0.5 text-[10px] font-bold uppercase tracking-wider text-ink/35">
+      результат
+    </span>
+  </div>
+</div>
+
+<div className="mt-5 grid w-full grid-cols-2 gap-2.5">
+  <div className="rounded-xl border border-success/30 bg-success/[0.08] px-3 py-3 text-center">
+    <span className="block text-2xl font-black text-success">
+      {correct}
+    </span>
+    <span className="mt-1 block text-[11px] font-bold uppercase tracking-wide text-ink/40">
+      правильных
+    </span>
+  </div>
+
+  <div className="rounded-xl border border-error/30 bg-error/[0.08] px-3 py-3 text-center">
+    <span className="block text-2xl font-black text-error">
+      {wrong}
+    </span>
+    <span className="mt-1 block text-[11px] font-bold uppercase tracking-wide text-ink/40">
+      ошибок
+    </span>
+  </div>
+</div>
+
+<div className="mt-4 w-full">
+  <div className="mb-1.5 flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-ink/30">
+    <span>Прогресс</span>
+    <span>{percentage}%</span>
+  </div>
+
+  <div className="h-2 w-full overflow-hidden rounded-full bg-white/[0.06]">
+    <div
+      className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-cyan-300 transition-all duration-700"
+      style={{
+        width: `${percentage}%`,
+        boxShadow: '0 0 10px rgba(34,211,238,0.5)',
+      }}
+    />
+  </div>
+</div>
+
+{wrong > 0 ? (
+  <button
+    onClick={startReview}
+    className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl border border-error/50 bg-error/10 px-4 py-3.5 font-black text-error transition hover:bg-error/20 active:scale-[0.98]"
+  >
+    <AlertTriangle size={19} />
+    РАБОТА НАД ОШИБКАМИ
+    <span className="rounded-md bg-error/15 px-1.5 py-0.5 text-xs">
+      {wrong}
+    </span>
+  </button>
+) : (
+  <div className="mt-5 w-full rounded-xl border border-success/30 bg-success/[0.08] px-4 py-3 text-center">
+    <p className="text-sm font-bold text-success">
+      ✓ Всё правильно
+    </p>
+  </div>
+)}
+
+<div className="mt-3 grid w-full grid-cols-2 gap-2.5">
+  <button
+    onClick={() => activeBlock && startBlock(activeBlock)}
+    className="flex items-center justify-center gap-2 rounded-xl border border-cyan-400/30 bg-cyan-400/[0.07] px-3 py-3 text-sm font-bold text-cyan-300 transition active:scale-[0.98]"
+  >
+    <RotateCcw size={17} />
+    Заново
+  </button>
+
+  <button
+    onClick={backToMenu}
+    className="rounded-xl border border-white/10 bg-white/[0.04] px-3 py-3 text-sm font-bold text-ink/60 transition active:scale-[0.98]"
+  >
+    К блокам
+  </button>
+</div>
         </div>
       </SwipeBack>
     )
