@@ -368,7 +368,7 @@ if (selectedGame === 10) {
   </span>
 
   <span
-    className="text-xl font-black leading-none text-cyan-200"
+    className="text-lg font-black leading-none text-cyan-200"
     style={{
       textShadow: '0 0 12px rgba(0,229,255,0.55)',
     }}
