@@ -409,7 +409,7 @@ if (selectedGame === 10) {
 </div>
             </div>
 
-            <div className="mt-3">
+            <div className="mt-2">
               <div className="mb-1 flex items-center justify-between text-[10px] font-bold">
                 <span className="text-neon/80">XP</span>
                 <span className="text-ink-muted">
