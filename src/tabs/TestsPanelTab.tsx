@@ -381,57 +381,109 @@ export default function TestsPanelTab({ onBack }: Props) {
       <SwipeBack onBack={onBack} innerClassName="mx-auto w-full max-w-[520px] px-3 pb-6 pt-4">
         <button onClick={onBack} className="mb-4 text-sm font-bold text-neon hover:text-white transition-colors">← Назад</button>
 
-        <div className="flex flex-col gap-3">
-          {BLOCKS.map((block, i) => {
-            const { available, total } = countAvailable(allSorted, block)
-            const canStart = available > 0
-            const theme = blockThemes[i]
-            const Icon = theme.icon
-            return (
-              <button
-                key={block.id}
-                onClick={() => canStart ? startBlock(block) : undefined}
-                disabled={!canStart}
-                className="group relative flex items-center gap-4 overflow-hidden rounded-xl border p-4 transition-all duration-200 active:scale-[0.97] disabled:opacity-30 disabled:active:scale-100"
+<div className="flex flex-col gap-2.5">
+  {BLOCKS.map((block, i) => {
+    const { available, total } = countAvailable(allSorted, block)
+    const canStart = available > 0
+    const theme = blockThemes[i]
+    const Icon = theme.icon
+    const isMega = !!block.isMega
+
+    return (
+      <button
+        key={block.id}
+        onClick={() => canStart ? startBlock(block) : undefined}
+        disabled={!canStart}
+        className={`group relative overflow-hidden rounded-2xl border transition-all duration-200 active:scale-[0.985] disabled:opacity-30 ${
+          isMega ? 'p-4.5' : 'p-3.5'
+        }`}
+        style={{
+          borderColor: isMega ? `${theme.color}70` : `${theme.color}45`,
+          background: isMega
+            ? `linear-gradient(135deg, rgba(245,158,11,0.15) 0%, rgba(15,18,25,0.98) 55%, rgba(10,12,18,1) 100%)`
+            : 'linear-gradient(135deg, rgba(15,18,25,0.96) 0%, rgba(10,12,18,0.99) 100%)',
+          boxShadow: isMega
+            ? `0 0 22px ${theme.glow}, inset 0 0 0 1px ${theme.color}20`
+            : `0 0 14px ${theme.glow}, inset 0 0 0 1px ${theme.color}12`,
+        }}
+      >
+        <div
+          className="absolute left-0 top-0 h-full w-1"
+          style={{
+            background: `linear-gradient(180deg, ${theme.color}, ${theme.color}30)`,
+          }}
+        />
+
+        <div className="flex items-center gap-3">
+          <div
+            className={`flex flex-shrink-0 items-center justify-center rounded-xl border ${
+              isMega ? 'h-12 w-12' : 'h-10 w-10'
+            }`}
+            style={{
+              borderColor: `${theme.color}55`,
+              background: `${theme.color}10`,
+              boxShadow: `0 0 12px ${theme.glow}`,
+            }}
+          >
+            <Icon size={isMega ? 26 : 21} color={theme.color} />
+          </div>
+
+          <div className="min-w-0 flex-1 text-left">
+            <div className="flex items-center gap-2">
+              <span
+                className={`font-black text-white ${
+                  isMega ? 'text-[17px]' : 'text-[15px]'
+                }`}
                 style={{
-                  borderColor: `${theme.color}40`,
-                  background: 'linear-gradient(135deg, rgba(15,18,25,0.95) 0%, rgba(10,12,18,0.98) 100%)',
-                  boxShadow: `0 0 12px ${theme.glow}, inset 0 0 0 1px ${theme.color}15`,
+                  textShadow: `0 0 8px ${theme.glow}`,
                 }}
-                aria-label={block.label}
               >
-                <div
-                  className="absolute left-0 top-0 h-full w-1.5"
-                  style={{ background: `linear-gradient(180deg, ${theme.color}, ${theme.color}40)` }}
-                />
-                <div
-                  className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-lg border transition-transform duration-200 group-hover:scale-110 group-active:scale-95"
+                {block.label}
+              </span>
+
+              {isMega && (
+                <span
+                  className="rounded-md px-1.5 py-0.5 text-[9px] font-black uppercase tracking-wider"
                   style={{
-                    borderColor: `${theme.color}50`,
-                    background: `${theme.color}12`,
-                    boxShadow: `0 0 10px ${theme.glow}`,
+                    color: theme.color,
+                    background: `${theme.color}14`,
+                    border: `1px solid ${theme.color}30`,
                   }}
                 >
-                  <Icon size={24} color={theme.color} />
-                </div>
-                <div className="flex flex-1 flex-col items-center text-center">
-                  <span className="text-base font-extrabold text-white" style={{ textShadow: `0 0 8px ${theme.glow}` }}>
-                    {block.label}
-                  </span>
-                  <span className="mt-0.5 text-xs font-bold" style={{ color: `${theme.color}cc` }}>
-                    {total} {total === 1 ? 'вопрос' : total < 5 ? 'вопроса' : 'вопросов'}
-                  </span>
-                </div>
-                <div
-                  className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border opacity-40 transition-opacity group-hover:opacity-80"
-                  style={{ borderColor: `${theme.color}40` }}
-                >
-                  <ChevronRight size={16} color={theme.color} />
-                </div>
-              </button>
-            )
-          })}
+                  MAX
+                </span>
+              )}
+            </div>
+
+            <div className="mt-1 flex items-center gap-2 text-[11px] font-bold">
+              <span style={{ color: `${theme.color}dd` }}>
+                {total} вопросов
+              </span>
+
+              <span className="text-ink/20">•</span>
+
+              <span className="text-ink/35">
+                доступно {available}
+              </span>
+            </div>
+          </div>
+
+          <div
+            className={`flex flex-shrink-0 items-center justify-center rounded-full border transition-all duration-200 group-hover:translate-x-0.5 ${
+              isMega ? 'h-9 w-9' : 'h-8 w-8'
+            }`}
+            style={{
+              borderColor: `${theme.color}35`,
+              background: `${theme.color}08`,
+            }}
+          >
+            <ChevronRight size={16} color={theme.color} />
+          </div>
         </div>
+      </button>
+    )
+  })}
+</div>
       </SwipeBack>
     )
   }
