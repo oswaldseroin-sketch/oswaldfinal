@@ -431,7 +431,7 @@ if (selectedGame === 10) {
 </div>
             </div>
 
-            <div className="mt-2.5">
+            <div className="mt-1.5">
               <div className="mb-1 flex items-center justify-between text-[10px] font-bold">
                 <span className="text-accent/80">XP ЗВАНИЯ</span>
                 <span className="text-ink-muted">
