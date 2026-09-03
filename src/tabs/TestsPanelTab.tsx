@@ -609,35 +609,89 @@ export default function TestsPanelTab({ onBack }: Props) {
         <div className="h-full rounded-full bg-neon transition-all duration-500" style={{ width: `${(progress.current / progress.total) * 100}%`, boxShadow: '0 0 6px rgba(0,229,255,0.5)' }} />
       </div>
 
-      <div key={q.question_id} className="animate-slideUp rounded-xl border border-neon/20 bg-card/60 p-4 backdrop-blur-md" style={{ boxShadow: '0 0 10px rgba(0,229,255,0.06)' }}>
-        <span className="mb-2 block text-xs font-extrabold text-neon/70">{q.question_id}</span>
-        <p className="mb-3 text-sm leading-relaxed text-ink/90">{q.question_text}</p>
+<div
+  key={q.question_id}
+  className="animate-slideUp overflow-hidden rounded-2xl border border-cyan-400/25 bg-gradient-to-b from-cyan-950/20 via-card/80 to-black/40 backdrop-blur-md"
+  style={{
+    boxShadow:
+      '0 12px 35px rgba(0,0,0,0.25), 0 0 18px rgba(0,229,255,0.07)',
+  }}
+>
+  {/* Question */}
+  <div className="border-b border-cyan-400/10 px-4 pb-4 pt-3.5">
+    <div className="mb-3 flex items-center justify-between">
+      <span className="rounded-lg border border-cyan-400/25 bg-cyan-400/10 px-2.5 py-1 text-[11px] font-black tracking-wide text-cyan-300">
+        {q.question_id}
+      </span>
 
-        <div className="flex flex-col gap-2">
-          {q.options.map((opt, i) => {
-            const isSelected = selected === i
-            const isRight = revealed && i === q.correct_answer
-            const isWrongSel = revealed && isSelected && i !== q.correct_answer
-            let cls = 'border-neon/15 bg-bg/40 text-ink/70'
-            if (isRight) cls = 'border-success/60 bg-success/15 text-ink'
-            else if (isWrongSel) cls = 'border-error/60 bg-error/15 text-ink animate-shakeHit'
-            else if (revealed) cls = 'border-neon/10 bg-bg/30 text-ink/40'
-            return (
-              <button
-                key={i}
-                onClick={() => selectAnswer(i)}
-                disabled={revealed}
-                className={`flex items-start gap-2.5 rounded-lg border px-3 py-2.5 text-left text-sm transition ${cls} ${!revealed ? 'active:scale-[0.98]' : ''}`}
-              >
-                <span className={`mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border text-xs font-bold ${isRight ? 'border-success bg-success text-bg' : isWrongSel ? 'border-error bg-error text-bg' : 'border-neon/40'}`}>
-                  {isRight ? <Check size={12} /> : isWrongSel ? <X size={12} /> : i + 1}
-                </span>
-                <span className="flex-1">{opt}</span>
-              </button>
-            )
-          })}
-        </div>
-      </div>
+      <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-ink/30">
+        вопрос
+      </span>
+    </div>
+
+    <p className="text-[15px] font-semibold leading-[1.55] text-ink">
+      {q.question_text}
+    </p>
+  </div>
+
+  {/* Answers */}
+  <div className="flex flex-col gap-2.5 p-3">
+    {q.options.map((opt, i) => {
+      const isSelected = selected === i
+      const isRight = revealed && i === q.correct_answer
+      const isWrongSel =
+        revealed && isSelected && i !== q.correct_answer
+
+      let cls =
+        'border-white/10 bg-white/[0.035] text-ink/80 hover:border-cyan-400/30 hover:bg-cyan-400/[0.06]'
+
+      if (isRight) {
+        cls =
+          'border-success/70 bg-success/15 text-ink shadow-[0_0_18px_rgba(34,197,94,0.12)]'
+      } else if (isWrongSel) {
+        cls =
+          'border-error/70 bg-error/15 text-ink animate-shakeHit shadow-[0_0_18px_rgba(239,68,68,0.12)]'
+      } else if (revealed) {
+        cls = 'border-white/5 bg-black/20 text-ink/35'
+      }
+
+      return (
+        <button
+          key={i}
+          onClick={() => selectAnswer(i)}
+          disabled={revealed}
+          className={`group flex min-h-[58px] w-full items-center gap-3 rounded-xl border px-3.5 py-3 text-left transition-all duration-200 ${cls} ${
+            !revealed
+              ? 'active:scale-[0.985]'
+              : ''
+          }`}
+        >
+          <span
+            className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg border text-sm font-black transition-all ${
+              isRight
+                ? 'border-success bg-success text-bg'
+                : isWrongSel
+                  ? 'border-error bg-error text-bg'
+                  : 'border-cyan-400/25 bg-cyan-400/[0.07] text-cyan-300'
+            }`}
+          >
+            {isRight ? (
+              <Check size={16} strokeWidth={3} />
+            ) : isWrongSel ? (
+              <X size={16} strokeWidth={3} />
+            ) : (
+              i + 1
+            )}
+          </span>
+
+          <span className="flex-1 text-[14px] font-medium leading-[1.45]">
+            {opt}
+          </span>
+        </button>
+      )
+    })}
+  </div>
+</div>
 
       <div className="mt-2 min-h-[28px] flex items-center">
         {isCorrect && <span className="flex items-center gap-1 text-sm font-bold text-success animate-fadeIn"><Check size={14} /> Верно!</span>}
