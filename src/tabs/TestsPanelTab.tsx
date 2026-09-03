@@ -498,33 +498,103 @@ export default function TestsPanelTab({ onBack }: Props) {
       return (
         <SwipeBack onBack={onBack} innerClassName="mx-auto max-w-md px-4 pb-10 pt-4">
           <button onClick={onBack} className="mb-4 text-sm font-bold text-neon hover:text-white transition-colors">← Назад</button>
-          <div className="flex flex-col items-center rounded-2xl border border-neon/30 bg-card/70 p-6 backdrop-blur-md animate-scaleIn" style={{ boxShadow: '0 0 18px rgba(0,229,255,0.12)' }}>
-            <div className="mb-3 flex h-16 w-16 items-center justify-center rounded-2xl border border-neon/40 bg-neon/10" style={{ boxShadow: '0 0 12px rgba(0,229,255,0.25)' }}>
-              <Award size={32} color="#00e5ff" />
-            </div>
-            <h2 className="text-lg font-extrabold text-ink">Работа над ошибками завершена</h2>
-            <div className="mt-5 grid w-full grid-cols-2 gap-3">
-              <div className="flex flex-col items-center rounded-xl border border-success/30 bg-success/10 p-3">
-                <span className="text-2xl font-extrabold text-success">{fixedCount}</span>
-                <span className="mt-0.5 text-xs text-ink/50">Исправлено</span>
-              </div>
-              <div className="flex flex-col items-center rounded-xl border border-error/30 bg-error/10 p-3">
-                <span className="text-2xl font-extrabold text-error">{stillWrongCount}</span>
-                <span className="mt-0.5 text-xs text-ink/50">Осталось</span>
-              </div>
-            </div>
-            <div className="mt-4 w-full">
-              <div className="h-2 w-full overflow-hidden rounded-full bg-bg/60">
-                <div className="h-full rounded-full bg-neon transition-all duration-700" style={{ width: `${queue.length > 0 ? Math.round(((queue.length - stillWrongCount) / queue.length) * 100) : 100}%`, boxShadow: '0 0 8px rgba(0,229,255,0.5)' }} />
-              </div>
-            </div>
-            <div className="mt-5 flex w-full gap-3">
-              <button onClick={backToMenu} className="flex flex-1 items-center justify-center gap-2 rounded-xl border border-neon/50 bg-neon/15 px-4 py-3 font-bold text-neon transition hover:bg-neon/25 active:scale-[0.97]">
-                <Layers size={18} /> К блокам
-              </button>
-              <button onClick={onBack} className="flex-1 rounded-xl border border-neon/30 bg-card/60 px-4 py-3 font-bold text-ink/70 transition hover:bg-card/80 active:scale-[0.97]">Назад</button>
-            </div>
-          </div>
+          <div
+  className="flex flex-col items-center rounded-2xl border border-red-400/20 bg-gradient-to-b from-red-950/15 via-card/80 to-black/40 p-5 backdrop-blur-md animate-scaleIn"
+  style={{
+    boxShadow:
+      '0 12px 35px rgba(0,0,0,0.28), 0 0 22px rgba(239,68,68,0.08)',
+  }}
+>
+  <div
+    className="mb-3 flex h-16 w-16 items-center justify-center rounded-2xl border border-red-400/25 bg-red-400/[0.08]"
+    style={{
+      boxShadow: '0 0 18px rgba(239,68,68,0.12)',
+    }}
+  >
+    <Award size={30} color="#f87171" />
+  </div>
+
+  <h2 className="text-center text-xl font-black text-white">
+    Работа над ошибками завершена
+  </h2>
+
+  <p className="mt-1 text-center text-xs font-bold uppercase tracking-[0.14em] text-ink/35">
+    итог разбора
+  </p>
+
+  <div className="mt-5 grid w-full grid-cols-2 gap-2.5">
+    <div className="rounded-xl border border-success/30 bg-success/[0.08] px-3 py-3 text-center">
+      <span className="block text-2xl font-black text-success">
+        {fixedCount}
+      </span>
+
+      <span className="mt-1 block text-[11px] font-bold uppercase tracking-wide text-ink/40">
+        исправлено
+      </span>
+    </div>
+
+    <div className="rounded-xl border border-error/30 bg-error/[0.08] px-3 py-3 text-center">
+      <span className="block text-2xl font-black text-error">
+        {stillWrongCount}
+      </span>
+
+      <span className="mt-1 block text-[11px] font-bold uppercase tracking-wide text-ink/40">
+        осталось
+      </span>
+    </div>
+  </div>
+
+  <div className="mt-4 w-full">
+    <div className="mb-1.5 flex items-center justify-between text-[10px] font-bold uppercase tracking-wider text-ink/30">
+      <span>Исправлено</span>
+
+      <span>
+        {queue.length > 0
+          ? Math.round(((queue.length - stillWrongCount) / queue.length) * 100)
+          : 100}%
+      </span>
+    </div>
+
+    <div className="h-2 w-full overflow-hidden rounded-full bg-white/[0.06]">
+      <div
+        className="h-full rounded-full bg-gradient-to-r from-red-500 via-orange-400 to-green-400 transition-all duration-700"
+        style={{
+          width: `${
+            queue.length > 0
+              ? Math.round(((queue.length - stillWrongCount) / queue.length) * 100)
+              : 100
+          }%`,
+          boxShadow: '0 0 10px rgba(34,197,94,0.35)',
+        }}
+      />
+    </div>
+  </div>
+
+  {stillWrongCount === 0 && (
+    <div className="mt-4 w-full rounded-xl border border-success/30 bg-success/[0.08] px-4 py-3 text-center">
+      <p className="text-sm font-black text-success">
+        ✓ Все ошибки исправлены
+      </p>
+    </div>
+  )}
+
+  <div className="mt-4 grid w-full grid-cols-2 gap-2.5">
+    <button
+      onClick={backToMenu}
+      className="flex items-center justify-center gap-2 rounded-xl border border-cyan-400/30 bg-cyan-400/[0.07] px-3 py-3 text-sm font-bold text-cyan-300 transition active:scale-[0.98]"
+    >
+      <Layers size={17} />
+      К блокам
+    </button>
+
+    <button
+      onClick={onBack}
+      className="rounded-xl border border-white/10 bg-white/[0.04] px-3 py-3 text-sm font-bold text-ink/60 transition active:scale-[0.98]"
+    >
+      Назад
+    </button>
+  </div>
+</div>
         </SwipeBack>
       )
     }
