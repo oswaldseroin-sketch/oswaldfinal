@@ -600,14 +600,43 @@ export default function TestsPanelTab({ onBack }: Props) {
 
   return (
     <SwipeBack onBack={onBack} innerClassName="mx-auto max-w-md px-4 pb-10 pt-3">
-      <div className="mb-2 flex items-center justify-between">
-        <button onClick={onBack} className="text-sm font-bold text-neon hover:text-white transition-colors">← Назад</button>
-        {activeBlock && <span className="text-xs font-bold text-ink/40">{activeBlock.label}</span>}
-      </div>
-      <div className="mb-1 text-xs font-bold text-neon">{progress.current} / {progress.total}</div>
-      <div className="mb-3 h-1.5 w-full overflow-hidden rounded-full bg-bg/60">
-        <div className="h-full rounded-full bg-neon transition-all duration-500" style={{ width: `${(progress.current / progress.total) * 100}%`, boxShadow: '0 0 6px rgba(0,229,255,0.5)' }} />
-      </div>
+     <div className="mb-3">
+  <div className="mb-2 flex items-center justify-between">
+    <button
+      onClick={onBack}
+      className="rounded-lg px-1 py-1 text-sm font-bold text-neon transition-colors hover:text-white active:scale-95"
+    >
+      ← Назад
+    </button>
+
+    {activeBlock && (
+      <span className="rounded-lg border border-white/10 bg-white/[0.04] px-2.5 py-1 text-[11px] font-black uppercase tracking-wide text-ink/50">
+        {activeBlock.label}
+      </span>
+    )}
+  </div>
+
+  <div className="mb-1.5 flex items-end justify-between">
+    <span className="text-sm font-black text-cyan-300">
+      {progress.current}
+      <span className="text-ink/30"> / {progress.total}</span>
+    </span>
+
+    <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-ink/30">
+      {Math.round((progress.current / progress.total) * 100)}%
+    </span>
+  </div>
+
+  <div className="h-2 w-full overflow-hidden rounded-full bg-white/[0.06]">
+    <div
+      className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-cyan-300 transition-all duration-500"
+      style={{
+        width: `${(progress.current / progress.total) * 100}%`,
+        boxShadow: '0 0 10px rgba(34,211,238,0.55)',
+      }}
+    />
+  </div>
+</div>
 
 <div
   key={q.question_id}
