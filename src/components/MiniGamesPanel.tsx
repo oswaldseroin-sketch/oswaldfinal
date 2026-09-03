@@ -343,7 +343,7 @@ if (selectedGame === 10) {
           >
             <div className="pointer-events-none absolute -left-10 -top-12 h-32 w-32 rounded-full bg-cyan-400/10 blur-3xl" />
 <div className="pointer-events-none absolute -bottom-14 -right-10 h-36 w-36 rounded-full bg-fuchsia-500/10 blur-3xl" />
-            <div className="mb-2 flex items-center justify-between">
+            <div className="mb-1.5 flex items-center justify-between">
   <span className="text-[8px] font-black tracking-[0.28em] text-fuchsia-300/60">
     ПРОФИЛЬ ИГРОКА
   </span>
