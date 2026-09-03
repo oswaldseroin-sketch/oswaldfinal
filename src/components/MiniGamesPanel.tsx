@@ -356,7 +356,7 @@ if (selectedGame === 10) {
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0 flex-1">
                 <p className="truncate text-sm font-bold text-ink/80">{currentUser?.name}</p>
-                <div className="mt-1.5 flex items-baseline gap-2">
+                <div className="mt-1 flex items-baseline gap-2">
                   <div
   className="inline-flex items-center gap-2 rounded-xl border border-cyan-400/20 bg-cyan-400/[0.07] px-2.5 py-1.5"
   style={{
