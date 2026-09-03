@@ -338,7 +338,7 @@ if (selectedGame === 10) {
           </div>
         ) : profile && levelInfo && titleInfo ? (
           <div
-            className="relative mb-5 overflow-hidden rounded-2xl border border-cyan-400/25 bg-gradient-to-br from-cyan-950/35 via-black/75 to-fuchsia-950/25 p-4 backdrop-blur-md"
+           className="relative mb-3 overflow-hidden rounded-2xl border border-cyan-400/25 bg-gradient-to-br from-cyan-950/35 via-black/75 to-fuchsia-950/25 px-3.5 py-3 backdrop-blur-md"
             style={{ boxShadow: '0 0 18px rgba(0,229,255,0.1)' }}
           >
             <div className="pointer-events-none absolute -left-10 -top-12 h-32 w-32 rounded-full bg-cyan-400/10 blur-3xl" />
