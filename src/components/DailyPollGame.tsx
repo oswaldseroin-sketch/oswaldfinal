@@ -323,7 +323,7 @@ export default function DailyPollGame({ onBack, onProfileUpdate }: Props) {
   {isSelected || wasChosen ? <Check size={15} /> : '✦'}
 </div>
                 <span
-  className={`truncate text-[11px] font-extrabold tracking-wide ${
+  className={`min-w-0 whitespace-normal break-words text-[11px] font-extrabold leading-tight tracking-wide ${
     isSelected || wasChosen
       ? 'text-purple-100'
       : 'text-ink/85'
