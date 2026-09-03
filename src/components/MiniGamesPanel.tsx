@@ -358,7 +358,7 @@ if (selectedGame === 10) {
                 <p className="truncate text-sm font-bold text-ink/80">{currentUser?.name}</p>
                 <div className="mt-1 flex items-baseline gap-2">
                   <div
-  className="inline-flex items-center gap-2 rounded-xl border border-cyan-400/20 bg-cyan-400/[0.07] px-2.5 py-1.5"
+  className="inline-flex items-center gap-1.5 rounded-lg border border-cyan-400/20 bg-cyan-400/[0.07] px-2 py-1"
   style={{
     boxShadow: 'inset 0 0 14px rgba(0,229,255,0.05)',
   }}
