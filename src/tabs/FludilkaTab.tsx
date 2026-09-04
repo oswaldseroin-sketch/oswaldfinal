@@ -315,7 +315,7 @@ const [newDayToast, setNewDayToast] = useState(false)
   {emojis.map((emoji) => (
     <button
       key={emoji.id}
-      onClick={() => {
+    onClick={() => {
   if (!emoji.locked) {
     setInput((prev) => prev + `[emoji:${emoji.id}]`)
     setSelectedEmojis((prev) => [...prev, emoji])
