@@ -177,17 +177,7 @@ export default function LoginScreen() {
             className="h-13 min-w-0 flex-1 rounded-xl border border-line bg-input px-4 py-3 text-lg tracking-widest text-ink outline-none focus:border-neon/50"
           />
 
-          <button
-            type="button"
-            onClick={() => {
-              setSecretOpen((v) => !v)
-              setSecretError('')
-            }}
-            className="flex h-13 w-13 shrink-0 items-center justify-center rounded-xl border border-neon/30 bg-neon/10 text-neon transition active:scale-95"
-            title="Узнать текущий пароль"
-          >
-            <HelpCircle size={20} />
-          </button>
+         
         </div>
 
         {error && (
