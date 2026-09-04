@@ -380,8 +380,8 @@ active:scale-90
             <DoorOpen size={18} />
           </button>
           </div>
-        </>
-      )}
+      </div>
+)}
 
       {/* Nick intro toast */}
       {nickIntro && (
