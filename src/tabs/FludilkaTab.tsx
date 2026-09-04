@@ -187,16 +187,7 @@ export default function FludilkaTab({ onBack }: { onBack: () => void }) {
     {msg.message}
   </p>
 </div>
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-xs font-black" style={{ color, textShadow: `0 0 4px ${color}44` }}>
-                    {msg.nickname}
-                  </span>
-                  <span className="text-[10px] text-ink-faint">{formatTime(msg.created_at)}</span>
-                </div>
-                <p className="mt-1 break-words text-sm text-ink">{msg.message}</p>
-              </div>
-            )
-          })
+         
         )}
         <div ref={bottomRef} />
       </div>
