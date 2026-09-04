@@ -246,9 +246,10 @@ if (!trimmed && selectedEmojis.length === 0) return
             <span className="text-[9px] opacity-50">
               {formatTime(msg.created_at)}
             </span>
-          </div>
+         </div>
+)}
 
-         <p className="break-words text-sm text-ink">
+<p className="break-words text-sm text-ink">
   {renderMessage(msg.message, emojis)}
 </p>
         </div>
