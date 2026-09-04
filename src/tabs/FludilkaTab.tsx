@@ -191,8 +191,9 @@ export default function FludilkaTab({ onBack }: { onBack: () => void }) {
   <p className="mt-2 break-words text-sm font-medium text-ink">
     {msg.message}
   </p>
-</div>
-         
+              </div>
+            )
+          })
         )}
         <div ref={bottomRef} />
       </div>
