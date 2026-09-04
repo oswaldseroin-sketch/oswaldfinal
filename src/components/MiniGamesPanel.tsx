@@ -300,6 +300,7 @@ if (shopOpen) {
     <ShopPanel
       onBack={() => setShopOpen(false)}
       profileCoins={profile?.coins ?? 0}
+      playerId={playerId}
       onPurchaseComplete={() => void refreshProfile()}
     />
   )
