@@ -299,7 +299,7 @@ const [newDayToast, setNewDayToast] = useState(false)
       ОСОБЫЕ СМАЙЛИКИ
     </p>
 
- <div className="grid grid-cols-5 gap-3">
+ <div className="grid grid-cols-3 gap-4">
   {emojis.map((emoji) => (
     <button
       key={emoji.id}
