@@ -6,12 +6,7 @@ import {
 } from '../lib/fludilka'
 import { todayKey } from '../lib/storage'
 import { api } from '../lib/api'
-type SpecialEmoji = {
-  id: number
-  name: string
-  image_url: string
-  locked: boolean
-}
+
 const SERVER_URL = 'http://201.24.54.238:3001'
 
 function formatTime(iso: string): string {
