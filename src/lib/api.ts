@@ -895,7 +895,7 @@ const result = await apiFetch<{
     const { data, error } = await supabase
       .from('radio_messages')
       .select('*')
-      .eq('receiver_id', playerId)
+      .eq('receiver_id', Number(playerId))
       .eq('is_read', false)
       .order('created_at', { ascending: true })
     if (error) throw new Error(error.message)
