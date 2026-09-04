@@ -305,11 +305,12 @@ const [newDayToast, setNewDayToast] = useState(false)
     <button
       key={emoji.id}
       onClick={() => {
-        if (!emoji.locked) {
-          setInput((prev) => prev + `[emoji:${emoji.id}]`)
-          setEmojiOpen(false)
-        }
-      }}
+  if (!emoji.locked) {
+    setInput((prev) => prev + `[emoji:${emoji.id}]`)
+    setSelectedEmojis((prev) => [...prev, emoji])
+    setEmojiOpen(false)
+  }
+}}
  className="
 relative flex aspect-square items-center justify-center
 rounded-2xl
