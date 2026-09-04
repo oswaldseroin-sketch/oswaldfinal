@@ -108,7 +108,7 @@ function Shell() {
         )}
         {tab === 'newSection' && (
           <SwipeBack onBack={goHome} innerClassName="mx-auto max-w-md px-4 pb-10 pt-6">
-            <MiniGamesPanel onBack={goHome} />
+          <div>TEST</div>
           </SwipeBack>
         )}
       </main>
