@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { Bell } from 'lucide-react'
 import { getDailyNews, getWorkerOfWeek } from '../lib/workers'
 import { useApp } from '../context/AppContext'
+import { api } from '../lib/api'
+import { todayKey } from '../lib/storage'
 
 type Tab = 'applications' | 'predictions' | 'articles' | 'secret' | 'fludilka' | 'tests' | 'newSection'
 
