@@ -294,9 +294,7 @@ if (selectedGame === 10) {
   )
 }
 }
- <div className="text-white p-5">
-  ТЕСТ БЕЗ МАГАЗИНА
-</div>
+
 
   // -- Main panel --
   const levelInfo = profile
