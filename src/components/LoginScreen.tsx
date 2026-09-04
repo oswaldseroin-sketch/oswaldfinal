@@ -186,61 +186,7 @@ export default function LoginScreen() {
           </p>
         )}
 
-        {secretOpen && (
-          <div className="mt-3 rounded-xl border border-neon/25 bg-black/40 p-4">
-            <p className="text-[10px] font-bold tracking-widest text-neon">
-              СЕКРЕТНЫЙ ВОПРОС
-            </p>
-
-            <p className="mt-2 text-sm font-bold text-ink">
-              Имя которое нравится Пруткевич Е Р?
-            </p>
-
-            <input
-              value={secretAnswer}
-              onChange={(e) => {
-                setSecretAnswer(e.target.value)
-                setSecretError('')
-              }}
-              onKeyDown={(e) => e.key === 'Enter' && void revealPassword()}
-              placeholder="Ответ..."
-              className="mt-3 h-11 w-full rounded-xl border border-line bg-input px-3 text-sm text-ink outline-none focus:border-neon/50"
-            />
-
-            <button
-              type="button"
-              onClick={() => void revealPassword()}
-              className="mt-3 h-11 w-full rounded-xl border border-neon/40 bg-neon/15 text-sm font-extrabold text-neon transition active:scale-95"
-            >
-              УЗНАТЬ ПАРОЛЬ
-            </button>
-
-            {secretError && (
-              <p className="mt-2 text-xs text-error">
-                {secretError}
-              </p>
-            )}
-
-            {revealedPassword && (
-              <div className="mt-3 rounded-xl border border-success/30 bg-success/10 p-3 text-center">
-                <p className="text-[10px] font-bold tracking-widest text-success">
-                  ТЕКУЩИЙ ПАРОЛЬ
-                </p>
-
-                <p className="mt-1 text-3xl font-black tracking-[0.2em] text-ink">
-                  {revealedPassword}
-                </p>
-
-                {nextChangeAt && (
-                  <p className="mt-1 text-[10px] text-ink-muted">
-                    Пароль автоматически сменится через 3-часовой период
-                  </p>
-                )}
-              </div>
-            )}
-          </div>
-        )}
-      </div>
+       
 
       <button
         onClick={() => void submit()}
