@@ -130,9 +130,9 @@ export default function App() {
     return () => clearTimeout(timer)
   }, [])
 
-  return (
-  <div style={{color:'white', padding:40}}>
-    APP TEST
-  </div>
+return (
+  <AppProvider>
+    <Shell />
+  </AppProvider>
 )
 }
