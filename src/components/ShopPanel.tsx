@@ -20,20 +20,26 @@ export default function ShopPanel({ onBack, profileCoins, onPurchaseComplete }: 
   const [success, setSuccess] = useState<string | null>(null)
   const [radioMode, setRadioMode] = useState(false)
 
-  const loadData = useCallback(async () => {
-    try {
-      const [shopItems, inv] = await Promise.all([
-        api.getShopItems(),
-        api.getPlayerInventory(playerId),
-      ])
-      setItems(shopItems)
-      setInventory(inv)
-    } catch {
-      setError('Не удалось загрузить магазин')
-    } finally {
-      setLoading(false)
-    }
-  }, [playerId])
+ const loadData = useCallback(async () => {
+  if (!playerId) {
+    setLoading(false)
+    return
+  }
+
+  try {
+    const [shopItems, inv] = await Promise.all([
+      api.getShopItems(),
+      api.getPlayerInventory(playerId),
+    ])
+
+    setItems(shopItems)
+    setInventory(inv)
+  } catch {
+    setError('Не удалось загрузить магазин')
+  } finally {
+    setLoading(false)
+  }
+}, [playerId])
 
 useEffect(() => {
   void loadData()
