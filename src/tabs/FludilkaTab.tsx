@@ -211,7 +211,7 @@ if (!trimmed && selectedEmojis.length === 0) return
      {/* Messages area */}
 <div
   ref={scrollRef}
- className="h-[calc(100dvh-260px)] space-y-0.5 overflow-y-auto rounded-2xl bg-black/20 px-1 py-2"
+ className="h-[420px] space-y-0.5 overflow-y-auto rounded-2xl bg-black/20 px-1 py-2"
  
 >
   {noNicks ? (
