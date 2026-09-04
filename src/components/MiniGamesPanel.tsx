@@ -74,7 +74,11 @@ export default function MiniGamesPanel({ onBack }: Props) {
   const loadData = useCallback(async () => {
     if (!currentUser) return
     try {
-      const data = await api.getMiniGameData(currentUser.id)
+      console.log('BEFORE MINI LOAD')
+
+const data = await api.getMiniGameData(currentUser.id)
+
+console.log('AFTER MINI LOAD')
       setProfile((prev) => {
         if (prev && data.profile.titleLevel > prev.titleLevel) {
           setTitlePopup(data.profile.title)
