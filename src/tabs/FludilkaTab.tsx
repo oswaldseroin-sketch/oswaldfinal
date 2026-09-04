@@ -340,7 +340,7 @@ active:scale-90
 "
     >
       <img
-        src={emoji.image_url}
+        src={`http://ТВОЙ_IP_СЕРВЕРА:3001${emoji.image_url}`}
      className={`h-20 w-20 rounded-2xl object-cover transition-all ${
   emoji.locked
     ? 'opacity-25 grayscale'
