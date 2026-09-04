@@ -503,8 +503,10 @@ enterSecretUserRoom: async (
       method: 'POST',
       body: JSON.stringify({ user_id, nickname, message, chat_day }),
     }),
-  getMessageCount: (day: string) =>
-    getChatEmojis: () =>
+getMessageCount: (day: string) =>
+  apiFetch<{ count: number }>(`/api/chat/messages/count?day=${day}`),
+
+getChatEmojis: () =>
   apiFetch<{
     ok: boolean
     emojis: {
