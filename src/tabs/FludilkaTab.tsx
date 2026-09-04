@@ -30,9 +30,22 @@ function renderMessage(
       if (emoji) {
         return (
           <img
-            key={index}
-            src={`${SERVER_URL}${emoji.image_url}`}
-            className={`inline-block rounded-2xl object-cover align-middle drop-shadow-[0_0_20px_rgba(0,229,255,0.35)] ${
+  key={index}
+  src={`${SERVER_URL}${emoji.image_url}`}
+  className={`
+    inline-block
+    rounded-2xl
+    object-cover
+    align-middle
+    drop-shadow-[0_0_25px_rgba(0,229,255,0.45)]
+    animate-emojiPop
+    ${
+      message.trim() === `[emoji:${emoji.id}]`
+        ? 'h-24 w-24'
+        : 'h-10 w-10'
+    }
+  `}
+ />
   message.trim() === `[emoji:${emoji.id}]`
     ? 'h-20 w-20'
     : 'h-10 w-10'
