@@ -104,23 +104,4 @@ export default function ShopPanel({
 
   </div>
 ))}
-              <div className="text-3xl">{item.icon}</div>
-
-              <div className="font-bold">
-                {item.name}
-              </div>
-
-              <div className="text-sm text-zinc-400">
-                {item.description}
-              </div>
-
-              <div className="mt-2">
-                Цена: {item.price} 🪙
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  )
-}
+           
