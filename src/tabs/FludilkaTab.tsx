@@ -318,58 +318,52 @@ if (!trimmed && selectedEmojis.length === 0) return
      🔥 ОСОБЫЕ СМАЙЛИКИ
     </p>
 
- <div className="grid grid-cols-3 gap-4">
-   
- {emojis.map((emoji) => {
-  console.log('EMOJI DATA', emoji)
-  
-  return (
+<div className="grid grid-cols-3 gap-4">
+  {emojis.map((emoji) => (
     <button
       key={emoji.id}
-   onClick={() => {
-  if (!emoji.locked) {
-    setInput((prev) => prev + ` [emoji:${emoji.id}] `)
-    setSelectedEmojis((prev) => [...prev, emoji])
-    setEmojiOpen(false)
-  }
-}}
- className="
-relative flex aspect-square items-center justify-center
-rounded-2xl
-border border-neon/20
-bg-neon/5
-transition-all
-hover:scale-110
-hover:border-neon/70
-active:scale-90
-"
+      onClick={() => {
+        if (!emoji.locked) {
+          setInput((prev) => prev + ` [emoji:${emoji.id}] `)
+          setSelectedEmojis((prev) => [...prev, emoji])
+          setEmojiOpen(false)
+        }
+      }}
+      className="
+        relative flex aspect-square items-center justify-center
+        rounded-2xl
+        border border-neon/20
+        bg-neon/5
+        transition-all
+        hover:scale-110
+        hover:border-neon/70
+        active:scale-90
+      "
     >
       <img
-     src={`${window.location.protocol}//201.24.54.238:3001${emoji.image_url}`}
-     className={`h-20 w-20 rounded-2xl object-cover transition-all ${
-  emoji.locked
-    ? 'opacity-25 grayscale'
-    : 'drop-shadow-[0_0_15px_rgba(0,229,255,0.5)]'
-}`}
+        src={`${SERVER_URL}${emoji.image_url}`}
+        className={`h-20 w-20 rounded-2xl object-cover transition-all ${
+          emoji.locked
+            ? 'opacity-25 grayscale'
+            : 'drop-shadow-[0_0_15px_rgba(0,229,255,0.5)]'
+        }`}
       />
 
-   {emoji.locked && (
-  <span
-    className="
-    absolute inset-0 flex items-center justify-center
-    rounded-2xl
-    bg-black/50
-    text-3xl
-    animate-pulse
-    "
-  >
-    🔒
-  </span>
-)}
+      {emoji.locked && (
+        <span
+          className="
+            absolute inset-0 flex items-center justify-center
+            rounded-2xl
+            bg-black/50
+            text-3xl
+            animate-pulse
+          "
+        >
+          🔒
+        </span>
+      )}
     </button>
-      )
-})}
-  
+  ))}
 </div>
 
   </div>
