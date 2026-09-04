@@ -11,7 +11,7 @@ import TestsTab from './tabs/TestsTab'
 import TestsPanelTab from './tabs/TestsPanelTab'
 import AdminPanel from './components/AdminPanel'
 import NumbersPanel from './components/NumbersPanel'
-// import MiniGamesPanel from './components/MiniGamesPanel'
+import MiniGamesPanel from './components/MiniGamesPanel'
 import SwipeBack from './components/SwipeBack'
 
 type Tab = 'applications' | 'predictions' | 'articles' | 'secret' | 'fludilka' | 'tests' | 'testsPanel' | 'adminPanel' | 'numbers' | 'newSection'
