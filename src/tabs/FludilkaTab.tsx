@@ -299,19 +299,30 @@ const [newDayToast, setNewDayToast] = useState(false)
       ОСОБЫЕ СМАЙЛИКИ
     </p>
 
-  <div className="grid grid-cols-5 gap-3">
+ <div className="grid grid-cols-5 gap-3">
   {emojis.map((emoji) => (
     <button
-      key={emoji}
+      key={emoji.id}
       onClick={() => {
-  if (!emoji.locked) {
-    setInput((prev) => prev + `[emoji:${emoji.id}]`)
-    setEmojiOpen(false)
-  }
-}}
-      className="text-3xl transition-transform hover:scale-125 active:scale-90"
+        if (!emoji.locked) {
+          setInput((prev) => prev + `[emoji:${emoji.id}]`)
+          setEmojiOpen(false)
+        }
+      }}
+      className="relative flex items-center justify-center transition-transform hover:scale-110 active:scale-90"
     >
-      {emoji}
+      <img
+        src={emoji.image_url}
+        className={`h-12 w-12 rounded-xl object-cover ${
+          emoji.locked ? 'opacity-30 grayscale' : ''
+        }`}
+      />
+
+      {emoji.locked && (
+        <span className="absolute text-xl">
+          🔒
+        </span>
+      )}
     </button>
   ))}
 </div>
