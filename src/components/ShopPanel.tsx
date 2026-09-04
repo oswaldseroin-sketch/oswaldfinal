@@ -32,6 +32,7 @@ export default function ShopPanel({
       .finally(() => setLoading(false))
   }, [])
 const handleBuy = async (itemId: number) => {
+  console.log('PLAYER ID:', playerId)
   const result = await api.purchaseShopItem(
     playerId,
     itemId
