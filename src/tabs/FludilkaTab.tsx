@@ -304,9 +304,11 @@ const [newDayToast, setNewDayToast] = useState(false)
     <button
       key={emoji}
       onClick={() => {
-        setInput((prev) => prev + emoji)
-        setEmojiOpen(false)
-      }}
+  if (!emoji.locked) {
+    setInput((prev) => prev + `[emoji:${emoji.id}]`)
+    setEmojiOpen(false)
+  }
+}}
       className="text-3xl transition-transform hover:scale-125 active:scale-90"
     >
       {emoji}
