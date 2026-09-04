@@ -87,7 +87,10 @@ const handleBuy = async (itemId: number) => {
                 Цена: {item.price} 🪙
               </div>
 <button
-  onClick={() => handleBuy(item.id)}
+  onClick={() => {
+    console.log('CLICK BUY', item.id)
+    handleBuy(item.id)
+  }}
   className="mt-3 rounded-xl border border-emerald-400/40 bg-emerald-500/20 px-4 py-2 text-xs font-black text-emerald-200"
 >
   КУПИТЬ
