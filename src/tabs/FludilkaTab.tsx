@@ -254,29 +254,20 @@ export default function FludilkaTab({ onBack }: { onBack: () => void }) {
       ОСОБЫЕ СМАЙЛИКИ
     </p>
 
-    <div className="grid grid-cols-5 gap-3">
-
-      <button className="text-3xl">
-        😈
-      </button>
-
-      <button className="text-3xl">
-        🐺
-      </button>
-
-      <button className="text-3xl">
-        👑
-      </button>
-
-      <button className="text-3xl">
-        🔥
-      </button>
-
-      <button className="text-3xl">
-        💀
-      </button>
-
-    </div>
+  <div className="grid grid-cols-5 gap-3">
+  {emojis.map((emoji) => (
+    <button
+      key={emoji}
+      onClick={() => {
+        setInput((prev) => prev + emoji)
+        setEmojiOpen(false)
+      }}
+      className="text-3xl transition-transform hover:scale-125 active:scale-90"
+    >
+      {emoji}
+    </button>
+  ))}
+</div>
 
   </div>
 )}
