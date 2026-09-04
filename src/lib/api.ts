@@ -908,35 +908,4 @@ const result = await apiFetch<{
   }
 },
 
-  // Radio messages
-  sendRadioMessage: async (senderId: string, receiverId: string, nickname: string, message: string): Promise<{ ok: boolean; error?: string }> => {
-    const { error } = await supabase
-      .from('radio_messages')
-      .insert({ 
-  sender_id: Number(senderId),
-  receiver_id: Number(receiverId),
-  nickname,
-  message
-})
-    if (error) return { ok: false, error: error.message }
-    return { ok: true }
-  },
-
-  getUnreadRadioMessages: async (playerId: string): Promise<RadioMessage[]> => {
-    const { data, error } = await supabase
-      .from('radio_messages')
-      .select('*')
-      .eq('receiver_id', Number(playerId))
-      .eq('is_read', false)
-      .order('created_at', { ascending: true })
-    if (error) throw new Error(error.message)
-    return (data || []) as RadioMessage[]
-  },
-
-  markRadioMessageRead: async (messageId: string): Promise<void> => {
-    await supabase
-      .from('radio_messages')
-      .update({ is_read: true })
-      .eq('id', messageId)
-  },
-}
+  
