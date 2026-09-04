@@ -294,7 +294,7 @@ if (!trimmed && selectedEmojis.length === 0) return
           {sendError && (
             <p className="mt-2 text-xs font-bold text-error">Не удалось отправить сообщение</p>
           )}
-          <div className="relative mt-3 flex items-center gap-2 rounded-2xl border border-neon/30 bg-black/70 p-2 backdrop-blur-xl shadow-[0_0_25px_rgba(0,229,255,0.15)]">
+          <div className="mt-3 flex items-center gap-2 rounded-2xl border border-neon/30 bg-black/70 p-2 backdrop-blur-xl shadow-[0_0_25px_rgba(0,229,255,0.15)]">
             <button
   onClick={() => setEmojiOpen((v) => !v)}
   className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-neon/40 bg-neon/10 text-neon transition-all hover:bg-neon/20 active:scale-90 shadow-[0_0_12px_rgba(0,229,255,0.2)]"
@@ -328,8 +328,8 @@ if (!trimmed && selectedEmojis.length === 0) return
         </>
       )}
 {emojiOpen && (
-  className="absolute bottom-full left-1/2 z-50 mb-3 w-[90%] max-w-md -translate-x-1/2 rounded-2xl border border-neon/40 bg-black/90 p-4 backdrop-blur-md"
-    
+  <div className="fixed bottom-20 left-1/2 z-50 w-[90%] max-w-md -translate-x-1/2 rounded-2xl border border-neon/40 bg-black/90 p-4 backdrop-blur-md"
+    style={{
       boxShadow: '0 0 30px rgba(0,229,255,0.25)',
     }}
   >
