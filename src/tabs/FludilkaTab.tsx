@@ -319,7 +319,7 @@ if (!trimmed && selectedEmojis.length === 0) return
     </p>
 
  <div className="grid grid-cols-3 gap-4">
-   console.log('EMOJI', emoji.image_url)
+   
   {emojis.map((emoji) => (
     <button
       key={emoji.id}
