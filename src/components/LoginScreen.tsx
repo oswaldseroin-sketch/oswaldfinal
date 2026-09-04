@@ -13,11 +13,6 @@ export default function LoginScreen() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const [secretOpen, setSecretOpen] = useState(false)
-  const [secretAnswer, setSecretAnswer] = useState('')
-  const [secretError, setSecretError] = useState('')
-  const [revealedPassword, setRevealedPassword] = useState('')
-  const [nextChangeAt, setNextChangeAt] = useState('')
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase()
