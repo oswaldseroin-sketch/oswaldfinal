@@ -11,7 +11,34 @@ function formatTime(iso: string): string {
   const d = new Date(iso)
   return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`
 }
+function renderMessage(
+  message: string,
+  emojis: SpecialEmoji[]
+) {
+  const parts = message.split(/(\[emoji:\d+\])/g)
 
+  return parts.map((part, index) => {
+    const match = part.match(/\[emoji:(\d+)\]/)
+
+    if (match) {
+      const emoji = emojis.find(
+        (e) => e.id === Number(match[1])
+      )
+
+      if (emoji) {
+        return (
+          <img
+            key={index}
+            src={emoji.image_url}
+            className="inline-block h-10 w-10 rounded-xl object-cover align-middle"
+          />
+        )
+      }
+    }
+
+    return <span key={index}>{part}</span>
+  })
+}
 export default function FludilkaTab({ onBack }: { onBack: () => void }) {
   const [myNick, setMyNick] = useState<string | null>(null)
   const [nickIntro, setNickIntro] = useState<string | null>(null)
