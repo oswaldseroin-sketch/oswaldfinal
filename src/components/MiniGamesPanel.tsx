@@ -15,7 +15,6 @@ import MafiaGame from './games/MafiaGame'
 import YesNoGame from './games/YesNoGame'
 import SecretLoveGame from './games/SecretLoveGame'
 import RouletteGame from './games/RouletteGame'
-import ShopPanel from './ShopPanel'
 
 type Props = { onBack: () => void }
 
@@ -60,7 +59,6 @@ export default function MiniGamesPanel({ onBack }: Props) {
   const [showGameCompleteNav, setShowGameCompleteNav] = useState(false)
   const [lastCompletedGame, setLastCompletedGame] = useState<number | null>(null)
   const [titlePopup, setTitlePopup] = useState<string | null>(null)
-  const [shopOpen, setShopOpen] = useState(false)
   const [completedToday, setCompletedToday] = useState<CompletedToday>(() => getCompletedToday(playerId))
 
   useEffect(() => {
@@ -295,16 +293,7 @@ if (selectedGame === 10) {
   ? getLevelInfo(profile.xp, profile.level)
   : null
   const titleInfo = profile ? getTitleInfo(profile.titleXp) : null
-if (shopOpen) {
-  return (
-    <ShopPanel
-      onBack={() => setShopOpen(false)}
-      profileCoins={profile?.coins ?? 0}
-      playerId={playerId}
-      onPurchaseComplete={() => void refreshProfile()}
-    />
-  )
-}
+
   return (
     <div
       className="relative mx-auto min-h-screen max-w-md px-4 pb-10 pt-6"
@@ -467,7 +456,6 @@ if (shopOpen) {
                 {/* Магазиньш */}
         <button
           type="button"
-          onClick={() => setShopOpen(true)}
           className="group relative mb-2 w-full overflow-hidden rounded-xl border border-amber-400/40 bg-gradient-to-r from-amber-950/70 via-black/80 to-fuchsia-950/50 px-3 py-2 text-left backdrop-blur-md transition-all duration-300 active:scale-[0.98]"
           style={{
             boxShadow:
