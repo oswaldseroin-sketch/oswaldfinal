@@ -150,28 +150,27 @@ export default function HomeTab({ onNavigate }: { onNavigate: (tab: Tab) => void
         className="mb-4 flex w-full items-center justify-center gap-2 rounded-xl border border-neon/40 bg-black/50 py-2.5 text-sm font-extrabold text-neon backdrop-blur-md transition-transform active:scale-[0.97]"
         style={{ boxShadow: '0 0 16px rgba(0,229,255,0.18)' }}
       >
-        <span className="relative">
-  💬 ФЛУДИЛКА
-
-{newChatMessages > 0 && (
-  <span
-    className="
-      absolute
-      -right-16
-      -top-2
-      text-[10px]
-      font-black
-      uppercase
-      tracking-wider
-      text-red-400
-      animate-pulse
-      whitespace-nowrap
-    "
-  >
-    новые сообщения
+   <span className="flex flex-col items-center">
+  <span>
+    💬 ФЛУДИЛКА
   </span>
-)}
 
+  {newChatMessages > 0 && (
+    <span
+      className="
+        mt-1
+        text-[9px]
+        font-black
+        uppercase
+        tracking-widest
+        text-red-400
+        drop-shadow-[0_0_8px_rgba(255,0,0,0.7)]
+        animate-pulse
+      "
+    >
+      новые сообщения
+    </span>
+  )}
 </span>
       </button>
 
