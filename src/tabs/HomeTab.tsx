@@ -153,30 +153,23 @@ export default function HomeTab({ onNavigate }: { onNavigate: (tab: Tab) => void
         <span className="relative">
   💬 ФЛУДИЛКА
 
- {newChatMessages > 0 && (
-    <span className="
+{newChatMessages > 0 && (
+  <span
+    className="
       absolute
-      -right-8
+      -right-16
       -top-2
-      flex
-      h-6
-      min-w-6
-      items-center
-      justify-center
-      rounded-full
-      border
-      border-red-400/50
-      bg-red-500/20
-      px-2
-      text-[11px]
+      text-[10px]
       font-black
-      text-red-200
-      backdrop-blur-md
-      shadow-[0_0_15px_rgba(255,0,0,0.6)]
+      uppercase
+      tracking-wider
+      text-red-400
       animate-pulse
-    ">
-      {newChatMessages}
-    </span>
+      whitespace-nowrap
+    "
+  >
+    новые сообщения
+  </span>
 )}
 
 </span>
