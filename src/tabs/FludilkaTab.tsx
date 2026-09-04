@@ -287,7 +287,7 @@ if (!trimmed && selectedEmojis.length === 0) return
             onChange={(e) => setInput(e.target.value.slice(0, 300))}
             onKeyDown={(e) => { if (e.key === 'Enter') void handleSend() }}
             placeholder="Написать сообщение..."
-            className="h-11 min-w-0 flex-1 rounded-xl border border-line bg-input px-4 text-sm text-ink outline-none focus:border-neon/50 placeholder:text-ink-faint"
+            className="h-10 min-w-0 flex-1 rounded-xl bg-black/30 px-4 text-sm text-ink outline-none placeholder:text-ink-faint"
             maxLength={300}
           />
           <button
