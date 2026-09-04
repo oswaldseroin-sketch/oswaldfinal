@@ -242,7 +242,43 @@ export default function FludilkaTab({ onBack }: { onBack: () => void }) {
           </div>
         </>
       )}
+{emojiOpen && (
+  <div className="fixed bottom-20 left-1/2 z-50 w-[90%] max-w-md -translate-x-1/2 rounded-2xl border border-neon/40 bg-black/90 p-4 backdrop-blur-md"
+    style={{
+      boxShadow: '0 0 30px rgba(0,229,255,0.25)',
+    }}
+  >
 
+    <p className="mb-3 text-xs font-black tracking-widest text-neon">
+      ОСОБЫЕ СМАЙЛИКИ
+    </p>
+
+    <div className="grid grid-cols-5 gap-3">
+
+      <button className="text-3xl">
+        😈
+      </button>
+
+      <button className="text-3xl">
+        🐺
+      </button>
+
+      <button className="text-3xl">
+        👑
+      </button>
+
+      <button className="text-3xl">
+        🔥
+      </button>
+
+      <button className="text-3xl">
+        💀
+      </button>
+
+    </div>
+
+  </div>
+)}
       {/* Nick intro toast */}
       {nickIntro && (
         <div className="fixed left-1/2 top-1/3 z-[55] -translate-x-1/2 rounded-2xl border border-neon/40 bg-black/90 px-6 py-4 text-center backdrop-blur-md animate-scaleIn" style={{ boxShadow: '0 0 30px rgba(0,229,255,0.4)' }}>
