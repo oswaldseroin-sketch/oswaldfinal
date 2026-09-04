@@ -142,63 +142,64 @@ export default function FludilkaTab({ onBack }: { onBack: () => void }) {
         )}
       </div>
 
-      {/* Messages area */}
-      <div ref={scrollRef} className="flex-1 space-y-2 overflow-y-auto rounded-2xl border border-line bg-black/40 p-3" style={{ minHeight: '300px' }}>
-        {noNicks ? (
-          <div className="flex h-full flex-col items-center justify-center py-10 text-center">
-            <p className="text-sm font-bold text-ink">Сегодня во Флудилке слишком людно 👀</p>
-            <p className="mt-1 text-xs text-ink-muted">Свободные личности закончились.</p>
+     {/* Messages area */}
+<div
+  ref={scrollRef}
+  className="flex-1 space-y-2 overflow-y-auto rounded-2xl border border-line bg-black/40 p-3"
+  style={{ minHeight: '300px' }}
+>
+  {noNicks ? (
+    <div className="flex h-full flex-col items-center justify-center py-10 text-center">
+      <p className="text-sm font-bold text-ink">
+        Сегодня во Флудилке слишком людно 👀
+      </p>
+      <p className="mt-1 text-xs text-ink-muted">
+        Свободные личности закончились.
+      </p>
+    </div>
+  ) : messages.length === 0 ? (
+    <div className="flex h-full flex-col items-center justify-center py-10 text-center">
+      <p className="text-sm text-ink-muted">
+        Чат пуст. Напиши первым!
+      </p>
+    </div>
+  ) : (
+    messages.map((msg) => {
+      const color = nickColor(msg.nickname)
+      const isMine = msg.nickname === myNick
+
+      return (
+        <div
+          key={msg.id}
+          className={`max-w-[90%] rounded-2xl border p-3 ${
+            isMine
+              ? 'ml-auto border-neon/50 bg-neon/10'
+              : 'mr-auto border-line bg-black/40'
+          }`}
+        >
+          <div className="flex items-center justify-between gap-3">
+            <span
+              className="text-xs font-black"
+              style={{ color }}
+            >
+              👤 {msg.nickname}
+            </span>
+
+            <span className="text-[10px] text-ink-faint">
+              {formatTime(msg.created_at)}
+            </span>
           </div>
-        ) : messages.length === 0 ? (
-          <div className="flex h-full flex-col items-center justify-center py-10 text-center">
-            <p className="text-sm text-ink-muted">Чат пуст. Напиши первым!</p>
-          </div>
-               ) : (
-      
-  messages.map((msg) => {
-    ...
-  })
-)}
-            const color = nickColor(msg.nickname)
-            const isMine = msg.nickname === myNick
 
-          return (
-  <div
-    key={msg.id}
-    className={`group relative max-w-[90%] rounded-2xl border p-3 transition-all duration-300 ${
-      isMine
-        ? 'ml-auto border-neon/50 bg-neon/10'
-        : 'mr-auto border-line bg-black/40'
-    }`}
-    style={{
-      boxShadow: isMine
-        ? '0 0 18px rgba(0,229,255,0.15)'
-        : '0 0 12px rgba(255,255,255,0.05)',
-    }}
-  >
-  <div className="flex items-center justify-between gap-3">
-    <span
-      className="text-xs font-black"
-      style={{
-        color,
-        textShadow: `0 0 8px ${color}55`,
-      }}
-    >
-      👤 {msg.nickname}
-    </span>
+          <p className="mt-2 break-words text-sm text-ink">
+            {msg.message}
+          </p>
+        </div>
+      )
+    })
+  )}
 
-    <span className="text-[10px] text-ink-faint">
-      {formatTime(msg.created_at)}
-    </span>
-  </div>
-
-  <p className="mt-2 break-words text-sm font-medium text-ink">
-    {msg.message}
-  </p>
-              </div>
-            )
-          })
-        )}
+  <div ref={bottomRef} />
+</div>
         <div ref={bottomRef} />
       </div>
 
