@@ -15,6 +15,7 @@ import MafiaGame from './games/MafiaGame'
 import YesNoGame from './games/YesNoGame'
 import SecretLoveGame from './games/SecretLoveGame'
 import RouletteGame from './games/RouletteGame'
+import ShopPanel, { RadioInbox } from './ShopPanel'
 
 type Props = { onBack: () => void }
 
@@ -60,6 +61,7 @@ export default function MiniGamesPanel({ onBack }: Props) {
   const [lastCompletedGame, setLastCompletedGame] = useState<number | null>(null)
   const [titlePopup, setTitlePopup] = useState<string | null>(null)
   const [completedToday, setCompletedToday] = useState<CompletedToday>(() => getCompletedToday(playerId))
+  const [shopOpen, setShopOpen] = useState(false)
 
   useEffect(() => {
   const completed = getCompletedToday(playerId)
@@ -288,6 +290,17 @@ if (selectedGame === 10) {
   )
 }
 }
+  // -- Shop screen --
+  if (shopOpen) {
+    return (
+      <ShopPanel
+        onBack={() => setShopOpen(false)}
+        profileCoins={profile?.coins ?? 0}
+        onPurchaseComplete={() => void refreshProfile()}
+      />
+    )
+  }
+
   // -- Main panel --
   const levelInfo = profile
   ? getLevelInfo(profile.xp, profile.level)
@@ -456,6 +469,7 @@ if (selectedGame === 10) {
                 {/* Магазиньш */}
         <button
           type="button"
+          onClick={() => setShopOpen(true)}
           className="group relative mb-2 w-full overflow-hidden rounded-xl border border-amber-400/40 bg-gradient-to-r from-amber-950/70 via-black/80 to-fuchsia-950/50 px-3 py-2 text-left backdrop-blur-md transition-all duration-300 active:scale-[0.98]"
           style={{
             boxShadow:
@@ -485,18 +499,19 @@ if (selectedGame === 10) {
               </p>
 
               <p className="text-[10px] font-medium text-zinc-500">
-                Скоро появится...
+                Таинственная лавка
               </p>
             </div>
 
-            <div className="rounded-lg border border-amber-400/20 bg-black/30 px-2 py-1">
-              <span className="text-[8px] font-black tracking-widest text-amber-300/60">
-                СКОРО
+            <div className="rounded-lg border border-amber-400/30 bg-amber-400/10 px-2 py-1">
+              <span className="text-[8px] font-black tracking-widest text-amber-300/80">
+                ОТКРЫТЬ
               </span>
             </div>
           </div>
         </button>
    
+        <RadioInbox playerId={playerId} onAllRead={() => {}} />
 <div className="relative mb-2 flex items-end justify-between overflow-hidden rounded-xl border border-cyan-400/10 bg-black/25 px-3 py-1.5 backdrop-blur-sm">
   <div>
     <p className="text-[8px] font-black tracking-[0.28em] text-cyan-300/50">

@@ -1,6 +1,36 @@
 import { whoOfThemQuestions } from './whoOfThemQuestions'
+import { supabase } from './supabase'
 
 const API_BASE = import.meta.env.VITE_API_URL
+
+export type ShopItem = {
+  id: number
+  name: string
+  description: string
+  price: number
+  icon: string
+  item_type: string
+  effect_data: { xp?: number; title_xp?: number; coins?: number }
+  is_unique: boolean
+}
+
+export type PlayerInventoryItem = {
+  id: string
+  player_id: string
+  item_id: number
+  quantity: number
+  purchased_at: string
+}
+
+export type RadioMessage = {
+  id: string
+  sender_id: string
+  receiver_id: string
+  nickname: string
+  message: string
+  is_read: boolean
+  created_at: string
+}
 
 async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
   const url = `${API_BASE}${path}`
@@ -817,5 +847,65 @@ const result = await apiFetch<{
   winner: result.winner,
   alreadyClaimed: result.alreadyClaimed,
 }
+  },
+
+  // ─── Shop (Supabase tables) ───
+  getShopItems: async (): Promise<ShopItem[]> => {
+    const { data, error } = await supabase
+      .from('shop_items')
+      .select('*')
+      .order('id', { ascending: true })
+    if (error) throw new Error(error.message)
+    return (data || []) as ShopItem[]
+  },
+
+  getPlayerInventory: async (playerId: string): Promise<PlayerInventoryItem[]> => {
+    const { data, error } = await supabase
+      .from('player_inventory')
+      .select('*')
+      .eq('player_id', playerId)
+      .order('purchased_at', { ascending: true })
+    if (error) throw new Error(error.message)
+    return (data || []) as PlayerInventoryItem[]
+  },
+
+  purchaseItem: async (playerId: string, itemId: number): Promise<{ ok: boolean; error?: string }> => {
+    const { data, error } = await supabase
+      .from('player_inventory')
+      .insert({ player_id: playerId, item_id: itemId, quantity: 1 })
+      .select('*')
+      .single()
+    if (error) {
+      if (error.code === '23505') return { ok: false, error: 'Уже куплено' }
+      return { ok: false, error: error.message }
+    }
+    return { ok: true }
+  },
+
+  // Radio messages
+  sendRadioMessage: async (senderId: string, receiverId: string, nickname: string, message: string): Promise<{ ok: boolean; error?: string }> => {
+    const { error } = await supabase
+      .from('radio_messages')
+      .insert({ sender_id: senderId, receiver_id: receiverId, nickname, message })
+    if (error) return { ok: false, error: error.message }
+    return { ok: true }
+  },
+
+  getUnreadRadioMessages: async (playerId: string): Promise<RadioMessage[]> => {
+    const { data, error } = await supabase
+      .from('radio_messages')
+      .select('*')
+      .eq('receiver_id', playerId)
+      .eq('is_read', false)
+      .order('created_at', { ascending: true })
+    if (error) throw new Error(error.message)
+    return (data || []) as RadioMessage[]
+  },
+
+  markRadioMessageRead: async (messageId: string): Promise<void> => {
+    await supabase
+      .from('radio_messages')
+      .update({ is_read: true })
+      .eq('id', messageId)
   },
 }
