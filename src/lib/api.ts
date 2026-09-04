@@ -863,7 +863,7 @@ const result = await apiFetch<{
     const { data, error } = await supabase
       .from('player_inventory')
       .select('*')
-      .eq('player_id', playerId)
+      .eq('player_id', Number(playerId))
       .order('purchased_at', { ascending: true })
     if (error) throw new Error(error.message)
     return (data || []) as PlayerInventoryItem[]
