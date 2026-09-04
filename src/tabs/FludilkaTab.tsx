@@ -227,7 +227,7 @@ if (!trimmed && selectedEmojis.length === 0) return
       return (
         <div
           key={msg.id}
-         className={`max-w-[78%] rounded-xl border px-3 py-2 animate-scaleIn transition-all duration-300 ${
+        className={`max-w-[78%] rounded-2xl px-3 py-2 animate-scaleIn transition-all duration-300 ${
   isMine
     ? 'ml-auto border-neon/50 bg-neon/10'
     : 'mr-auto border-line bg-black/40'
