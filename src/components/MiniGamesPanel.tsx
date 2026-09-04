@@ -293,11 +293,12 @@ if (selectedGame === 10) {
   // -- Shop screen --
   if (shopOpen) {
     return (
-      <ShopPanel
-        onBack={() => setShopOpen(false)}
-        profileCoins={profile?.coins ?? 0}
-        onPurchaseComplete={() => void refreshProfile()}
-      />
+     <ShopPanel
+  onBack={() => setShopOpen(false)}
+  profileCoins={profile?.coins ?? 0}
+  playerId={String(playerId)}
+  onPurchaseComplete={() => void refreshProfile()}
+/>
     )
   }
 
