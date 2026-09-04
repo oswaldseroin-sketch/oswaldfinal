@@ -28,7 +28,6 @@ export default function ShopPanel({ onBack, profileCoins, onPurchaseComplete }: 
       ])
       setItems(shopItems)
       setInventory(inv)
-      console.log('SHOP INVENTORY', inv)
     } catch {
       setError('Не удалось загрузить магазин')
     } finally {
