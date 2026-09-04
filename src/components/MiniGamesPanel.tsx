@@ -338,12 +338,12 @@ if (selectedGame === 10) {
           </div>
         ) : profile && levelInfo && titleInfo ? (
           <div
-           className="relative mb-3 overflow-hidden rounded-2xl border border-cyan-400/25 bg-gradient-to-br from-cyan-950/35 via-black/75 to-fuchsia-950/25 px-3.5 py-3 backdrop-blur-md"
+           className="relative mb-2 overflow-hidden rounded-2xl border border-cyan-400/25 bg-gradient-to-br from-cyan-950/35 via-black/75 to-fuchsia-950/25 px-3 py-2 backdrop-blur-md"
             style={{ boxShadow: '0 0 18px rgba(0,229,255,0.1)' }}
           >
             <div className="pointer-events-none absolute -left-10 -top-12 h-32 w-32 rounded-full bg-cyan-400/10 blur-3xl" />
 <div className="pointer-events-none absolute -bottom-14 -right-10 h-36 w-36 rounded-full bg-fuchsia-500/10 blur-3xl" />
-            <div className="mb-1.5 flex items-center justify-between">
+            <div className="mb-1 flex items-center justify-between">
   <span className="text-[8px] font-black tracking-[0.28em] text-fuchsia-300/60">
     ПРОФИЛЬ ИГРОКА
   </span>
@@ -355,10 +355,10 @@ if (selectedGame === 10) {
 </div>            
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-bold text-ink/80">{currentUser?.name}</p>
-                <div className="mt-1 flex items-baseline gap-2">
+                <p className="truncate text-xs font-bold text-ink/80">{currentUser?.name}</p>
+                <div className="mt-0.5 flex items-baseline gap-2">
                   <div
-  className="inline-flex items-center gap-1.5 rounded-lg border border-cyan-400/20 bg-cyan-400/[0.07] px-2 py-1"
+  className="inline-flex items-center gap-1 rounded-lg border border-cyan-400/20 bg-cyan-400/[0.07] px-1.5 py-0.5"
   style={{
     boxShadow: 'inset 0 0 14px rgba(0,229,255,0.05)',
   }}
@@ -368,7 +368,7 @@ if (selectedGame === 10) {
   </span>
 
   <span
-    className="text-lg font-black leading-none text-cyan-200"
+    className="text-base font-black leading-none text-cyan-200"
     style={{
       textShadow: '0 0 12px rgba(0,229,255,0.55)',
     }}
@@ -377,21 +377,19 @@ if (selectedGame === 10) {
   </span>
 </div>
                 </div>
-                <p className="mt-0.5 text-xs font-bold tracking-wide text-accent" style={{ textShadow: '0 0 8px rgba(255,43,214,0.4)' }}>
+                <p className="mt-0.5 text-[11px] font-bold tracking-wide text-accent" style={{ textShadow: '0 0 8px rgba(255,43,214,0.4)' }}>
                   {profile.title}
                 </p>
               </div>
               <div
-  className="relative flex shrink-0 items-center gap-2 overflow-hidden rounded-xl border border-amber-400/30 bg-gradient-to-br from-amber-400/15 to-orange-950/30 px-3 py-2"
+  className="relative flex shrink-0 items-center gap-1.5 overflow-hidden rounded-lg border border-amber-400/30 bg-gradient-to-br from-amber-400/15 to-orange-950/30 px-2 py-1"
   style={{
     boxShadow:
-      '0 0 14px rgba(251,191,36,0.10), inset 0 0 12px rgba(251,191,36,0.05)',
+      '0 0 12px rgba(251,191,36,0.10), inset 0 0 10px rgba(251,191,36,0.05)',
   }}
 >
-  <div className="absolute -right-3 -top-4 h-10 w-10 rounded-full bg-amber-300/10 blur-xl" />
-
   <Coins
-    size={16}
+    size={14}
     className="relative text-amber-300"
     style={{
       filter: 'drop-shadow(0 0 5px rgba(251,191,36,0.55))',
@@ -402,28 +400,28 @@ if (selectedGame === 10) {
     <p className="text-[7px] font-black leading-none tracking-[0.16em] text-amber-300/50">
       МОНЕТЫ
     </p>
-    <p className="mt-1 text-sm font-black leading-none text-amber-100">
+    <p className="mt-0.5 text-xs font-black leading-none text-amber-100">
       {profile.coins}
     </p>
   </div>
 </div>
             </div>
 
-            <div className="mt-2">
-              <div className="mb-1 flex items-center justify-between text-[10px] font-bold">
+            <div className="mt-1.5">
+              <div className="mb-0.5 flex items-center justify-between text-[10px] font-bold">
                 <span className="text-neon/80">XP</span>
                 <span className="text-ink-muted">
                   {levelInfo.level >= 49 ? 'MAX' : `${levelInfo.currentXp} / ${levelInfo.neededXp}`}
                 </span>
               </div>
-             <div className="relative h-2 w-full overflow-hidden rounded-full border border-cyan-400/10 bg-black/60">
+             <div className="relative h-1.5 w-full overflow-hidden rounded-full border border-cyan-400/10 bg-black/60">
   <div
     className="relative h-full rounded-full transition-all duration-700"
     style={{
       width: `${levelInfo.progressPercent}%`,
       background:
         'linear-gradient(90deg, rgba(8,145,178,0.9), rgba(34,211,238,1), rgba(165,243,252,1))',
-      boxShadow: '0 0 12px rgba(34,211,238,0.55)',
+      boxShadow: '0 0 10px rgba(34,211,238,0.55)',
     }}
   >
     <div className="absolute inset-x-0 top-0 h-px bg-white/50" />
@@ -431,21 +429,21 @@ if (selectedGame === 10) {
 </div>
             </div>
 
-            <div className="mt-1.5">
-              <div className="mb-1 flex items-center justify-between text-[10px] font-bold">
+            <div className="mt-1">
+              <div className="mb-0.5 flex items-center justify-between text-[10px] font-bold">
                 <span className="text-accent/80">XP ЗВАНИЯ</span>
                 <span className="text-ink-muted">
                   {isMaxTitle(titleInfo.level) ? 'MAX' : `${titleInfo.currentXp} / ${titleInfo.neededXp}`}
                 </span>
               </div>
-             <div className="relative h-2 w-full overflow-hidden rounded-full border border-fuchsia-400/10 bg-black/60">
+             <div className="relative h-1.5 w-full overflow-hidden rounded-full border border-fuchsia-400/10 bg-black/60">
   <div
     className="relative h-full rounded-full transition-all duration-700"
     style={{
       width: `${titleInfo.progressPercent}%`,
       background:
         'linear-gradient(90deg, rgba(126,34,206,0.9), rgba(217,70,239,1), rgba(251,207,232,1))',
-      boxShadow: '0 0 12px rgba(217,70,239,0.5)',
+      boxShadow: '0 0 10px rgba(217,70,239,0.5)',
     }}
   >
     <div className="absolute inset-x-0 top-0 h-px bg-white/40" />
@@ -458,41 +456,36 @@ if (selectedGame === 10) {
                 {/* Магазиньш */}
         <button
           type="button"
-          className="group relative mb-4 w-full overflow-hidden rounded-2xl border border-amber-400/40 bg-gradient-to-r from-amber-950/70 via-black/80 to-fuchsia-950/50 px-4 py-3.5 text-left backdrop-blur-md transition-all duration-300 active:scale-[0.98]"
+          className="group relative mb-2 w-full overflow-hidden rounded-xl border border-amber-400/40 bg-gradient-to-r from-amber-950/70 via-black/80 to-fuchsia-950/50 px-3 py-2 text-left backdrop-blur-md transition-all duration-300 active:scale-[0.98]"
           style={{
             boxShadow:
-              '0 0 20px rgba(251,191,36,0.12), inset 0 0 25px rgba(255,43,214,0.05)',
+              '0 0 16px rgba(251,191,36,0.12), inset 0 0 20px rgba(255,43,214,0.05)',
           }}
         >
-          <div className="absolute -right-4 -top-8 h-24 w-24 rounded-full bg-amber-400/10 blur-2xl" />
-          <div className="absolute -bottom-8 left-1/3 h-20 w-20 rounded-full bg-fuchsia-500/10 blur-2xl" />
+          <div className="absolute -right-4 -top-6 h-16 w-16 rounded-full bg-amber-400/10 blur-2xl" />
 
-          <div className="relative flex items-center gap-3">
+          <div className="relative flex items-center gap-2.5">
             <div
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-amber-300/40 bg-amber-400/10 text-2xl"
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-amber-300/40 bg-amber-400/10 text-base"
               style={{
-                boxShadow: '0 0 14px rgba(251,191,36,0.18)',
+                boxShadow: '0 0 12px rgba(251,191,36,0.18)',
               }}
             >
               🛒
             </div>
 
             <div className="min-w-0 flex-1">
-              <p className="text-[9px] font-black tracking-[0.24em] text-amber-300/70">
-                ТАИНСТВЕННАЯ ЛАВКА
-              </p>
-
               <p
-                className="text-lg font-black tracking-wide text-amber-100"
+                className="text-sm font-black tracking-wide text-amber-100"
                 style={{
-                  textShadow: '0 0 12px rgba(251,191,36,0.30)',
+                  textShadow: '0 0 10px rgba(251,191,36,0.30)',
                 }}
               >
                 МАГАЗИНЬШ
               </p>
 
               <p className="text-[10px] font-medium text-zinc-500">
-                Скоро здесь появится всякое добро
+                Скоро появится...
               </p>
             </div>
 
@@ -504,7 +497,7 @@ if (selectedGame === 10) {
           </div>
         </button>
    
-<div className="relative mb-3 mt-1 flex items-end justify-between overflow-hidden rounded-xl border border-cyan-400/10 bg-black/25 px-3 py-2.5 backdrop-blur-sm">
+<div className="relative mb-2 flex items-end justify-between overflow-hidden rounded-xl border border-cyan-400/10 bg-black/25 px-3 py-1.5 backdrop-blur-sm">
   <div>
     <p className="text-[8px] font-black tracking-[0.28em] text-cyan-300/50">
       АРКАДНЫЙ СЕКТОР
