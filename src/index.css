@@ -262,4 +262,31 @@ input, textarea, button {
     filter: brightness(1.15);
   }
 }
+@keyframes emojiPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) rotate(-20deg);
+    filter: brightness(2);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.15) rotate(8deg);
+    filter: brightness(1.5);
+  }
+
+  75% {
+    transform: scale(0.95) rotate(-3deg);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+    filter: brightness(1);
+  }
+}
+
+.animate-emojiPop {
+  animation: emojiPop 0.45s ease-out both;
+}
 ::-webkit-scrollbar { width: 0; height: 0; }
