@@ -73,6 +73,29 @@ export default function HomeTab({ onNavigate }: { onNavigate: (tab: Tab) => void
   const workerCountdown = useCountdown(msUntilNextMonday)
   const [logoutOpen, setLogoutOpen] = useState(false)
   const [newChatMessages, setNewChatMessages] = useState(0)
+  useEffect(() => {
+  const checkMessages = async () => {
+    try {
+      const result = await api.getMessageCount(todayKey())
+
+      const seen = Number(
+        localStorage.getItem('fludilka_seen') || 0
+      )
+
+      setNewChatMessages(
+        Math.max(0, result.count - seen)
+      )
+    } catch {
+      // ignore
+    }
+  }
+
+  checkMessages()
+
+  const timer = window.setInterval(checkMessages, 5000)
+
+  return () => window.clearInterval(timer)
+}, [])
 
   return (
     <div className="relative mx-auto max-w-md px-5 pb-8 pt-12">
