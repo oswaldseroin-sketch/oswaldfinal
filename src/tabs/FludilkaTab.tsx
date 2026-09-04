@@ -167,6 +167,7 @@ const [newDayToast, setNewDayToast] = useState(false)
         return [...prev, result.message!]
       })
       setInput('')
+      setSelectedEmojis([])
       scrollToBottom()
     } else {
       setSendError(result.error || 'Не удалось отправить сообщение')
