@@ -165,7 +165,7 @@ export default function LoginScreen() {
 
         <div className="flex gap-2">
           <input
-            type="password"
+            type="text"
             value={password}
             onChange={(e) => {
               setPassword(e.target.value)
