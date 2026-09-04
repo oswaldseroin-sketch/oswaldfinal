@@ -309,7 +309,16 @@ const [newDayToast, setNewDayToast] = useState(false)
           setEmojiOpen(false)
         }
       }}
-      className="relative flex items-center justify-center transition-transform hover:scale-110 active:scale-90"
+ className="
+relative flex aspect-square items-center justify-center
+rounded-2xl
+border border-neon/20
+bg-neon/5
+transition-all
+hover:scale-110
+hover:border-neon/70
+active:scale-90
+"
     >
       <img
         src={emoji.image_url}
