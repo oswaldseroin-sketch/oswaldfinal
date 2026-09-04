@@ -198,8 +198,7 @@ export default function FludilkaTab({ onBack }: { onBack: () => void }) {
     })
   )}
 
-  <div ref={bottomRef} />
-</div>
+ 
         <div ref={bottomRef} />
       </div>
 
