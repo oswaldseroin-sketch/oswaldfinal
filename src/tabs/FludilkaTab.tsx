@@ -30,7 +30,7 @@ function renderMessage(
         return (
           <img
             key={index}
-            src={`${API_URL}${emoji.image_url}`}
+            src={`${SERVER_URL}${emoji.image_url}`}
             className={`inline-block rounded-2xl object-cover align-middle ${
   message.trim() === `[emoji:${emoji.id}]`
     ? 'h-20 w-20'
