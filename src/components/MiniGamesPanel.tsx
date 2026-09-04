@@ -18,7 +18,7 @@ import RouletteGame from './games/RouletteGame'
 import ShopPanel, { RadioInbox } from './ShopPanel'
 
 type Props = { onBack: () => void }
-
+playerId: string
 function todayKey(): string {
   const d = new Date()
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
