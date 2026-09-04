@@ -15,25 +15,18 @@ export default function ShopPanel({
   const [items, setItems] = useState<ShopItem[]>([])
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-  setItems([
-    {
-      id: 1,
-      name: 'Рация',
-      description: 'Тест',
-      price: 10,
-      icon: '📻',
-    },
-    {
-      id: 2,
-      name: 'Бушидо розовое',
-      description: '+20 XP',
-      price: 15,
-      icon: '☕',
-    },
-  ] as any)
-
-  setLoading(false)
+ useEffect(() => {
+  api.getShopItems()
+    .then((data) => {
+      console.log('SHOP ITEMS:', data)
+      setItems(data)
+    })
+    .catch((error) => {
+      console.error('SHOP ERROR:', error)
+    })
+    .finally(() => {
+      setLoading(false)
+    })
 }, [])
 
   return (
