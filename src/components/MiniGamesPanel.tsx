@@ -295,7 +295,15 @@ if (selectedGame === 10) {
   ? getLevelInfo(profile.xp, profile.level)
   : null
   const titleInfo = profile ? getTitleInfo(profile.titleXp) : null
-
+if (shopOpen) {
+  return (
+    <ShopPanel
+      onBack={() => setShopOpen(false)}
+      profileCoins={profile?.coins ?? 0}
+      onPurchaseComplete={() => void refreshProfile()}
+    />
+  )
+}
   return (
     <div
       className="relative mx-auto min-h-screen max-w-md px-4 pb-10 pt-6"
