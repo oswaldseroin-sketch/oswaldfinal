@@ -154,7 +154,11 @@ export default function FludilkaTab({ onBack }: { onBack: () => void }) {
             <p className="text-sm text-ink-muted">Чат пуст. Напиши первым!</p>
           </div>
                ) : (
-          messages.map((msg) => {
+      
+  messages.map((msg) => {
+    ...
+  })
+)}
             const color = nickColor(msg.nickname)
             const isMine = msg.nickname === myNick
 
