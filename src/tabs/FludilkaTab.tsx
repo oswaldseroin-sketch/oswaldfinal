@@ -367,6 +367,8 @@ active:scale-90
   </span>
 )}
     </button>
+      )
+})}
   ))}
 </div>
 
