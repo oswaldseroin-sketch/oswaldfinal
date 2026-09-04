@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { ArrowLeft, Send, DoorOpen } from 'lucide-react'
+import { ArrowLeft, Send, DoorOpen, Smile } from 'lucide-react'
 import {
   assignNick, fetchMessages, getMyNick, nickColor, sendMessage,
   type ChatMessage,
