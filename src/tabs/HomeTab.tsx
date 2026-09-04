@@ -69,6 +69,7 @@ export default function HomeTab({ onNavigate }: { onNavigate: (tab: Tab) => void
 
   const newsCountdown = useCountdown(msUntilNextMidnight)
   const workerCountdown = useCountdown(msUntilNextMonday)
+  const [logoutOpen, setLogoutOpen] = useState(false)
 
   return (
     <div className="relative mx-auto max-w-md px-5 pb-8 pt-12">
