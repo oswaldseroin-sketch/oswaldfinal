@@ -15,7 +15,7 @@ import MafiaGame from './games/MafiaGame'
 import YesNoGame from './games/YesNoGame'
 import SecretLoveGame from './games/SecretLoveGame'
 import RouletteGame from './games/RouletteGame'
-import ShopPanel, { RadioInbox } from './ShopPanel'
+// import ShopPanel from './ShopPanel'
 
 type Props = { onBack: () => void }
 playerId: string
@@ -52,6 +52,7 @@ function markCompleted(playerId: string, gameNumber: number): void {
 
 export default function MiniGamesPanel({ onBack }: Props) {
   const { currentUser } = useApp()
+  const playerId = String(currentUser?.id ?? '')
   const [profile, setProfile] = useState<MiniGameProfile | null>(null)
   const [progress, setProgress] = useState<MiniGameProgress[]>([])
   const [loading, setLoading] = useState(true)
