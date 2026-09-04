@@ -21,9 +21,18 @@ export default function FludilkaTab({ onBack }: { onBack: () => void }) {
   const [sending, setSending] = useState(false)
   const [dayKey, setDayKey] = useState(todayKey())
   const [sendError, setSendError] = useState<string | null>(null)
-  const [emojiOpen, setEmojiOpen] = useState(false)
-  const emojis = ['😈', '🐺', '👑', '🔥', '💀']
-  const [newDayToast, setNewDayToast] = useState(false)
+ const [emojiOpen, setEmojiOpen] = useState(false)
+
+type SpecialEmoji = {
+  id: number
+  name: string
+  image_url: string
+  locked: boolean
+}
+
+const [emojis, setEmojis] = useState<SpecialEmoji[]>([])
+
+const [newDayToast, setNewDayToast] = useState(false)
   const scrollRef = useRef<HTMLDivElement | null>(null)
   const bottomRef = useRef<HTMLDivElement | null>(null)
 
