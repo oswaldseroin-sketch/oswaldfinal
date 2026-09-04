@@ -308,7 +308,7 @@ if (!trimmed && selectedEmojis.length === 0) return
           <button
             onClick={() => void handleSend()}
             disabled={sending || (!input.trim() && selectedEmojis.length === 0)}
-            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-neon text-bg transition-transform active:scale-90 disabled:opacity-40"
+           className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-neon text-bg shadow-[0_0_20px_rgba(0,229,255,0.45)] transition-all hover:scale-105 active:scale-90 disabled:opacity-40"
             aria-label="Отправить"
           >
             <Send size={18} />
