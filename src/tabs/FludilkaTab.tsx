@@ -137,7 +137,7 @@ const [newDayToast, setNewDayToast] = useState(false)
         } catch { /* ignore */ }
       })()
     }
-    const timer = window.setInterval(poll, 5000)
+    const timer = window.setInterval(poll, 1500)
     return () => { window.clearInterval(timer) }
   }, [dayKey])
 
