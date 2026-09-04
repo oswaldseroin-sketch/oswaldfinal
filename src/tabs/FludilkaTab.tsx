@@ -171,11 +171,11 @@ export default function FludilkaTab({ onBack }: { onBack: () => void }) {
       return (
         <div
           key={msg.id}
-          className={`max-w-[90%] rounded-2xl border p-3 ${
-            isMine
-              ? 'ml-auto border-neon/50 bg-neon/10'
-              : 'mr-auto border-line bg-black/40'
-          }`}
+         className={`max-w-[88%] rounded-2xl border p-3 animate-scaleIn transition-all duration-300 ${
+  isMine
+    ? 'ml-auto border-neon/50 bg-neon/10'
+    : 'mr-auto border-line bg-black/40'
+}`}
         >
           <div className="flex items-center justify-between gap-3">
             <span
