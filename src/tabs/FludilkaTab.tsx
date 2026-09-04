@@ -230,7 +230,7 @@ if (!trimmed && selectedEmojis.length === 0) return
         className={`max-w-[78%] rounded-2xl px-3 py-2 animate-scaleIn transition-all duration-300 ${
   isMine
     ? 'ml-auto bg-neon/15 rounded-br-md'
-    : 'mr-auto border-line bg-black/40'
+    : 'mr-auto bg-white/5 rounded-bl-md'
 }`}
         >
           <div className="flex items-center justify-between gap-2">
