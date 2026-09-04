@@ -223,6 +223,7 @@ if (!trimmed && selectedEmojis.length === 0) return
     messages.map((msg) => {
       const color = nickColor(msg.nickname)
       const isMine = msg.nickname === myNick
+      const onlyEmoji = /^\[emoji:\d+\]$/.test(msg.message.trim())
 
       return (
         <div
