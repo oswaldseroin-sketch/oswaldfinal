@@ -328,7 +328,7 @@ if (!trimmed && selectedEmojis.length === 0) return
         </>
       )}
 {emojiOpen && (
-  <div className="absolute bottom-full left-1/2 z-50 mb-3 w-[90%] max-w-md -translate-x-1/2 rounded-2xl border border-neon/40 bg-black/90 p-4 backdrop-blur-md"
+  className="fixed bottom-20 left-1/2 z-50 w-[90%] max-w-md -translate-x-1/2 rounded-2xl border border-neon/40 bg-black/90 p-4 backdrop-blur-md"
     style={{
       boxShadow: '0 0 30px rgba(0,229,255,0.25)',
     }}
