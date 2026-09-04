@@ -289,17 +289,9 @@ if (selectedGame === 10) {
   )
 }
 }
-  // -- Shop screen --
-  if (shopOpen) {
-    return (
-     <ShopPanel
-  onBack={() => setShopOpen(false)}
-  profileCoins={profile?.coins ?? 0}
-  playerId={String(playerId)}
-  onPurchaseComplete={() => void refreshProfile()}
-/>
-    )
-  }
+ <div className="text-white p-5">
+  ТЕСТ БЕЗ МАГАЗИНА
+</div>
 
   // -- Main panel --
   const levelInfo = profile
