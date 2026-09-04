@@ -295,7 +295,7 @@ if (!trimmed && selectedEmojis.length === 0) return
             <p className="mt-2 text-xs font-bold text-error">Не удалось отправить сообщение</p>
           )}
           {emojiOpen && (
-  <div className="fixed bottom-20 left-1/2 z-50 w-[90%] max-w-md -translate-x-1/2 rounded-2xl border border-neon/40 bg-black/90 p-4 backdrop-blur-md"
+  <div className="absolute bottom-full mb-3 left-1/2 z-50 w-[90%] max-w-md -translate-x-1/2 rounded-2xl border border-neon/40 bg-black/90 p-4 backdrop-blur-md"
     style={{
       boxShadow: '0 0 30px rgba(0,229,255,0.25)',
     }}
