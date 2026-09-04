@@ -339,7 +339,7 @@ active:scale-90
     >
       <img
         src={`${SERVER_URL}${emoji.image_url}`}
-        className={`h-20 w-20 rounded-2xl object-cover transition-all ${
+        className={`h-24 w-24 object-contain transition-all ${
           emoji.locked
             ? 'opacity-25 grayscale'
             : 'drop-shadow-[0_0_15px_rgba(0,229,255,0.5)]'
