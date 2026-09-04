@@ -46,10 +46,7 @@ function renderMessage(
     }
   `}
  />
-  message.trim() === `[emoji:${emoji.id}]`
-    ? 'h-20 w-20'
-    : 'h-10 w-10'
-}`}
+ 
           />
         )
       }
