@@ -239,7 +239,9 @@ if (!trimmed && selectedEmojis.length === 0) return
        <div
  key={msg.id}
  className={`${onlyEmoji ? 'w-fit bg-transparent p-0' : 'max-w-[78%] rounded-2xl px-3 py-2'} animate-scaleIn transition-all duration-300 ${
-  isMine
+  onlyEmoji
+  ? ''
+  : isMine
     ? 'ml-auto bg-neon/15 rounded-br-md shadow-[0_0_15px_rgba(0,229,255,0.12)]'
     : 'mr-auto bg-white/[0.04] rounded-bl-md'
 }`}
