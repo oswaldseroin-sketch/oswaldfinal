@@ -342,7 +342,7 @@ active:scale-90
 "
     >
       <img
-        src={`http://201.24.54.238:3001${emoji.image_url}`}
+     src={`${window.location.protocol}//201.24.54.238:3001${emoji.image_url}`}
      className={`h-20 w-20 rounded-2xl object-cover transition-all ${
   emoji.locked
     ? 'opacity-25 grayscale'
