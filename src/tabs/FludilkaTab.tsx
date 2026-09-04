@@ -347,17 +347,15 @@ active:scale-90
       />
 
       {emoji.locked && (
-        <span
-          className="
-            absolute inset-0 flex items-center justify-center
-            rounded-2xl
-            bg-black/50
-            text-3xl
-            animate-pulse
-          "
-        >
-          🔒
-        </span>
+     <span
+ className="
+ absolute inset-0 flex items-center justify-center
+ text-3xl
+ animate-pulse
+ "
+>
+ 🔒
+</span>
       )}
     </button>
   ))}
