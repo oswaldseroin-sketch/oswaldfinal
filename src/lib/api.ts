@@ -505,7 +505,17 @@ enterSecretUserRoom: async (
     }),
   getMessageCount: (day: string) =>
     apiFetch<{ count: number }>(`/api/chat/messages/count?day=${day}`),
-
+  getChatEmojis: () =>
+    apiFetch<{
+      ok: boolean
+      emojis: {
+        id: number
+        name: string
+        image_url: string
+        locked: boolean
+        created_at: string
+      }[]
+    }>('/api/chat/emojis'),
   // Votes
   getVote: (gameDay: string, voterName: string) =>
     apiFetch<VoteChoices | null>(`/api/votes?gameDay=${encodeURIComponent(gameDay)}&voterName=${encodeURIComponent(voterName)}`),
