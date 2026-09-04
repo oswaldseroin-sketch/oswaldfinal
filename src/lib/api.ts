@@ -872,7 +872,7 @@ const result = await apiFetch<{
   purchaseItem: async (playerId: string, itemId: number): Promise<{ ok: boolean; error?: string }> => {
     const { data, error } = await supabase
       .from('player_inventory')
-      .insert({ player_id: playerId, item_id: itemId, quantity: 1 })
+      .insert({ player_id: Number(playerId), item_id: itemId, quantity: 1 })
       .select('*')
       .single()
     if (error) {
