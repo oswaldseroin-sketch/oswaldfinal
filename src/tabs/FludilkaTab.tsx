@@ -210,6 +210,12 @@ export default function FludilkaTab({ onBack }: { onBack: () => void }) {
             <p className="mt-2 text-xs font-bold text-error">Не удалось отправить сообщение</p>
           )}
           <div className="mt-1 flex items-center gap-2">
+            <button
+  onClick={() => setEmojiOpen((v) => !v)}
+  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-neon/30 bg-black/50 text-neon transition-transform active:scale-90"
+>
+  <Smile size={20} />
+</button>
           <input
             value={input}
             onChange={(e) => setInput(e.target.value.slice(0, 300))}
