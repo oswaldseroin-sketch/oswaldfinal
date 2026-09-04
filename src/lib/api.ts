@@ -849,65 +849,7 @@ const result = await apiFetch<{
 }
   },
 
-  // ─── Shop (Supabase tables) ───
-  getShopItems: async (): Promise<ShopItem[]> => {
-    const { data, error } = await supabase
-      .from('shop_items')
-      .select('*')
-      .order('id', { ascending: true })
-    if (error) throw new Error(error.message)
-    return (data || []) as ShopItem[]
-  },
-
-  getPlayerInventory: async (playerId: string): Promise<PlayerInventoryItem[]> => {
-    const { data, error } = await supabase
-      .from('player_inventory')
-      .select('*')
-      .eq('player_id', Number(playerId))
-      .order('purchased_at', { ascending: true })
-    if (error) throw new Error(error.message)
-    return (data || []) as PlayerInventoryItem[]
-  },
-
- purchaseItem: async (playerId: string, itemId: number): Promise<{ ok: boolean; error?: string }> => {
-  const id = Number(playerId)
-
-  if (!id) {
-    return {
-      ok: false,
-      error: 'PLAYER_ID_REQUIRED'
-    }
-  }
-
-  const { data, error } = await supabase
-    .from('player_inventory')
-    .insert({
-      player_id: id,
-      item_id: itemId,
-      quantity: 1
-    })
-    .select('*')
-    .single()
-
-  if (error) {
-    if (error.code === '23505') {
-      return {
-        ok: false,
-        error: 'Уже куплено'
-      }
-    }
-
-    return {
-      ok: false,
-      error: error.message
-    }
-  }
-
-  return {
-    ok: true
-  }
-},
-
+ 
   // Radio messages
   sendRadioMessage: async (senderId: string, receiverId: string, nickname: string, message: string): Promise<{ ok: boolean; error?: string }> => {
     const { error } = await supabase
