@@ -293,7 +293,7 @@ if (!trimmed && selectedEmojis.length === 0) return
           <div className="mt-3 flex items-center gap-2 rounded-2xl border border-neon/30 bg-black/70 p-2 backdrop-blur-xl shadow-[0_0_25px_rgba(0,229,255,0.15)]">
             <button
   onClick={() => setEmojiOpen((v) => !v)}
-  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-neon/30 bg-black/50 text-neon transition-transform active:scale-90"
+  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-neon/40 bg-neon/10 text-neon transition-all hover:bg-neon/20 active:scale-90 shadow-[0_0_12px_rgba(0,229,255,0.2)]"
 >
   <Smile size={20} />
 </button>
