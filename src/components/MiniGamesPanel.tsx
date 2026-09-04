@@ -466,6 +466,7 @@ if (shopOpen) {
                 {/* Магазиньш */}
         <button
           type="button"
+          onClick={() => setShopOpen(true)}
           className="group relative mb-2 w-full overflow-hidden rounded-xl border border-amber-400/40 bg-gradient-to-r from-amber-950/70 via-black/80 to-fuchsia-950/50 px-3 py-2 text-left backdrop-blur-md transition-all duration-300 active:scale-[0.98]"
           style={{
             boxShadow:
