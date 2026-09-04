@@ -131,8 +131,8 @@ export default function App() {
   }, [])
 
   return (
-    <AppProvider>
-      <Shell />
-    </AppProvider>
-  )
+  <div style={{color:'white', padding:40}}>
+    APP TEST
+  </div>
+)
 }
