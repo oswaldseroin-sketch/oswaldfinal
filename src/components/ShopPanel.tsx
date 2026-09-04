@@ -31,6 +31,14 @@ export default function ShopPanel({
       .catch(console.error)
       .finally(() => setLoading(false))
   }, [])
+const handleBuy = async (itemId: number) => {
+  const result = await api.purchaseShopItem(
+    playerId,
+    itemId
+  )
+
+  console.log('BUY RESULT:', result)
+}
 
   return (
     <div className="min-h-screen p-4 text-white">
