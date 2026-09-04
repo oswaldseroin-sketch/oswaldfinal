@@ -59,19 +59,7 @@ export default function ShopPanel({ onBack, profileCoins, onPurchaseComplete }: 
         return
       }
 
-      const effect = item.effect_data
-      const addXp = (effect.xp || 0) + (effect.title_xp ? 0 : 0)
-      const addCoins = effect.coins ? effect.coins - item.price : -item.price
-
-      if (addXp > 0 || addCoins !== 0) {
-        await api.addMiniGameRewards(currentUser!.id, addXp, addCoins)
-      } else {
-        await api.addMiniGameRewards(currentUser!.id, 0, -item.price)
-      }
-
-      if (effect.title_xp) {
-        await api.addMiniGameRewards(currentUser!.id, effect.title_xp, 0)
-      }
+     
 
       await loadData()
       onPurchaseComplete()
