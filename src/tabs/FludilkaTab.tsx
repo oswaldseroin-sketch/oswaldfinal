@@ -241,7 +241,7 @@ if (!trimmed && selectedEmojis.length === 0) return
               👤 {msg.nickname}
             </span>
 
-            <span className="text-[10px] text-ink-faint">
+            <span className="text-[9px] opacity-50">
               {formatTime(msg.created_at)}
             </span>
           </div>
