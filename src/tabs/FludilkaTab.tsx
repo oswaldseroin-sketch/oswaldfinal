@@ -251,6 +251,17 @@ const [newDayToast, setNewDayToast] = useState(false)
       </div>
 
       {/* Input bar */}
+      {selectedEmojis.length > 0 && (
+  <div className="mb-2 flex gap-2 rounded-xl border border-neon/20 bg-black/40 p-2">
+    {selectedEmojis.map((emoji) => (
+      <img
+        key={emoji.id}
+        src={emoji.image_url}
+        className="h-10 w-10 rounded-xl object-cover"
+      />
+    ))}
+  </div>
+)}
       {myNick && (
         <>
           {sendError && (
