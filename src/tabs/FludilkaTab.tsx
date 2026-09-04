@@ -246,7 +246,7 @@ if (!trimmed && selectedEmojis.length === 0) return
             </span>
           </div>
 
-         <p className="mt-2 break-words text-sm text-ink">
+         <p className="mt-1 break-words text-[13px] text-ink">
   {renderMessage(msg.message, emojis)}
 </p>
         </div>
