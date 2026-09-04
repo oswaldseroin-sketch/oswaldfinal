@@ -251,6 +251,23 @@ getShopItems: async () => {
 
   return data.items
 },
+  purchaseShopItem: async (playerId: string, itemId: number) => {
+  const response = await fetch(
+    'https://api.serointeam.ru/api/shop/buy',
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        playerId,
+        itemId,
+      }),
+    }
+  )
+
+  return await response.json()
+},
   // Employees
   getEmployees: () => apiFetch<Employee[]>('/api/employees'),
   addEmployee: (data: Omit<Employee, 'id' | 'created_at'>) =>
