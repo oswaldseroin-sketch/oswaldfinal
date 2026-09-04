@@ -36,10 +36,9 @@ export default function ShopPanel({ onBack, profileCoins, onPurchaseComplete }: 
     }
   }, [playerId])
 
- useEffect(() => {
-  console.log('SHOP OPEN')
+useEffect(() => {
   void loadData()
-}, [])
+}, [loadData])
 
   const ownedItemIds = new Set(inventory.map((i) => i.item_id))
 
