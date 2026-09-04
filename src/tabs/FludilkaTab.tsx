@@ -237,9 +237,9 @@ const [newDayToast, setNewDayToast] = useState(false)
             </span>
           </div>
 
-          <p className="mt-2 break-words text-sm text-ink">
-            {msg.message}
-          </p>
+         <p className="mt-2 break-words text-sm text-ink">
+  {renderMessage(msg.message, emojis)}
+</p>
         </div>
       )
     })
