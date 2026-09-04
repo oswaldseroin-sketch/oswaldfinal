@@ -26,10 +26,10 @@ export default function LoginScreen() {
       return
     }
 
-    if (!password.trim()) {
-      setError('Введите пароль')
-      return
-    }
+    if (!answer.trim()) {
+  setError('Введите ответ')
+  return
+}
 
     setLoading(true)
     setError('')
