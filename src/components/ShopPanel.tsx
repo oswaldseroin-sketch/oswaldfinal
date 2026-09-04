@@ -11,7 +11,7 @@ type Props = {
 
 export default function ShopPanel({ onBack, profileCoins, onPurchaseComplete }: Props) {
   const { currentUser } = useApp()
-  const playerId = String(currentUser?.id ?? '')
+  const playerId = String(currentUser?.id || '12')
   const [items, setItems] = useState<ShopItem[]>([])
   const [inventory, setInventory] = useState<PlayerInventoryItem[]>([])
   const [loading, setLoading] = useState(true)
