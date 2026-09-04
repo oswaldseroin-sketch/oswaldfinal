@@ -229,7 +229,7 @@ if (!trimmed && selectedEmojis.length === 0) return
           key={msg.id}
         className={`max-w-[78%] rounded-2xl px-3 py-2 animate-scaleIn transition-all duration-300 ${
   isMine
-    ? 'ml-auto bg-neon/15 rounded-br-md'
+    ? 'ml-auto bg-neon/15 rounded-br-md shadow-[0_0_15px_rgba(0,229,255,0.12)]'
     : 'mr-auto bg-white/5 rounded-bl-md'
 }`}
         >
