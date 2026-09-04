@@ -30,7 +30,11 @@ function renderMessage(
           <img
             key={index}
             src={emoji.image_url}
-            className="inline-block h-10 w-10 rounded-xl object-cover align-middle"
+            className={`inline-block rounded-2xl object-cover align-middle ${
+  message.trim() === `[emoji:${emoji.id}]`
+    ? 'h-20 w-20'
+    : 'h-10 w-10'
+}`}
           />
         )
       }
