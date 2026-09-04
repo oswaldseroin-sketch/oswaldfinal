@@ -886,7 +886,12 @@ const result = await apiFetch<{
   sendRadioMessage: async (senderId: string, receiverId: string, nickname: string, message: string): Promise<{ ok: boolean; error?: string }> => {
     const { error } = await supabase
       .from('radio_messages')
-      .insert({ sender_id: senderId, receiver_id: receiverId, nickname, message })
+      .insert({ 
+  sender_id: Number(senderId),
+  receiver_id: Number(receiverId),
+  nickname,
+  message
+})
     if (error) return { ok: false, error: error.message }
     return { ok: true }
   },
