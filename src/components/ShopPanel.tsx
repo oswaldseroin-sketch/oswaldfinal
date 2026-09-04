@@ -16,10 +16,25 @@ export default function ShopPanel({
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    api.getShopItems()
-      .then(setItems)
-      .finally(() => setLoading(false))
-  }, [])
+  setItems([
+    {
+      id: 1,
+      name: 'Рация',
+      description: 'Тест',
+      price: 10,
+      icon: '📻',
+    },
+    {
+      id: 2,
+      name: 'Бушидо розовое',
+      description: '+20 XP',
+      price: 15,
+      icon: '☕',
+    },
+  ] as any)
+
+  setLoading(false)
+}, [])
 
   return (
     <div className="min-h-screen p-4 text-white">
