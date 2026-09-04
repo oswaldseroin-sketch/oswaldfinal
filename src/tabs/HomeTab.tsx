@@ -149,7 +149,32 @@ export default function HomeTab({ onNavigate }: { onNavigate: (tab: Tab) => void
         className="mb-4 flex w-full items-center justify-center gap-2 rounded-xl border border-neon/40 bg-black/50 py-2.5 text-sm font-extrabold text-neon backdrop-blur-md transition-transform active:scale-[0.97]"
         style={{ boxShadow: '0 0 16px rgba(0,229,255,0.18)' }}
       >
-        💬 ФЛУДИЛКА
+        <span className="relative">
+  💬 ФЛУДИЛКА
+
+  {newChatMessages > 0 && (
+    <span className="
+      absolute
+      -right-6
+      -top-3
+      flex
+      h-5
+      min-w-5
+      items-center
+      justify-center
+      rounded-full
+      bg-red-500
+      px-1.5
+      text-[11px]
+      font-black
+      text-white
+      shadow-[0_0_12px_rgba(255,0,0,0.6)]
+    ">
+      {newChatMessages}
+    </span>
+  )}
+
+</span>
       </button>
 
       <div className="space-y-4">
