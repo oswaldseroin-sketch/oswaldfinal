@@ -158,20 +158,20 @@ export default function FludilkaTab({ onBack }: { onBack: () => void }) {
             const color = nickColor(msg.nickname)
             const isMine = msg.nickname === myNick
 
-            return (
-              <div
-                key={msg.id}
-  className={`group relative max-w-[90%] rounded-2xl border p-3 transition-all duration-300 ${
-    isMine
-      ? 'ml-auto border-neon/50 bg-neon/10'
-      : 'mr-auto border-line bg-black/40'
-  }`}
-  style={{
-    boxShadow: isMine
-      ? '0 0 18px rgba(0,229,255,0.15)'
-      : '0 0 12px rgba(255,255,255,0.05)',
-  }}
->
+          return (
+  <div
+    key={msg.id}
+    className={`group relative max-w-[90%] rounded-2xl border p-3 transition-all duration-300 ${
+      isMine
+        ? 'ml-auto border-neon/50 bg-neon/10'
+        : 'mr-auto border-line bg-black/40'
+    }`}
+    style={{
+      boxShadow: isMine
+        ? '0 0 18px rgba(0,229,255,0.15)'
+        : '0 0 12px rgba(255,255,255,0.05)',
+    }}
+  >
   <div className="flex items-center justify-between gap-3">
     <span
       className="text-xs font-black"
