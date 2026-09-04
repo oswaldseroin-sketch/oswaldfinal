@@ -290,7 +290,7 @@ if (!trimmed && selectedEmojis.length === 0) return
   </div>
 )}
       {myNick && (
-        <>
+<div className="relative">
           {sendError && (
             <p className="mt-2 text-xs font-bold text-error">Не удалось отправить сообщение</p>
           )}
