@@ -201,8 +201,8 @@ if (!trimmed && selectedEmojis.length === 0) return
      {/* Messages area */}
 <div
   ref={scrollRef}
-  className="flex-1 space-y-2 overflow-y-auto rounded-2xl border border-line bg-black/40 p-3"
-  style={{ minHeight: '300px' }}
+ className="h-[calc(100dvh-260px)] space-y-2 overflow-y-auto rounded-2xl border border-line bg-black/30 p-2"
+ 
 >
   {noNicks ? (
     <div className="flex h-full flex-col items-center justify-center py-10 text-center">
