@@ -19,7 +19,7 @@ export default function ShopPanel({
   api.getShopItems()
     .then((data) => {
       console.log('SHOP ITEMS:', data)
-      setItems(data)
+      setItems(data.items)
     })
     .catch((error) => {
       console.error('SHOP ERROR:', error)
