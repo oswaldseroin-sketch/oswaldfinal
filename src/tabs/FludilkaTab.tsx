@@ -296,7 +296,7 @@ const [newDayToast, setNewDayToast] = useState(false)
   >
 
     <p className="mb-3 text-xs font-black tracking-widest text-neon">
-      ОСОБЫЕ СМАЙЛИКИ
+     🔥 ОСОБЫЕ СМАЙЛИКИ
     </p>
 
  <div className="grid grid-cols-3 gap-4">
