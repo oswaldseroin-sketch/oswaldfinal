@@ -4,6 +4,7 @@ import { api, type ShopItem } from '../lib/api'
 type Props = {
   onBack: () => void
   profileCoins: number
+  playerId: string
   onPurchaseComplete: () => void
 }
 
