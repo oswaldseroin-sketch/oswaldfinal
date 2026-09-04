@@ -15,11 +15,16 @@ export default function ShopPanel({
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    api.getShopItems()
-      .then((data) => {
-        console.log(data)
-        setItems(data.items)
-      })
+   api.getShopItems()
+  .then((data) => {
+    console.log('SHOP DATA:', data)
+
+    if (Array.isArray(data)) {
+      setItems(data)
+    } else {
+      setItems(data.items ?? [])
+    }
+  })
       .catch(console.error)
       .finally(() => setLoading(false))
   }, [])
