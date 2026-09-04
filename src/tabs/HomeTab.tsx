@@ -81,7 +81,7 @@ export default function HomeTab({ onNavigate }: { onNavigate: (tab: Tab) => void
         <div className="flex items-center gap-2">
           {currentUser && (
             <button
-              onClick={switchUser}
+              onClick={() => setLogoutOpen(true)}
               className="max-w-[140px] truncate rounded-full border border-neon/40 bg-neon/10 px-3 py-1.5 text-xs font-bold text-neon transition-transform active:scale-95"
               title="Сменить пользователя"
             >
