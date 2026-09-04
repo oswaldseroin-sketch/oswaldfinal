@@ -461,7 +461,50 @@ if (selectedGame === 10) {
           </div>
         ) : null}
         
-          
+                {/* Магазиньш */}
+        <button
+          type="button"
+          onClick={() => setShopOpen(true)}
+          className="group relative mb-2 w-full overflow-hidden rounded-xl border border-amber-400/40 bg-gradient-to-r from-amber-950/70 via-black/80 to-fuchsia-950/50 px-3 py-2 text-left backdrop-blur-md transition-all duration-300 active:scale-[0.98]"
+          style={{
+            boxShadow:
+              '0 0 16px rgba(251,191,36,0.12), inset 0 0 20px rgba(255,43,214,0.05)',
+          }}
+        >
+          <div className="absolute -right-4 -top-6 h-16 w-16 rounded-full bg-amber-400/10 blur-2xl" />
+
+          <div className="relative flex items-center gap-2.5">
+            <div
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border border-amber-300/40 bg-amber-400/10 text-base"
+              style={{
+                boxShadow: '0 0 12px rgba(251,191,36,0.18)',
+              }}
+            >
+              🛒
+            </div>
+
+            <div className="min-w-0 flex-1">
+              <p
+                className="text-sm font-black tracking-wide text-amber-100"
+                style={{
+                  textShadow: '0 0 10px rgba(251,191,36,0.30)',
+                }}
+              >
+                МАГАЗИНЬШ
+              </p>
+
+              <p className="text-[10px] font-medium text-zinc-500">
+                Таинственная лавка
+              </p>
+            </div>
+
+            <div className="rounded-lg border border-amber-400/30 bg-amber-400/10 px-2 py-1">
+              <span className="text-[8px] font-black tracking-widest text-amber-300/80">
+                ОТКРЫТЬ
+              </span>
+            </div>
+          </div>
+        </button>
    
         <RadioInbox playerId={playerId} onAllRead={() => {}} />
 <div className="relative mb-2 flex items-end justify-between overflow-hidden rounded-xl border border-cyan-400/10 bg-black/25 px-3 py-1.5 backdrop-blur-sm">
