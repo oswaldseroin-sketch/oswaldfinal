@@ -154,14 +154,39 @@ export default function FludilkaTab({ onBack }: { onBack: () => void }) {
             <p className="text-sm text-ink-muted">Чат пуст. Напиши первым!</p>
           </div>
         ) : (
-          messages.map((msg) => {
-            const color = nickColor(msg.nickname)
-            const isMine = msg.nickname === myNick
-            return (
-              <div
-                key={msg.id}
-                className={`flex flex-col rounded-xl border p-2.5 ${isMine ? 'border-neon/30 bg-neon/5' : 'border-line bg-black/30'}`}
-              >
+          <div
+  key={msg.id}
+  className={`group relative max-w-[90%] rounded-2xl border p-3 transition-all duration-300 ${
+    isMine
+      ? 'ml-auto border-neon/50 bg-neon/10'
+      : 'mr-auto border-line bg-black/40'
+  }`}
+  style={{
+    boxShadow: isMine
+      ? '0 0 18px rgba(0,229,255,0.15)'
+      : '0 0 12px rgba(255,255,255,0.05)',
+  }}
+>
+  <div className="flex items-center justify-between gap-3">
+    <span
+      className="text-xs font-black"
+      style={{
+        color,
+        textShadow: `0 0 8px ${color}55`,
+      }}
+    >
+      👤 {msg.nickname}
+    </span>
+
+    <span className="text-[10px] text-ink-faint">
+      {formatTime(msg.created_at)}
+    </span>
+  </div>
+
+  <p className="mt-2 break-words text-sm font-medium text-ink">
+    {msg.message}
+  </p>
+</div>
                 <div className="flex items-center justify-between gap-2">
                   <span className="text-xs font-black" style={{ color, textShadow: `0 0 4px ${color}44` }}>
                     {msg.nickname}
