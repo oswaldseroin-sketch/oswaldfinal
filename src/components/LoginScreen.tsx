@@ -9,7 +9,7 @@ export default function LoginScreen() {
 
   const [search, setSearch] = useState('')
   const [selected, setSelected] = useState<string>('')
-  const [password, setPassword] = useState('')
+  const [answer, setAnswer] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
 
