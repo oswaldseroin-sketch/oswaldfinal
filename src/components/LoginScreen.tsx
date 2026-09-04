@@ -172,7 +172,7 @@ export default function LoginScreen() {
               setError('')
             }}
             onKeyDown={(e) => e.key === 'Enter' && void submit()}
-            placeholder="Пароль"
+            placeholder="Ваш ответ..."
             inputMode="numeric"
             className="h-13 min-w-0 flex-1 rounded-xl border border-line bg-input px-4 py-3 text-lg tracking-widest text-ink outline-none focus:border-neon/50"
           />
