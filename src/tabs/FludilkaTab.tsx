@@ -160,8 +160,9 @@ const [newDayToast, setNewDayToast] = useState(false)
 
   const handleSend = async () => {
     if (!myNick || sending) return
-    const trimmed = input.trim()
-    if (!trimmed) return
+   const trimmed = input.trim()
+
+if (!trimmed && selectedEmojis.length === 0) return
     setSending(true)
     setSendError(null)
     const result = await sendMessage(myNick, trimmed)
