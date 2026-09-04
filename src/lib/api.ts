@@ -869,26 +869,44 @@ const result = await apiFetch<{
     return (data || []) as PlayerInventoryItem[]
   },
 
-  purchaseItem: async (playerId: string, itemId: number): Promise<{ ok: boolean; error?: string }> => {
-    const { data, error } = await supabase
-      .from('player_inventory')
-      const id = Number(playerId)
+ purchaseItem: async (playerId: string, itemId: number): Promise<{ ok: boolean; error?: string }> => {
+  const id = Number(playerId)
 
-if (!id) {
-  return {
-    ok: false,
-    error: 'PLAYER_ID_REQUIRED'
-  }
-}
-      .insert({ player_id: Number(playerId), item_id: itemId, quantity: 1 })
-      .select('*')
-      .single()
-    if (error) {
-      if (error.code === '23505') return { ok: false, error: 'Уже куплено' }
-      return { ok: false, error: error.message }
+  if (!id) {
+    return {
+      ok: false,
+      error: 'PLAYER_ID_REQUIRED'
     }
-    return { ok: true }
-  },
+  }
+
+  const { data, error } = await supabase
+    .from('player_inventory')
+    .insert({
+      player_id: id,
+      item_id: itemId,
+      quantity: 1
+    })
+    .select('*')
+    .single()
+
+  if (error) {
+    if (error.code === '23505') {
+      return {
+        ok: false,
+        error: 'Уже куплено'
+      }
+    }
+
+    return {
+      ok: false,
+      error: error.message
+    }
+  }
+
+  return {
+    ok: true
+  }
+},
 
   // Radio messages
   sendRadioMessage: async (senderId: string, receiverId: string, nickname: string, message: string): Promise<{ ok: boolean; error?: string }> => {
