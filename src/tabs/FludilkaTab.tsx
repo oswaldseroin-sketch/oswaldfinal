@@ -153,9 +153,14 @@ export default function FludilkaTab({ onBack }: { onBack: () => void }) {
           <div className="flex h-full flex-col items-center justify-center py-10 text-center">
             <p className="text-sm text-ink-muted">Чат пуст. Напиши первым!</p>
           </div>
-        ) : (
-          <div
-  key={msg.id}
+               ) : (
+          messages.map((msg) => {
+            const color = nickColor(msg.nickname)
+            const isMine = msg.nickname === myNick
+
+            return (
+              <div
+                key={msg.id}
   className={`group relative max-w-[90%] rounded-2xl border p-3 transition-all duration-300 ${
     isMine
       ? 'ml-auto border-neon/50 bg-neon/10'
