@@ -294,40 +294,7 @@ if (!trimmed && selectedEmojis.length === 0) return
           {sendError && (
             <p className="mt-2 text-xs font-bold text-error">Не удалось отправить сообщение</p>
           )}
-          <div className="mt-3 flex items-center gap-2 rounded-2xl border border-neon/30 bg-black/70 p-2 backdrop-blur-xl shadow-[0_0_25px_rgba(0,229,255,0.15)]">
-            <button
-  onClick={() => setEmojiOpen((v) => !v)}
-  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-neon/40 bg-neon/10 text-neon transition-all hover:bg-neon/20 active:scale-90 shadow-[0_0_12px_rgba(0,229,255,0.2)]"
->
-  <Smile size={20} />
-</button>
-          <input
-            value={input}
-            onChange={(e) => setInput(e.target.value.slice(0, 300))}
-            onKeyDown={(e) => { if (e.key === 'Enter') void handleSend() }}
-            placeholder="Написать сообщение..."
-          className="h-11 min-w-0 flex-1 rounded-xl border border-white/10 bg-black/40 px-4 text-sm text-ink outline-none transition-all focus:border-neon/50 focus:bg-black/60 placeholder:text-ink-faint"
-            maxLength={300}
-          />
-          <button
-            onClick={() => void handleSend()}
-            disabled={sending || (!input.trim() && selectedEmojis.length === 0)}
-           className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-neon text-bg shadow-[0_0_20px_rgba(0,229,255,0.45)] transition-all hover:scale-105 active:scale-90 disabled:opacity-40"
-            aria-label="Отправить"
-          >
-            <Send size={18} />
-          </button>
-          <button
-            onClick={onBack}
-            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-neon/30 bg-black/50 text-neon transition-transform active:scale-90"
-            aria-label="Выйти"
-          >
-            <DoorOpen size={18} />
-          </button>
-          </div>
-        </>
-      )}
-{emojiOpen && (
+          {emojiOpen && (
   <div className="fixed bottom-20 left-1/2 z-50 w-[90%] max-w-md -translate-x-1/2 rounded-2xl border border-neon/40 bg-black/90 p-4 backdrop-blur-md"
     style={{
       boxShadow: '0 0 30px rgba(0,229,255,0.25)',
@@ -382,6 +349,40 @@ active:scale-90
 
   </div>
 )}
+          <div className="mt-3 flex items-center gap-2 rounded-2xl border border-neon/30 bg-black/70 p-2 backdrop-blur-xl shadow-[0_0_25px_rgba(0,229,255,0.15)]">
+            <button
+  onClick={() => setEmojiOpen((v) => !v)}
+  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-neon/40 bg-neon/10 text-neon transition-all hover:bg-neon/20 active:scale-90 shadow-[0_0_12px_rgba(0,229,255,0.2)]"
+>
+  <Smile size={20} />
+</button>
+          <input
+            value={input}
+            onChange={(e) => setInput(e.target.value.slice(0, 300))}
+            onKeyDown={(e) => { if (e.key === 'Enter') void handleSend() }}
+            placeholder="Написать сообщение..."
+          className="h-11 min-w-0 flex-1 rounded-xl border border-white/10 bg-black/40 px-4 text-sm text-ink outline-none transition-all focus:border-neon/50 focus:bg-black/60 placeholder:text-ink-faint"
+            maxLength={300}
+          />
+          <button
+            onClick={() => void handleSend()}
+            disabled={sending || (!input.trim() && selectedEmojis.length === 0)}
+           className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-neon text-bg shadow-[0_0_20px_rgba(0,229,255,0.45)] transition-all hover:scale-105 active:scale-90 disabled:opacity-40"
+            aria-label="Отправить"
+          >
+            <Send size={18} />
+          </button>
+          <button
+            onClick={onBack}
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-neon/30 bg-black/50 text-neon transition-transform active:scale-90"
+            aria-label="Выйти"
+          >
+            <DoorOpen size={18} />
+          </button>
+          </div>
+        </>
+      )}
+
       {/* Nick intro toast */}
       {nickIntro && (
         <div className="fixed left-1/2 top-1/3 z-[55] -translate-x-1/2 rounded-2xl border border-neon/40 bg-black/90 px-6 py-4 text-center backdrop-blur-md animate-scaleIn" style={{ boxShadow: '0 0 30px rgba(0,229,255,0.4)' }}>
