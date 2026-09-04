@@ -13,7 +13,7 @@ export default function ShopPanel({
   profileCoins,
   playerId,
   onPurchaseComplete,
-}: Props)
+}: Props){
   const [items, setItems] = useState<ShopItem[]>([])
   const [loading, setLoading] = useState(true)
 
