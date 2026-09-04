@@ -4,7 +4,7 @@ import {
   assignNick, fetchMessages, getMyNick, nickColor, sendMessage,
   type ChatMessage,
 } from '../lib/fludilka'
-import { todayKey } from '../lib/storage'
+import { todayKey, setItem } from '../lib/storage'
 import { api } from '../lib/api'
 
 const SERVER_URL = import.meta.env.VITE_API_URL
@@ -115,6 +115,10 @@ const [newDayToast, setNewDayToast] = useState(false)
       const msgs = await fetchMessages(day)
       setMessages(msgs)
       scrollToBottom()
+      try {
+        const countRes = await api.getMessageCount(day)
+        setItem('fludilka_seen_count', countRes.count)
+      } catch { /* ignore */ }
     })()
   }, [scrollToBottom])
 

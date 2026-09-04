@@ -3,7 +3,7 @@ import { Bell } from 'lucide-react'
 import { getDailyNews, getWorkerOfWeek } from '../lib/workers'
 import { useApp } from '../context/AppContext'
 import { api } from '../lib/api'
-import { todayKey } from '../lib/storage'
+import { todayKey, getItem } from '../lib/storage'
 
 type Tab = 'applications' | 'predictions' | 'articles' | 'secret' | 'fludilka' | 'tests' | 'newSection'
 
@@ -78,9 +78,7 @@ export default function HomeTab({ onNavigate }: { onNavigate: (tab: Tab) => void
     try {
       const result = await api.getMessageCount(todayKey())
 
-      const seen = Number(
-        localStorage.getItem('fludilka_seen') || 0
-      )
+      const seen = getItem<number>('fludilka_seen_count', 0)
 
       setNewChatMessages(
         Math.max(0, result.count - seen)
@@ -193,7 +191,7 @@ export default function HomeTab({ onNavigate }: { onNavigate: (tab: Tab) => void
         animate-pulse
       "
     >
-       новые сообщения
+       новые сообщения ({newChatMessages})
     </span>
   )}
 </span>
