@@ -48,7 +48,7 @@ export default function LoginScreen() {
       const data = await res.json()
 
       if (!res.ok || !data.ok) {
-        setError(data.error || 'Неверный пароль')
+    setError(data.error || 'Неверный ответ')
         return
       }
 
