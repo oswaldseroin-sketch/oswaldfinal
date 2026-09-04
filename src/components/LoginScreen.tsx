@@ -40,10 +40,10 @@ export default function LoginScreen() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          password: password.trim(),
-        }),
-      })
+       body: JSON.stringify({
+  answer: answer.trim(),
+  name: selected,
+}),
 
       const data = await res.json()
 
