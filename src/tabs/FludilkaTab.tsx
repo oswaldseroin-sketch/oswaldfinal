@@ -45,6 +45,15 @@ const [newDayToast, setNewDayToast] = useState(false)
   // Initial load: get nick + messages
   useEffect(() => {
     void (async () => {
+      try {
+  const emojiData = await api.getChatEmojis()
+
+  if (emojiData.ok) {
+    setEmojis(emojiData.emojis)
+  }
+} catch {
+  console.log('Emoji loading error')
+}
       const day = todayKey()
       const existing = await getMyNick()
       if (existing) {
