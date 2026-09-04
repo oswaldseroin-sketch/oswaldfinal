@@ -15,6 +15,7 @@ import MafiaGame from './games/MafiaGame'
 import YesNoGame from './games/YesNoGame'
 import SecretLoveGame from './games/SecretLoveGame'
 import RouletteGame from './games/RouletteGame'
+import ShopPanel from './ShopPanel'
 
 type Props = { onBack: () => void }
 
