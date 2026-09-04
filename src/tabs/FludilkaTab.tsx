@@ -45,6 +45,7 @@ export default function FludilkaTab({ onBack }: { onBack: () => void }) {
   const [noNicks, setNoNicks] = useState(false)
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [input, setInput] = useState('')
+  const [selectedEmojis, setSelectedEmojis] = useState<SpecialEmoji[]>([])
   const [sending, setSending] = useState(false)
   const [dayKey, setDayKey] = useState(todayKey())
   const [sendError, setSendError] = useState<string | null>(null)
