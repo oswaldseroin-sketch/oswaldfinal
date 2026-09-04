@@ -233,7 +233,7 @@ if (!trimmed && selectedEmojis.length === 0) return
     : 'mr-auto bg-white/5 rounded-bl-md'
 }`}
         >
-          <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center justify-between gap-2 mb-1">
             <span
               className="text-xs font-black"
               style={{ color }}
