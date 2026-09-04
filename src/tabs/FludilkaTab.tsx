@@ -262,7 +262,7 @@ if (!trimmed && selectedEmojis.length === 0) return
     {selectedEmojis.map((emoji) => (
       <img
         key={emoji.id}
-        src={emoji.image_url}
+        src={`${API_URL}${emoji.image_url}`}
         className="h-10 w-10 rounded-xl object-cover"
       />
     ))}
