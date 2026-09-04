@@ -286,7 +286,7 @@ input, textarea, button {
   }
 }
 
-.animate-emojiPop {
+.animate-emojiPop animate-artifactPulse {
   animation: emojiPop 0.45s ease-out both;
 }
 ::-webkit-scrollbar { width: 0; height: 0; }
