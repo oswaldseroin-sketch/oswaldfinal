@@ -320,7 +320,10 @@ if (!trimmed && selectedEmojis.length === 0) return
 
  <div className="grid grid-cols-3 gap-4">
    
-  {emojis.map((emoji) => (
+ {emojis.map((emoji) => {
+  console.log('EMOJI DATA', emoji)
+  
+  return (
     <button
       key={emoji.id}
    onClick={() => {
