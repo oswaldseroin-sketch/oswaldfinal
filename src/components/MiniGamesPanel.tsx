@@ -15,10 +15,9 @@ import MafiaGame from './games/MafiaGame'
 import YesNoGame from './games/YesNoGame'
 import SecretLoveGame from './games/SecretLoveGame'
 import RouletteGame from './games/RouletteGame'
-// import ShopPanel from './ShopPanel'
 
 type Props = { onBack: () => void }
-playerId: string
+
 function todayKey(): string {
   const d = new Date()
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
@@ -52,7 +51,7 @@ function markCompleted(playerId: string, gameNumber: number): void {
 
 export default function MiniGamesPanel({ onBack }: Props) {
   const { currentUser } = useApp()
-  const playerId = String(currentUser?.id ?? '')
+  const playerId = currentUser?.id ?? 'unknown'
   const [profile, setProfile] = useState<MiniGameProfile | null>(null)
   const [progress, setProgress] = useState<MiniGameProgress[]>([])
   const [loading, setLoading] = useState(true)
@@ -61,7 +60,6 @@ export default function MiniGamesPanel({ onBack }: Props) {
   const [lastCompletedGame, setLastCompletedGame] = useState<number | null>(null)
   const [titlePopup, setTitlePopup] = useState<string | null>(null)
   const [completedToday, setCompletedToday] = useState<CompletedToday>(() => getCompletedToday(playerId))
-  const [shopOpen, setShopOpen] = useState(false)
 
   useEffect(() => {
   const completed = getCompletedToday(playerId)
@@ -74,11 +72,7 @@ export default function MiniGamesPanel({ onBack }: Props) {
   const loadData = useCallback(async () => {
     if (!currentUser) return
     try {
-      console.log('BEFORE MINI LOAD')
-
-const data = await api.getMiniGameData(currentUser.id)
-
-console.log('AFTER MINI LOAD')
+      const data = await api.getMiniGameData(currentUser.id)
       setProfile((prev) => {
         if (prev && data.profile.titleLevel > prev.titleLevel) {
           setTitlePopup(data.profile.title)
@@ -294,8 +288,6 @@ if (selectedGame === 10) {
   )
 }
 }
-
-
   // -- Main panel --
   const levelInfo = profile
   ? getLevelInfo(profile.xp, profile.level)
@@ -464,7 +456,6 @@ if (selectedGame === 10) {
                 {/* Магазиньш */}
         <button
           type="button"
-          onClick={() => setShopOpen(true)}
           className="group relative mb-2 w-full overflow-hidden rounded-xl border border-amber-400/40 bg-gradient-to-r from-amber-950/70 via-black/80 to-fuchsia-950/50 px-3 py-2 text-left backdrop-blur-md transition-all duration-300 active:scale-[0.98]"
           style={{
             boxShadow:
@@ -494,19 +485,18 @@ if (selectedGame === 10) {
               </p>
 
               <p className="text-[10px] font-medium text-zinc-500">
-                Таинственная лавка
+                Скоро появится...
               </p>
             </div>
 
-            <div className="rounded-lg border border-amber-400/30 bg-amber-400/10 px-2 py-1">
-              <span className="text-[8px] font-black tracking-widest text-amber-300/80">
-                ОТКРЫТЬ
+            <div className="rounded-lg border border-amber-400/20 bg-black/30 px-2 py-1">
+              <span className="text-[8px] font-black tracking-widest text-amber-300/60">
+                СКОРО
               </span>
             </div>
           </div>
         </button>
    
-        <RadioInbox playerId={playerId} onAllRead={() => {}} />
 <div className="relative mb-2 flex items-end justify-between overflow-hidden rounded-xl border border-cyan-400/10 bg-black/25 px-3 py-1.5 backdrop-blur-sm">
   <div>
     <p className="text-[8px] font-black tracking-[0.28em] text-cyan-300/50">

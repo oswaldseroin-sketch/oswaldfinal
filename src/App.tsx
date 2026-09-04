@@ -108,7 +108,7 @@ function Shell() {
         )}
         {tab === 'newSection' && (
           <SwipeBack onBack={goHome} innerClassName="mx-auto max-w-md px-4 pb-10 pt-6">
-         <MiniGamesPanel onBack={goHome} />
+            <MiniGamesPanel onBack={goHome} />
           </SwipeBack>
         )}
       </main>
@@ -130,9 +130,9 @@ export default function App() {
     return () => clearTimeout(timer)
   }, [])
 
-return (
-  <AppProvider>
-    <Shell />
-  </AppProvider>
-)
+  return (
+    <AppProvider>
+      <Shell />
+    </AppProvider>
+  )
 }
