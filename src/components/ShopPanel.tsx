@@ -11,7 +11,9 @@ type Props = {
 export default function ShopPanel({
   onBack,
   profileCoins,
-}: Props) {
+  playerId,
+  onPurchaseComplete,
+}: Props)
   const [items, setItems] = useState<ShopItem[]>([])
   const [loading, setLoading] = useState(true)
 
