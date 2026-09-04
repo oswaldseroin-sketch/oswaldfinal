@@ -7,7 +7,7 @@ import {
 import { todayKey } from '../lib/storage'
 import { api } from '../lib/api'
 
-const SERVER_URL = 'http://201.24.54.238:3001'
+const SERVER_URL = import.meta.env.VITE_API_URL
 
 function formatTime(iso: string): string {
   const d = new Date(iso)
