@@ -91,7 +91,42 @@ export default function HomeTab({ onNavigate }: { onNavigate: (tab: Tab) => void
           <img src="/app-icon.webp" alt="" className="h-11 w-11 rounded-full border border-neon/40 object-cover" />
         </div>
       </header>
+{logoutOpen && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-6">
+    <div className="w-full max-w-sm rounded-2xl border border-neon/40 bg-black/90 p-5 text-center">
 
+      <p className="text-lg font-black text-ink">
+        Выйти из аккаунта?
+      </p>
+
+      <p className="mt-2 text-sm text-ink-muted">
+        Вам нужно будет заново выбрать ФИО
+      </p>
+
+      <div className="mt-5 flex gap-3">
+
+        <button
+          onClick={() => setLogoutOpen(false)}
+          className="flex-1 rounded-xl border border-line bg-input py-3 text-sm font-bold text-ink"
+        >
+          ОТМЕНА
+        </button>
+
+        <button
+          onClick={() => {
+            logout()
+            setLogoutOpen(false)
+          }}
+          className="flex-1 rounded-xl bg-neon py-3 text-sm font-black text-bg"
+        >
+          ВЫЙТИ
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+)}
       <div className="mb-3 flex items-start gap-3 rounded-2xl border border-neon/30 bg-neon/5 p-3 backdrop-blur-md" style={{ boxShadow: '0 0 22px rgba(0,229,255,0.12)' }}>
         <Bell size={16} className="mt-0.5 shrink-0 text-neon" />
         <div className="min-w-0 flex-1">
