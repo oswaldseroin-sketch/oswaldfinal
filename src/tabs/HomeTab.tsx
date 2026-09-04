@@ -193,7 +193,7 @@ export default function HomeTab({ onNavigate }: { onNavigate: (tab: Tab) => void
         animate-pulse
       "
     >
-      🔴 новые сообщения
+       новые сообщения
     </span>
   )}
 </span>
