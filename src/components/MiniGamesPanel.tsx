@@ -52,7 +52,10 @@ function markCompleted(playerId: string, gameNumber: number): void {
 
 export default function MiniGamesPanel({ onBack }: Props) {
   const { currentUser } = useApp()
-  const playerId = currentUser?.id ?? 'unknown'
+  const playerId = currentUser?.id
+
+console.log('SHOP CURRENT USER:', currentUser)
+console.log('SHOP PLAYER ID:', playerId)
   const [profile, setProfile] = useState<MiniGameProfile | null>(null)
   const [progress, setProgress] = useState<MiniGameProgress[]>([])
   const [loading, setLoading] = useState(true)
