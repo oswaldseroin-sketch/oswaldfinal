@@ -82,7 +82,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
       ])
 
       setEmployees(employeeData ?? [])
-      setWorkers(workerData?.length ? workerData : fallbackWorkers)
+      setWorkers(workerData?.length ? workerData : fallbackWorkers
+                setPlayers(playerData ?? [])
       setTeamStats(statsData ? mapStats(statsData) : {})
       setMemes(memeData ?? [])
     } catch {
