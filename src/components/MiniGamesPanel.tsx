@@ -616,7 +616,7 @@ const style = gameStyle[game.number]
               <button
                 key={game.number}
                 onClick={() => setSelectedGame(game.number)}
-              className={`group relative flex min-h-[148px] flex-col items-center justify-center overflow-hidden rounded-xl border p-3 text-center backdrop-blur-md transition-all duration-300 active:scale-95 ${
+              className={`group relative flex min-h-[110px] flex-col items-center justify-center overflow-hidden rounded-xl border p-2 text-center backdrop-blur-md transition-all duration-300 active:scale-95 ${
   isDone
     ? 'border-success/40 bg-success/8'
     : `${style.border} ${style.bg}`
