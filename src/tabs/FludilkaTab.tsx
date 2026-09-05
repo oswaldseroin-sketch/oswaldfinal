@@ -370,12 +370,19 @@ active:scale-90
           >
             <Send size={18} />
           </button>
-       <button
+      <button
   onClick={onBack}
-  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-neon/40 bg-black/60 text-neon shadow-[0_0_20px_rgba(0,229,255,0.25)] transition-transform active:scale-90"
-  aria-label="Назад"
+  className="
+    mt-4 mx-auto flex items-center justify-center gap-3
+    rounded-2xl border border-neon/40
+    bg-black/60 px-8 py-3
+    text-sm font-black text-neon
+    shadow-[0_0_25px_rgba(0,229,255,0.25)]
+    transition-all active:scale-95
+  "
 >
-  <ArrowLeft size={30} />
+  <ArrowLeft size={24} />
+  НАЗАД В МЕНЮ
 </button>
           </div>
       </div>
