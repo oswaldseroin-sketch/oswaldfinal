@@ -332,7 +332,7 @@ export default function TestsPanelTab({ onBack }: Props) {
   if (phase === 'loading' || phase === 'error') {
     return (
       <SwipeBack onBack={onBack} innerClassName="mx-auto max-w-md px-4 pb-10 pt-4">
-        
+        <button onClick={onBack} className="mb-4 text-sm font-bold text-neon hover:text-white transition-colors">← Назад</button>
         <h2 className="mb-4 text-lg font-extrabold tracking-wide text-ink" style={{ textShadow: '0 0 8px rgba(0,229,255,0.25)' }}>Тесты</h2>
         {phase === 'loading' ? (
           <div className="py-10 text-center text-sm text-ink/50">Загрузка вопросов...</div>
