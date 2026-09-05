@@ -648,7 +648,7 @@ const style = gameStyle[game.number]
                   </span>
                 )}
                 <div
-  className={`relative flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-black/30 ${style.accent} transition-all duration-300 group-hover:scale-110`}
+  className={`relative flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-black/30 ${style.accent} transition-all duration-300 group-hover:scale-110`}
   style={{
     boxShadow: isDone ? 'none' : style.glow,
   }}
