@@ -127,7 +127,7 @@ setMemes(memeData ?? [])
   setGamePlayerName(worker.full_name)
 
   return true
-}, [workers])
+}, [players])
 
   const switchUser = useCallback((): void => {
     setCurrentUser(null)
