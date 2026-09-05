@@ -370,7 +370,9 @@ active:scale-90
           >
             <Send size={18} />
           </button>
-      <button
+   
+          </div>
+     <button
   onClick={onBack}
   className="
     mt-4 mx-auto flex items-center justify-center gap-3
@@ -384,7 +386,6 @@ active:scale-90
   <ArrowLeft size={24} />
   НАЗАД В МЕНЮ
 </button>
-          </div>
       </div>
 )}
 
