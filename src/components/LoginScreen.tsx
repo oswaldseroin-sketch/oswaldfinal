@@ -270,7 +270,13 @@ const createWorker = async (): Promise<void> => {
           </div>
         )}
       </div>
-
+<button
+  type="button"
+  onClick={() => setAdminOpen(true)}
+  className="mt-4 text-xs font-bold text-ink-muted hover:text-neon"
+>
+  🔒 Управление сотрудниками
+</button>
       <button
         onClick={() => void submit()}
         disabled={loading}
