@@ -204,10 +204,42 @@ if (!trimmed && selectedEmojis.length === 0) return
       <div className="mb-3 flex items-center justify-between">
         <h1 className="text-xl font-extrabold text-ink">💬 ФЛУДИЛКА</h1>
         {myNick && (
-          <div className="rounded-full border border-neon/30 bg-black/50 px-3 py-1 text-xs font-bold" style={{ color: nickColor(myNick) }}>
-            👤 {myNick}
-          </div>
-        )}
+  <div
+    className="
+      relative overflow-hidden
+      rounded-xl
+      border border-neon/40
+      bg-black/60
+      px-4 py-2
+      shadow-[0_0_20px_rgba(0,229,255,0.25)]
+      backdrop-blur-md
+    "
+  >
+    <div className="absolute inset-0 bg-gradient-to-r from-neon/10 via-transparent to-purple-500/10" />
+
+    <div className="relative flex items-center gap-2">
+      <span className="text-sm">
+        👤
+      </span>
+
+      <div>
+        <div className="text-[9px] font-black tracking-widest text-ink-muted">
+          ТВОЙ НИК
+        </div>
+
+        <div
+          className="text-sm font-black"
+          style={{
+            color: nickColor(myNick),
+            textShadow: '0 0 10px currentColor'
+          }}
+        >
+          {myNick}
+        </div>
+      </div>
+    </div>
+  </div>
+)}
       </div>
 
      {/* Messages area */}
