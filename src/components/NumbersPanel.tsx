@@ -295,7 +295,7 @@ export default function NumbersPanel({ onBack }: Props) {
           <p className="text-sm font-bold text-error">{error}</p>
         </div>
       ) : (
-        <div className="grid grid-cols-2 gap-2.5">
+        <div className="grid grid-cols-2 gap-2 mt-2">
           {numbers.map((n) => (
            <button
   key={n.number}
