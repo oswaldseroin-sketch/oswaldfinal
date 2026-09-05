@@ -6,9 +6,9 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
-  registerType: 'prompt',
+      registerType: 'autoUpdate',
 
-  manifest: {
+      manifest: {
         name: 'Амальгама',
         short_name: 'Амальгама',
         start_url: '/',
@@ -29,9 +29,9 @@ export default defineConfig({
         ],
       },
 
-     workbox: {
-  cleanupOutdatedCaches: true,
-},
+      workbox: {
+        globPatterns: [],
+      },
     }),
   ],
 
