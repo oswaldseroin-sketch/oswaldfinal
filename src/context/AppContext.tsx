@@ -58,6 +58,7 @@ const POLL_INTERVAL = 15000
 export function AppProvider({ children }: { children: ReactNode }) {
   const [employees, setEmployees] = useState<Employee[]>([])
   const [workers, setWorkers] = useState<Worker[]>(fallbackWorkers)
+  const [players, setPlayers] = useState<any[]>([])
   const [teamStats, setTeamStats] = useState<TeamStats>({})
   const [memes, setMemes] = useState<Meme[]>([])
   const [isAdmin, setIsAdmin] = useState(false)
