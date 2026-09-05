@@ -251,12 +251,7 @@ export default function NumbersPanel({ onBack }: Props) {
   // -- Grid of 31 numbers --
   return (
     <div className="mx-auto max-w-md px-4 pb-10 pt-6">
-      <button
-        onClick={onBack}
-        className="mb-4 flex items-center gap-2 text-sm font-bold text-neon hover:text-white transition-colors"
-      >
-        ← Назад
-      </button>
+      
       <div className="mb-5 flex items-center justify-between">
         <div>
           <p className="text-[10px] font-bold tracking-widest text-neon">ЗНАНИЯ / ЧИСЛА</p>
