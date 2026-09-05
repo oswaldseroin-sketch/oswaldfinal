@@ -1,4 +1,4 @@
-import { situationsList, workersList, type Worker } from './data'
+import { situationsList, type Worker } from './data'
 import { predictionsList } from './predictionsData'
 
 function getWeekNumber(date: Date): number {
