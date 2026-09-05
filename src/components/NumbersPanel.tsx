@@ -254,7 +254,7 @@ export default function NumbersPanel({ onBack }: Props) {
       <button
   onClick={onBack}
   className="
-    mb-5
+    mb-2
     flex items-center justify-center gap-2
     mx-auto
     rounded-xl
