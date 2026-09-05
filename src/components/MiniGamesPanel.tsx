@@ -682,6 +682,28 @@ const style = gameStyle[game.number]
               </button>
             )
           })}
+          <div className="mt-5 flex justify-center">
+  <button
+    onClick={onBack}
+    className="
+      flex items-center justify-center gap-2
+      rounded-xl
+      border border-cyan-400/30
+      bg-black/50
+      px-6 py-2.5
+      text-xs font-black
+      tracking-wide
+      text-cyan-200
+      shadow-[0_0_18px_rgba(34,211,238,0.2)]
+      backdrop-blur-md
+      transition-all
+      active:scale-95
+    "
+  >
+    <span className="text-lg">←</span>
+    НАЗАД В МЕНЮ
+  </button>
+</div>
         </div>
       </div>
     </div>
