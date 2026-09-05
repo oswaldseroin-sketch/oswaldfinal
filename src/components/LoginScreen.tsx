@@ -211,9 +211,21 @@ const createWorker = async (): Promise<void> => {
 <button
   type="button"
   onClick={() => setAdminOpen(true)}
-  className="mt-4 text-xs font-bold text-ink-muted hover:text-neon"
+  className="
+    mt-3
+    w-full
+    rounded-xl
+    border border-neon/30
+    bg-neon/10
+    py-2
+    text-xs
+    font-black
+    text-neon
+    transition
+    active:scale-95
+  "
 >
-  🔒 Управление сотрудниками
+  🔒 УПРАВЛЕНИЕ СОТРУДНИКАМИ
 </button>
         {error && (
           <p className="mt-2 text-xs text-error">
