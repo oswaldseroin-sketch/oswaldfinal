@@ -63,7 +63,27 @@ export default function TestsTab({ onOpenApplications, onOpenArticles, onOpenTes
           />
         </button>
       </div>
-
+<div className="mt-6 flex justify-center">
+  <button
+    onClick={onBack}
+    className="
+      flex items-center justify-center gap-2
+      rounded-xl
+      border border-neon/30
+      bg-black/50
+      px-5 py-2
+      text-xs font-black
+      text-neon
+      shadow-[0_0_15px_rgba(0,229,255,0.15)]
+      backdrop-blur-md
+      transition-all
+      active:scale-95
+    "
+  >
+    <span className="text-lg">←</span>
+    НАЗАД В МЕНЮ
+  </button>
+</div>
      <div className="mt-6 flex justify-center">
   <button
     onClick={onOpenAdmin}
