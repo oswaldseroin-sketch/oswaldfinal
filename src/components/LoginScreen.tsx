@@ -291,7 +291,7 @@ const createWorker = async (): Promise<void> => {
       </button>
       {adminOpen && (
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-5">
-    <div className="w-full max-w-md rounded-2xl border border-neon/30 bg-card p-5">
+   <div className="max-h-[80vh] w-full max-w-md overflow-y-auto rounded-2xl border border-neon/30 bg-card p-5">
 
       <h2 className="text-xl font-black text-neon">
         Сотрудники
