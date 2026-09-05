@@ -5,7 +5,7 @@ import BackButton from '../components/BackButton'
 import SwipeBack from '../components/SwipeBack'
 import SpecialPrediction from '../components/SpecialPrediction'
 import { getItem, removeItem, setItem, todayKey } from '../lib/storage'
-import { getPredictionForWorker } from '../lib/workers'
+import { getPredictionForWorker, loadWorkers } from '../lib/workers'
 import { api } from '../lib/api'
 
 type SavedPrediction = {
