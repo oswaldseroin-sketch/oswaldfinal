@@ -102,7 +102,17 @@ const [adminError, setAdminError] = useState('')
       setSecretError('Сервер недоступен')
     }
   }
+const createWorker = async (): Promise<void> => {
+  const name = newWorkerName.trim()
 
+  if (!name) return
+
+  const ok = await addWorker(name, newWorkerGender)
+
+  if (ok) {
+    setNewWorkerName('')
+  }
+}
   return (
     <div className="relative z-10 mx-auto flex min-h-screen max-w-md flex-col px-5 pb-8 pt-12">
       <div className="mb-8 text-center">
