@@ -81,16 +81,32 @@ export default function PredictionsTab({ onBack }: { onBack: () => void }) {
     if (adminOpen && isAdmin) void loadCounts()
   }, [adminOpen, isAdmin])
 
-  const reveal = async (): Promise<void> => {
-    if (!name || prediction) return
-    const worker = workers.find((item) => item.name === name)
-    if (!worker) return
+ const reveal = async (): Promise<void> => {
+  if (!name || prediction) return
 
-    const text = getPredictionForWorker(worker, new Date(), 0, workers)
-    setPrediction(text)
-    setItem(getPredictionKey(playerId), { date: todayKey(), name: worker.name, text })
-    void api.incrementPredictionCount(worker.name)
-  }
+  const roster = await loadWorkers()
+
+  const worker = roster.find((item) => item.name === name)
+
+  if (!worker) return
+
+  const text = getPredictionForWorker(
+    worker,
+    new Date(),
+    0,
+    roster,
+  )
+
+  setPrediction(text)
+
+  setItem(getPredictionKey(playerId), {
+    date: todayKey(),
+    name: worker.name,
+    text,
+  })
+
+  void api.incrementPredictionCount(worker.name)
+}
 
   const openAdmin = (): void => {
     setAdminOpen(true)
