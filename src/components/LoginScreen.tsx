@@ -208,7 +208,13 @@ const createWorker = async (): Promise<void> => {
             <HelpCircle size={20} />
           </button>
         </div>
-
+<button
+  type="button"
+  onClick={() => setAdminOpen(true)}
+  className="mt-4 text-xs font-bold text-ink-muted hover:text-neon"
+>
+  🔒 Управление сотрудниками
+</button>
         {error && (
           <p className="mt-2 text-xs text-error">
             {error}
