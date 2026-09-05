@@ -118,9 +118,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
   if (!worker) return false
 
   const user: CurrentUser = {
-    id: Number(worker.id),
-    name: worker.name,
-  }
+  id: Number(worker.id),
+  name: worker.full_name,
+}
 
   setCurrentUser(user)
   setItem(CURRENT_USER_KEY, user)
