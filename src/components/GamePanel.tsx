@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Store, Backpack, RotateCcw, Gift, X, ChevronLeft, BookOpen, Heart } from 'lucide-react'
-
+import { useApp } from '../context/AppContext'
 import { todayKey } from '../lib/storage'
 import { getRoadWeights, type RoadEvent } from '../lib/levelData'
 import {
@@ -1584,7 +1584,7 @@ setTimeout(() => {
       } else if (abilityId === 'shot') {
         displayIcon = '🔫'
         displayTitle = 'ВЫСТРЕЛ ВВЕРХ'
-        const helper = workers[Math.floor(Math.random() * workersList.length)]
+        const helper = workers[Math.floor(Math.random() * workers.length)]
         addBossBattleLogEntry('🔫', `Выстрел вверх — ${helper.name} пришёл на помощь`, 'cyan')
         const shotSuccess = Math.random() < 0.60
         recordLuck(shotSuccess)
@@ -1787,9 +1787,9 @@ setTimeout(() => setAbilityPopup(null), 5000)
   }
 
   const pickWorkerByGender = (gender: 'м' | 'ж'): string => {
-    const pool = workersList.filter((w) => w.gender === gender && w.name !== playerName)
+    const pool = workers.filter((w) => w.gender === gender && w.name !== playerName)
     if (pool.length === 0) {
-      const fallback = workersList.filter((w) => w.gender === gender)
+      const fallback = workers.filter((w) => w.gender === gender)
       if (fallback.length === 0) return playerName ?? ''
       return fallback[Math.floor(Math.random() * fallback.length)].name
     }
@@ -2090,7 +2090,7 @@ setTimeout(() => setAbilityPopup(null), 5000)
           </h2>
           <p className="mt-2 text-center text-xs font-bold text-ink-faint">Выбери своё ФИО из списка сотрудников</p>
           <div className="mt-4 max-h-64 space-y-1.5 overflow-y-auto pr-1">
-            {workersList.map((w) => (
+            {workers.map((w) => (
               <button
                 key={w.name}
                 onClick={() => handleSelectPlayer(w.name)}
@@ -2879,7 +2879,7 @@ setTimeout(() => setAbilityPopup(null), 5000)
                     📻 304, нужна помощь. Кого зовём?
                   </p>
                   <div className="max-h-32 space-y-1 overflow-y-auto pr-1">
-                    {workersList.filter((w) => w.name !== playerName).map((w) => (
+                    {workers.filter((w) => w.name !== playerName).map((w) => (
                       <button
                         key={w.name}
                         onClick={() => handleRaciyaSelect(w.name)}
