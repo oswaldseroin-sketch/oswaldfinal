@@ -193,7 +193,27 @@ export default function PredictionsTab({ onBack }: { onBack: () => void }) {
           <p className="mt-5 text-xs leading-relaxed text-accent">Твоя судьба на сегодня уже решена! Приходи завтра</p>
         </div>
       )}
-
+<div className="mt-6 flex justify-center">
+  <button
+    onClick={onBack}
+    className="
+      flex items-center gap-2
+      rounded-xl
+      border border-accent/30
+      bg-black/40
+      px-5 py-2
+      text-xs font-black
+      text-accent
+      shadow-[0_0_15px_rgba(255,43,214,0.15)]
+      backdrop-blur-md
+      transition-transform
+      active:scale-95
+    "
+  >
+    <span className="text-lg">←</span>
+    НАЗАД В МЕНЮ
+  </button>
+</div>
       <div className="mt-6 flex justify-center">
         <button
           onClick={openAdmin}
