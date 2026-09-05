@@ -308,26 +308,7 @@ if (selectedGame === 10) {
       <div className="pointer-events-none fixed inset-0 bg-black/40" />
 
       <div className="relative z-10">
-       <button
-  onClick={onBack}
-  className="
-    mb-5 flex items-center gap-2
-    rounded-xl
-    border border-cyan-400/40
-    bg-black/50
-    px-4 py-2
-    text-xs font-black
-    tracking-wide
-    text-cyan-200
-    shadow-[0_0_18px_rgba(34,211,238,0.25)]
-    backdrop-blur-md
-    transition-all
-    active:scale-95
-  "
->
-  <span className="text-lg">←</span>
-  НАЗАД В МЕНЮ
-</button>
+      
 
         {/* Title level-up popup */}
         {titlePopup && (
