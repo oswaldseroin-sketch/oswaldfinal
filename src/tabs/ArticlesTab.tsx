@@ -328,7 +328,7 @@ export default function ArticlesTab({ onBack }: { onBack: () => void }) {
 
   return (
     <div className="mx-auto max-w-md px-6 pb-10 pt-10">
-      <BackButton onBack={onBack} />
+      
       <div className="mb-7">
         <p className="text-[10px] font-bold tracking-widest text-neon">АМАЛЬГАМА / 03</p>
         <h1 className="mt-1 text-3xl font-extrabold text-ink">📄 РАБОЧИЕ ИНСТРУКЦИИ И СТАТЬИ</h1>
