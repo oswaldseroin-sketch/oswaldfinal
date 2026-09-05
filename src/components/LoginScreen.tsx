@@ -355,8 +355,8 @@ const createWorker = async (): Promise<void> => {
             ДОБАВИТЬ
           </button>
 
-          <div className="mt-5 space-y-2">
-            {workers.map((w)=>(
+          <div className="mt-5 max-h-60 space-y-2 overflow-y-auto pr-1">
+  {workers.map((w)=>(
               <div
                 key={w.name}
                 className="flex justify-between rounded-xl border p-3"
