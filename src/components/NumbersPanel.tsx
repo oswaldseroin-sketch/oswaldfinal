@@ -251,7 +251,28 @@ export default function NumbersPanel({ onBack }: Props) {
   // -- Grid of 31 numbers --
   return (
     <div className="mx-auto max-w-md px-4 pb-10 pt-6">
-      
+      <button
+  onClick={onBack}
+  className="
+    mb-5
+    flex items-center justify-center gap-2
+    mx-auto
+    rounded-xl
+    border border-neon/30
+    bg-black/40
+    px-5 py-2
+    text-xs font-black
+    tracking-wide
+    text-neon
+    shadow-[0_0_15px_rgba(0,229,255,0.15)]
+    backdrop-blur-md
+    transition-all
+    active:scale-95
+  "
+>
+  <span className="text-lg">←</span>
+  НАЗАД В МЕНЮ
+</button>
       <div className="mb-5 flex items-center justify-between">
         <div>
          
