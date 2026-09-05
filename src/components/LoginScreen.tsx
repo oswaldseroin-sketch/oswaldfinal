@@ -12,7 +12,11 @@ export default function LoginScreen() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-
+const [adminOpen, setAdminOpen] = useState(false)
+const [newWorkerName, setNewWorkerName] = useState('')
+const [newWorkerGender, setNewWorkerGender] = useState<'м' | 'ж'>('м')
+const [adminPassword, setAdminPassword] = useState('')
+const [adminError, setAdminError] = useState('')
   const [secretOpen, setSecretOpen] = useState(false)
   const [secretAnswer, setSecretAnswer] = useState('')
   const [secretError, setSecretError] = useState('')
