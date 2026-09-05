@@ -297,16 +297,31 @@ export default function NumbersPanel({ onBack }: Props) {
       ) : (
         <div className="grid grid-cols-2 gap-2.5">
           {numbers.map((n) => (
-            <button
-              key={n.number}
-              onClick={() => openNumber(n.number)}
-              className="flex flex-col items-center justify-center rounded-xl border border-neon/25 bg-card/60 py-5 text-center backdrop-blur-md transition-all hover:border-neon/50 hover:bg-neon/8 active:scale-95"
-              style={{ boxShadow: '0 0 10px rgba(0,229,255,0.06)' }}
-            >
-              <span className="text-lg font-extrabold text-neon" style={{ textShadow: '0 0 8px rgba(0,229,255,0.3)' }}>
-                {n.number} число
-              </span>
-            </button>
+           <button
+  key={n.number}
+  onClick={() => openNumber(n.number)}
+  className="
+    flex flex-col items-center justify-center
+    rounded-xl
+    border border-neon/25
+    bg-card/60
+    py-3
+    text-center
+    backdrop-blur-md
+    transition-all
+    hover:border-neon/50
+    hover:bg-neon/8
+    active:scale-95
+  "
+  style={{ boxShadow: '0 0 10px rgba(0,229,255,0.06)' }}
+>
+  <span
+    className="text-sm font-extrabold text-neon"
+    style={{ textShadow: '0 0 8px rgba(0,229,255,0.3)' }}
+  >
+    {n.number} число
+  </span>
+</button>
           ))}
         </div>
       )}
