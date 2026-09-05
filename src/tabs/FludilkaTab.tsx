@@ -274,7 +274,20 @@ if (!trimmed && selectedEmojis.length === 0) return
  
         <div ref={bottomRef} />
       </div>
-
+<button
+  onClick={onBack}
+  className="
+    mt-3 w-full flex items-center justify-center gap-3
+    rounded-2xl border border-neon/40
+    bg-black/60 py-3
+    text-sm font-black text-neon
+    shadow-[0_0_25px_rgba(0,229,255,0.25)]
+    active:scale-95
+  "
+>
+  <ArrowLeft size={24}/>
+  НАЗАД В МЕНЮ
+</button>
       {/* Input bar */}
       {selectedEmojis.length > 0 && (
   <div className="mb-2 flex gap-2 rounded-xl border border-neon/20 bg-black/40 p-2">
