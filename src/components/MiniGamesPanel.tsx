@@ -656,7 +656,7 @@ const style = gameStyle[game.number]
   <div className="absolute inset-1 rounded-lg border border-white/[0.04]" />
 
   <span
-    className="relative text-2xl"
+    className="relative text-xl"
     style={{
       filter: isDone ? 'none' : 'drop-shadow(0 0 7px currentColor)',
     }}
