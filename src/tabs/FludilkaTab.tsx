@@ -199,9 +199,7 @@ if (!trimmed && selectedEmojis.length === 0) return
   return (
     <div className="mx-auto flex max-w-md flex-col px-4 pb-4 pt-10" style={{ minHeight: '100dvh' }}>
       {/* Header */}
-      <button onClick={onBack} className="mb-3 flex items-center gap-2 text-sm font-bold text-neon hover:text-white transition-colors">
-        <ArrowLeft size={18} /> Назад
-      </button>
+     
 
       <div className="mb-3 flex items-center justify-between">
         <h1 className="text-xl font-extrabold text-ink">💬 ФЛУДИЛКА</h1>
