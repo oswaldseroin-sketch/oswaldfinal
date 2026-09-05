@@ -111,9 +111,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const lock = (): void => setIsAdmin(false)
 
   const login = useCallback((name: string): boolean => {
-  const worker = workers.find(
-    (w) => w.name === name
-  )
+  const worker = players.find(
+  (p) => p.full_name === name
+)
 
   if (!worker) return false
 
