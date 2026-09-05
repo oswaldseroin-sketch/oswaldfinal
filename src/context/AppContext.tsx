@@ -108,6 +108,23 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const lock = (): void => setIsAdmin(false)
 
   const login = useCallback((name: string): boolean => {
+  const worker = workers.find(
+    (w) => w.name === name
+  )
+
+  if (!worker) return false
+
+  const user: CurrentUser = {
+    id: Number(worker.id),
+    name: worker.name,
+  }
+
+  setCurrentUser(user)
+  setItem(CURRENT_USER_KEY, user)
+  setGamePlayerName(worker.name)
+
+  return true
+}, [workers])
     const id = name.trim()
     if (!id) return false
     const user: CurrentUser = { id, name: id }
