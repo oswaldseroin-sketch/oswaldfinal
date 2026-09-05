@@ -1,7 +1,7 @@
 import { type ReactElement, useState } from 'react'
 import { ChevronDown, ChevronUp, LockKeyhole, X } from 'lucide-react'
 import { useApp } from '../context/AppContext'
-import BackButton from '../components/BackButton'
+
 
 type Article = {
   id: string
