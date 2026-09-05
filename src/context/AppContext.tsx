@@ -125,14 +125,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   return true
 }, [workers])
-    const id = name.trim()
-    if (!id) return false
-    const user: CurrentUser = { id, name: id }
-    setCurrentUser(user)
-    setItem(CURRENT_USER_KEY, user)
-    setGamePlayerName(id)
-    return true
-  }, [])
 
   const switchUser = useCallback((): void => {
     setCurrentUser(null)
