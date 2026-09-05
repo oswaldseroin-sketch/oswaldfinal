@@ -12,12 +12,7 @@ type Props = {
 export default function TestsTab({ onOpenApplications, onOpenArticles, onOpenTests, onOpenAdmin, onOpenNumbers, onBack }: Props) {
   return (
     <SwipeBack onBack={onBack} innerClassName="mx-auto max-w-md px-3 pb-10 pt-10">
-      <button
-        onClick={onBack}
-        className="mb-6 flex items-center gap-2 text-sm font-bold text-neon hover:text-white transition-colors"
-      >
-        ← Назад
-      </button>
+      
 
       <div className="grid grid-cols-2 gap-2">
         <button
