@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { Check, Trophy, Gift, Loader as Loader2 } from 'lucide-react'
 import { api, type DailyPollState, type DailyPollClaimResult } from '../lib/api'
 import { useApp } from '../context/AppContext'
-import { workersList } from '../lib/data'
+
 
 type Props = { onBack: () => void; onProfileUpdate?: () => void }
 
@@ -10,7 +10,7 @@ const PLACEMENT_ICONS = ['🥇', '🥈', '🥉']
 const MAX_SELECTION = 3
 
 export default function DailyPollGame({ onBack, onProfileUpdate }: Props) {
-  const { currentUser } = useApp()
+  const { currentUser, workers } = useApp()
   const [state, setState] = useState<DailyPollState | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
