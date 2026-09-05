@@ -109,7 +109,7 @@ export default function DailyPollGame({ onBack, onProfileUpdate }: Props) {
 
   const hasVoted = !!state?.today.userVote
   const yesterday = state?.yesterday
-  const allWorkers = workersList.map((w) => w.name)
+  const allWorkers = workers.map((w) => w.name)
 
   return (
     <div className="mx-auto max-w-md px-4 pb-10 pt-6">
