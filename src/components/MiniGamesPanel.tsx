@@ -682,7 +682,7 @@ const style = gameStyle[game.number]
               </button>
             )
           })}
-          <div className="mt-5 flex justify-center">
+        <div className="mt-5 flex justify-center">
   <button
     onClick={onBack}
     className="
