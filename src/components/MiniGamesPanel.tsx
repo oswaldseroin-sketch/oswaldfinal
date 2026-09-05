@@ -672,7 +672,7 @@ const style = gameStyle[game.number]
 >
   {game.title}
 </span>
-                <span className="mt-0.5 text-[10px] leading-tight text-ink-muted">{game.description}</span>
+                <span className="mt-0.5 text-[9px] leading-tight text-ink-muted">{game.description}</span>
                 
                {isDone && (
   <span
