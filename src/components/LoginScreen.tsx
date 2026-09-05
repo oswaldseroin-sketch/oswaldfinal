@@ -289,6 +289,95 @@ const createWorker = async (): Promise<void> => {
 
         {loading ? 'ПРОВЕРКА...' : 'ВОЙТИ'}
       </button>
+      {adminOpen && (
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-5">
+    <div className="w-full max-w-md rounded-2xl border border-neon/30 bg-card p-5">
+
+      <h2 className="text-xl font-black text-neon">
+        Сотрудники
+      </h2>
+
+      {!isAdmin ? (
+        <>
+          <input
+            value={adminPassword}
+            onChange={(e)=>setAdminPassword(e.target.value)}
+            placeholder="Пароль админа"
+            className="mt-4 h-12 w-full rounded-xl bg-input px-4"
+          />
+
+          <button
+            onClick={()=>{
+              if(!unlock(adminPassword)){
+                setAdminError('Неверный пароль')
+              }
+            }}
+            className="mt-3 w-full rounded-xl bg-neon py-3 font-black text-black"
+          >
+            ВОЙТИ
+          </button>
+
+          {adminError && (
+            <p className="mt-2 text-error text-xs">
+              {adminError}
+            </p>
+          )}
+        </>
+      ) : (
+        <>
+          <input
+            value={newWorkerName}
+            onChange={(e)=>setNewWorkerName(e.target.value)}
+            placeholder="ФИО"
+            className="mt-4 h-12 w-full rounded-xl bg-input px-4"
+          />
+
+          <div className="mt-3 grid grid-cols-2 gap-2">
+            <button
+              onClick={()=>setNewWorkerGender('м')}
+              className="rounded-xl border p-3"
+            >
+              👨 Муж
+            </button>
+
+            <button
+              onClick={()=>setNewWorkerGender('ж')}
+              className="rounded-xl border p-3"
+            >
+              👩 Жен
+            </button>
+          </div>
+
+          <button
+            onClick={()=>void createWorker()}
+            className="mt-3 w-full rounded-xl bg-neon py-3 font-black text-black"
+          >
+            ДОБАВИТЬ
+          </button>
+
+          <div className="mt-5 space-y-2">
+            {workers.map((w)=>(
+              <div
+                key={w.name}
+                className="flex justify-between rounded-xl border p-3"
+              >
+                <span>{w.name}</span>
+
+                <button
+                  onClick={()=>void removeWorker(w.name)}
+                  className="text-red-400"
+                >
+                  🗑
+                </button>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+
+    </div>
+  </div>
+)}
     </div>
   )
 }
