@@ -153,7 +153,7 @@ const handleUpdateDate = async (): Promise<void> => {
   return (
 <div className="mx-auto w-full max-w-3xl px-4 pb-28 pt-6 sm:px-6 sm:pt-8">
 
-      <BackButton onBack={onBack} />
+      
       <div className="mb-6 flex items-start justify-between">
         <div>
           <p className="text-[10px] font-bold tracking-widest text-neon">АМАЛЬГАМА / 01</p>
