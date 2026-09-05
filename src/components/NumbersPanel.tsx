@@ -273,7 +273,7 @@ export default function NumbersPanel({ onBack }: Props) {
   <span className="text-lg">←</span>
   НАЗАД В МЕНЮ
 </button>
-      <div className="mb-5 flex items-center justify-between">
+      <div className="mb-5 flex justify-end">
         <div>
          
         </div>
