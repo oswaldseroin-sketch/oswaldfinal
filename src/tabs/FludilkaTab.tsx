@@ -370,13 +370,13 @@ active:scale-90
           >
             <Send size={18} />
           </button>
-          <button
-            onClick={onBack}
-            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-neon/30 bg-black/50 text-neon transition-transform active:scale-90"
-            aria-label="Выйти"
-          >
-            <DoorOpen size={18} />
-          </button>
+       <button
+  onClick={onBack}
+  className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl border border-neon/40 bg-black/60 text-neon shadow-[0_0_20px_rgba(0,229,255,0.25)] transition-transform active:scale-90"
+  aria-label="Назад"
+>
+  <ArrowLeft size={30} />
+</button>
           </div>
       </div>
 )}
