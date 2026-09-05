@@ -124,7 +124,7 @@ setMemes(memeData ?? [])
 
   setCurrentUser(user)
   setItem(CURRENT_USER_KEY, user)
-  setGamePlayerName(worker.name)
+  setGamePlayerName(worker.full_name)
 
   return true
 }, [workers])
