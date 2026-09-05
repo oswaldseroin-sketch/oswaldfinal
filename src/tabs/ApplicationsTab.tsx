@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { ArrowLeft, Plus, Search, ShieldCheck, Trash2, User, Truck, X } from 'lucide-react'
 import { useApp } from '../context/AppContext'
 import type { Employee } from '../types'
-
+import BackButton from '../components/BackButton'
 
 function isExpired(date: string): boolean {
   return new Date(`${date}T23:59:59`).getTime() < Date.now()
@@ -153,7 +153,7 @@ const handleUpdateDate = async (): Promise<void> => {
   return (
 <div className="mx-auto w-full max-w-3xl px-4 pb-28 pt-6 sm:px-6 sm:pt-8">
 
-      
+      <BackButton onBack={onBack} />
       <div className="mb-6 flex items-start justify-between">
         <div>
           <p className="text-[10px] font-bold tracking-widest text-neon">АМАЛЬГАМА / 01</p>
@@ -281,28 +281,7 @@ const handleUpdateDate = async (): Promise<void> => {
   <Plus size={24} strokeWidth={2.8} />
   ДОБАВИТЬ ЗАЯВКУ
 </button>
-<div className="mt-4 flex justify-center">
-  <button
-    onClick={onBack}
-    className="
-      flex items-center justify-center gap-2
-      rounded-xl
-      border border-neon/30
-      bg-black/50
-      px-6 py-2.5
-      text-xs font-black
-      tracking-wide
-      text-neon
-      shadow-[0_0_15px_rgba(0,229,255,0.15)]
-      backdrop-blur-md
-      transition-all
-      active:scale-95
-    "
-  >
-    <span className="text-lg">←</span>
-    НАЗАД В МЕНЮ
-  </button>
-</div>
+
       {/* ===== Add panel ===== */}
       {panelMode === 'add' && (
         <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/70 animate-fadeIn" onClick={closePanel}>

@@ -8,7 +8,7 @@ import { setCurrentPlayerName as setGamePlayerName } from '../lib/gameStorage'
 type Stats = { weight: number; happiness: number; balance: number; titleLevel: number; titleXP: number }
 export type TeamStats = Record<string, Stats>
 
-export type CurrentUser = { id: number; name: string }
+export type CurrentUser = { id: string; name: string }
 
 const CURRENT_USER_KEY = 'current-user'
 
@@ -58,7 +58,6 @@ const POLL_INTERVAL = 15000
 export function AppProvider({ children }: { children: ReactNode }) {
   const [employees, setEmployees] = useState<Employee[]>([])
   const [workers, setWorkers] = useState<Worker[]>(fallbackWorkers)
-  const [players, setPlayers] = useState<any[]>([])
   const [teamStats, setTeamStats] = useState<TeamStats>({})
   const [memes, setMemes] = useState<Meme[]>([])
   const [isAdmin, setIsAdmin] = useState(false)
@@ -73,19 +72,17 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setError(null)
 
     try {
-     const [employeeData, workerData, statsData, memeData, playerData] = await Promise.all([
-  api.getEmployees(),
-  api.getWorkers(),
-  api.getTeamStats(),
-  api.getMemes(),
-  api.getPlayers(),
-])
+      const [employeeData, workerData, statsData, memeData] = await Promise.all([
+        api.getEmployees(),
+        api.getWorkers(),
+        api.getTeamStats(),
+        api.getMemes(),
+      ])
 
       setEmployees(employeeData ?? [])
-setWorkers(workerData?.length ? workerData : fallbackWorkers)
-setPlayers(playerData ?? [])
-setTeamStats(statsData ? mapStats(statsData) : {})
-setMemes(memeData ?? [])
+      setWorkers(workerData?.length ? workerData : fallbackWorkers)
+      setTeamStats(statsData ? mapStats(statsData) : {})
+      setMemes(memeData ?? [])
     } catch {
       setError('Не удалось загрузить данные с сервера')
     }
@@ -111,23 +108,14 @@ setMemes(memeData ?? [])
   const lock = (): void => setIsAdmin(false)
 
   const login = useCallback((name: string): boolean => {
-  const worker = players.find(
-  (p) => p.full_name === name
-)
-
-  if (!worker) return false
-
-  const user: CurrentUser = {
-  id: Number(worker.id),
-  name: worker.full_name,
-}
-
-  setCurrentUser(user)
-  setItem(CURRENT_USER_KEY, user)
-  setGamePlayerName(worker.full_name)
-
-  return true
-}, [players])
+    const id = name.trim()
+    if (!id) return false
+    const user: CurrentUser = { id, name: id }
+    setCurrentUser(user)
+    setItem(CURRENT_USER_KEY, user)
+    setGamePlayerName(id)
+    return true
+  }, [])
 
   const switchUser = useCallback((): void => {
     setCurrentUser(null)

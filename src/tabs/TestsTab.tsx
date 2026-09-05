@@ -12,7 +12,12 @@ type Props = {
 export default function TestsTab({ onOpenApplications, onOpenArticles, onOpenTests, onOpenAdmin, onOpenNumbers, onBack }: Props) {
   return (
     <SwipeBack onBack={onBack} innerClassName="mx-auto max-w-md px-3 pb-10 pt-10">
-      
+      <button
+        onClick={onBack}
+        className="mb-6 flex items-center gap-2 text-sm font-bold text-neon hover:text-white transition-colors"
+      >
+        ← Назад
+      </button>
 
       <div className="grid grid-cols-2 gap-2">
         <button
@@ -63,47 +68,16 @@ export default function TestsTab({ onOpenApplications, onOpenArticles, onOpenTes
           />
         </button>
       </div>
-<div className="mt-6 flex justify-center">
-  <button
-    onClick={onBack}
-    className="
-      flex items-center justify-center gap-2
-      rounded-xl
-      border border-neon/30
-      bg-black/50
-      px-5 py-2
-      text-xs font-black
-      text-neon
-      shadow-[0_0_15px_rgba(0,229,255,0.15)]
-      backdrop-blur-md
-      transition-all
-      active:scale-95
-    "
-  >
-    <span className="text-lg">←</span>
-    НАЗАД В МЕНЮ
-  </button>
-</div>
-     <div className="mt-6 flex justify-center">
-  <button
-    onClick={onOpenAdmin}
-    className="
-      flex h-10 w-10 items-center justify-center
-      rounded-full
-      border border-neon/30
-      bg-card/60
-      text-neon
-      backdrop-blur-md
-      transition
-      hover:bg-neon/15
-      active:scale-90
-    "
-    style={{ boxShadow: '0 0 12px rgba(0,229,255,0.15)' }}
-    title="Админ-панель"
-  >
-    🔒
-  </button>
-</div>
+
+      <div className="mt-6 flex justify-center">
+        <button
+          onClick={onOpenAdmin}
+          className="rounded-xl border border-neon/30 bg-card/60 px-6 py-3 text-sm font-extrabold text-neon backdrop-blur-md transition hover:bg-neon/15 active:scale-[0.97]"
+          style={{ boxShadow: '0 0 12px rgba(0,229,255,0.1)' }}
+        >
+          Админ-панель
+        </button>
+      </div>
     </SwipeBack>
   )
 }

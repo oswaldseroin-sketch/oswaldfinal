@@ -1,7 +1,7 @@
 import { type ReactElement, useState } from 'react'
 import { ChevronDown, ChevronUp, LockKeyhole, X } from 'lucide-react'
 import { useApp } from '../context/AppContext'
-
+import BackButton from '../components/BackButton'
 
 type Article = {
   id: string
@@ -328,29 +328,11 @@ export default function ArticlesTab({ onBack }: { onBack: () => void }) {
 
   return (
     <div className="mx-auto max-w-md px-6 pb-10 pt-10">
-      
-     <div className="mb-7">
-  <button
-    onClick={onBack}
-    className="
-      flex items-center gap-2
-      rounded-xl
-      border border-neon/30
-      bg-black/50
-      px-5 py-2.5
-      text-xs font-black
-      tracking-wide
-      text-neon
-      shadow-[0_0_15px_rgba(0,229,255,0.18)]
-      backdrop-blur-md
-      transition-all
-      active:scale-95
-    "
-  >
-    <span className="text-lg">←</span>
-    НАЗАД В МЕНЮ
-  </button>
-</div>
+      <BackButton onBack={onBack} />
+      <div className="mb-7">
+        <p className="text-[10px] font-bold tracking-widest text-neon">АМАЛЬГАМА / 03</p>
+        <h1 className="mt-1 text-3xl font-extrabold text-ink">📄 РАБОЧИЕ ИНСТРУКЦИИ И СТАТЬИ</h1>
+      </div>
 
       <div className="space-y-2">
         {articles.map((article) => {

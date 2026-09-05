@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { ArrowLeft, Send, Smile } from 'lucide-react'
+import { ArrowLeft, Send, DoorOpen, Smile } from 'lucide-react'
 import {
   assignNick, fetchMessages, getMyNick, nickColor, sendMessage,
   type ChatMessage,
@@ -199,47 +199,17 @@ if (!trimmed && selectedEmojis.length === 0) return
   return (
     <div className="mx-auto flex max-w-md flex-col px-4 pb-4 pt-10" style={{ minHeight: '100dvh' }}>
       {/* Header */}
-     
+      <button onClick={onBack} className="mb-3 flex items-center gap-2 text-sm font-bold text-neon hover:text-white transition-colors">
+        <ArrowLeft size={18} /> Назад
+      </button>
 
       <div className="mb-3 flex items-center justify-between">
         <h1 className="text-xl font-extrabold text-ink">💬 ФЛУДИЛКА</h1>
         {myNick && (
-  <div
-    className="
-      relative overflow-hidden
-      rounded-xl
-      border border-neon/40
-      bg-black/60
-      px-4 py-2
-      shadow-[0_0_20px_rgba(0,229,255,0.25)]
-      backdrop-blur-md
-    "
-  >
-    <div className="absolute inset-0 bg-gradient-to-r from-neon/10 via-transparent to-purple-500/10" />
-
-    <div className="relative flex items-center gap-2">
-      <span className="text-sm">
-        👤
-      </span>
-
-      <div>
-        <div className="text-[9px] font-black tracking-widest text-ink-muted">
-          ТВОЙ НИК
-        </div>
-
-        <div
-          className="text-sm font-black"
-          style={{
-            color: nickColor(myNick),
-            textShadow: '0 0 10px currentColor'
-          }}
-        >
-          {myNick}
-        </div>
-      </div>
-    </div>
-  </div>
-)}
+          <div className="rounded-full border border-neon/30 bg-black/50 px-3 py-1 text-xs font-bold" style={{ color: nickColor(myNick) }}>
+            👤 {myNick}
+          </div>
+        )}
       </div>
 
      {/* Messages area */}
@@ -320,12 +290,45 @@ if (!trimmed && selectedEmojis.length === 0) return
   </div>
 )}
       {myNick && (
-<div className="relative">
+        <>
           {sendError && (
             <p className="mt-2 text-xs font-bold text-error">Не удалось отправить сообщение</p>
           )}
-          {emojiOpen && (
-  <div className="absolute bottom-full mb-3 left-1/2 z-50 w-[90%] max-w-md -translate-x-1/2 rounded-2xl border border-neon/40 bg-black/90 p-4 backdrop-blur-md"
+          <div className="mt-3 flex items-center gap-2 rounded-2xl border border-neon/30 bg-black/70 p-2 backdrop-blur-xl shadow-[0_0_25px_rgba(0,229,255,0.15)]">
+            <button
+  onClick={() => setEmojiOpen((v) => !v)}
+  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-neon/40 bg-neon/10 text-neon transition-all hover:bg-neon/20 active:scale-90 shadow-[0_0_12px_rgba(0,229,255,0.2)]"
+>
+  <Smile size={20} />
+</button>
+          <input
+            value={input}
+            onChange={(e) => setInput(e.target.value.slice(0, 300))}
+            onKeyDown={(e) => { if (e.key === 'Enter') void handleSend() }}
+            placeholder="Написать сообщение..."
+          className="h-11 min-w-0 flex-1 rounded-xl border border-white/10 bg-black/40 px-4 text-sm text-ink outline-none transition-all focus:border-neon/50 focus:bg-black/60 placeholder:text-ink-faint"
+            maxLength={300}
+          />
+          <button
+            onClick={() => void handleSend()}
+            disabled={sending || (!input.trim() && selectedEmojis.length === 0)}
+           className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-neon text-bg shadow-[0_0_20px_rgba(0,229,255,0.45)] transition-all hover:scale-105 active:scale-90 disabled:opacity-40"
+            aria-label="Отправить"
+          >
+            <Send size={18} />
+          </button>
+          <button
+            onClick={onBack}
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-neon/30 bg-black/50 text-neon transition-transform active:scale-90"
+            aria-label="Выйти"
+          >
+            <DoorOpen size={18} />
+          </button>
+          </div>
+        </>
+      )}
+{emojiOpen && (
+  <div className="fixed bottom-20 left-1/2 z-50 w-[90%] max-w-md -translate-x-1/2 rounded-2xl border border-neon/40 bg-black/90 p-4 backdrop-blur-md"
     style={{
       boxShadow: '0 0 30px rgba(0,229,255,0.25)',
     }}
@@ -379,48 +382,6 @@ active:scale-90
 
   </div>
 )}
-          <div className="mt-3 flex items-center gap-2 rounded-2xl border border-neon/30 bg-black/70 p-2 backdrop-blur-xl shadow-[0_0_25px_rgba(0,229,255,0.15)]">
-            <button
-  onClick={() => setEmojiOpen((v) => !v)}
-  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-neon/40 bg-neon/10 text-neon transition-all hover:bg-neon/20 active:scale-90 shadow-[0_0_12px_rgba(0,229,255,0.2)]"
->
-  <Smile size={20} />
-</button>
-          <input
-            value={input}
-            onChange={(e) => setInput(e.target.value.slice(0, 300))}
-            onKeyDown={(e) => { if (e.key === 'Enter') void handleSend() }}
-            placeholder="Написать сообщение..."
-          className="h-11 min-w-0 flex-1 rounded-xl border border-white/10 bg-black/40 px-4 text-sm text-ink outline-none transition-all focus:border-neon/50 focus:bg-black/60 placeholder:text-ink-faint"
-            maxLength={300}
-          />
-          <button
-            onClick={() => void handleSend()}
-            disabled={sending || (!input.trim() && selectedEmojis.length === 0)}
-           className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-neon text-bg shadow-[0_0_20px_rgba(0,229,255,0.45)] transition-all hover:scale-105 active:scale-90 disabled:opacity-40"
-            aria-label="Отправить"
-          >
-            <Send size={18} />
-          </button>
-   
-          </div>
-    <button
-  onClick={onBack}
-  className="
-    mt-3 mx-auto flex items-center justify-center gap-2
-    rounded-xl border border-neon/30
-    bg-black/50 px-5 py-2
-    text-xs font-black text-neon
-    shadow-[0_0_15px_rgba(0,229,255,0.2)]
-    transition-all active:scale-95
-  "
->
-  <ArrowLeft size={16} />
-  НАЗАД В МЕНЮ
-</button>
-      </div>
-)}
-
       {/* Nick intro toast */}
       {nickIntro && (
         <div className="fixed left-1/2 top-1/3 z-[55] -translate-x-1/2 rounded-2xl border border-neon/40 bg-black/90 px-6 py-4 text-center backdrop-blur-md animate-scaleIn" style={{ boxShadow: '0 0 30px rgba(0,229,255,0.4)' }}>

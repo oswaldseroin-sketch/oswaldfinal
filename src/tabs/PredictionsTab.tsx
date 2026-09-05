@@ -5,7 +5,7 @@ import BackButton from '../components/BackButton'
 import SwipeBack from '../components/SwipeBack'
 import SpecialPrediction from '../components/SpecialPrediction'
 import { getItem, removeItem, setItem, todayKey } from '../lib/storage'
-import { getPredictionForWorker, loadWorkers } from '../lib/workers'
+import { getPredictionForWorker } from '../lib/workers'
 import { api } from '../lib/api'
 
 type SavedPrediction = {
@@ -81,32 +81,16 @@ export default function PredictionsTab({ onBack }: { onBack: () => void }) {
     if (adminOpen && isAdmin) void loadCounts()
   }, [adminOpen, isAdmin])
 
- const reveal = async (): Promise<void> => {
-  if (!name || prediction) return
+  const reveal = async (): Promise<void> => {
+    if (!name || prediction) return
+    const worker = workers.find((item) => item.name === name)
+    if (!worker) return
 
-  const roster = await loadWorkers()
-
-  const worker = roster.find((item) => item.name === name)
-
-  if (!worker) return
-
-  const text = getPredictionForWorker(
-    worker,
-    new Date(),
-    0,
-    roster,
-  )
-
-  setPrediction(text)
-
-  setItem(getPredictionKey(playerId), {
-    date: todayKey(),
-    name: worker.name,
-    text,
-  })
-
-  void api.incrementPredictionCount(worker.name)
-}
+    const text = getPredictionForWorker(worker, new Date(), 0, workers)
+    setPrediction(text)
+    setItem(getPredictionKey(playerId), { date: todayKey(), name: worker.name, text })
+    void api.incrementPredictionCount(worker.name)
+  }
 
   const openAdmin = (): void => {
     setAdminOpen(true)
@@ -150,7 +134,7 @@ export default function PredictionsTab({ onBack }: { onBack: () => void }) {
       <div className="pointer-events-none fixed inset-0 bg-black/35" />
 
       <div className="relative z-10">
-    
+      <BackButton onBack={onBack} />
       <div className="mb-6">
         <p className="text-[10px] font-bold tracking-widest text-accent">АМАЛЬГАМА / 02</p>
         <h1 className="mt-1 text-3xl font-extrabold text-ink">Предсказания</h1>
@@ -209,27 +193,7 @@ export default function PredictionsTab({ onBack }: { onBack: () => void }) {
           <p className="mt-5 text-xs leading-relaxed text-accent">Твоя судьба на сегодня уже решена! Приходи завтра</p>
         </div>
       )}
-<div className="mt-6 flex justify-center">
-  <button
-    onClick={onBack}
-    className="
-      flex items-center gap-2
-      rounded-xl
-      border border-accent/30
-      bg-black/40
-      px-5 py-2
-      text-xs font-black
-      text-accent
-      shadow-[0_0_15px_rgba(255,43,214,0.15)]
-      backdrop-blur-md
-      transition-transform
-      active:scale-95
-    "
-  >
-    <span className="text-lg">←</span>
-    НАЗАД В МЕНЮ
-  </button>
-</div>
+
       <div className="mt-6 flex justify-center">
         <button
           onClick={openAdmin}

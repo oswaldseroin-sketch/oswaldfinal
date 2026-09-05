@@ -5,18 +5,14 @@ import { useApp } from '../context/AppContext'
 const API_BASE = import.meta.env.VITE_API_URL
 
 export default function LoginScreen() {
-  const { workers, login, addWorker, removeWorker, unlock, isAdmin } = useApp()
+  const { workers, login } = useApp()
 
   const [search, setSearch] = useState('')
   const [selected, setSelected] = useState<string>('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-const [adminOpen, setAdminOpen] = useState(false)
-const [newWorkerName, setNewWorkerName] = useState('')
-const [newWorkerGender, setNewWorkerGender] = useState<'м' | 'ж'>('м')
-const [adminPassword, setAdminPassword] = useState('')
-const [adminError, setAdminError] = useState('')
+
   const [secretOpen, setSecretOpen] = useState(false)
   const [secretAnswer, setSecretAnswer] = useState('')
   const [secretError, setSecretError] = useState('')
@@ -102,17 +98,7 @@ const [adminError, setAdminError] = useState('')
       setSecretError('Сервер недоступен')
     }
   }
-const createWorker = async (): Promise<void> => {
-  const name = newWorkerName.trim()
 
-  if (!name) return
-
-  const ok = await addWorker(name, newWorkerGender)
-
-  if (ok) {
-    setNewWorkerName('')
-  }
-}
   return (
     <div className="relative z-10 mx-auto flex min-h-screen max-w-md flex-col px-5 pb-8 pt-12">
       <div className="mb-8 text-center">
@@ -208,25 +194,7 @@ const createWorker = async (): Promise<void> => {
             <HelpCircle size={20} />
           </button>
         </div>
-<button
-  type="button"
-  onClick={() => setAdminOpen(true)}
-  className="
-    mt-3
-    w-full
-    rounded-xl
-    border border-neon/30
-    bg-neon/10
-    py-2
-    text-xs
-    font-black
-    text-neon
-    transition
-    active:scale-95
-  "
->
-  🔒 УПРАВЛЕНИЕ СОТРУДНИКАМИ
-</button>
+
         {error && (
           <p className="mt-2 text-xs text-error">
             {error}
@@ -301,103 +269,6 @@ const createWorker = async (): Promise<void> => {
 
         {loading ? 'ПРОВЕРКА...' : 'ВОЙТИ'}
       </button>
-      {adminOpen && (
-  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-5">
-   <div className="max-h-[80vh] w-full max-w-md overflow-y-auto rounded-2xl border border-neon/30 bg-card p-5">
-
-      <h2 className="text-xl font-black text-neon">
-        Сотрудники
-      </h2>
-
-      {!isAdmin ? (
-        <>
-          <input
-            value={adminPassword}
-            onChange={(e)=>setAdminPassword(e.target.value)}
-            placeholder="Пароль админа"
-            className="mt-4 h-12 w-full rounded-xl bg-input px-4"
-          />
-
-          <button
-            onClick={()=>{
-              if(!unlock(adminPassword)){
-                setAdminError('Неверный пароль')
-              }
-            }}
-            className="mt-3 w-full rounded-xl bg-neon py-3 font-black text-black"
-          >
-            ВОЙТИ
-          </button>
-
-          {adminError && (
-            <p className="mt-2 text-error text-xs">
-              {adminError}
-            </p>
-          )}
-        </>
-      ) : (
-        <>
-          <input
-            value={newWorkerName}
-            onChange={(e)=>setNewWorkerName(e.target.value)}
-            placeholder="ФИО"
-            className="mt-4 h-12 w-full rounded-xl bg-input px-4"
-          />
-
-          <div className="mt-3 grid grid-cols-2 gap-2">
-  <button
-    onClick={() => setNewWorkerGender('м')}
-    className={`rounded-xl border p-3 font-bold transition ${
-      newWorkerGender === 'м'
-        ? 'border-neon bg-neon/20 text-neon'
-        : 'border-line text-ink'
-    }`}
-  >
-    👨 Муж
-  </button>
-
-  <button
-    onClick={() => setNewWorkerGender('ж')}
-    className={`rounded-xl border p-3 font-bold transition ${
-      newWorkerGender === 'ж'
-        ? 'border-neon bg-neon/20 text-neon'
-        : 'border-line text-ink'
-    }`}
-  >
-    👩 Жен
-  </button>
-</div>
-
-          <button
-            onClick={()=>void createWorker()}
-            className="mt-3 w-full rounded-xl bg-neon py-3 font-black text-black"
-          >
-            ДОБАВИТЬ
-          </button>
-
-          <div className="mt-5 max-h-60 space-y-2 overflow-y-auto pr-1">
-  {workers.map((w)=>(
-              <div
-                key={w.name}
-                className="flex justify-between rounded-xl border p-3"
-              >
-                <span>{w.name}</span>
-
-                <button
-                  onClick={()=>void removeWorker(w.name)}
-                  className="text-red-400"
-                >
-                  🗑
-                </button>
-              </div>
-            ))}
-          </div>
-        </>
-      )}
-
-    </div>
-  </div>
-)}
     </div>
   )
 }

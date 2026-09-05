@@ -308,7 +308,12 @@ if (selectedGame === 10) {
       <div className="pointer-events-none fixed inset-0 bg-black/40" />
 
       <div className="relative z-10">
-      
+        <button
+          onClick={onBack}
+          className="mb-4 flex items-center gap-2 text-sm font-bold text-neon hover:text-white transition-colors"
+        >
+          ← Назад
+        </button>
 
         {/* Title level-up popup */}
         {titlePopup && (
@@ -611,7 +616,7 @@ const style = gameStyle[game.number]
               <button
                 key={game.number}
                 onClick={() => setSelectedGame(game.number)}
-              className={`group relative flex min-h-[110px] flex-col items-center justify-center overflow-hidden rounded-xl border p-2 text-center backdrop-blur-md transition-all duration-300 active:scale-95 ${
+              className={`group relative flex min-h-[148px] flex-col items-center justify-center overflow-hidden rounded-xl border p-3 text-center backdrop-blur-md transition-all duration-300 active:scale-95 ${
   isDone
     ? 'border-success/40 bg-success/8'
     : `${style.border} ${style.bg}`
@@ -643,7 +648,7 @@ const style = gameStyle[game.number]
                   </span>
                 )}
                 <div
-  className={`relative flex h-9 w-9 items-center justify-center rounded-lg border border-white/10 bg-black/30 ${style.accent} transition-all duration-300 group-hover:scale-110`}
+  className={`relative flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-black/30 ${style.accent} transition-all duration-300 group-hover:scale-110`}
   style={{
     boxShadow: isDone ? 'none' : style.glow,
   }}
@@ -651,7 +656,7 @@ const style = gameStyle[game.number]
   <div className="absolute inset-1 rounded-lg border border-white/[0.04]" />
 
   <span
-    className="relative text-xl"
+    className="relative text-2xl"
     style={{
       filter: isDone ? 'none' : 'drop-shadow(0 0 7px currentColor)',
     }}
@@ -660,14 +665,14 @@ const style = gameStyle[game.number]
   </span>
 </div>
                 <span
-  className={`mt-1 text-[11px] font-black tracking-wide ${style.accent}`}
+  className={`mt-2 text-[13px] font-black tracking-wide ${style.accent}`}
   style={{
     textShadow: isDone ? 'none' : '0 0 10px currentColor',
   }}
 >
   {game.title}
 </span>
-                <span className="mt-0.5 text-[9px] leading-tight text-ink-muted">{game.description}</span>
+                <span className="mt-0.5 text-[10px] leading-tight text-ink-muted">{game.description}</span>
                 
                {isDone && (
   <span
@@ -682,29 +687,6 @@ const style = gameStyle[game.number]
               </button>
             )
           })}
-         
-        <div className="col-span-2 mt-5 flex justify-center">
-  <button
-    onClick={onBack}
-    className="
-      flex items-center justify-center gap-2
-      rounded-xl
-      border border-cyan-400/30
-      bg-black/50
-      px-6 py-2.5
-      text-xs font-black
-      tracking-wide
-      text-cyan-200
-      shadow-[0_0_18px_rgba(34,211,238,0.2)]
-      backdrop-blur-md
-      transition-all
-      active:scale-95
-    "
-  >
-    <span className="text-lg">←</span>
-    НАЗАД В МЕНЮ
-  </button>
-</div>
         </div>
       </div>
     </div>
