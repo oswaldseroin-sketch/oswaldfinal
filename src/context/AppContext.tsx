@@ -82,10 +82,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
       ])
 
       setEmployees(employeeData ?? [])
-      setWorkers(workerData?.length ? workerData : fallbackWorkers
-                setPlayers(playerData ?? [])
-      setTeamStats(statsData ? mapStats(statsData) : {})
-      setMemes(memeData ?? [])
+setWorkers(workerData?.length ? workerData : fallbackWorkers)
+setPlayers(playerData ?? [])
+setTeamStats(statsData ? mapStats(statsData) : {})
+setMemes(memeData ?? [])
     } catch {
       setError('Не удалось загрузить данные с сервера')
     }
