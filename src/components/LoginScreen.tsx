@@ -5,7 +5,7 @@ import { useApp } from '../context/AppContext'
 const API_BASE = import.meta.env.VITE_API_URL
 
 export default function LoginScreen() {
-  const { workers, login } = useApp()
+  const { workers, login, addWorker, removeWorker, unlock, isAdmin } = useApp()
 
   const [search, setSearch] = useState('')
   const [selected, setSelected] = useState<string>('')
