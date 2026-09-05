@@ -119,6 +119,7 @@ const BOSS_ABILITIES = [
 ]
 
 export default function GamePanel({ onBack }: { onBack: () => void }) {
+  const { workers } = useApp()
   const [playerName, setPlayerName] = useState<string | null>(getCurrentPlayerName())
   const [data, setData] = useState<PlayerData | null>(null)
   const [showSelect, setShowSelect] = useState(false)
