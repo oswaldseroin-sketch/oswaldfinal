@@ -254,8 +254,7 @@ export default function NumbersPanel({ onBack }: Props) {
       
       <div className="mb-5 flex items-center justify-between">
         <div>
-          <p className="text-[10px] font-bold tracking-widest text-neon">ЗНАНИЯ / ЧИСЛА</p>
-          <h1 className="mt-1 text-2xl font-extrabold text-ink">Числа</h1>
+         
         </div>
         <button
           onClick={() => { if (isAdmin) setIsAdmin(false); else setAdminOpen(true) }}
