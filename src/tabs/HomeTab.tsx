@@ -69,8 +69,9 @@ function useCountdown(getMs: () => number): string {
 export default function HomeTab({ onNavigate }: { onNavigate: (tab: Tab) => void }) {
   const [dailyNews, setDailyNews] = useState('')
   const [workerOfWeek, setWorkerOfWeek] = useState('')
-  useEffect(() => {
+ useEffect(() => {
   getDailyNews(new Date()).then(setDailyNews)
+  getWorkerOfWeek(new Date()).then(setWorkerOfWeek)
 }, [])
   const { workers, currentUser, logout } = useApp()
 
