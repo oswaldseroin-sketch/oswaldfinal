@@ -8,7 +8,7 @@ import { setCurrentPlayerName as setGamePlayerName } from '../lib/gameStorage'
 type Stats = { weight: number; happiness: number; balance: number; titleLevel: number; titleXP: number }
 export type TeamStats = Record<string, Stats>
 
-export type CurrentUser = { id: string; name: string }
+export type CurrentUser = { id: number; name: string }
 
 const CURRENT_USER_KEY = 'current-user'
 
