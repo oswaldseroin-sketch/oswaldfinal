@@ -51,7 +51,8 @@ export async function getWorkerOfWeek(date = new Date(), roster?: Worker[]): Pro
   return workers[Math.floor(seededRandom(seed) * workers.length)].name
 }
 
-export function getDailyNews(date = new Date(), roster: Worker[] = workersList): string {
+export async function getDailyNews(date = new Date(), roster?: Worker[]): Promise<string> {
+  const workers = roster?.length ? roster : await loadWorkers()
   const year = date.getFullYear()
   const month = date.getMonth() + 1
   const day = date.getDate()
