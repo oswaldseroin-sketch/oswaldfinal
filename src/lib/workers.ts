@@ -1,4 +1,5 @@
 import { situationsList, type Worker } from './data'
+import { api } from './api'
 import { predictionsList } from './predictionsData'
 
 function getWeekNumber(date: Date): number {
