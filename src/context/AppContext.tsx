@@ -73,7 +73,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setError(null)
 
     try {
-      const [employeeData, workerData, statsData, memeData] = await Promise.all([
+      const [employeeData, workerData, statsData, memeData, playerData] = await Promise.all([
         api.getEmployees(),
         api.getWorkers(),
         api.getTeamStats(),
