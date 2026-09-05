@@ -134,7 +134,7 @@ export default function PredictionsTab({ onBack }: { onBack: () => void }) {
       <div className="pointer-events-none fixed inset-0 bg-black/35" />
 
       <div className="relative z-10">
-      <BackButton onBack={onBack} />
+    
       <div className="mb-6">
         <p className="text-[10px] font-bold tracking-widest text-accent">АМАЛЬГАМА / 02</p>
         <h1 className="mt-1 text-3xl font-extrabold text-ink">Предсказания</h1>
