@@ -372,18 +372,18 @@ active:scale-90
           </button>
    
           </div>
-     <button
+    <button
   onClick={onBack}
   className="
-    mt-4 mx-auto flex items-center justify-center gap-3
-    rounded-2xl border border-neon/40
-    bg-black/60 px-8 py-3
-    text-sm font-black text-neon
-    shadow-[0_0_25px_rgba(0,229,255,0.25)]
+    mt-3 mx-auto flex items-center justify-center gap-2
+    rounded-xl border border-neon/30
+    bg-black/50 px-5 py-2
+    text-xs font-black text-neon
+    shadow-[0_0_15px_rgba(0,229,255,0.2)]
     transition-all active:scale-95
   "
 >
-  <ArrowLeft size={24} />
+  <ArrowLeft size={16} />
   НАЗАД В МЕНЮ
 </button>
       </div>
