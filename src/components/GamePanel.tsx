@@ -1584,7 +1584,7 @@ setTimeout(() => {
       } else if (abilityId === 'shot') {
         displayIcon = '🔫'
         displayTitle = 'ВЫСТРЕЛ ВВЕРХ'
-        const helper = workersList[Math.floor(Math.random() * workersList.length)]
+        const helper = workers[Math.floor(Math.random() * workersList.length)]
         addBossBattleLogEntry('🔫', `Выстрел вверх — ${helper.name} пришёл на помощь`, 'cyan')
         const shotSuccess = Math.random() < 0.60
         recordLuck(shotSuccess)
