@@ -665,7 +665,7 @@ const style = gameStyle[game.number]
   </span>
 </div>
                 <span
-  className={`mt-2 text-[13px] font-black tracking-wide ${style.accent}`}
+  className={`mt-1 text-[11px] font-black tracking-wide ${style.accent}`}
   style={{
     textShadow: isDone ? 'none' : '0 0 10px currentColor',
   }}
