@@ -64,7 +64,26 @@ export default function TestsTab({ onOpenApplications, onOpenArticles, onOpenTes
         </button>
       </div>
 
-     
+     <div className="mt-6 flex justify-center">
+  <button
+    onClick={onOpenAdmin}
+    className="
+      flex h-10 w-10 items-center justify-center
+      rounded-full
+      border border-neon/30
+      bg-card/60
+      text-neon
+      backdrop-blur-md
+      transition
+      hover:bg-neon/15
+      active:scale-90
+    "
+    style={{ boxShadow: '0 0 12px rgba(0,229,255,0.15)' }}
+    title="Админ-панель"
+  >
+    🔒
+  </button>
+</div>
     </SwipeBack>
   )
 }
