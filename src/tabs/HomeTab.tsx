@@ -68,6 +68,9 @@ function useCountdown(getMs: () => number): string {
 
 export default function HomeTab({ onNavigate }: { onNavigate: (tab: Tab) => void }) {
   const [dailyNews, setDailyNews] = useState('')
+  useEffect(() => {
+  getDailyNews(new Date()).then(setDailyNews)
+}, [])
   const { workers, currentUser, logout } = useApp()
 
   const newsCountdown = useCountdown(msUntilNextMidnight)
