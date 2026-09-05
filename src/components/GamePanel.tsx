@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Store, Backpack, RotateCcw, Gift, X, ChevronLeft, BookOpen, Heart } from 'lucide-react'
-import { workersList } from '../lib/data'
+
 import { todayKey } from '../lib/storage'
 import { getRoadWeights, type RoadEvent } from '../lib/levelData'
 import {
