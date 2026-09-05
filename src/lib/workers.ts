@@ -18,7 +18,20 @@ function seededRandom(seed: number): number {
   const value = Math.sin(seed) * 10000
   return value - Math.floor(value)
 }
+let cachedWorkers: Worker[] = []
 
+export async function loadWorkers(): Promise<Worker[]> {
+  if (cachedWorkers.length) return cachedWorkers
+
+  try {
+    const data = await api.getWorkers()
+    cachedWorkers = data.length ? data : []
+  } catch {
+    cachedWorkers = []
+  }
+
+  return cachedWorkers
+}
 function resolveGenderTokens(text: string, person1: Worker, person2: Worker): string {
   return text.replace(/\{(\d)\|([^|]+)\|([^}]+)\}/g, (_, personNum, maleForm, femaleForm) => {
     const isFemale = personNum === '1' ? person1.gender === 'ж' : person2.gender === 'ж'
