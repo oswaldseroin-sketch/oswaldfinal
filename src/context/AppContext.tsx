@@ -73,13 +73,13 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setError(null)
 
     try {
-      const [employeeData, workerData, statsData, memeData, playerData] = await Promise.all([
-        api.getPlayers(),
-        api.getEmployees(),
-        api.getWorkers(),
-        api.getTeamStats(),
-        api.getMemes(),
-      ])
+     const [employeeData, workerData, statsData, memeData, playerData] = await Promise.all([
+  api.getEmployees(),
+  api.getWorkers(),
+  api.getTeamStats(),
+  api.getMemes(),
+  api.getPlayers(),
+])
 
       setEmployees(employeeData ?? [])
 setWorkers(workerData?.length ? workerData : fallbackWorkers)
