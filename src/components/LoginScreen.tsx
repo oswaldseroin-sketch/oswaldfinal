@@ -345,20 +345,28 @@ const createWorker = async (): Promise<void> => {
           />
 
           <div className="mt-3 grid grid-cols-2 gap-2">
-            <button
-              onClick={()=>setNewWorkerGender('м')}
-              className="rounded-xl border p-3"
-            >
-              👨 Муж
-            </button>
+  <button
+    onClick={() => setNewWorkerGender('м')}
+    className={`rounded-xl border p-3 font-bold transition ${
+      newWorkerGender === 'м'
+        ? 'border-neon bg-neon/20 text-neon'
+        : 'border-line text-ink'
+    }`}
+  >
+    👨 Муж
+  </button>
 
-            <button
-              onClick={()=>setNewWorkerGender('ж')}
-              className="rounded-xl border p-3"
-            >
-              👩 Жен
-            </button>
-          </div>
+  <button
+    onClick={() => setNewWorkerGender('ж')}
+    className={`rounded-xl border p-3 font-bold transition ${
+      newWorkerGender === 'ж'
+        ? 'border-neon bg-neon/20 text-neon'
+        : 'border-line text-ink'
+    }`}
+  >
+    👩 Жен
+  </button>
+</div>
 
           <button
             onClick={()=>void createWorker()}
