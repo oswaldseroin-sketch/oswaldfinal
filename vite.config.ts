@@ -29,9 +29,9 @@ export default defineConfig({
         ],
       },
 
-      workbox: {
-        globPatterns: [],
-      },
+     workbox: {
+  cleanupOutdatedCaches: true,
+},
     }),
   ],
 
