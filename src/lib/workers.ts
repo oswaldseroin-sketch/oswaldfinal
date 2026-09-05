@@ -39,11 +39,16 @@ function resolveGenderTokens(text: string, person1: Worker, person2: Worker): st
   })
 }
 
-export function getWorkerOfWeek(date = new Date(), roster: Worker[] = workersList): string {
+export async function getWorkerOfWeek(date = new Date(), roster?: Worker[]): Promise<string> {
+  const workers = roster?.length ? roster : await loadWorkers()
+
+  if (!workers.length) return ''
+
   const week = getWeekNumber(date)
   const year = date.getFullYear()
   const seed = week * 10000 + year
-  return roster[Math.floor(seededRandom(seed) * roster.length)].name
+
+  return workers[Math.floor(seededRandom(seed) * workers.length)].name
 }
 
 export function getDailyNews(date = new Date(), roster: Worker[] = workersList): string {
