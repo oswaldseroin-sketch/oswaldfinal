@@ -161,7 +161,7 @@ export default function HomeTab({ onNavigate }: { onNavigate: (tab: Tab) => void
         <Bell size={16} className="mt-0.5 shrink-0 text-neon" />
         <div className="min-w-0 flex-1">
           <p className="text-xs font-black uppercase tracking-wider text-neon">НОВОСТЬ ДНЯ</p>
-          <p className="mt-1 text-sm font-bold leading-snug text-ink" style={{ textShadow: '0 0 10px rgba(0,229,255,0.35)' }}>{getDailyNews(new Date(), workers)}</p>
+          <p className="mt-1 text-sm font-bold leading-snug text-ink" style={{ textShadow: '0 0 10px rgba(0,229,255,0.35)' }}>{workerOfWeek}</p>
           <p className="mt-1 text-[9px] font-bold tracking-widest text-neon/60">ОБНОВИТСЯ ЧЕРЕЗ <span className="font-mono text-neon/90">{newsCountdown}</span></p>
         </div>
       </div>
